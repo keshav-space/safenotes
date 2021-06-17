@@ -3,12 +3,12 @@ import 'package:intl/intl.dart';
 import 'package:safe_notes/model/safe_note.dart';
 
 final _lightColors = [
-  Colors.amber.shade200,
-  Colors.lightGreen.shade700,
   Colors.lightBlue.shade700,
-  Colors.orange.shade400,
   Colors.pinkAccent.shade100,
-  Colors.tealAccent.shade200
+  Colors.lightGreen.shade700,
+  Color(0xFF4c6e81),
+  Color(0xFF7aacb3),
+  Colors.orange.shade400,
 ];
 
 class NoteCardWidget extends StatelessWidget {
@@ -47,11 +47,15 @@ class NoteCardWidget extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
+            SizedBox(height: 4),
             Text(
               time,
-              style: TextStyle(color: Colors.grey.shade700),
+              style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black),
             ),
-            SizedBox(height: 4),
+            SizedBox(height: 6),
             Text(
               note.description.length > 90
                   ? ((minHeight == 150)
@@ -66,7 +70,7 @@ class NoteCardWidget extends StatelessWidget {
                   : note.description.replaceAll("\n", " "),
               style: TextStyle(
                 color: Colors.black,
-                fontSize: 15,
+                fontSize: 16,
                 //fontWeight: FontWeight.bold,
               ),
             ),
