@@ -6,16 +6,16 @@ import 'package:crypto/crypto.dart';
 import 'package:encrypt/encrypt.dart' as encrypt;
 
 String generateRandString(int len) {
-  var r = Random.secure();
+  var randomNumber = Random.secure();
   return String.fromCharCodes(
-      List.generate(len, (index) => r.nextInt(33) + 89));
+      List.generate(len, (index) => randomNumber.nextInt(33) + 89));
 }
 
 String encryptAES(String plainText, String passphrase) {
   try {
     final salt = generateRandomNonZero(8);
     var keyndIV = deriveKeyAndIV(passphrase, salt);
-    String ran = generateRandString(8);
+    String randomString = generateRandString(8);
     final key = encrypt.Key(keyndIV.item1);
     final iv = encrypt.IV(keyndIV.item2);
 
@@ -23,7 +23,7 @@ String encryptAES(String plainText, String passphrase) {
         encrypt.AES(key, mode: encrypt.AESMode.cbc, padding: "PKCS7"));
     final encrypted = encrypter.encrypt(plainText, iv: iv);
     Uint8List encryptedBytesWithSalt = Uint8List.fromList(
-        createUint8ListFromString(ran) + salt + encrypted.bytes);
+        createUint8ListFromString(randomString) + salt + encrypted.bytes);
     return base64.encode(encryptedBytesWithSalt);
   } catch (error) {
     throw error;
