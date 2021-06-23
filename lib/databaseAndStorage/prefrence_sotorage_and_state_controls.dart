@@ -26,7 +26,7 @@ class AppSecurePreferencesStorage {
       await _preferences!.setBool(_keyIsThemeDark, flag);
   static bool getIsThemeDark() {
     bool? localFlag = _preferences!.getBool(_keyIsThemeDark);
-    localFlag ??= false;
+    localFlag ??= true;
     return localFlag;
   }
 }

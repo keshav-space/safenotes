@@ -4,24 +4,24 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'package:safe_notes/main.dart';
 import 'package:safe_notes/model/safe_note.dart';
-import 'package:safe_notes/databaseAndStorage/safe_notes_database.dart';
+import 'package:safe_notes/widget/search_widget.dart';
 import 'package:safe_notes/model/import_file_parser.dart';
 import 'package:safe_notes/page/edit_safe_note_page.dart';
 import 'package:safe_notes/widget/theme_toggle_widget.dart';
-import 'package:safe_notes/widget/search_widget.dart';
 import 'package:safe_notes/page/safe_note_detail_page.dart';
 import 'package:safe_notes/widget/safe_note_card_widget.dart';
-import 'package:safe_notes/databaseAndStorage/prefrence_sotorage_and_state_controls.dart';
 import 'package:safe_notes/dialogs/change_passphrase_dialog.dart';
 import 'package:safe_notes/dialogs/import_passphrase_dialog.dart';
 import 'package:safe_notes/dialogs/toggle_undecrypt_flag_dialog.dart';
+import 'package:safe_notes/databaseAndStorage/safe_notes_database.dart';
+import 'package:safe_notes/databaseAndStorage/prefrence_sotorage_and_state_controls.dart';
 
 class NotesPage extends StatefulWidget {
   @override
@@ -591,7 +591,8 @@ class _NotesPageState extends State<NotesPage> {
         FilePickerResult? result = await FilePicker.platform.pickFiles();
         if (result != null) {
           PlatformFile file = result.files.first;
-          if (file.size == 0 || file.extension != 'txt') return "null";
+          if (file.size == 0 ||
+              file.extension != AppInfo.getExportFileExtension()) return "null";
           var jsonFile = new File(file.path!);
           String content = jsonFile.readAsStringSync();
           return content;

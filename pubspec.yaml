@@ -1,5 +1,5 @@
 name: safe_notes
-description: A new Flutter project.
+description: A encrypted, private note keeper for Android.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
