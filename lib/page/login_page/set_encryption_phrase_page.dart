@@ -53,10 +53,10 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
                 child: Column(
                   children: [
                     inputFieldFirst(node),
-                    const SizedBox(height: 16),
+                    //const SizedBox(height: 16),
                     inputFieldSecond(),
                     buildForgotPassword(),
-                    const SizedBox(height: 16),
+                    //const SizedBox(height: 16),
                     buildButton(),
                     //buildNoAccount(),
                   ],

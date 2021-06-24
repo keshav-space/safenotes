@@ -11,21 +11,22 @@ class AppSecurePreferencesStorage {
       _preferences = await SharedPreferences.getInstance();
 
   static Future setPassPhraseHash(String passphrase) async =>
-      await _preferences!.setString(_keyPassPhrase, passphrase);
-  static String? getPassPhraseHash() => _preferences!.getString(_keyPassPhrase);
+      await _preferences?.setString(_keyPassPhrase, passphrase);
+  static String? getPassPhraseHash() => _preferences?.getString(_keyPassPhrase);
 
   static Future setAllowUndecryptLoginFlag(bool flag) async =>
-      await _preferences!.setBool(_keyAllowUndecryptLoginFlag, flag);
+      await _preferences?.setBool(_keyAllowUndecryptLoginFlag, flag);
   static bool getAllowUndecryptLoginFlag() {
-    bool? localFlag = _preferences!.getBool(_keyAllowUndecryptLoginFlag);
+    bool? localFlag = _preferences?.getBool(_keyAllowUndecryptLoginFlag);
     localFlag ??= true;
     return localFlag;
   }
 
   static Future setIsThemeDark(bool flag) async =>
-      await _preferences!.setBool(_keyIsThemeDark, flag);
+      await _preferences?.setBool(_keyIsThemeDark, flag);
+
   static bool getIsThemeDark() {
-    bool? localFlag = _preferences!.getBool(_keyIsThemeDark);
+    bool? localFlag = _preferences?.getBool(_keyIsThemeDark);
     localFlag ??= true;
     return localFlag;
   }

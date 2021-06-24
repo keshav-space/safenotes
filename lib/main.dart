@@ -26,7 +26,7 @@ class SafeNotes extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: AppInfo.getAppName(),
-          //Themaing out
+          //Theming out
           themeMode: themeProvider.themeMode,
           theme: AppThemes.lightTheme,
           darkTheme: AppThemes.darkTheme,
