@@ -8,7 +8,7 @@
 <a href="https://github.com/keshav-space/safe_notes/releases" alt="GitHub release"><img src="https://img.shields.io/github/v/release/keshav-space/safe_notes" ></a>
 <a href="https://www.gnu.org/licenses/gpl-3.0" alt="License: GPLv3"><img src="https://img.shields.io/badge/License-GPL%20v3-blue.svg"></a>
 <a href="https://github.com/keshav-space/safe_notes/actions/" alt="Build Status"><img src="https://github.com/keshav-space/safe_notes/actions/workflows/flutter-ci.yml/badge.svg"></a>
-<a href="https://web.libera.chat/#newpipe" alt="IRC channel: #newpipe"><img src="https://img.shields.io/badge/IRC%20chat-%23newpipe-brightgreen.svg"></a>
+<a href="https://matrix.to/#/#safenotes:matrix.org" alt="IRC channel: #newpipe"><img src="https://img.shields.io/matrix/safenotes:matrix.org"></a>
 
 </p>
 <hr>
