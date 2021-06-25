@@ -49,5 +49,5 @@ app.*.map.json
 # Ignore Ios for now
 /ios/
 
-#Ignore Tem Devlopment File
-README_copy.md
+#Ignore Temp Devlopment File
+_local_temp/
