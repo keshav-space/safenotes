@@ -14,15 +14,14 @@ class SetEncryptionPhrasePage extends StatefulWidget {
 
 class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
   final formKey = GlobalKey<FormState>();
-
-  final passPhraseController1 = TextEditingController();
-  final passPhraseController2 = TextEditingController();
+  final passPhraseController = TextEditingController();
+  final passPhraseControllerConfirm = TextEditingController();
   bool isHidden = false;
 
   @override
   void dispose() {
-    passPhraseController1.dispose();
-    passPhraseController2.dispose();
+    passPhraseController.dispose();
+    passPhraseControllerConfirm.dispose();
     super.dispose();
   }
 
@@ -68,7 +67,7 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
   }
 
   Widget inputFieldFirst(node) => TextFormField(
-        controller: passPhraseController1,
+        controller: passPhraseController,
         autofocus: true,
         obscureText: true,
         decoration: InputDecoration(
@@ -87,9 +86,7 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
       );
 
   Widget inputFieldSecond() => TextFormField(
-      controller: passPhraseController2,
-      //autofocus: autoFocus,
-      //onFieldSubmitted: (value) => loginController(),
+      controller: passPhraseControllerConfirm,
       obscureText: isHidden,
       decoration: InputDecoration(
           hintText: 'Confirm Encryption Phrase',
@@ -104,12 +101,11 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
             onPressed: togglePasswordVisibility,
           )),
       keyboardType: TextInputType.visiblePassword,
-      //autofillHints: [AutofillHints.password],
-      onEditingComplete:
-          loginController, //() => TextInput.finishAutofillContext(),
-      validator: (password) => password != passPhraseController1.text
+      onEditingComplete: loginController,
+      validator: (password) => password != passPhraseController.text
           ? 'Encryption Phrase mismatch!'
           : null);
+
   void togglePasswordVisibility() => setState(() => isHidden = !isHidden);
 
   Widget buildButton() => ButtonWidget(
@@ -123,8 +119,8 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
     final form = formKey.currentState!;
 
     if (form.validate()) {
-      final phrase1 = passPhraseController1.text;
-      final phrase2 = passPhraseController2.text;
+      final phrase1 = passPhraseController.text;
+      final phrase2 = passPhraseControllerConfirm.text;
       if (phrase2 == phrase1) {
         ScaffoldMessenger.of(context)
           ..removeCurrentSnackBar()

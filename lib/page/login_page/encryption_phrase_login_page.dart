@@ -60,13 +60,13 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
   Widget columnAllowNonDecrypt() => Column(
         children: [
           buildField(),
-          const SizedBox(height: 10),
+          //const SizedBox(height: 10),
           buildForgotPassword(),
-          const SizedBox(height: 10),
+          //const SizedBox(height: 10),
           buildLogInButton(),
-          const SizedBox(height: 25),
+          const SizedBox(height: 15),
           Text('OR'),
-          const SizedBox(height: 16),
+          const SizedBox(height: 15),
           buildUnDecrypt(),
           //buildNoAccount(),
         ],
@@ -165,7 +165,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
   Widget buildForgotPassword() => Container(
         alignment: Alignment.centerRight,
         child: TextButton(
-          child: Text('Can\'t decrypt vault without encryption phrase!'),
+          child: Text('Can\'t decrypt without phrase!'),
           onPressed: () {},
         ),
       );
