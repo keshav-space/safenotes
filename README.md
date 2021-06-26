@@ -21,13 +21,13 @@
 ## Screenshots
 
 [<img src="metadata/android/images/phoneScreenshots/shot_01.png" width=180>](metadata/android/images/phoneScreenshots/shot_01.png)
-[<img src="metadata/android/images/phoneScreenshots/shot_02.png" width=160>](metadata/android/images/phoneScreenshots/shot_02.png)
-[<img src="metadata/android/images/phoneScreenshots/shot_03.png" width=160>](metadata/android/images/phoneScreenshots/shot_03.png)
-[<img src="metadata/android/images/phoneScreenshots/shot_04.png" width=160>](metadata/android/images/phoneScreenshots/shot_04.png)
-[<img src="metadata/android/images/phoneScreenshots/shot_05.png" width=160>](metadata/android/images/phoneScreenshots/shot_05.png)
-[<img src="metadata/android/images/phoneScreenshots/shot_06.png" width=160>](metadata/android/images/phoneScreenshots/shot_06.png)
-[<img src="metadata/android/images/phoneScreenshots/shot_07.png" width=160>](metadata/android/images/phoneScreenshots/shot_07.png)
-[<img src="metadata/android/images/phoneScreenshots/shot_08.png" width=160>](metadata/android/images/phoneScreenshots/shot_08.png)
+[<img src="metadata/android/images/phoneScreenshots/shot_02.png" width=180>](metadata/android/images/phoneScreenshots/shot_02.png)
+[<img src="metadata/android/images/phoneScreenshots/shot_03.png" width=180>](metadata/android/images/phoneScreenshots/shot_03.png)
+[<img src="metadata/android/images/phoneScreenshots/shot_04.png" width=180>](metadata/android/images/phoneScreenshots/shot_04.png)
+[<img src="metadata/android/images/phoneScreenshots/shot_05.png" width=180>](metadata/android/images/phoneScreenshots/shot_05.png)
+[<img src="metadata/android/images/phoneScreenshots/shot_06.png" width=180>](metadata/android/images/phoneScreenshots/shot_06.png)
+[<img src="metadata/android/images/phoneScreenshots/shot_07.png" width=180>](metadata/android/images/phoneScreenshots/shot_07.png)
+[<img src="metadata/android/images/phoneScreenshots/shot_08.png" width=180>](metadata/android/images/phoneScreenshots/shot_08.png)
 
 <!-- [<img src="metadata/android/images/phoneScreenshots/shot_09.png" width=160>](metadata/android/images/phoneScreenshots/shot_09.png)
 [<img src="metadata/android/images/phoneScreenshots/shot_10.png" width=160>](metadata/android/images/phoneScreenshots/shot_10.png)
