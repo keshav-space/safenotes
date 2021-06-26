@@ -99,7 +99,6 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
             onPressed: togglePasswordVisibility,
           )),
       keyboardType: TextInputType.visiblePassword,
-      //autofillHints: [AutofillHints.password],
       onEditingComplete: loginController,
       validator: (password) =>
           sha256.convert(utf8.encode(password!)).toString() !=
