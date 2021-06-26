@@ -5,7 +5,7 @@ name: Flutter CI
 on:
   push:
     branches:
-    - main  #replace origin with main once active deployments ends.
+    - main  #replace origin with main once active development ends.
     
 # on: push    # Default will running for every branch.
     
