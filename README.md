@@ -20,7 +20,7 @@
 
 ## Screenshots
 
-[<img src="metadata/android/images/phoneScreenshots/shot_01.png" width=160>](metadata/android/images/phoneScreenshots/shot_01.png)
+[<img src="metadata/android/images/phoneScreenshots/shot_01.png" width=180>](metadata/android/images/phoneScreenshots/shot_01.png)
 [<img src="metadata/android/images/phoneScreenshots/shot_02.png" width=160>](metadata/android/images/phoneScreenshots/shot_02.png)
 [<img src="metadata/android/images/phoneScreenshots/shot_03.png" width=160>](metadata/android/images/phoneScreenshots/shot_03.png)
 [<img src="metadata/android/images/phoneScreenshots/shot_04.png" width=160>](metadata/android/images/phoneScreenshots/shot_04.png)
