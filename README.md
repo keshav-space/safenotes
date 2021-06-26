@@ -36,7 +36,7 @@
 
 ## Description
 
-Safe-Notes is a privacy-focused note manager which provides an inbuild encrypted storage. It imploys best at rigorously tested  AES-256 encryption standard to store user notes. All the notes are stored locally on the user's device. Contrary to the ongoing frenzy of "move everything to cloud" we believe in "localization of user data" giving you the control of your data and not some third-party cloud service provider.
+Safe-Notes is a privacy-focused note manager which provides an inbuild encrypted storage. It imploys rigorously tested  AES-256 encryption standard to store user notes. All the notes are stored locally on the user's device. Contrary to the ongoing frenzy of "move everything to cloud" we believe in "localization of user data" giving you the control of your data and not some third-party cloud service provider.
 We know you gotta change your device once in a while that's why Safe-Notes also provides a secure migration facility, which allows you to export and import your notes without having to compromise the sanctity of your data. Yes, Safe-Notes has both Light and Dark modes. Word of advice, keep your passphrase long and secret. May the encryption protect us all!
 
 ### Features
