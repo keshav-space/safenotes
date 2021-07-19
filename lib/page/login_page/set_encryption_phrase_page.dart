@@ -79,7 +79,6 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
           prefixIcon: Icon(Icons.lock),
         ),
         keyboardType: TextInputType.visiblePassword,
-        //autofillHints: [AutofillHints.password],
         onEditingComplete: () => node.nextFocus(),
         validator: (password) => password != null && password.length < 8
             ? 'Must be at least 8 characters long!'
