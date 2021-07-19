@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 
@@ -81,8 +82,10 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
         //autofillHints: [AutofillHints.password],
         onEditingComplete: () => node.nextFocus(),
         validator: (password) => password != null && password.length < 8
-            ? 'Enter min. 8 characters'
-            : null,
+            ? 'Must be at least 8 characters long!'
+            : (estimateBruteforceStrength(password!) < 0.6)
+                ? 'Passphrase is too weak!'
+                : null,
       );
 
   Widget inputFieldSecond() => TextFormField(
@@ -146,6 +149,37 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
       }
     }
   }
+
+  double estimateBruteforceStrength(String password) {
+    if (password.isEmpty || password.length < 8) return 0.0;
+
+    // Check which types of characters are used and create an opinionated bonus.
+    double charsetBonus;
+    if (RegExp(r'^[a-z]*$').hasMatch(password)) {
+      charsetBonus = 1.0;
+    } else if (RegExp(r'^[a-z0-9]*$').hasMatch(password)) {
+      charsetBonus = 1.2;
+    } else if (RegExp(r'^[a-zA-Z]*$').hasMatch(password)) {
+      charsetBonus = 1.3;
+    } else if (RegExp(r'^[a-z\-_!?]*$').hasMatch(password)) {
+      charsetBonus = 1.3;
+    } else if (RegExp(r'^[a-zA-Z0-9]*$').hasMatch(password)) {
+      charsetBonus = 1.5;
+    } else {
+      charsetBonus = 1.8;
+    }
+
+    final logisticFunction = (double x) {
+      return 1.0 / (1.0 + exp(-x));
+    };
+
+    final curve = (double x) {
+      return logisticFunction((x / 3.0) - 4.0);
+    };
+
+    return curve(password.length * charsetBonus);
+  }
+
 /*   Widget buildNoAccount() => Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
