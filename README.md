@@ -1,6 +1,6 @@
 <p align="center"><a href="https://github.com/keshav-space/safe_notes"><img src="assets/splash.png" width="150"></a></p> 
 <h2 align="center"><b>Safe Notes</b></h2>
-<h4 align="center">Encrypted, Private note keeper.</h4>
+<h4 align="center">Encrypted, Private note manager.</h4>
 
 <p align="center"><a href="f-droid url"><img src="assets/get-it-on-f-droid-badge.png" height='65px'></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="google play url"><img src="assets/get-it-on-google-play-badge.png" height='65px' ></a></p>
 
