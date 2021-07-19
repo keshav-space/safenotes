@@ -82,7 +82,7 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
         onEditingComplete: () => node.nextFocus(),
         validator: (password) => password != null && password.length < 8
             ? 'Must be at least 8 characters long!'
-            : (estimateBruteforceStrength(password!) < 0.6)
+            : (estimateBruteforceStrength(password!) < 0.5)
                 ? 'Passphrase is too weak!'
                 : null,
       );
