@@ -12,7 +12,7 @@ For purposes of this Privacy Policy, “personal data” means personally identi
 Safe Notes does not collect or store your personal data.
 
 ### Cookies  
-Cookies are files with small amount of data that is commonly used an anonymous unique identifier. These are sent to your browser from the website that you visit and are stored on your devices’s internal memory.  
+Cookies are files with small amount of data that is commonly used as an anonymous unique identifier. These are sent to your browser from the website that you visit and are stored on your devices’s internal memory.  
 
 Safe Notes does not use Cookies or Pixel tags.
 
