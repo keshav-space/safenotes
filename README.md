@@ -70,7 +70,7 @@ If you'd like to get involved, check our [contribution notes](.github/CONTRIBUTI
 
 ## Privacy Policy
 
-The Safe Notes project aims to provide a encrypted, private, anonymous experience for local note storage. The app doesn't send any outbound requests neither does it receives any inbound requests. Therefore, the app doesn't collect any data whatsoever. You can find the document [here](https://github.com/keshav-space/safe_notes/privacy/).
+The Safe Notes project aims to provide a encrypted, private, anonymous experience for local note storage. The app doesn't send any outbound requests neither does it receives any inbound requests. Therefore, the app doesn't collect any data whatsoever. You can find the document [here](./privacy-policy.md).
 
 ## License
 [![GNU GPLv3 Image](https://www.gnu.org/graphics/gplv3-127x51.png)](https://www.gnu.org/licenses/gpl-3.0.en.html)  
