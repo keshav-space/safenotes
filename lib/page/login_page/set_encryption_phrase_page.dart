@@ -29,42 +29,45 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
   @override
   Widget build(BuildContext context) {
     final node = FocusScope.of(context);
-    return Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          title: Text(AppInfo.getFirstLoginPageName()),
-          centerTitle: true,
-        ),
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 90.0),
-              child: Center(
-                child: Container(
-                    width: 200,
-                    height: 200,
-                    child: Image.asset(AppInfo.getAppLogoPath())),
-              ),
-            ),
-            Form(
-              key: formKey,
-              child: SingleChildScrollView(
-                padding: EdgeInsets.all(16),
-                child: Column(
-                  children: [
-                    inputFieldFirst(node),
-                    const SizedBox(height: 10),
-                    inputFieldSecond(),
-                    buildForgotPassword(),
-                    //const SizedBox(height: 16),
-                    buildButton(),
-                    //buildNoAccount(),
-                  ],
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            title: Text(AppInfo.getFirstLoginPageName()),
+            centerTitle: true,
+          ),
+          body: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 90.0),
+                child: Center(
+                  child: Container(
+                      width: 200,
+                      height: 200,
+                      child: Image.asset(AppInfo.getAppLogoPath())),
                 ),
               ),
-            ),
-          ],
-        ));
+              Form(
+                key: formKey,
+                child: SingleChildScrollView(
+                  padding: EdgeInsets.all(16),
+                  child: Column(
+                    children: [
+                      inputFieldFirst(node),
+                      const SizedBox(height: 10),
+                      inputFieldSecond(),
+                      buildForgotPassword(),
+                      //const SizedBox(height: 16),
+                      buildButton(),
+                      //buildNoAccount(),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          )),
+    );
   }
 
   Widget inputFieldFirst(node) => TextFormField(

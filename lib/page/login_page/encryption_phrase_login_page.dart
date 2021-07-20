@@ -26,7 +26,9 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context) => GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: Text(AppInfo.getLoginPageName()),
@@ -55,7 +57,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
             ),
           ],
         ),
-      );
+      ));
 
   Widget columnAllowNonDecrypt() => Column(
         children: [

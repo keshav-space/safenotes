@@ -28,7 +28,9 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context) => GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
         appBar: AppBar(
           actions: [buildButton()],
         ),
@@ -42,7 +44,7 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
                 setState(() => this.description = description),
           ),
         ),
-      );
+      ));
 
   Widget buildButton() {
     final isFormValid = title.isNotEmpty && description.isNotEmpty;
