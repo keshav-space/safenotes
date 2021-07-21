@@ -2,7 +2,7 @@
 <h2 align="center"><b>Safe Notes</b></h2>
 <h4 align="center">Encrypted, Private note manager.</h4>
 
-<p align="center"><a href="f-droid url"><img src="assets/get-it-on-f-droid-badge.png" height='65px'></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="google play url"><img src="assets/get-it-on-google-play-badge.png" height='65px' ></a></p>
+<p align="center"><a href="f-droid url"><img src="assets/get-it-on-f-droid-badge.png" height='65px'></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://play.google.com/store/apps/details?id=com.trisven.safenotes"><img src="assets/get-it-on-google-play-badge.png" height='65px' ></a></p>
 
 <p align="center">
 <a href="https://github.com/keshav-space/safe_notes/releases" alt="GitHub release"><img src="https://img.shields.io/github/v/release/keshav-space/safe_notes" ></a>
@@ -70,7 +70,7 @@ If you'd like to get involved, check our [contribution notes](.github/CONTRIBUTI
 
 ## Privacy Policy
 
-The Safe Notes project aims to provide a encrypted, private, anonymous experience for local note storage. The app doesn't send any outbound requests neither does it receives any inbound requests. Therefore, the app doesn't collect any data whatsoever. You can find the document [here](https://github.com/keshav-space/safe_notes/privacy/).
+The Safe Notes project aims to provide a encrypted, private, anonymous experience for local note storage. The app doesn't send any outbound requests neither does it receives any inbound requests. Therefore, the app doesn't collect any data whatsoever. You can find the document [here](./privacy-policy.md).
 
 ## License
 [![GNU GPLv3 Image](https://www.gnu.org/graphics/gplv3-127x51.png)](https://www.gnu.org/licenses/gpl-3.0.en.html)  
