@@ -2,7 +2,7 @@
 <h2 align="center"><b>Safe Notes</b></h2>
 <h4 align="center">Encrypted, Private note manager.</h4>
 
-<p align="center"><a href="f-droid url"><img src="assets/get-it-on-f-droid-badge.png" height='65px'></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="google play url"><img src="assets/get-it-on-google-play-badge.png" height='65px' ></a></p>
+<p align="center"><a href="f-droid url"><img src="assets/get-it-on-f-droid-badge.png" height='65px'></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://play.google.com/store/apps/details?id=com.trisven.safenotes"><img src="assets/get-it-on-google-play-badge.png" height='65px' ></a></p>
 
 <p align="center">
 <a href="https://github.com/keshav-space/safe_notes/releases" alt="GitHub release"><img src="https://img.shields.io/github/v/release/keshav-space/safe_notes" ></a>
