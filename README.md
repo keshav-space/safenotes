@@ -54,7 +54,7 @@ We know you gotta change your device once in a while that's why Safe-Notes also 
 
 ## Installation and updates
 You can install Safe Notes using one of the following methods:
- 1. Download Safe Notes from the Google Play store using this link.
+ 1. Download Safe Notes from the Google Play store using this [link.](https://play.google.com/store/apps/details?id=com.trisven.safenotes)
  2. Download Safe Notes from the F-Droid using this link.
  3. Download the APK from [Github Releases](https://github.com/keshav-space/safe_notes/releases) and install it.
  4. Build a debug APK yourself. This is the fastest way to get new features on your device, but is much more complicated, so we recommend using one of the other methods.
