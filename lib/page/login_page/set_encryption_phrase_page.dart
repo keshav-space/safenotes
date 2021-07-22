@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'package:safe_notes/page/safe_notes_page.dart';
 import 'package:safe_notes/widget/login_widget/login_button_widget.dart';
-import 'package:safe_notes/databaseAndStorage/prefrence_sotorage_and_state_controls.dart';
+import 'package:safe_notes/databaseAndStorage/preference_storage_and_state_controls.dart';
 
 class SetEncryptionPhrasePage extends StatefulWidget {
   @override

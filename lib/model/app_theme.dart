@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:safe_notes/databaseAndStorage/prefrence_sotorage_and_state_controls.dart';
+import 'package:safe_notes/databaseAndStorage/preference_storage_and_state_controls.dart';
 
 class ThemeProvider extends ChangeNotifier {
   ThemeMode themeMode = AppSecurePreferencesStorage.getIsThemeDark()
