@@ -37,7 +37,7 @@ class _SearchWidgetState extends State<SearchWidget> {
       child: TextField(
         controller: controller,
         enableInteractiveSelection: true,
-        autofocus: true,
+        //autofocus: true,
         toolbarOptions: ToolbarOptions(
           paste: true,
           cut: true,
@@ -52,7 +52,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                   onTap: () {
                     controller.clear();
                     widget.onChanged('');
-                    FocusScope.of(context).requestFocus(FocusNode());
+                    //FocusScope.of(context).requestFocus(FocusNode());
                   },
                 )
               : null,

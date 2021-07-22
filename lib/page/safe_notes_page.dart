@@ -64,8 +64,8 @@ class _NotesPageState extends State<NotesPage> {
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
+          //onTap: () => FocusScope.of(context).unfocus(),
+          child: Scaffold(
         drawer: UnDecryptedLoginControl.getNoDecryptionFlag()
             ? null
             : navigatioDrawerWidget(context),
