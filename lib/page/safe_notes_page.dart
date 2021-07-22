@@ -21,7 +21,7 @@ import 'package:safe_notes/dialogs/change_passphrase_dialog.dart';
 import 'package:safe_notes/dialogs/import_passphrase_dialog.dart';
 import 'package:safe_notes/dialogs/toggle_undecrypt_flag_dialog.dart';
 import 'package:safe_notes/databaseAndStorage/safe_notes_database.dart';
-import 'package:safe_notes/databaseAndStorage/prefrence_sotorage_and_state_controls.dart';
+import 'package:safe_notes/databaseAndStorage/preference_storage_and_state_controls.dart';
 
 class NotesPage extends StatefulWidget {
   @override
