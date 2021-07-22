@@ -40,11 +40,11 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
           body: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 90.0),
+                padding: const EdgeInsets.only(top: 50.0),
                 child: Center(
                   child: Container(
-                      width: 200,
-                      height: 200,
+                      width: 165,
+                      height: 165,
                       child: Image.asset(AppInfo.getAppLogoPath())),
                 ),
               ),

@@ -38,11 +38,11 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
         body: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 110.0),
+              padding: const EdgeInsets.only(top: 90.0),
               child: Center(
                 child: Container(
-                    width: 200,
-                    height: 200,
+                    width: 185,
+                    height: 185,
                     child: Image.asset(AppInfo.getAppLogoPath())),
               ),
             ),
