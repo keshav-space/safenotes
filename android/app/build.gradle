@@ -42,7 +42,7 @@ android {
     defaultConfig {
         
         applicationId "com.trisven.safenotes"
-        minSdkVersion 16
+        minSdkVersion 25
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -71,3 +71,4 @@ flutter {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
+android.buildTypes.release.ndk.debugSymbolLevel = 'FULL'
