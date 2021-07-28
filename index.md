@@ -2,7 +2,9 @@
 <h2 align="center"><b>Safe Notes</b></h2>
 <h4 align="center">Encrypted, Private note manager.</h4>
 
-<p align="center"><a href="f-droid url"><img src="https://raw.githubusercontent.com/keshav-space/safe_notes/main/assets/get-it-on-f-droid-badge.png" height='65px'></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://play.google.com/store/apps/details?id=com.trisven.safenotes"><img src="https://raw.githubusercontent.com/keshav-space/safe_notes/main/assets/get-it-on-google-play-badge.png" height='65px' ></a></p>
+<p align="center"><a href="https://play.google.com/store/apps/details?id=com.trisven.safenotes"><img src="https://raw.githubusercontent.com/keshav-space/safe_notes/main/assets/get-it-on-google-play-badge.png" height='65px' ></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="f-droid url"><img src="https://raw.githubusercontent.com/keshav-space/safe_notes/main/assets/get-it-on-f-droid-badge.png" height='65px'></a></p>
+
+
 
 <p align="center">
 <a href="https://github.com/keshav-space/safe_notes/releases" alt="GitHub release"><img src="https://img.shields.io/github/v/release/keshav-space/safe_notes" ></a>
@@ -19,6 +21,12 @@
 
 
 ## Screenshots
+
+| | | |
+|:-------------------------:|:-------------------------:|:-------------------------:|
+|<img width="1604" alt="screen shot 2017-08-07 at 12 18 15 pm" src="https://user-images.githubusercontent.com/297678/29892310-03e92256-8d83-11e7-9b58-986dcb6f702e.png">  blah |  <img width="1604" alt="screen shot 2017-08-07 at 12 18 15 pm" src="https://user-images.githubusercontent.com/297678/29892310-03e92256-8d83-11e7-9b58-986dcb6f702e.png">|<img width="1604" alt="screen shot 2017-08-07 at 12 18 15 pm" src="https://user-images.githubusercontent.com/297678/29892310-03e92256-8d83-11e7-9b58-986dcb6f702e.png">|
+|<img width="1604" alt="screen shot 2017-08-07 at 12 18 15 pm" src="https://user-images.githubusercontent.com/297678/29892310-03e92256-8d83-11e7-9b58-986dcb6f702e.png">  |  <img width="1604" alt="screen shot 2017-08-07 at 12 18 15 pm" src="https://user-images.githubusercontent.com/297678/29892310-03e92256-8d83-11e7-9b58-986dcb6f702e.png">|<img width="1604" alt="screen shot 2017-08-07 at 12 18 15 pm" src="https://user-images.githubusercontent.com/297678/29892310-03e92256-8d83-11e7-9b58-986dcb6f702e.png">|
+|<img width="1604" alt="screen shot 2017-08-07 at 12 18 15 pm" src="https://user-images.githubusercontent.com/297678/29892310-03e92256-8d83-11e7-9b58-986dcb6f702e.png">  |  <img width="1604" alt="screen shot 2017-08-07 at 12 18 15 pm" src="https://user-images.githubusercontent.com/297678/29892310-03e92256-8d83-11e7-9b58-986dcb6f702e.png">|<img width="1604" alt="screen shot 2017-08-07 at 12 18 15 pm" src="https://user-images.githubusercontent.com/297678/29892310-03e92256-8d83-11e7-9b58-986dcb6f702e.png">|
 
 <!-- [<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/shot_01.png" width=180>](fastlane/metadata/android/en-US/images/phoneScreenshots/shot_01.png) -->
 [<img src="https://raw.githubusercontent.com/keshav-space/safe_notes/main/fastlane/metadata/android/en-US/images/phoneScreenshots/shot_02.png" width=180>](https://raw.githubusercontent.com/keshav-space/safe_notes/main/fastlane/metadata/android/en-US/images/phoneScreenshots/shot_02.png)
