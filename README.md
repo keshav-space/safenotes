@@ -13,7 +13,7 @@
 </p>
 <hr>
 <p align="center"><a href="#screenshots">Screenshots</a> &bull; <a href="#description">Description</a> &bull; <a href="#features">Features</a> &bull; <a href="#installation-and-updates">Installation and updates</a> &bull; <a href="#contribution">Contribution</a> <!-- &bull; <a href="#donate">Donate</a> --> &bull; <a href="#license">License</a></p>
-<p align="center"><a href="https://github.com/keshav-space/safe_notes">Website</a> &bull; <a href="https://github.com/keshav-space/safe_notes/blob/main/SECURITY.md#reporting-a-bug">Reporting a Bug</a> &bull; <a href="https://github.com/keshav-space/safe_notes">FAQ</a> &bull; <a href="https://github.com/keshav-space/safe_notes">Press</a></p>
+<p align="center"><a href="https://keshav-space.github.io/safe_notes/">Website</a> &bull; <a href="https://github.com/keshav-space/safe_notes/blob/main/SECURITY.md#reporting-a-bug">Reporting a Bug</a> &bull; <a href="https://github.com/keshav-space/safe_notes">FAQ</a> &bull; <a href="https://github.com/keshav-space/safe_notes">Press</a></p>
 <hr>
 
 
