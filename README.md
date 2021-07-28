@@ -1,4 +1,4 @@
-<p align="center"><a href="https://github.com/keshav-space/safe_notes"><img src="assets/splash.png" width="150"></a></p> 
+<p align="center"><a href="https://safe-notes.keshav.space/"><img src="assets/splash.png" width="150"></a></p> 
 <h2 align="center"><b>Safe Notes</b></h2>
 <h4 align="center">Encrypted, Private note manager.</h4>
 
