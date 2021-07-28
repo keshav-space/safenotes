@@ -10,12 +10,12 @@
 <a href="https://github.com/keshav-space/safe_notes/releases" alt="GitHub release"><img src="https://img.shields.io/github/v/release/keshav-space/safe_notes" ></a>
 <a href="https://www.gnu.org/licenses/gpl-3.0" alt="License: GPLv3"><img src="https://img.shields.io/badge/License-GPL%20v3-blue.svg"></a>
 <a href="https://github.com/keshav-space/safe_notes/actions/" alt="Build Status"><img src="https://github.com/keshav-space/safe_notes/actions/workflows/flutter-ci.yml/badge.svg"></a>
-<a href="https://matrix.to/#/#safenotes:matrix.org" alt="IRC channel: #newpipe"><img src="https://img.shields.io/matrix/safenotes:matrix.org"></a>
+<a href="https://matrix.to/#/#safenotes:matrix.org" alt="Matrix channel: #safenotes"><img src="https://img.shields.io/matrix/safenotes:matrix.org"></a>
 
 </p>
 <hr>
 <p align="center"><a href="#screenshots">Screenshots</a> &bull; <a href="#description">Description</a> &bull; <a href="#features">Features</a> &bull; <a href="#installation-and-updates">Installation and updates</a> &bull; <a href="#contribution">Contribution</a> <!-- &bull; <a href="#donate">Donate</a> --> &bull; <a href="#license">License</a></p>
-<p align="center"><a href="https://keshav-space.github.io/safe_notes">Website</a> &bull; <a href="SECURITY.md">Reporting a Bug</a> &bull; <a href="https://github.com/keshav-space/safe_notes">FAQ</a> &bull; <a href="https://github.com/keshav-space/safe_notes">Press</a></p>
+<p align="center"><a href="https://keshav-space.github.io/safe_notes">Website</a> &bull; <a href="bug-reporting.md">Reporting a Bug</a> &bull; <a href="https://github.com/keshav-space/safe_notes">FAQ</a> &bull; <a href="https://github.com/keshav-space/safe_notes">Press</a></p>
 <hr>
 
 
