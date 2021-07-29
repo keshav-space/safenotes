@@ -15,7 +15,7 @@
 </p>
 <hr>
 <p align="center"><a href="#screenshots">Screenshots</a> &bull; <a href="#description">Description</a> &bull; <a href="#features">Features</a> &bull; <a href="#installation-and-updates">Installation and updates</a> &bull; <a href="https://safe-notes.keshav.space/contribution.html">Contribution</a>  &bull; <a href="#license">License</a> </p>
-<p align="center"><a href=".">Website</a> &bull;  <a href="privacy-policy.html">Privacy Policy</a> &bull; <a href="bug-reporting.html">Reporting a Bug</a> &bull; <a href=".">FAQ</a> &bull; <a href=".">Press</a></p>
+<p align="center"><a href="https://safe-notes.keshav.space/">Website</a> &bull;  <a href="privacy-policy.html">Privacy Policy</a> &bull; <a href="bug-reporting.html">Reporting a Bug</a> &bull; <a href="">FAQ</a> &bull; <a href=".">Press</a></p>
 <hr>
 
 
