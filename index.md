@@ -64,7 +64,7 @@ We recommend method 1 or 2 for most users. APKs installed using method 1 or 3 ar
 Whether you have ideas, design changes, code cleaning, or real heavy code changes, help is always welcome.
 The more is done the better it gets!
 
-If you'd like to get involved, check our [contribution notes](.github/CONTRIBUTING.md).
+If you'd like to get involved, check our [contribution notes](./contribution.md).
 
 ## Privacy Policy
 
