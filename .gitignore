@@ -49,5 +49,8 @@ app.*.map.json
 # Ignore Ios for now
 /ios/
 
-#Ignore Temp Devlopment File
+#Ignore Some local Devlopment File
 _local_temp/
+
+#Ignore App Store Listing Assets
+app_store_listing_assets/
