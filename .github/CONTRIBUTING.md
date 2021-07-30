@@ -1,4 +1,4 @@
-`Safe Notes` contribution guidelines
+Safe Notes contribution guidelines
 ===============================
 
 
