@@ -60,7 +60,6 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
                       buildForgotPassword(),
                       //const SizedBox(height: 16),
                       buildButton(),
-                      //buildNoAccount(),
                     ],
                   ),
                 ),
@@ -182,16 +181,6 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
     return curve(password.length * charsetBonus);
   }
 
-/*   Widget buildNoAccount() => Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('Don\'t have an account?'),
-          TextButton(
-            child: Text('SIGN UP'),
-            onPressed: () {},
-          ),
-        ],
-      ); */
 
   Widget buildForgotPassword() => Container(
         alignment: Alignment.centerRight,
