@@ -149,11 +149,13 @@ class _ChangePassphraseDialogState extends State<ChangePassphraseDialog> {
 
   finalSublmitChange() async {
     final form = formKey.currentState!;
+    // Update SHA256 signature of passphrase
     if (form.validate()) {
       AppSecurePreferencesStorage.setPassPhraseHash(sha256
           .convert(utf8.encode(newConfirmPassphraseController.text))
           .toString());
       PhraseHandler.initPass(newConfirmPassphraseController.text);
+      // Re-encrypt and update all the existing notes
       for (final note in widget.allnotes) {
         await NotesDatabase.instance.encryptAndUpdate(note);
       }
