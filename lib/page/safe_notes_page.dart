@@ -261,12 +261,14 @@ class _NotesPageState extends State<NotesPage> {
           allnotes: allnotes,
         );
       });
+
   toggleUndecryptionDialog(BuildContext context) => showDialog(
       context: context,
       barrierDismissible: true,
       builder: (_) {
         return ToggleUndecryptionFlag();
       });
+
   Widget buildNavigationHeader({
     required String imgPath,
     required String name,
