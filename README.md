@@ -2,12 +2,12 @@
 <h2 align="center"><b>Safe Notes</b></h2>
 <h4 align="center">Encrypted, Private note manager.</h4>
 
-<p align="center"><a href="https://play.google.com/store/apps/details?id=com.trisven.safenotes"><img src="https://raw.githubusercontent.com/keshav-space/safe_notes/main/assets/get-it-on-google-play-badge.png" height='65px' ></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="f-droid url"><img src="https://raw.githubusercontent.com/keshav-space/safe_notes/main/assets/get-it-on-f-droid-badge.png" height='65px'></a></p>
+<p align="center"><a href="https://play.google.com/store/apps/details?id=com.trisven.safenotes"><img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/assets/get-it-on-google-play-badge.png" height='65px' ></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="f-droid url"><img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/assets/get-it-on-f-droid-badge.png" height='65px'></a></p>
 
 <p align="center">
-<a href="https://github.com/keshav-space/safe_notes/releases" alt="GitHub release"><img src="https://img.shields.io/github/v/release/keshav-space/safe_notes" ></a>
+<a href="https://github.com/keshav-space/safenotes/releases" alt="GitHub release"><img src="https://img.shields.io/github/v/release/keshav-space/safenotes" ></a>
 <a href="https://www.gnu.org/licenses/gpl-3.0" alt="License: GPLv3"><img src="https://img.shields.io/badge/License-GPL%20v3-blue.svg"></a>
-<a href="https://github.com/keshav-space/safe_notes/actions/" alt="Build Status"><img src="https://github.com/keshav-space/safe_notes/actions/workflows/flutter-ci.yml/badge.svg"></a>
+<a href="https://github.com/keshav-space/safenotes/actions/" alt="Build Status"><img src="https://github.com/keshav-space/safenotes/actions/workflows/flutter-ci.yml/badge.svg"></a>
 <a href="https://matrix.to/#/#safenotes:matrix.org" alt="MATRIX channel: #safenotes"><img src="https://img.shields.io/matrix/safenotes:matrix.org"></a>
 
 </p>
@@ -23,8 +23,8 @@
 
 | | | | |
 |:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|
-|<img src="https://raw.githubusercontent.com/keshav-space/safe_notes/main/fastlane/metadata/android/en-US/images/phoneScreenshots/shot_02.png" width="180">|<img src="https://raw.githubusercontent.com/keshav-space/safe_notes/main/fastlane/metadata/android/en-US/images/phoneScreenshots/shot_03.png" width="180">|<img src="https://raw.githubusercontent.com/keshav-space/safe_notes/main/fastlane/metadata/android/en-US/images/phoneScreenshots/shot_04.png" width=180>|<img src="https://raw.githubusercontent.com/keshav-space/safe_notes/main/fastlane/metadata/android/en-US/images/phoneScreenshots/shot_05.png" width=180>| 
-|<img src="https://raw.githubusercontent.com/keshav-space/safe_notes/main/fastlane/metadata/android/en-US/images/phoneScreenshots/shot_06.png" width=180>|<img src="https://raw.githubusercontent.com/keshav-space/safe_notes/main/fastlane/metadata/android/en-US/images/phoneScreenshots/shot_08.png" width=180>|<img src="https://raw.githubusercontent.com/keshav-space/safe_notes/main/fastlane/metadata/android/en-US/images/phoneScreenshots/shot_09.png" width=180>|<img src="https://raw.githubusercontent.com/keshav-space/safe_notes/main/fastlane/metadata/android/en-US/images/phoneScreenshots/shot_07.png" width=180>|
+|<img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/fastlane/metadata/android/en-US/images/phoneScreenshots/shot_02.png" width="180">|<img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/fastlane/metadata/android/en-US/images/phoneScreenshots/shot_03.png" width="180">|<img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/fastlane/metadata/android/en-US/images/phoneScreenshots/shot_04.png" width=180>|<img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/fastlane/metadata/android/en-US/images/phoneScreenshots/shot_05.png" width=180>| 
+|<img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/fastlane/metadata/android/en-US/images/phoneScreenshots/shot_06.png" width=180>|<img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/fastlane/metadata/android/en-US/images/phoneScreenshots/shot_08.png" width=180>|<img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/fastlane/metadata/android/en-US/images/phoneScreenshots/shot_09.png" width=180>|<img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/fastlane/metadata/android/en-US/images/phoneScreenshots/shot_07.png" width=180>|
 
 
 <!-- [<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/shot_01.png" width=180>](fastlane/metadata/android/en-US/images/phoneScreenshots/shot_01.png) 
@@ -62,7 +62,7 @@ We know you gotta change your device once in a while that's why Safe-Notes also 
 You can install Safe Notes using one of the following methods:
  1. Download Safe Notes from the Google Play store using this [link.](https://play.google.com/store/apps/details?id=com.trisven.safenotes)
  2. Download Safe Notes from the F-Droid using this link.
- 3. Download the APK from [Github Releases](https://github.com/keshav-space/safe_notes/releases) and install it.
+ 3. Download the APK from [Github Releases](https://github.com/keshav-space/safenotes/releases) and install it.
  4. Build a debug APK yourself. This is the fastest way to get new features on your device, but is much more complicated, so we recommend using one of the other methods.
 
 We recommend method 1 or 2 for most users. APKs installed using method 1 or 3 are compatible with each other. Building a debug APK using method 4 excludes a key entirely. Signing keys help ensure that a user isn't tricked into installing a malicious update to an app.
