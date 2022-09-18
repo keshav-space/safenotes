@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:safe_notes/databaseAndStorage/safe_notes_database.dart';
-import 'package:safe_notes/model/safe_note.dart';
-import 'package:safe_notes/widget/safe_note_form_widget.dart';
+import 'package:safenotes/databaseAndStorage/safe_notes_database.dart';
+import 'package:safenotes/model/safe_note.dart';
+import 'package:safenotes/widget/safe_note_form_widget.dart';
 
 class AddEditNotePage extends StatefulWidget {
   final SafeNote? note;
@@ -54,7 +54,7 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           //onPrimary: Colors.white,
-          primary: isFormValid ? null : Colors.grey.shade700,
+          backgroundColor: isFormValid ? null : Colors.grey.shade700,
         ),
         onPressed: addOrUpdateNote,
         child: Text('Save'),

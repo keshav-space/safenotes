@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:safe_notes/model/app_theme.dart';
+import 'package:safenotes/model/app_theme.dart';
 
 class TheamToggle extends StatelessWidget {
   @override

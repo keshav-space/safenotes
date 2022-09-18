@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:safe_notes/model/safe_note.dart';
+import 'package:safenotes/model/safe_note.dart';
 
 final _lightColors = [
   Colors.lightBlue.shade700,

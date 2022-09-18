@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import 'package:safe_notes/model/app_theme.dart';
-import 'package:safe_notes/databaseAndStorage/preference_storage_and_state_controls.dart';
-import 'package:safe_notes/page/login_page/set_encryption_phrase_page.dart';
-import 'package:safe_notes/page/login_page/encryption_phrase_login_page.dart';
+import 'package:safenotes/model/app_theme.dart';
+import 'package:safenotes/databaseAndStorage/preference_storage_and_state_controls.dart';
+import 'package:safenotes/page/login_page/set_encryption_phrase_page.dart';
+import 'package:safenotes/page/login_page/encryption_phrase_login_page.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();

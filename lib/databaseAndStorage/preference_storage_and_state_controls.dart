@@ -12,7 +12,8 @@ class AppSecurePreferencesStorage {
 
   static Future setPassPhraseHash(String passphrasehash) async =>
       await _preferences?.setString(_keyPassPhraseHash, passphrasehash);
-  static String? getPassPhraseHash() => _preferences?.getString(_keyPassPhraseHash);
+  static String? getPassPhraseHash() =>
+      _preferences?.getString(_keyPassPhraseHash);
 
   static Future setAllowUndecryptLoginFlag(bool flag) async =>
       await _preferences?.setBool(_keyAllowUndecryptLoginFlag, flag);
@@ -84,8 +85,7 @@ class AppInfo {
       'We recommend using the encrypted export method, this will encrypt your data using your current encryption passphrase. \nYou will be prompted to enter your passphrase while importing it.';
   static String mailToForFeedback =
       'mailto:safenotes@keshav.space?subject=Help and Feedback';
-  static String sourceCodeUrl =
-      'https://safenotes.keshav.space/sourcecode';
+  static String sourceCodeUrl = 'https://safenotes.keshav.space';
   static String bugReportUrl =
       'mailto:safenotes@keshav.space?subject=Bug Report';
 

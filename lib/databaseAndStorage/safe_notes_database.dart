@@ -1,6 +1,6 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:safe_notes/model/safe_note.dart';
+import 'package:safenotes/model/safe_note.dart';
 
 class NotesDatabase {
   static final NotesDatabase instance = NotesDatabase._init();
