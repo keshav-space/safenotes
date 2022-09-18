@@ -2,9 +2,9 @@ import 'dart:ui';
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
-import 'package:safe_notes/model/safe_note.dart';
-import 'package:safe_notes/databaseAndStorage/preference_storage_and_state_controls.dart';
-import 'package:safe_notes/databaseAndStorage/safe_notes_database.dart';
+import 'package:safenotes/model/safe_note.dart';
+import 'package:safenotes/databaseAndStorage/preference_storage_and_state_controls.dart';
+import 'package:safenotes/databaseAndStorage/safe_notes_database.dart';
 
 class ChangePassphraseDialog extends StatefulWidget {
   final List<SafeNote> allnotes;

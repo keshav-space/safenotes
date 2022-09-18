@@ -9,19 +9,19 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-import 'package:safe_notes/main.dart';
-import 'package:safe_notes/model/safe_note.dart';
-import 'package:safe_notes/widget/search_widget.dart';
-import 'package:safe_notes/model/import_file_parser.dart';
-import 'package:safe_notes/page/edit_safe_note_page.dart';
-import 'package:safe_notes/widget/theme_toggle_widget.dart';
-import 'package:safe_notes/page/safe_note_detail_page.dart';
-import 'package:safe_notes/widget/safe_note_card_widget.dart';
-import 'package:safe_notes/dialogs/change_passphrase_dialog.dart';
-import 'package:safe_notes/dialogs/import_passphrase_dialog.dart';
-import 'package:safe_notes/dialogs/toggle_undecrypt_flag_dialog.dart';
-import 'package:safe_notes/databaseAndStorage/safe_notes_database.dart';
-import 'package:safe_notes/databaseAndStorage/preference_storage_and_state_controls.dart';
+import 'package:safenotes/main.dart';
+import 'package:safenotes/model/safe_note.dart';
+import 'package:safenotes/widget/search_widget.dart';
+import 'package:safenotes/model/import_file_parser.dart';
+import 'package:safenotes/page/edit_safe_note_page.dart';
+import 'package:safenotes/widget/theme_toggle_widget.dart';
+import 'package:safenotes/page/safe_note_detail_page.dart';
+import 'package:safenotes/widget/safe_note_card_widget.dart';
+import 'package:safenotes/dialogs/change_passphrase_dialog.dart';
+import 'package:safenotes/dialogs/import_passphrase_dialog.dart';
+import 'package:safenotes/dialogs/toggle_undecrypt_flag_dialog.dart';
+import 'package:safenotes/databaseAndStorage/safe_notes_database.dart';
+import 'package:safenotes/databaseAndStorage/preference_storage_and_state_controls.dart';
 
 class NotesPage extends StatefulWidget {
   @override
@@ -207,7 +207,7 @@ class _NotesPageState extends State<NotesPage> {
                       Navigator.of(context).pop();
                       var mailUrl = AppInfo.getMailToForFeedback();
                       try {
-                        await launch(mailUrl);
+                        await _launchUrl(Uri.parse(mailUrl));
                       } catch (e) {}
                     }),
                 const SizedBox(height: 10),
@@ -217,7 +217,7 @@ class _NotesPageState extends State<NotesPage> {
                     onClicked: () async {
                       var sourceCodeUrl = AppInfo.getSourceCodeUrl();
                       try {
-                        await launch(sourceCodeUrl);
+                        await _launchUrl(Uri.parse(sourceCodeUrl));
                       } catch (e) {}
                     }),
                 const SizedBox(height: 10),
@@ -228,7 +228,7 @@ class _NotesPageState extends State<NotesPage> {
                       Navigator.of(context).pop();
                       var mailUrl = AppInfo.getBugReportUrl();
                       try {
-                        await launch(mailUrl);
+                        await _launchUrl(Uri.parse(mailUrl));
                       } catch (e) {}
                     }),
                 const SizedBox(height: 5),
@@ -261,12 +261,20 @@ class _NotesPageState extends State<NotesPage> {
           allnotes: allnotes,
         );
       });
+
   toggleUndecryptionDialog(BuildContext context) => showDialog(
       context: context,
       barrierDismissible: true,
       builder: (_) {
         return ToggleUndecryptionFlag();
       });
+
+  Future<void> _launchUrl(url) async {
+    if (!await launchUrl(url)) {
+      throw 'Could not launch $url';
+    }
+  }
+
   Widget buildNavigationHeader({
     required String imgPath,
     required String name,

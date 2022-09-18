@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 
-import 'package:safe_notes/page/safe_notes_page.dart';
-import 'package:safe_notes/widget/login_widget/login_button_widget.dart';
-import 'package:safe_notes/databaseAndStorage/preference_storage_and_state_controls.dart';
+import 'package:safenotes/page/safe_notes_page.dart';
+import 'package:safenotes/widget/login_widget/login_button_widget.dart';
+import 'package:safenotes/databaseAndStorage/preference_storage_and_state_controls.dart';
 
 class EncryptionPhraseLoginPage extends StatefulWidget {
   @override

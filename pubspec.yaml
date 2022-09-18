@@ -1,5 +1,7 @@
-name: safe_notes
+name: safenotes
 description: A encrypted, private note keeper for Android.
+homepage: https://safenotes.keshav.space/
+documentation: https://safenotes.keshav.space/
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -40,7 +42,7 @@ dependencies:
 
   encrypt: ^5.0.0
   tuple: ^2.0.0
-  url_launcher: ^6.0.6
+  url_launcher: ^6.1.5
   path_provider: ^2.0.2
   permission_handler: ^8.0.1
   file_picker: ^3.0.2+2
@@ -55,19 +57,27 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: ^0.9.0
-  flutter_native_splash: ^1.2.0
+  flutter_native_splash: ^2.2.9
 
 dependency_overrides:
   args: 2.1.1
-  
+
 flutter_native_splash:
   color: "##bababa"
-  image: "assets/splash_500.png"
+  image: assets/splash_500.png
   color_dark: "#1d5766"
-  image_dark: "assets/splash_500_dark.png"
-  android: true
-  ios: true
-  
+  image_dark: assets/splash_500_dark.png
+
+  android_12:
+    image: assets/splash_500.png
+    icon_background_color: "##bababa"
+    image_dark: assets/splash_500_dark.png
+    icon_background_color_dark: "#1d5766"
+
+  web: false
+
+
+
 flutter_icons:
   android: true
   ios: false

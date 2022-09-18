@@ -3,16 +3,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AppSecurePreferencesStorage {
   static SharedPreferences? _preferences;
 
-  static const _keyPassPhrase = 'passphrasehash';
+  static const _keyPassPhraseHash = 'passphrasehash';
   static const _keyAllowUndecryptLoginFlag = 'undecryptLoginFlag';
   static const _keyIsThemeDark = 'isthemedark';
 
   static Future init() async =>
       _preferences = await SharedPreferences.getInstance();
 
-  static Future setPassPhraseHash(String passphrase) async =>
-      await _preferences?.setString(_keyPassPhrase, passphrase);
-  static String? getPassPhraseHash() => _preferences?.getString(_keyPassPhrase);
+  static Future setPassPhraseHash(String passphrasehash) async =>
+      await _preferences?.setString(_keyPassPhraseHash, passphrasehash);
+  static String? getPassPhraseHash() =>
+      _preferences?.getString(_keyPassPhraseHash);
 
   static Future setAllowUndecryptLoginFlag(bool flag) async =>
       await _preferences?.setBool(_keyAllowUndecryptLoginFlag, flag);
@@ -83,11 +84,10 @@ class AppInfo {
   static String exportDialogMsg =
       'We recommend using the encrypted export method, this will encrypt your data using your current encryption passphrase. \nYou will be prompted to enter your passphrase while importing it.';
   static String mailToForFeedback =
-      'mailto:${AppInfo.getAppName().replaceAll(" ", "_").toLowerCase()}@keshav.space?subject=Help and Feedback';
-  static String sourceCodeUrl =
-      'https://${AppInfo.getAppName().replaceAll(" ", "_").toLowerCase()}.keshav.space/sourcecode';
+      'mailto:safenotes@keshav.space?subject=Help and Feedback';
+  static String sourceCodeUrl = 'https://safenotes.keshav.space';
   static String bugReportUrl =
-      'mailto:${AppInfo.getAppName().replaceAll(" ", "_").toLowerCase()}@keshav.space?subject=Bug Report';
+      'mailto:safenotes@keshav.space?subject=Bug Report';
 
   static String getLogoAsProfile() => appLogoAsProfilePath;
   static String getBugReportUrl() => bugReportUrl;
