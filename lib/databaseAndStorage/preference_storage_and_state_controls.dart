@@ -34,11 +34,11 @@ class AppSecurePreferencesStorage {
 }
 
 class PhraseHandler {
-  static String passphrase = "";
+  static String _passphrase = "";
 
-  static initPass(String pass) => passphrase = pass;
+  static initPass(String pass) => _passphrase = pass;
 
-  static String getPass() => passphrase;
+  static String getPass() => _passphrase;
 }
 
 class UnDecryptedLoginControl {
