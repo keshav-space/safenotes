@@ -17,7 +17,8 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
   final formKey = GlobalKey<FormState>();
   final passPhraseController = TextEditingController();
   final passPhraseControllerConfirm = TextEditingController();
-  bool isHidden = false;
+  bool isHiddenFirst = true;
+  bool isHiddenConfirm = true;
 
   @override
   void dispose() {
@@ -28,7 +29,7 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
 
   @override
   Widget build(BuildContext context) {
-    final node = FocusScope.of(context);
+    final focusConfirm = FocusNode();
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -54,9 +55,9 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
                   padding: EdgeInsets.all(16),
                   child: Column(
                     children: [
-                      inputFieldFirst(node),
+                      inputFieldFirst(focusConfirm),
                       const SizedBox(height: 10),
-                      inputFieldSecond(),
+                      inputFieldSecond(focusConfirm),
                       buildForgotPassword(),
                       //const SizedBox(height: 16),
                       buildButton(),
@@ -69,19 +70,26 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
     );
   }
 
-  Widget inputFieldFirst(node) => TextFormField(
+  Widget inputFieldFirst(focus) => TextFormField(
         controller: passPhraseController,
         autofocus: true,
-        obscureText: true,
+        obscureText: isHiddenFirst,
         decoration: InputDecoration(
-          hintText: 'Encryption Phrase',
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          prefixIcon: Icon(Icons.lock),
-        ),
+            hintText: 'Encryption Phrase',
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            prefixIcon: Icon(Icons.lock),
+            suffixIcon: IconButton(
+              icon: (isHiddenFirst
+                  ? Icon(Icons.visibility_off)
+                  : Icon(Icons.visibility)),
+              onPressed: () => setState(() => isHiddenFirst = !isHiddenFirst),
+            )),
         keyboardType: TextInputType.visiblePassword,
-        onEditingComplete: () => node.nextFocus(),
+        onFieldSubmitted: (v) {
+          FocusScope.of(context).requestFocus(focus);
+        },
         validator: (password) => password != null && password.length < 8
             ? 'Must be at least 8 characters long!'
             : (estimateBruteforceStrength(password!) < 0.5)
@@ -89,9 +97,10 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
                 : null,
       );
 
-  Widget inputFieldSecond() => TextFormField(
+  Widget inputFieldSecond(focus) => TextFormField(
       controller: passPhraseControllerConfirm,
-      obscureText: isHidden,
+      focusNode: focus,
+      obscureText: isHiddenConfirm,
       decoration: InputDecoration(
           hintText: 'Confirm Encryption Phrase',
           border: OutlineInputBorder(
@@ -99,18 +108,16 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
           ),
           prefixIcon: Icon(Icons.lock),
           suffixIcon: IconButton(
-            icon: (isHidden
+            icon: (isHiddenConfirm
                 ? Icon(Icons.visibility_off)
                 : Icon(Icons.visibility)),
-            onPressed: togglePasswordVisibility,
+            onPressed: () => setState(() => isHiddenConfirm = !isHiddenConfirm),
           )),
       keyboardType: TextInputType.visiblePassword,
       onEditingComplete: loginController,
       validator: (password) => password != passPhraseController.text
           ? 'Encryption Phrase mismatch!'
           : null);
-
-  void togglePasswordVisibility() => setState(() => isHidden = !isHidden);
 
   Widget buildButton() => ButtonWidget(
         text: 'LOGIN',

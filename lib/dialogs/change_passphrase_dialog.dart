@@ -22,13 +22,15 @@ class ChangePassphraseDialog extends StatefulWidget {
 class _ChangePassphraseDialogState extends State<ChangePassphraseDialog> {
   final formKey = GlobalKey<FormState>();
   bool isHiddenOld = true;
-  bool isHiddenNewConfirm = false;
+  bool isHiddenNew = true;
+  bool isHiddenNewConfirm = true;
   final oldPassphraseController = TextEditingController();
   final newPassphraseController = TextEditingController();
   final newConfirmPassphraseController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final node = FocusScope.of(context);
+    final focusNew = FocusNode();
+    final focusNewConfirm = FocusNode();
     return new BackdropFilter(
         filter: ImageFilter.blur(),
         child: Dialog(
@@ -53,11 +55,11 @@ class _ChangePassphraseDialogState extends State<ChangePassphraseDialog> {
                     child: Column(
                       children: [
                         SizedBox(height: 15),
-                        buildOldPassField(),
+                        buildOldPassField(focusNew),
                         SizedBox(height: 15),
-                        buildNewPassField(node),
+                        buildNewPassField(focusNew, focusNewConfirm),
                         SizedBox(height: 15),
-                        buildNewConfirmPassField(),
+                        buildNewConfirmPassField(focusNewConfirm),
                         SizedBox(height: 15),
                         ElevatedButton(
                             child: Text('Submit'),
@@ -75,7 +77,7 @@ class _ChangePassphraseDialogState extends State<ChangePassphraseDialog> {
         ));
   }
 
-  Widget buildOldPassField() => TextFormField(
+  Widget buildOldPassField(focusNew) => TextFormField(
       controller: oldPassphraseController,
       autofocus: true,
       enableInteractiveSelection: false,
@@ -93,35 +95,44 @@ class _ChangePassphraseDialogState extends State<ChangePassphraseDialog> {
             onPressed: toggleOldPasswordVisibility,
           )),
       keyboardType: TextInputType.visiblePassword,
-      //onEditingComplete: () => node.nextFocus(),
+      onFieldSubmitted: (v) {
+        FocusScope.of(context).requestFocus(focusNew);
+      },
       validator: (password) =>
           sha256.convert(utf8.encode(password!)).toString() !=
                   AppSecurePreferencesStorage.getPassPhraseHash()
               ? 'Wrong encryption Phrase!'
               : null);
 
-  Widget buildNewPassField(node) => TextFormField(
+  Widget buildNewPassField(focusNew, focusNewConfirm) => TextFormField(
         controller: newPassphraseController,
-        autofocus: true,
+        focusNode: focusNew,
         enableInteractiveSelection: false,
-        obscureText: true,
+        obscureText: isHiddenNew,
         decoration: InputDecoration(
-          hintText: 'New Passphrase',
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
-          prefixIcon: Icon(Icons.lock),
-        ),
+            hintText: 'New Passphrase',
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+            prefixIcon: Icon(Icons.lock),
+            suffixIcon: IconButton(
+              icon: (isHiddenNew
+                  ? Icon(Icons.visibility_off)
+                  : Icon(Icons.visibility)),
+              onPressed: toggleNewPasswordVisibility,
+            )),
         keyboardType: TextInputType.visiblePassword,
-        onEditingComplete: () => node.nextFocus(),
+        onFieldSubmitted: (v) {
+          FocusScope.of(context).requestFocus(focusNewConfirm);
+        },
         validator: (password) => password != null && password.length < 8
             ? 'Enter min. 8 characters'
             : null,
       );
 
-  Widget buildNewConfirmPassField() => TextFormField(
+  Widget buildNewConfirmPassField(focusNewConfirm) => TextFormField(
       controller: newConfirmPassphraseController,
-      //autofocus: true,
+      focusNode: focusNewConfirm,
       enableInteractiveSelection: false,
       obscureText: isHiddenNewConfirm,
       decoration: InputDecoration(
@@ -144,6 +155,8 @@ class _ChangePassphraseDialogState extends State<ChangePassphraseDialog> {
 
   void toggleOldPasswordVisibility() =>
       setState(() => isHiddenOld = !isHiddenOld);
+  void toggleNewPasswordVisibility() =>
+      setState(() => isHiddenNew = !isHiddenNew);
   void toggleNewConfirmPasswordVisibility() =>
       setState(() => isHiddenNewConfirm = !isHiddenNewConfirm);
 
