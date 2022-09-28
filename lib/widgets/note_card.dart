@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:safenotes/model/safe_note.dart';
+import 'package:safenotes/models/safenote.dart';
+import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 
 final _lightColors = [
-  Colors.lightBlue.shade700,
-  Colors.pinkAccent.shade100,
-  Colors.lightGreen.shade700,
-  Color(0xFF4c6e81),
-  Color(0xFF7aacb3),
-  Colors.orange.shade400,
+  NordColors.frost.darkest,
+  NordColors.aurora.orange,
+  NordColors.aurora.green,
+  NordColors.aurora.purple,
+  NordColors.frost.darker,
 ];
 
 class NoteCardWidget extends StatelessWidget {

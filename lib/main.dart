@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import 'package:safenotes/model/app_theme.dart';
-import 'package:safenotes/databaseAndStorage/preference_storage_and_state_controls.dart';
-import 'package:safenotes/page/login_page/set_encryption_phrase_page.dart';
-import 'package:safenotes/page/login_page/encryption_phrase_login_page.dart';
+import 'package:safenotes/models/app_theme.dart';
+import 'package:safenotes/data/preference_and_config.dart';
+import 'package:safenotes/views/login_views/set_passphrase.dart';
+import 'package:safenotes/views/login_views/login.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +19,8 @@ Future main() async {
 
 class SafeNotes extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => ChangeNotifierProvider(
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
       create: (context) => ThemeProvider(),
       builder: (context, _) {
         final themeProvider = Provider.of<ThemeProvider>(context);
@@ -35,5 +36,7 @@ class SafeNotes extends StatelessWidget {
               ? EncryptionPhraseLoginPage()
               : SetEncryptionPhrasePage(),
         );
-      });
+      },
+    );
+  }
 }

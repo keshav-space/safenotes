@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:safenotes/model/app_theme.dart';
+import 'package:safenotes/models/app_theme.dart';
 
 class TheamToggle extends StatelessWidget {
   @override
@@ -8,10 +8,11 @@ class TheamToggle extends StatelessWidget {
     final themeProvider = Provider.of<ThemeProvider>(context);
 
     return Switch.adaptive(
-        value: themeProvider.isDarkMode,
-        onChanged: (value) {
-          final provider = Provider.of<ThemeProvider>(context, listen: false);
-          provider.toggleTheme(value);
-        });
+      value: themeProvider.isDarkMode,
+      onChanged: (value) {
+        final provider = Provider.of<ThemeProvider>(context, listen: false);
+        provider.toggleTheme(value);
+      },
+    );
   }
 }

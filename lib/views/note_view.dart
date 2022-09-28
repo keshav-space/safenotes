@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import 'package:safenotes/databaseAndStorage/safe_notes_database.dart';
-import 'package:safenotes/model/safe_note.dart';
-import 'package:safenotes/page/edit_safe_note_page.dart';
-import 'package:safenotes/databaseAndStorage/preference_storage_and_state_controls.dart';
+import 'package:safenotes/data/database_handler.dart';
+import 'package:safenotes/models/safenote.dart';
+import 'package:safenotes/views/add_edit_note.dart';
+import 'package:safenotes/data/preference_and_config.dart';
 
 class NoteDetailPage extends StatefulWidget {
   final int noteId;

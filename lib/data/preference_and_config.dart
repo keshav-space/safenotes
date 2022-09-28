@@ -80,7 +80,7 @@ class AppInfo {
   static String exportFileNamePrefix = 'vault_export_';
   static String exportFileNameExtension = 'json';
   static String importDialogMsg =
-      'If your import file is encrypted then you\'ll be prompted to enter the passphrase of the device that generated this export.';
+      'If the Notes in your import file was encrypted with diffrent passphrase then you\'ll be prompted to enter the passphrase of the device that generated this export.';
   static String exportDialogMsg =
       'We recommend using the encrypted export method, this will encrypt your data using your current encryption passphrase. \nYou will be prompted to enter your passphrase while importing it.';
   static String mailToForFeedback =
