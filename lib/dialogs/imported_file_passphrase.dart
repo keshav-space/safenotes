@@ -84,6 +84,7 @@ class _ImportPassPhraseDialogState extends State<ImportPassPhraseDialog> {
     return Padding(
       padding: EdgeInsets.only(top: paddingTextBox, bottom: paddingTextBox),
       child: TextFormField(
+        enableIMEPersonalizedLearning: false,
         controller: importPassphraseController,
         autofocus: true,
         enableInteractiveSelection: false,

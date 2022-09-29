@@ -95,6 +95,7 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
     final String firstHintText = 'Encryption Phrase';
 
     return TextFormField(
+      enableIMEPersonalizedLearning: false,
       controller: this._passPhraseController,
       autofocus: true,
       obscureText: this._isHiddenFirst,
@@ -113,6 +114,7 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
     final String confirmHintText = 'Confirm Encryption Phrase';
 
     return TextFormField(
+      enableIMEPersonalizedLearning: false,
       controller: this._passPhraseControllerConfirm,
       focusNode: focus,
       obscureText: this._isHiddenConfirm,

@@ -111,6 +111,7 @@ class _ChangePassphraseDialogState extends State<ChangePassphraseDialog> {
     final String validationErrorMsg = 'Wrong encryption Phrase!';
 
     return TextFormField(
+      enableIMEPersonalizedLearning: false,
       controller: this._oldPassphraseController,
       autofocus: true,
       enableInteractiveSelection: false,
@@ -136,6 +137,7 @@ class _ChangePassphraseDialogState extends State<ChangePassphraseDialog> {
     final String inputHintNew = 'New Passphrase';
 
     return TextFormField(
+      enableIMEPersonalizedLearning: false,
       controller: this._newPassphraseController,
       focusNode: focusNew,
       enableInteractiveSelection: false,
@@ -170,6 +172,7 @@ class _ChangePassphraseDialogState extends State<ChangePassphraseDialog> {
     final String passPhraseMismatchMsg = 'Passphrase Mismatch!';
 
     return TextFormField(
+      enableIMEPersonalizedLearning: false,
       controller: this._newConfirmPassphraseController,
       focusNode: focusNewConfirm,
       enableInteractiveSelection: false,

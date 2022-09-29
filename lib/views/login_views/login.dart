@@ -96,6 +96,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
   Widget _inputField() {
     final double inputBoxEdgeRadious = 15.0;
     return TextFormField(
+      enableIMEPersonalizedLearning: false,
       controller: passPhraseController,
       autofocus: true,
       obscureText: this._isHidden,
