@@ -24,12 +24,13 @@ class _SearchWidgetState extends State<SearchWidget> {
     final styleActive = TextStyle(color: Colors.black);
     final styleHint = TextStyle(color: Colors.black54);
     final style = widget.text.isEmpty ? styleHint : styleActive;
+    final searchBoxRadius = 7.0;
 
     return Container(
       height: 42,
       margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(searchBoxRadius),
         color: Colors.white,
         border: Border.all(color: Colors.black26),
       ),

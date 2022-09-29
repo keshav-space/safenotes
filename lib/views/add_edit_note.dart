@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:safenotes/databaseAndStorage/safe_notes_database.dart';
-import 'package:safenotes/model/safe_note.dart';
-import 'package:safenotes/widget/safe_note_form_widget.dart';
+import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
+import 'package:safenotes/data/database_handler.dart';
+import 'package:safenotes/models/safenote.dart';
+import 'package:safenotes/widgets/note_widget.dart';
 
 class AddEditNotePage extends StatefulWidget {
   final SafeNote? note;
@@ -28,23 +29,32 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
   }
 
   @override
-  Widget build(BuildContext context) => GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        appBar: AppBar(
-          actions: [buildButton()],
-        ),
-        body: Form(
-          key: _formKey,
-          child: NoteFormWidget(
-            title: title,
-            description: description,
-            onChangedTitle: (title) => setState(() => this.title = title),
-            onChangedDescription: (description) =>
-                setState(() => this.description = description),
-          ),
-        ),
-      ));
+  Widget build(BuildContext context) {
+    return KeyboardSizeProvider(
+        child: GestureDetector(
+            onTap: () {
+              FocusScope.of(context).unfocus();
+            },
+            child: Scaffold(
+              resizeToAvoidBottomInset: false,
+              appBar: AppBar(
+                actions: [buildButton()],
+              ),
+              body: Consumer<ScreenHeight>(builder: (context, _res, child) {
+                return Form(
+                  key: _formKey,
+                  child: NoteFormWidget(
+                    title: title,
+                    description: description,
+                    onChangedTitle: (title) =>
+                        setState(() => this.title = title),
+                    onChangedDescription: (description) =>
+                        setState(() => this.description = description),
+                  ),
+                );
+              }),
+            )));
+  }
 
   Widget buildButton() {
     final isFormValid = title.isNotEmpty && description.isNotEmpty;

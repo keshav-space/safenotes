@@ -1,4 +1,4 @@
-import 'package:safenotes/model/safe_note.dart';
+import 'package:safenotes/models/safenote.dart';
 
 class ImportParser {
   final List<SafeNote> parsedNotes;

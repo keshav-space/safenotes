@@ -1,5 +1,5 @@
-import 'package:safenotes/databaseAndStorage/preference_storage_and_state_controls.dart';
-import 'package:safenotes/aes256_encryption/aes_256bit_encryption_handler.dart';
+import 'package:safenotes/data/preference_and_config.dart';
+import 'package:safenotes/encryption/aes_encryption_handler.dart';
 
 final String tableNotes = 'safe_notes';
 
