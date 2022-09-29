@@ -302,8 +302,8 @@ class _NotesPageState extends State<NotesPage> {
     );
   }
 
-  Future<void> _launchUrl(url) async {
-    if (!await launchUrl(url)) {
+  Future<void> _launchUrl(Uri url) async {
+    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
       throw 'Could not launch $url';
     }
   }
