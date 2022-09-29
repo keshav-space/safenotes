@@ -6,8 +6,11 @@ import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
 
 // Project imports:
 import 'package:safenotes/data/database_handler.dart';
+import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/models/safenote.dart';
 import 'package:safenotes/widgets/note_widget.dart';
+
+import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 
 class AddEditNotePage extends StatefulWidget {
   final SafeNote? note;
@@ -63,16 +66,25 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
 
   Widget buildButton() {
     final isFormValid = title.isNotEmpty && description.isNotEmpty;
+    final double buttonFontSize = 17.0;
+    final String buttonText = 'Save';
 
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          //onPrimary: Colors.white,
-          backgroundColor: isFormValid ? null : Colors.grey.shade700,
+          backgroundColor: isFormValid
+              ? (PreferencesStorage.getIsThemeDark()
+                  ? null
+                  : NordColors.polarNight.darkest)
+              : Colors.grey.shade700,
         ),
         onPressed: addOrUpdateNote,
-        child: Text('Save'),
+        child: Text(
+          buttonText,
+          style:
+              TextStyle(fontSize: buttonFontSize, fontWeight: FontWeight.bold),
+        ),
       ),
     );
   }

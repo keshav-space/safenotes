@@ -110,7 +110,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
   String? _passphraseValidator(String? passphrase) {
     final wrongPhraseMsg = 'Wrong encryption Phrase!';
     return sha256.convert(utf8.encode(passphrase!)).toString() !=
-            AppSecurePreferencesStorage.getPassPhraseHash()
+            PreferencesStorage.getPassPhraseHash()
         ? wrongPhraseMsg
         : null;
   }
@@ -147,7 +147,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
     if (form.validate()) {
       final phrase = passPhraseController.text;
       if (sha256.convert(utf8.encode(phrase)).toString() ==
-          AppSecurePreferencesStorage.getPassPhraseHash()) {
+          PreferencesStorage.getPassPhraseHash()) {
         _snackBarMessage(context, 'Decrypting your notes!');
 
         PhraseHandler.initPass(phrase);

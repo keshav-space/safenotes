@@ -17,7 +17,7 @@ Future main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  await AppSecurePreferencesStorage.init();
+  await PreferencesStorage.init();
   runApp(SafeNotesApp());
 }
 
@@ -36,7 +36,7 @@ class SafeNotesApp extends StatelessWidget {
           theme: AppThemes.lightTheme,
           darkTheme: AppThemes.darkTheme,
 
-          home: AppSecurePreferencesStorage.getPassPhraseHash() != null
+          home: PreferencesStorage.getPassPhraseHash() != null
               ? EncryptionPhraseLoginPage()
               : SetEncryptionPhrasePage(),
         );

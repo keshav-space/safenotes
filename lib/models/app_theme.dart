@@ -8,14 +8,13 @@ import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 import 'package:safenotes/data/preference_and_config.dart';
 
 class ThemeProvider extends ChangeNotifier {
-  ThemeMode themeMode = AppSecurePreferencesStorage.getIsThemeDark()
-      ? ThemeMode.dark
-      : ThemeMode.light;
+  ThemeMode themeMode =
+      PreferencesStorage.getIsThemeDark() ? ThemeMode.dark : ThemeMode.light;
 
   bool get isDarkMode => themeMode == ThemeMode.dark;
   void toggleTheme(bool isOn) {
     themeMode = isOn ? ThemeMode.dark : ThemeMode.light;
-    AppSecurePreferencesStorage.setIsThemeDark(isOn);
+    PreferencesStorage.setIsThemeDark(isOn);
     notifyListeners();
   }
 }

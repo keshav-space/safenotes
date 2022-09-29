@@ -1,6 +1,9 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
+// Project imports:
+import 'package:safenotes/data/preference_and_config.dart';
+
 class NoteFormWidget extends StatelessWidget {
   final String? title;
   final String? description;
@@ -40,8 +43,11 @@ class NoteFormWidget extends StatelessWidget {
     final double fontSize = 24.0;
     final int maxLinesToShowAtTimeTitle = 2;
     final String titleHint = 'Title';
+    //Disable IMEPL if keyboard incognito mode is true
+    final bool enableIMEPLFlag = !PreferencesStorage.getKeyboardIncognito();
 
     return TextFormField(
+      enableIMEPersonalizedLearning: enableIMEPLFlag,
       maxLines: maxLinesToShowAtTimeTitle,
       initialValue: this.title,
       enableInteractiveSelection: true,
@@ -71,20 +77,15 @@ class NoteFormWidget extends StatelessWidget {
   }
 
   Widget buildDescription(BuildContext context) {
-    final double height = MediaQuery.of(context).size.height;
-    final EdgeInsets padding = MediaQuery.of(context).padding;
-    final double keyboard = MediaQuery.of(context).viewInsets.bottom;
-    final double topFixed = 200.0;
-    final double effectiveHeighOfDevice =
-        height - padding.top - padding.bottom - topFixed - keyboard;
-
-    final double adaptiveScreenFactorForDescription = 25.0;
+    // maxLine is used in resizing description field on keyboard activation or dismissal
     final int maxLinesToShowAtTimeDescription =
-        (effectiveHeighOfDevice / adaptiveScreenFactorForDescription).round();
+        computeMaxLine(context: context, fontHeight: 30.0);
     final double fontSize = 18.0;
     final String hintDescription = 'Type something...';
+    final bool enableIMEPLFlag = !PreferencesStorage.getKeyboardIncognito();
 
     return TextFormField(
+      enableIMEPersonalizedLearning: enableIMEPLFlag,
       maxLines: maxLinesToShowAtTimeDescription,
       initialValue: this.description,
       enableInteractiveSelection: true,
@@ -110,5 +111,34 @@ class NoteFormWidget extends StatelessWidget {
     return description == null || description.isEmpty
         ? descriptionCantBeEmptyMsg
         : null;
+  }
+
+  int computeMaxLine(
+      {required BuildContext context, required double fontHeight}) {
+    final double totalHeight = MediaQuery.of(context).size.height;
+    final EdgeInsets paddingInsets = MediaQuery.of(context).padding;
+    final double keyboard = MediaQuery.of(context).viewInsets.bottom;
+    final double padding = paddingInsets.top + paddingInsets.bottom;
+
+    double totalHeightRatio = (totalHeight - padding) / 100;
+    double fontHeightRatio = fontHeight / 100;
+    double theXfactor = totalHeightRatio / 3.2;
+    /*
+    When Keyboard is on screen:-
+    Theoretical Ratios for top:description:keyboard 
+    theoreticalTitleNTopHeightRatio = x; 
+    theoreticalDescriptinHeightRatio = x*1.2; 
+    theoreticalKeyboardHeightRatio = x;
+    x + x*1.2 + x = totalHeightRatio (i.e total height of screen)
+    
+    From above:
+    if keyboard is on-screen:
+      theoreticalDescriptinHeightRatio = x*1.2
+    if keyboard not on screen:
+      theoreticalDescriptinHeightRatio = x*2.2 (keyboard space is taken by description)
+    */
+    double descriptionRatio = theXfactor * 2.2;
+    if (keyboard > 1) descriptionRatio = theXfactor * 1.2;
+    return (descriptionRatio / fontHeightRatio).round();
   }
 }

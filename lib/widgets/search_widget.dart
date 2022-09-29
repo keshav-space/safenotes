@@ -1,6 +1,9 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
+// Project imports:
+import 'package:safenotes/data/preference_and_config.dart';
+
 class SearchWidget extends StatefulWidget {
   final String text;
   final ValueChanged<String> onChanged;
@@ -26,6 +29,7 @@ class _SearchWidgetState extends State<SearchWidget> {
     final styleHint = TextStyle(color: Colors.black54);
     final style = widget.text.isEmpty ? styleHint : styleActive;
     final searchBoxRadius = 7.0;
+    final bool enableIMEPLFlag = !PreferencesStorage.getKeyboardIncognito();
 
     return Container(
       height: 42,
@@ -37,6 +41,7 @@ class _SearchWidgetState extends State<SearchWidget> {
       ),
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: TextField(
+        enableIMEPersonalizedLearning: enableIMEPLFlag,
         controller: controller,
         enableInteractiveSelection: true,
         //autofocus: true,

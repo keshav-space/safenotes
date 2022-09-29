@@ -201,7 +201,7 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
         _snackBarMessage(context, 'Encryption Phrase Set!');
 
         // Setting hash for PassPhrase in share prefrences
-        AppSecurePreferencesStorage.setPassPhraseHash(
+        PreferencesStorage.setPassPhraseHash(
             sha256.convert(utf8.encode(enteredPassphrase)).toString());
         PhraseHandler.initPass(enteredPassphrase);
         UnDecryptedLoginControl.setNoDecryptionFlag(false);

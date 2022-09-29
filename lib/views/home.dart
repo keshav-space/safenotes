@@ -309,7 +309,7 @@ class _NotesPageState extends State<NotesPage> {
   }
 
   Widget _divide({required double topPadding}) {
-    final bool isDarkTheme = AppSecurePreferencesStorage.getIsThemeDark();
+    final bool isDarkTheme = PreferencesStorage.getIsThemeDark();
 
     return Padding(
       padding: EdgeInsets.only(top: topPadding),

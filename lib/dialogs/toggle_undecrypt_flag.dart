@@ -17,8 +17,8 @@ class ToggleUndecryptionFlag extends StatefulWidget {
 
 class _ToggleUndecryptionFlagState extends State<ToggleUndecryptionFlag> {
   List<bool> _isSelected = [
-    AppSecurePreferencesStorage.getAllowUndecryptLoginFlag(),
-    !AppSecurePreferencesStorage.getAllowUndecryptLoginFlag()
+    PreferencesStorage.getAllowUndecryptLoginFlag(),
+    !PreferencesStorage.getAllowUndecryptLoginFlag()
   ];
 
   @override
@@ -121,10 +121,10 @@ Once ON, You'll need to choose the second option on the login screen to see your
         //color: Colors.black,
         color: Colors.grey,
         fillColor: Colors.lightBlue.shade900,
-        borderColor: AppSecurePreferencesStorage.getIsThemeDark()
+        borderColor: PreferencesStorage.getIsThemeDark()
             ? NordColors.snowStorm.darkest
             : Colors.grey.withOpacity(0.8),
-        selectedBorderColor: AppSecurePreferencesStorage.getIsThemeDark()
+        selectedBorderColor: PreferencesStorage.getIsThemeDark()
             ? NordColors.snowStorm.darkest
             : Colors.grey.withOpacity(0.8),
         borderRadius: BorderRadius.circular(5),
@@ -163,8 +163,7 @@ Once ON, You'll need to choose the second option on the login screen to see your
         this._isSelected[0] = false;
         this._isSelected[1] = true;
       }
-      AppSecurePreferencesStorage.setAllowUndecryptLoginFlag(
-          this._isSelected[0]);
+      PreferencesStorage.setAllowUndecryptLoginFlag(this._isSelected[0]);
     });
   }
 }

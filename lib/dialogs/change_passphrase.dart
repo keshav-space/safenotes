@@ -124,7 +124,7 @@ class _ChangePassphraseDialogState extends State<ChangePassphraseDialog> {
       },
       validator: (passphrase) {
         return sha256.convert(utf8.encode(passphrase!)).toString() !=
-                AppSecurePreferencesStorage.getPassPhraseHash()
+                PreferencesStorage.getPassPhraseHash()
             ? validationErrorMsg
             : null;
       },
@@ -272,7 +272,7 @@ class _ChangePassphraseDialogState extends State<ChangePassphraseDialog> {
 
     // Update SHA256 signature of passphrase
     if (form.validate()) {
-      AppSecurePreferencesStorage.setPassPhraseHash(
+      PreferencesStorage.setPassPhraseHash(
         sha256
             .convert(utf8.encode(_newConfirmPassphraseController.text))
             .toString(),

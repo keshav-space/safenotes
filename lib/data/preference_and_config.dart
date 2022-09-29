@@ -1,12 +1,13 @@
 // Package imports:
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AppSecurePreferencesStorage {
+class PreferencesStorage {
   static SharedPreferences? _preferences;
 
   static const _keyPassPhraseHash = 'passphrasehash';
   static const _keyAllowUndecryptLoginFlag = 'undecryptLoginFlag';
   static const _keyIsThemeDark = 'isthemedark';
+  static const _keyKeyboardIncognito = 'keyboardIcognito';
 
   static Future init() async =>
       _preferences = await SharedPreferences.getInstance();
@@ -19,18 +20,21 @@ class AppSecurePreferencesStorage {
   static Future setAllowUndecryptLoginFlag(bool flag) async =>
       await _preferences?.setBool(_keyAllowUndecryptLoginFlag, flag);
   static bool getAllowUndecryptLoginFlag() {
-    bool? localFlag = _preferences?.getBool(_keyAllowUndecryptLoginFlag);
-    localFlag ??= true;
-    return localFlag;
+    return _preferences?.getBool(_keyAllowUndecryptLoginFlag) ?? true;
   }
 
   static Future setIsThemeDark(bool flag) async =>
       await _preferences?.setBool(_keyIsThemeDark, flag);
 
   static bool getIsThemeDark() {
-    bool? localFlag = _preferences?.getBool(_keyIsThemeDark);
-    localFlag ??= true;
-    return localFlag;
+    return _preferences?.getBool(_keyIsThemeDark) ?? true;
+  }
+
+  static Future<void> setKeyboardIncognito(bool flag) async =>
+      await _preferences?.setBool(_keyKeyboardIncognito, flag);
+
+  static bool getKeyboardIncognito() {
+    return _preferences?.getBool(_keyKeyboardIncognito) ?? true;
   }
 }
 
@@ -44,7 +48,7 @@ class PhraseHandler {
 
 class UnDecryptedLoginControl {
   static getAllowLogUnDecrypted() =>
-      AppSecurePreferencesStorage.getAllowUndecryptLoginFlag();
+      PreferencesStorage.getAllowUndecryptLoginFlag();
 
   static bool noDecryptionFlag = false;
   static setNoDecryptionFlag(bool flag) => noDecryptionFlag = flag;

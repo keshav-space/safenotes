@@ -25,8 +25,7 @@ class FileHandler {
     String fileName = AppInfo.getExportFileName();
     final bool isExportEncrypted =
         ExportEncryptionControl.getIsExportEncrypted();
-    final String passHash =
-        AppSecurePreferencesStorage.getPassPhraseHash().toString();
+    final String passHash = PreferencesStorage.getPassPhraseHash().toString();
 
     String preFixToRecord = '{ "records" : ';
     String postFixToRecord = ', "recordHandlerHash" : ' +
@@ -77,7 +76,7 @@ class FileHandler {
 
   Future<String?> selectFileAndDoImport(BuildContext context) async {
     String? dataFromFileAsString = await getFileAsString();
-    String? currentPassHash = AppSecurePreferencesStorage.getPassPhraseHash();
+    String? currentPassHash = PreferencesStorage.getPassPhraseHash();
 
     if (dataFromFileAsString == null) {
       return "File not picked!";
