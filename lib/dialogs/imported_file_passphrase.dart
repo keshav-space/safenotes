@@ -1,8 +1,14 @@
+// Dart imports:
 import 'dart:ui';
+
+// Flutter imports:
 import 'package:flutter/material.dart';
 
-import 'package:safenotes/data/preference_and_config.dart';
+// Package imports:
 import 'package:flutter_nord_theme/flutter_nord_theme.dart';
+
+// Project imports:
+import 'package:safenotes/data/preference_and_config.dart';
 
 class ImportPassPhraseDialog extends StatefulWidget {
   @override

@@ -1,15 +1,22 @@
-import 'dart:io';
+// Dart imports:
 import 'dart:convert';
-import 'package:crypto/crypto.dart';
+import 'dart:io';
+
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:safenotes/models/safenote.dart';
-import 'package:safenotes/data/preference_and_config.dart';
+
+// Package imports:
+import 'package:crypto/crypto.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+
+// Project imports:
 import 'package:safenotes/data/database_handler.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:safenotes/models/import_file_parser.dart';
+import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/dialogs/imported_file_passphrase.dart';
+import 'package:safenotes/models/import_file_parser.dart';
+import 'package:safenotes/models/safenote.dart';
 
 class FileHandler {
   Future<String?> fileSave(List<SafeNote> allnotes) async {

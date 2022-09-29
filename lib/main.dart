@@ -1,11 +1,15 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
 
-import 'package:safenotes/models/app_theme.dart';
+// Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
-import 'package:safenotes/views/login_views/set_passphrase.dart';
+import 'package:safenotes/models/app_theme.dart';
 import 'package:safenotes/views/login_views/login.dart';
+import 'package:safenotes/views/login_views/set_passphrase.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,10 +18,10 @@ Future main() async {
     DeviceOrientation.portraitDown,
   ]);
   await AppSecurePreferencesStorage.init();
-  runApp(SafeNotes());
+  runApp(SafeNotesApp());
 }
 
-class SafeNotes extends StatelessWidget {
+class SafeNotesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(

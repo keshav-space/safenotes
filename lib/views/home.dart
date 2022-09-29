@@ -1,33 +1,27 @@
-//import 'dart:math';
-// import 'dart:ui';
-// import 'dart:io';
-// import 'dart:convert';
-// import 'package:crypto/crypto.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
-// import 'package:file_picker/file_picker.dart';
-import 'package:url_launcher/url_launcher.dart';
-//import 'package:path_provider/path_provider.dart';
-//import 'package:permission_handler/permission_handler.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 
-import 'package:safenotes/main.dart';
-import 'package:safenotes/models/safenote.dart';
-import 'package:safenotes/widgets/search_widget.dart';
-// import 'package:safenotes/model/import_file_parser.dart';
-import 'package:safenotes/views/add_edit_note.dart';
-import 'package:safenotes/widgets/theme_toggle_widget.dart';
-import 'package:safenotes/views/note_view.dart';
-import 'package:safenotes/widgets/note_card.dart';
-import 'package:safenotes/dialogs/change_passphrase.dart';
-// import 'package:safenotes/dialogs/import_passphrase_dialog.dart';
-import 'package:safenotes/dialogs/toggle_undecrypt_flag.dart';
+// Package imports:
+import 'package:flutter_nord_theme/flutter_nord_theme.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+// Project imports:
 import 'package:safenotes/data/database_handler.dart';
 import 'package:safenotes/data/preference_and_config.dart';
+import 'package:safenotes/dialogs/change_passphrase.dart';
 import 'package:safenotes/dialogs/export_methord.dart';
-import 'package:safenotes/models/file_handler.dart';
 import 'package:safenotes/dialogs/file_import.dart';
+import 'package:safenotes/dialogs/toggle_undecrypt_flag.dart';
+import 'package:safenotes/main.dart';
+import 'package:safenotes/models/file_handler.dart';
+import 'package:safenotes/models/safenote.dart';
 import 'package:safenotes/utils/snack_message.dart';
+import 'package:safenotes/views/add_edit_note.dart';
+import 'package:safenotes/views/note_view.dart';
+import 'package:safenotes/widgets/note_card.dart';
+import 'package:safenotes/widgets/search_widget.dart';
+import 'package:safenotes/widgets/theme_toggle_widget.dart';
 
 class NotesPage extends StatefulWidget {
   @override
@@ -246,8 +240,9 @@ class _NotesPageState extends State<NotesPage> {
                   setState(() {
                     isLogout = true;
                   });
+                  //TODO scramble passphrase
                   await Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => SafeNotes()));
+                      MaterialPageRoute(builder: (context) => SafeNotesApp()));
                 },
               ),
             ],
@@ -443,176 +438,3 @@ class _NotesPageState extends State<NotesPage> {
     );
   }
 }
-  // fileSave() async {
-  //   Directory? directory;
-  //   String fileName = AppInfo.getExportFileName();
-
-  //   String preFixToRecord = '{ "records" : ';
-  //   String postFixToRecord = ', "recordHandlerHash" : ' +
-  //       (ExportEncryptionControl.getIsExportEncrypted()
-  //           ? '"${AppSecurePreferencesStorage.getPassPhraseHash().toString()}"'
-  //           : '"null"') +
-  //       ', "total" : ' +
-  //       allnotes.length.toString() +
-  //       '}';
-  //   String record = (allnotes
-  //           .map(
-  //               (i) => i.toJson(ExportEncryptionControl.getIsExportEncrypted()))
-  //           .toList())
-  //       .toString();
-
-  //   try {
-  //     if (Platform.isIOS) {
-  //       if (await _requestPermission(Permission.storage)) {
-  //         directory = await getApplicationDocumentsDirectory();
-  //         var jsonFile = new File(directory.path + "/" + fileName);
-  //         jsonFile.writeAsStringSync(preFixToRecord + record + postFixToRecord);
-  //         showSnackBar(
-  //             'File saved in Document folder of ${AppInfo.getAppName()}!');
-  //       } else {
-  //         showSnackBar('Storage access Denied!');
-  //       }
-  //     } else if (Platform.isAndroid) {
-  //       if (await _requestPermission(Permission.storage)) {
-  //         directory = await getExternalStorageDirectory();
-  //         String downPath = "";
-  //         List<String> folders = directory!.path.split("/");
-  //         for (final folder in folders.sublist(1, folders.length)) {
-  //           if (folder != "Android") {
-  //             downPath += "/" + folder;
-  //           } else
-  //             break;
-  //         }
-  //         downPath += "/Download";
-  //         directory = Directory(downPath);
-  //         //print(directory.path);
-  //         var jsonFile = new File(directory.path + "/" + fileName);
-  //         //print(jsonFile);
-  //         jsonFile.writeAsStringSync(preFixToRecord + record + postFixToRecord);
-
-  //         showSnackBar('File saved in Download folder!');
-  //       } else {
-  //         showSnackBar('Storage access Denied!');
-  //       }
-  //     } //Android handler end
-  //   } catch (e) {}
-  // }
-
-  // Future<bool> _requestPermission(Permission permission) async {
-  //   if (await permission.isGranted) {
-  //     return true;
-  //   } else {
-  //     var status = await permission.request();
-  //     if (status.isGranted) {
-  //       return true;
-  //     }
-  //     return false;
-  //   }
-  // }
-//End:  Block for handling of data export
-
-//Begin:  Block for handling import of data
-
-/*   Widget importButton() => IconButton(
-      icon: Icon(Icons.file_download_outlined),
-      onPressed: () async {
-        await showImportDialog(context);
-      }); */
-
-  // selectFileAndDoImport() async {
-  //   String dataFromFileAsString = await getFileAsString();
-  //   if (dataFromFileAsString == "null") {
-  //     showSnackBar("File not picked!");
-  //     return;
-  //   } else if (dataFromFileAsString == "unrecognized") {
-  //     showSnackBar("Unrecognized File!");
-  //     return;
-  //   }
-  //   try {
-  //     var jsonDecodedData = jsonDecode(dataFromFileAsString);
-  //     if (jsonDecodedData['recordHandlerHash'] as String == "null") {
-  //       //print("eneterd unencrypted are");
-  //       ImportEncryptionControl.setIsImportEncrypted(false);
-  //       inserNotes(ImportParser.fromJson(jsonDecodedData).getAllNotes());
-  //     } else {
-  //       ImportEncryptionControl.setIsImportEncrypted(true);
-  //       try {
-  //         await getImportPassphraseDialog(context);
-  //       } catch (e) {}
-  //       if (sha256
-  //               .convert(
-  //                   utf8.encode(ImportPassPhraseHandler.getImportPassPhrase()))
-  //               .toString() ==
-  //           jsonDecodedData['recordHandlerHash'] as String) {
-  //         await inserNotes(
-  //             ImportParser.fromJson(jsonDecodedData).getAllNotes());
-  //         ImportPassPhraseHandler.setImportPassPhrase("null");
-  //       } else {
-  //         showSnackBar("Wrong Passphrase!");
-  //         ImportPassPhraseHandler.setImportPassPhrase("null");
-  //         return;
-  //       }
-  //     }
-  //   } catch (e) {
-  //     showSnackBar("Failed to import file!");
-  //   }
-  // }
-
-  // getImportPassphraseDialog(BuildContext context) => showDialog(
-  //     context: context,
-  //     barrierDismissible: true,
-  //     builder: (_) {
-  //       return ImportPassPhraseDialog();
-  //     });
-
-  // Future<String> getFileAsString() async {
-  //   try {
-  //     if (Platform.isAndroid) {
-  //       FilePickerResult? result = await FilePicker.platform.pickFiles(
-  //         type: FileType.custom,
-  //         allowedExtensions: [AppInfo.getExportFileExtension()],
-  //       );
-  //       if (result != null) {
-  //         PlatformFile file = result.files.first;
-  //         if (file.size == 0) return "null";
-  //         var jsonFile = new File(file.path!);
-  //         String content = jsonFile.readAsStringSync();
-  //         return content;
-  //       }
-  //     } else if (Platform.isIOS) {
-  //       FilePickerResult? result = await FilePicker.platform.pickFiles();
-  //       if (result != null) {
-  //         PlatformFile file = result.files.first;
-  //         if (file.size == 0 ||
-  //             file.extension != AppInfo.getExportFileExtension()) return "null";
-  //         var jsonFile = new File(file.path!);
-  //         String content = jsonFile.readAsStringSync();
-  //         return content;
-  //       }
-  //     }
-  //   } catch (e) {
-  //     showSnackBar("Unrecognized File!");
-  //     return "unrecognized";
-  //   }
-  //   return "null";
-  // }
-
-  // inserNotes(List<SafeNote> imported) async {
-  //   for (final note in imported) {
-  //     await NotesDatabase.instance.encryptAndStore(note);
-  //   }
-  //   _refreshNotes();
-  // }
-
-//End:  Block for handling import of data
-
-//Begin: Handling the render of note cards
-  // showSnackBarMessage(BuildContext context, String? message) {
-  //   if (message != null)
-  //     ScaffoldMessenger.of(context)
-  //       ..removeCurrentSnackBar()
-  //       ..showSnackBar(
-  //         SnackBar(content: Text(message)),
-  //       );
-  // }
-// }

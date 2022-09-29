@@ -1,7 +1,12 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:safenotes/models/safenote.dart';
+
+// Package imports:
 import 'package:flutter_nord_theme/flutter_nord_theme.dart';
+import 'package:intl/intl.dart';
+
+// Project imports:
+import 'package:safenotes/models/safenote.dart';
 
 final _lightColors = [
   NordColors.frost.darkest,

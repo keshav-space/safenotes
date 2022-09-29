@@ -1,6 +1,11 @@
+// Dart imports:
 import 'dart:ui';
-import 'package:safenotes/data/preference_and_config.dart';
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:safenotes/data/preference_and_config.dart';
 
 class FileImportDialog extends StatelessWidget {
   final VoidCallback callback;

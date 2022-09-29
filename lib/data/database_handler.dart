@@ -1,5 +1,8 @@
+// Package imports:
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+
+// Project imports:
 import 'package:safenotes/models/safenote.dart';
 
 class NotesDatabase {

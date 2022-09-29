@@ -1,9 +1,12 @@
-import 'dart:math';
+// Dart imports:
 import 'dart:convert';
+import 'dart:math';
 import 'dart:typed_data';
-import 'package:tuple/tuple.dart';
+
+// Package imports:
 import 'package:crypto/crypto.dart';
 import 'package:encrypt/encrypt.dart' as encrypt;
+import 'package:tuple/tuple.dart';
 
 String generateRandString(int len) {
   var randomNumber = Random.secure();

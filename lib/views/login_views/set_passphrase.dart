@@ -1,11 +1,17 @@
+// Dart imports:
 import 'dart:convert';
-import 'package:crypto/crypto.dart';
+
+// Flutter imports:
 import 'package:flutter/material.dart';
 
-import 'package:safenotes/views/home.dart';
-import 'package:safenotes/widgets/login_button.dart';
+// Package imports:
+import 'package:crypto/crypto.dart';
+
+// Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/utils/passphrase_strength.dart';
+import 'package:safenotes/views/home.dart';
+import 'package:safenotes/widgets/login_button.dart';
 
 class SetEncryptionPhrasePage extends StatefulWidget {
   @override

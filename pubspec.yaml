@@ -60,6 +60,7 @@ dev_dependencies:
     sdk: flutter
   flutter_launcher_icons: ^0.9.0
   flutter_native_splash: ^2.2.9
+  import_sorter: ^4.6.0
 
 dependency_overrides:
   args: 2.1.1
