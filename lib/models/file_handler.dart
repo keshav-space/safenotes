@@ -94,6 +94,8 @@ class FileHandler {
       } else {
         ImportEncryptionControl.setIsImportEncrypted(true);
         if (importFileKeyHash != currentPassHash) {
+          // Set import passphrashhash to be used for validating user input passphrase
+          ImportPassPhraseHandler.setImportPassPhraseHash(importFileKeyHash);
           try {
             await getImportPassphraseDialog(context);
           } catch (e) {
@@ -111,8 +113,10 @@ class FileHandler {
           await inserNotes(
               ImportParser.fromJson(jsonDecodedData).getAllNotes());
           ImportPassPhraseHandler.setImportPassPhrase("null");
+          ImportPassPhraseHandler.setImportPassPhraseHash(null);
         } else {
           ImportPassPhraseHandler.setImportPassPhrase("null");
+          ImportPassPhraseHandler.setImportPassPhraseHash(null);
           return "Wrong Passphrase!";
         }
       }
@@ -132,7 +136,6 @@ class FileHandler {
 
   Future<String?> getFileAsString() async {
     try {
-      print("sfsdfsdfs");
       if (Platform.isAndroid) {
         FilePickerResult? result = await FilePicker.platform.pickFiles(
           type: FileType.custom,

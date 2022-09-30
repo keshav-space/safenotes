@@ -109,6 +109,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
 
   String? _passphraseValidator(String? passphrase) {
     final wrongPhraseMsg = 'Wrong encryption Phrase!';
+
     return sha256.convert(utf8.encode(passphrase!)).toString() !=
             PreferencesStorage.getPassPhraseHash()
         ? wrongPhraseMsg

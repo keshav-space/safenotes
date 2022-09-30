@@ -3,14 +3,13 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
+import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 
 // Project imports:
 import 'package:safenotes/data/database_handler.dart';
 import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/models/safenote.dart';
 import 'package:safenotes/widgets/note_widget.dart';
-
-import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 
 class AddEditNotePage extends StatefulWidget {
   final SafeNote? note;

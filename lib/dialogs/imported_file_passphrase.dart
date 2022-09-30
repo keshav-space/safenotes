@@ -1,10 +1,12 @@
 // Dart imports:
+import 'dart:convert';
 import 'dart:ui';
 
 // Flutter imports:
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:crypto/crypto.dart';
 import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 
 // Project imports:
@@ -18,6 +20,7 @@ class ImportPassPhraseDialog extends StatefulWidget {
 class _ImportPassPhraseDialogState extends State<ImportPassPhraseDialog> {
   bool _isHiddenImport = true;
   final importPassphraseController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -83,34 +86,51 @@ class _ImportPassPhraseDialogState extends State<ImportPassPhraseDialog> {
 
     return Padding(
       padding: EdgeInsets.only(top: paddingTextBox, bottom: paddingTextBox),
-      child: TextFormField(
-        enableIMEPersonalizedLearning: false,
-        controller: importPassphraseController,
-        autofocus: true,
-        enableInteractiveSelection: false,
-        obscureText: this._isHiddenImport,
-        decoration: InputDecoration(
-          hintText: inputBoxHint,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(inputBoxRadius),
+      child: Form(
+        key: _formKey,
+        child: TextFormField(
+          enableIMEPersonalizedLearning: false,
+          controller: importPassphraseController,
+          autofocus: true,
+          enableInteractiveSelection: false,
+          obscureText: this._isHiddenImport,
+          decoration: InputDecoration(
+            hintText: inputBoxHint,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(inputBoxRadius),
+            ),
+            prefixIcon: Icon(Icons.lock),
+            suffixIcon: IconButton(
+              icon: !this._isHiddenImport
+                  ? Icon(Icons.visibility_off)
+                  : Icon(Icons.visibility),
+              onPressed: _togglePasswordVisibility,
+            ),
           ),
-          prefixIcon: Icon(Icons.lock),
-          suffixIcon: IconButton(
-            icon: !this._isHiddenImport
-                ? Icon(Icons.visibility_off)
-                : Icon(Icons.visibility),
-            onPressed: _togglePasswordVisibility,
-          ),
+          keyboardType: TextInputType.visiblePassword,
+          validator: _passphraseValidator,
+          onEditingComplete: _onEditonComplete,
         ),
-        keyboardType: TextInputType.visiblePassword,
-        validator: (passphrase) {},
-        onEditingComplete: () {
-          ImportPassPhraseHandler.setImportPassPhrase(
-              importPassphraseController.text);
-          Navigator.of(context).pop(true);
-        },
       ),
     );
+  }
+
+  void _onEditonComplete() {
+    final form = this._formKey.currentState!;
+    if (form.validate()) {
+      ImportPassPhraseHandler.setImportPassPhrase(
+          importPassphraseController.text);
+      Navigator.of(context).pop();
+    }
+  }
+
+  String? _passphraseValidator(String? passphrase) {
+    final wrongPhraseMsg = 'Wrong Passphrase!';
+    print("sfsfs");
+    return sha256.convert(utf8.encode(passphrase!)).toString() !=
+            ImportPassPhraseHandler.getImportPassPhraseHash()
+        ? wrongPhraseMsg
+        : null;
   }
 
   Widget _buildButtons(BuildContext context) {
@@ -126,7 +146,7 @@ class _ImportPassPhraseDialogState extends State<ImportPassPhraseDialog> {
         children: [
           ElevatedButton(
             child: Text(formSubmitButtonText),
-            onPressed: _onSubmitPressed,
+            onPressed: _onEditonComplete,
           ),
           ElevatedButton(
             style: ButtonStyle(
@@ -138,12 +158,6 @@ class _ImportPassPhraseDialogState extends State<ImportPassPhraseDialog> {
         ],
       ),
     );
-  }
-
-  void _onSubmitPressed() async {
-    ImportPassPhraseHandler.setImportPassPhrase(
-        importPassphraseController.text);
-    Navigator.of(context).pop();
   }
 
   void _togglePasswordVisibility() =>

@@ -69,8 +69,13 @@ class ImportEncryptionControl {
 
 class ImportPassPhraseHandler {
   static String? importPassPhrase;
+  static String? importPassPhraseHash;
   static getImportPassPhrase() => importPassPhrase;
   static setImportPassPhrase(String imPhrase) => importPassPhrase = imPhrase;
+
+  static String? getImportPassPhraseHash() => importPassPhraseHash;
+  static setImportPassPhraseHash(String? imPhraseHash) =>
+      importPassPhraseHash = imPhraseHash;
 }
 
 class AppInfo {
