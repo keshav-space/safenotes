@@ -45,7 +45,7 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-
+/android/key.properties
 
 # Ignore Ios for now
 /ios/
