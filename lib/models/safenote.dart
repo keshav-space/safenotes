@@ -65,26 +65,30 @@ class SafeNote {
         NoteFields.time: createdTime.toIso8601String(),
       };
 
-  Map<String, dynamic> toJson(bool isEncryptionNeeded) {
+  Map<String, dynamic> toJson() {
+    final bool isExportEncrypted =
+        ExportEncryptionControl.getIsExportEncrypted();
     return {
       //"${NoteFields.id}": this.id,
-      '"${NoteFields.title}"': isEncryptionNeeded
-          ? '"${encryptAES(this.title, PhraseHandler.getPass())}"'
-          : '"${this.title}"',
-      '"${NoteFields.description}"': isEncryptionNeeded
-          ? '"${encryptAES(this.description, PhraseHandler.getPass())}"'
-          : '"${this.description}"',
-      '"${NoteFields.time}"': '"${this.createdTime.toIso8601String()}"',
+      NoteFields.title: isExportEncrypted
+          ? '${encryptAES(this.title, PhraseHandler.getPass())}'
+          : '${this.title}',
+      NoteFields.description: isExportEncrypted
+          ? '${encryptAES(this.description, PhraseHandler.getPass())}'
+          : '${this.description}',
+      NoteFields.time: '${this.createdTime.toIso8601String()}',
     };
   }
 
   static SafeNote fromJson(Map<String, dynamic> json) {
+    final bool isImportEncrypted =
+        ImportEncryptionControl.getIsImportEncrypted();
     return SafeNote(
-      title: ImportEncryptionControl.getIsImportEncrypted()
+      title: isImportEncrypted
           ? decryptAES(json[NoteFields.title] as String,
               ImportPassPhraseHandler.getImportPassPhrase())
           : json[NoteFields.title] as String,
-      description: ImportEncryptionControl.getIsImportEncrypted()
+      description: isImportEncrypted
           ? decryptAES(json[NoteFields.description] as String,
               ImportPassPhraseHandler.getImportPassPhrase())
           : json[NoteFields.description] as String,

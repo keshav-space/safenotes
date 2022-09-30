@@ -33,8 +33,8 @@ class FileHandler {
         ', "total" : ' +
         allnotes.length.toString() +
         '}';
-    String record =
-        (allnotes.map((i) => i.toJson(isExportEncrypted)).toList()).toString();
+
+    String record = (allnotes.map((i) => jsonEncode(i)).toList()).toString();
 
     try {
       if (Platform.isIOS) {
@@ -60,9 +60,8 @@ class FileHandler {
           }
           downPath += "/Download";
           directory = Directory(downPath);
-          //print(directory.path);
           var jsonFile = new File(directory.path + "/" + fileName);
-          //print(jsonFile);
+
           jsonFile.writeAsStringSync(preFixToRecord + record + postFixToRecord);
 
           snackBackMsg = 'File saved in Download folder!';
@@ -71,6 +70,7 @@ class FileHandler {
         }
       } //Android handler end
     } catch (e) {}
+    ExportEncryptionControl.setIsExportEncrypted(true);
     return snackBackMsg;
   }
 
@@ -90,7 +90,7 @@ class FileHandler {
 
       if (importFileKeyHash == "null") {
         ImportEncryptionControl.setIsImportEncrypted(false);
-        inserNotes(ImportParser.fromJson(jsonDecodedData).getAllNotes());
+        await inserNotes(ImportParser.fromJson(jsonDecodedData).getAllNotes());
       } else {
         ImportEncryptionControl.setIsImportEncrypted(true);
         if (importFileKeyHash != currentPassHash) {
@@ -105,11 +105,11 @@ class FileHandler {
           ImportPassPhraseHandler.setImportPassPhrase(PhraseHandler.getPass());
         }
 
-        String userInputPassForImportNotes = sha256
+        String userInputPassHashForImportNotes = sha256
             .convert(utf8.encode(ImportPassPhraseHandler.getImportPassPhrase()))
             .toString();
 
-        if (userInputPassForImportNotes == importFileKeyHash) {
+        if (userInputPassHashForImportNotes == importFileKeyHash) {
           await inserNotes(
               ImportParser.fromJson(jsonDecodedData).getAllNotes());
           ImportPassPhraseHandler.setImportPassPhrase("null");

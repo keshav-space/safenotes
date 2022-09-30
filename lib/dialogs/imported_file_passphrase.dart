@@ -126,7 +126,7 @@ class _ImportPassPhraseDialogState extends State<ImportPassPhraseDialog> {
 
   String? _passphraseValidator(String? passphrase) {
     final wrongPhraseMsg = 'Wrong Passphrase!';
-    print("sfsfs");
+
     return sha256.convert(utf8.encode(passphrase!)).toString() !=
             ImportPassPhraseHandler.getImportPassPhraseHash()
         ? wrongPhraseMsg

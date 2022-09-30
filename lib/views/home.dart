@@ -52,7 +52,7 @@ class _NotesPageState extends State<NotesPage> {
     super.dispose();
   }
 
-  Future _refreshNotes() async {
+  Future<void> _refreshNotes() async {
     setState(() => isLoading = true);
     // storing copy of notes in allnotes so that it does not change while doing search
     this.allnotes =
@@ -286,16 +286,14 @@ class _NotesPageState extends State<NotesPage> {
     return showDialog(
       context: context,
       barrierDismissible: true,
-      builder: (BuildContext context) {
+      builder: (BuildContext contextChild) {
         return FileImportDialog(
           callback: () async {
+            Navigator.of(contextChild).pop();
             String? snackMessage =
                 await FileHandler().selectFileAndDoImport(context);
             _refreshNotes();
-            if (snackMessage != null)
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(SnackBar(content: Text(snackMessage)));
-            Navigator.of(context).pop();
+            showSnackBarMessage(context, snackMessage);
           },
         );
       },

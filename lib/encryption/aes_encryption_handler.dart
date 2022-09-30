@@ -9,7 +9,7 @@ import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:tuple/tuple.dart';
 
 String generateRandString(int len) {
-  var randomNumber = Random.secure();
+  var randomNumber = Random.secure(); // cryptographically secure number random
   return String.fromCharCodes(
       List.generate(len, (index) => randomNumber.nextInt(33) + 89));
 }
@@ -86,7 +86,7 @@ Uint8List createUint8ListFromString(String s) {
 }
 
 Uint8List generateRandomNonZero(int seedLength) {
-  final random = Random.secure();
+  final random = Random.secure(); //cryptographically secure number random
   const int randomMax = 245;
   final Uint8List uint8list = Uint8List(seedLength);
   for (int i = 0; i < seedLength; i++) {
