@@ -92,10 +92,12 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
     final isValid = _formKey.currentState!.validate();
 
     if (isValid) {
+      // if AddEditNotePage() was instantiated with SafeNotes object
       final isUpdating = widget.note != null;
 
       if (isUpdating) {
-        await updateNote();
+        if (widget.note!.title != this.title ||
+            widget.note!.description != this.description) await updateNote();
       } else {
         await addNote();
       }
@@ -108,6 +110,7 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
     final note = widget.note!.copy(
       title: title,
       description: description,
+      createdTime: DateTime.now(),
     );
 
     await NotesDatabase.instance.encryptAndUpdate(note);

@@ -55,8 +55,11 @@ class _NotesPageState extends State<NotesPage> {
   Future<void> _refreshNotes() async {
     setState(() => isLoading = true);
     // storing copy of notes in allnotes so that it does not change while doing search
+    // show recently created notes first
     this.allnotes =
-        this.notes = await NotesDatabase.instance.decryptReadAllNotes();
+        this.notes = await NotesDatabase.instance.decryptReadAllNotes()
+          ..sort((a, b) => b.createdTime.compareTo(a.createdTime));
+
     setState(() => isLoading = false);
   }
 
