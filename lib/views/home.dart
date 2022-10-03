@@ -67,7 +67,7 @@ class _NotesPageState extends State<NotesPage> {
   Widget build(BuildContext context) {
     final bool isUnDecryptedPeekOn =
         UnDecryptedLoginControl.getNoDecryptionFlag();
-    final String officialAppName = AppInfo.getAppName();
+    final String officialAppName = SafeNotesConfig.getAppName();
     final double appNameFontSize = 24.0;
 
     return GestureDetector(
@@ -130,6 +130,16 @@ class _NotesPageState extends State<NotesPage> {
     final double itemSpacing = 10.0;
     final double dividerSpacing = 5.0;
     final double drawerRadius = 20.0;
+    final String importDataText = 'Import Data';
+    final String exportDataText = 'Export Data';
+    final String snackMsgFileNotSaved = 'File not saved!';
+    final String changePassText = 'Change Passphrase';
+    final String undecryptControlText = 'UnDecrypted Control';
+    final String darkModeText = 'Dark Mode';
+    final String helpText = 'Help and Feedback';
+    final String sourceCodeText = 'Source Code';
+    final String reportBugText = 'Report Bug';
+    final String logoutText = 'LogOut';
 
     return ClipRRect(
       borderRadius: BorderRadius.only(
@@ -146,7 +156,7 @@ class _NotesPageState extends State<NotesPage> {
               _divide(topPadding: 15),
               _buildMenuItem(
                 topPadding: 15,
-                text: 'Import Data',
+                text: importDataText,
                 icon: Icons.file_download_outlined,
                 onClicked: () async {
                   Navigator.of(context).pop();
@@ -155,7 +165,7 @@ class _NotesPageState extends State<NotesPage> {
               ),
               _buildMenuItem(
                 topPadding: itemSpacing,
-                text: 'Export Data',
+                text: exportDataText,
                 icon: Icons.file_upload_outlined,
                 onClicked: () async {
                   Navigator.of(context).pop();
@@ -163,7 +173,7 @@ class _NotesPageState extends State<NotesPage> {
                   try {
                     wasExportMethordChoosen = await showExportDialog(context);
                   } catch (e) {
-                    showSnackBarMessage(context, "File not saved!");
+                    showSnackBarMessage(context, snackMsgFileNotSaved);
                     return;
                   }
                   if (!wasExportMethordChoosen) return;
@@ -175,7 +185,7 @@ class _NotesPageState extends State<NotesPage> {
               ),
               _buildMenuItem(
                 topPadding: itemSpacing,
-                text: 'Change Passphrase',
+                text: changePassText,
                 icon: Icons.lock_sharp,
                 onClicked: () async {
                   Navigator.of(context).pop();
@@ -184,7 +194,7 @@ class _NotesPageState extends State<NotesPage> {
               ),
               _buildMenuItem(
                 topPadding: itemSpacing,
-                text: 'UnDecrypted Control',
+                text: undecryptControlText,
                 icon: Icons.settings_sharp,
                 onClicked: () async {
                   Navigator.of(context).pop();
@@ -193,18 +203,18 @@ class _NotesPageState extends State<NotesPage> {
               ),
               _buildMenuItem(
                 topPadding: itemSpacing,
-                text: 'Dark Mode',
+                text: darkModeText,
                 icon: Icons.format_paint,
                 toggle: TheamToggle(),
               ),
               _divide(topPadding: dividerSpacing),
               _buildMenuItem(
                 topPadding: dividerSpacing,
-                text: 'Help and Feedback',
+                text: helpText,
                 icon: Icons.feedback,
                 onClicked: () async {
                   Navigator.of(context).pop();
-                  var mailUrl = AppInfo.getMailToForFeedback();
+                  var mailUrl = SafeNotesConfig.getMailToForFeedback();
                   try {
                     await _launchUrl(Uri.parse(mailUrl));
                   } catch (e) {}
@@ -212,10 +222,10 @@ class _NotesPageState extends State<NotesPage> {
               ),
               _buildMenuItem(
                 topPadding: itemSpacing,
-                text: 'Source Code',
+                text: sourceCodeText,
                 icon: Icons.folder,
                 onClicked: () async {
-                  var sourceCodeUrl = AppInfo.getSourceCodeUrl();
+                  var sourceCodeUrl = SafeNotesConfig.getSourceCodeUrl();
                   try {
                     await _launchUrl(Uri.parse(sourceCodeUrl));
                   } catch (e) {}
@@ -223,11 +233,11 @@ class _NotesPageState extends State<NotesPage> {
               ),
               _buildMenuItem(
                 topPadding: itemSpacing,
-                text: 'Report Bug',
+                text: reportBugText,
                 icon: Icons.bug_report,
                 onClicked: () async {
                   Navigator.of(context).pop();
-                  var mailUrl = AppInfo.getBugReportUrl();
+                  var mailUrl = SafeNotesConfig.getBugReportUrl();
                   try {
                     await _launchUrl(Uri.parse(mailUrl));
                   } catch (e) {}
@@ -236,14 +246,14 @@ class _NotesPageState extends State<NotesPage> {
               _divide(topPadding: dividerSpacing),
               _buildMenuItem(
                 topPadding: dividerSpacing,
-                text: 'LogOut',
+                text: logoutText,
                 icon: Icons.logout_sharp,
                 onClicked: () async {
                   Navigator.of(context).pop();
                   setState(() {
                     isLogout = true;
                   });
-                  //TODO scramble passphrase
+                  //TODO obliterate passphrase
                   await Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => SafeNotesApp()));
                 },
@@ -323,9 +333,9 @@ class _NotesPageState extends State<NotesPage> {
   }
 
   Widget _drawerHeader({required double topPadding}) {
-    final logoPath = AppInfo.getAppLogoPath();
-    final officialAppName = AppInfo.getAppName();
-    final appSlogan = AppInfo.getAppSlogan();
+    final logoPath = SafeNotesConfig.getAppLogoPath();
+    final officialAppName = SafeNotesConfig.getAppName();
+    final appSlogan = SafeNotesConfig.getAppSlogan();
     final double logoHightWidth = 75.0;
     final double appNameFontSize = 22;
     final double appSloganFontSize = 15;
