@@ -1,4 +1,5 @@
 // Dart imports:
+import 'dart:async';
 import 'dart:convert';
 
 // Flutter imports:
@@ -6,14 +7,18 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:crypto/crypto.dart';
+import 'package:local_session_timeout/local_session_timeout.dart';
 
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/utils/passphrase_strength.dart';
-import 'package:safenotes/views/home.dart';
 import 'package:safenotes/widgets/login_button.dart';
 
 class SetEncryptionPhrasePage extends StatefulWidget {
+  final StreamController<SessionState> sessionStream;
+  SetEncryptionPhrasePage({Key? key, required this.sessionStream})
+      : super(key: key);
+
   @override
   _SetEncryptionPhrasePageState createState() =>
       _SetEncryptionPhrasePageState();
@@ -40,7 +45,7 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: Text(AppInfo.getFirstLoginPageName()),
+          title: Text(SafeNotesConfig.getFirstLoginPageName()),
           centerTitle: true,
         ),
         body: Column(
@@ -64,7 +69,7 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
         child: Container(
             width: logoWidth,
             height: logoHeight,
-            child: Image.asset(AppInfo.getAppLogoPath())),
+            child: Image.asset(SafeNotesConfig.getAppLogoPath())),
       ),
     );
   }
@@ -206,8 +211,8 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
         PhraseHandler.initPass(enteredPassphrase);
         UnDecryptedLoginControl.setNoDecryptionFlag(false);
 
-        await Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => NotesPage()));
+        await Navigator.pushReplacementNamed(context, '/home',
+            arguments: widget.sessionStream);
       } else {
         _snackBarMessage(context, 'Encryption Phrase missmach!');
       }

@@ -8,15 +8,11 @@ import 'package:intl/intl.dart';
 import 'package:safenotes/data/database_handler.dart';
 import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/models/safenote.dart';
-import 'package:safenotes/views/add_edit_note.dart';
 
 class NoteDetailPage extends StatefulWidget {
   final int noteId;
 
-  const NoteDetailPage({
-    Key? key,
-    required this.noteId,
-  }) : super(key: key);
+  const NoteDetailPage({Key? key, required this.noteId}) : super(key: key);
 
   @override
   _NoteDetailPageState createState() => _NoteDetailPageState();
@@ -82,11 +78,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
       icon: Icon(Icons.edit_outlined),
       onPressed: () async {
         if (isLoading) return;
-
-        await Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => AddEditNotePage(note: note),
-        ));
-
+        await Navigator.pushNamed(context, '/editnote', arguments: this.note);
         refreshNote();
       });
 

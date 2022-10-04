@@ -1,9 +1,13 @@
+// Dart imports:
+import 'dart:async';
+
 // Flutter imports:
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:local_session_timeout/local_session_timeout.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // Project imports:
@@ -13,22 +17,23 @@ import 'package:safenotes/dialogs/change_passphrase.dart';
 import 'package:safenotes/dialogs/export_methord.dart';
 import 'package:safenotes/dialogs/file_import.dart';
 import 'package:safenotes/dialogs/toggle_undecrypt_flag.dart';
-import 'package:safenotes/main.dart';
 import 'package:safenotes/models/file_handler.dart';
 import 'package:safenotes/models/safenote.dart';
 import 'package:safenotes/utils/snack_message.dart';
-import 'package:safenotes/views/add_edit_note.dart';
-import 'package:safenotes/views/note_view.dart';
 import 'package:safenotes/widgets/note_card.dart';
 import 'package:safenotes/widgets/search_widget.dart';
 import 'package:safenotes/widgets/theme_toggle_widget.dart';
 
-class NotesPage extends StatefulWidget {
+class HomePage extends StatefulWidget {
+  final StreamController<SessionState> sessionStateStream;
+  const HomePage({Key? key, required this.sessionStateStream})
+      : super(key: key);
+
   @override
-  _NotesPageState createState() => _NotesPageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _NotesPageState extends State<NotesPage> {
+class _HomePageState extends State<HomePage> {
   late List<SafeNote> notes;
   late List<SafeNote> allnotes;
   bool isLoading = false;
@@ -67,7 +72,7 @@ class _NotesPageState extends State<NotesPage> {
   Widget build(BuildContext context) {
     final bool isUnDecryptedPeekOn =
         UnDecryptedLoginControl.getNoDecryptionFlag();
-    final String officialAppName = AppInfo.getAppName();
+    final String officialAppName = SafeNotesConfig.getAppName();
     final double appNameFontSize = 24.0;
 
     return GestureDetector(
@@ -107,9 +112,7 @@ class _NotesPageState extends State<NotesPage> {
     return FloatingActionButton(
       child: Icon(Icons.add),
       onPressed: () async {
-        await Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => AddEditNotePage()),
-        );
+        await Navigator.pushNamed(context, '/addnote');
         _refreshNotes();
       },
     );
@@ -131,6 +134,17 @@ class _NotesPageState extends State<NotesPage> {
     final double dividerSpacing = 5.0;
     final double drawerRadius = 20.0;
 
+    final String importDataText = 'Import Data';
+    final String exportDataText = 'Export Data';
+    final String snackMsgFileNotSaved = 'File not saved!';
+    final String changePassText = 'Change Passphrase';
+    final String undecryptControlText = 'UnDecrypted Control';
+    final String darkModeText = 'Dark Mode';
+    final String helpText = 'Help and Feedback';
+    final String sourceCodeText = 'Source Code';
+    final String reportBugText = 'Report Bug';
+    final String logoutText = 'LogOut';
+
     return ClipRRect(
       borderRadius: BorderRadius.only(
         topRight: Radius.circular(drawerRadius),
@@ -146,7 +160,7 @@ class _NotesPageState extends State<NotesPage> {
               _divide(topPadding: 15),
               _buildMenuItem(
                 topPadding: 15,
-                text: 'Import Data',
+                text: importDataText,
                 icon: Icons.file_download_outlined,
                 onClicked: () async {
                   Navigator.of(context).pop();
@@ -155,7 +169,7 @@ class _NotesPageState extends State<NotesPage> {
               ),
               _buildMenuItem(
                 topPadding: itemSpacing,
-                text: 'Export Data',
+                text: exportDataText,
                 icon: Icons.file_upload_outlined,
                 onClicked: () async {
                   Navigator.of(context).pop();
@@ -163,7 +177,7 @@ class _NotesPageState extends State<NotesPage> {
                   try {
                     wasExportMethordChoosen = await showExportDialog(context);
                   } catch (e) {
-                    showSnackBarMessage(context, "File not saved!");
+                    showSnackBarMessage(context, snackMsgFileNotSaved);
                     return;
                   }
                   if (!wasExportMethordChoosen) return;
@@ -175,7 +189,7 @@ class _NotesPageState extends State<NotesPage> {
               ),
               _buildMenuItem(
                 topPadding: itemSpacing,
-                text: 'Change Passphrase',
+                text: changePassText,
                 icon: Icons.lock_sharp,
                 onClicked: () async {
                   Navigator.of(context).pop();
@@ -184,7 +198,7 @@ class _NotesPageState extends State<NotesPage> {
               ),
               _buildMenuItem(
                 topPadding: itemSpacing,
-                text: 'UnDecrypted Control',
+                text: undecryptControlText,
                 icon: Icons.settings_sharp,
                 onClicked: () async {
                   Navigator.of(context).pop();
@@ -193,18 +207,18 @@ class _NotesPageState extends State<NotesPage> {
               ),
               _buildMenuItem(
                 topPadding: itemSpacing,
-                text: 'Dark Mode',
+                text: darkModeText,
                 icon: Icons.format_paint,
                 toggle: TheamToggle(),
               ),
               _divide(topPadding: dividerSpacing),
               _buildMenuItem(
                 topPadding: dividerSpacing,
-                text: 'Help and Feedback',
+                text: helpText,
                 icon: Icons.feedback,
                 onClicked: () async {
                   Navigator.of(context).pop();
-                  var mailUrl = AppInfo.getMailToForFeedback();
+                  var mailUrl = SafeNotesConfig.getMailToForFeedback();
                   try {
                     await _launchUrl(Uri.parse(mailUrl));
                   } catch (e) {}
@@ -212,10 +226,10 @@ class _NotesPageState extends State<NotesPage> {
               ),
               _buildMenuItem(
                 topPadding: itemSpacing,
-                text: 'Source Code',
+                text: sourceCodeText,
                 icon: Icons.folder,
                 onClicked: () async {
-                  var sourceCodeUrl = AppInfo.getSourceCodeUrl();
+                  var sourceCodeUrl = SafeNotesConfig.getSourceCodeUrl();
                   try {
                     await _launchUrl(Uri.parse(sourceCodeUrl));
                   } catch (e) {}
@@ -223,11 +237,11 @@ class _NotesPageState extends State<NotesPage> {
               ),
               _buildMenuItem(
                 topPadding: itemSpacing,
-                text: 'Report Bug',
+                text: reportBugText,
                 icon: Icons.bug_report,
                 onClicked: () async {
                   Navigator.of(context).pop();
-                  var mailUrl = AppInfo.getBugReportUrl();
+                  var mailUrl = SafeNotesConfig.getBugReportUrl();
                   try {
                     await _launchUrl(Uri.parse(mailUrl));
                   } catch (e) {}
@@ -236,16 +250,18 @@ class _NotesPageState extends State<NotesPage> {
               _divide(topPadding: dividerSpacing),
               _buildMenuItem(
                 topPadding: dividerSpacing,
-                text: 'LogOut',
+                text: logoutText,
                 icon: Icons.logout_sharp,
                 onClicked: () async {
                   Navigator.of(context).pop();
                   setState(() {
                     isLogout = true;
                   });
-                  //TODO scramble passphrase
-                  await Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => SafeNotesApp()));
+                  PhraseHandler.destroy();
+                  widget.sessionStateStream.add(SessionState.stopListening);
+                  await Navigator.pushNamedAndRemoveUntil(
+                      context, '/login', (Route<dynamic> route) => false,
+                      arguments: widget.sessionStateStream);
                 },
               ),
             ],
@@ -323,9 +339,9 @@ class _NotesPageState extends State<NotesPage> {
   }
 
   Widget _drawerHeader({required double topPadding}) {
-    final logoPath = AppInfo.getAppLogoPath();
-    final officialAppName = AppInfo.getAppName();
-    final appSlogan = AppInfo.getAppSlogan();
+    final logoPath = SafeNotesConfig.getAppLogoPath();
+    final officialAppName = SafeNotesConfig.getAppName();
+    final appSlogan = SafeNotesConfig.getAppSlogan();
     final double logoHightWidth = 75.0;
     final double appNameFontSize = 22;
     final double appSloganFontSize = 15;
@@ -411,8 +427,7 @@ class _NotesPageState extends State<NotesPage> {
 
         return GestureDetector(
           onTap: () async {
-            await Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => NoteDetailPage(noteId: note.id!)));
+            await Navigator.pushNamed(context, '/viewnote', arguments: note);
             _refreshNotes();
           },
           child: NoteCardWidget(note: note, index: index),

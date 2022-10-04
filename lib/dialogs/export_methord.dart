@@ -37,7 +37,7 @@ class _ExportMethorDialogState extends State<ExportMethordDialog> {
               ),
               SizedBox(height: 12),
               Text(
-                AppInfo.getExportDialogMsg(),
+                SafeNotesConfig.getExportDialogMsg(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 16,

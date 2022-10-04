@@ -8,22 +8,24 @@ class PreferencesStorage {
   static const _keyAllowUndecryptLoginFlag = 'undecryptLoginFlag';
   static const _keyIsThemeDark = 'isthemedark';
   static const _keyKeyboardIncognito = 'keyboardIcognito';
+  static const _keyInactivityTimeout = 'inactivityTimeout';
+  static const _keyFocusTimeout = 'focusTimeout';
 
   static Future init() async =>
       _preferences = await SharedPreferences.getInstance();
 
-  static Future setPassPhraseHash(String passphrasehash) async =>
+  static Future<void> setPassPhraseHash(String passphrasehash) async =>
       await _preferences?.setString(_keyPassPhraseHash, passphrasehash);
   static String? getPassPhraseHash() =>
       _preferences?.getString(_keyPassPhraseHash);
 
-  static Future setAllowUndecryptLoginFlag(bool flag) async =>
+  static Future<void> setAllowUndecryptLoginFlag(bool flag) async =>
       await _preferences?.setBool(_keyAllowUndecryptLoginFlag, flag);
   static bool getAllowUndecryptLoginFlag() {
     return _preferences?.getBool(_keyAllowUndecryptLoginFlag) ?? true;
   }
 
-  static Future setIsThemeDark(bool flag) async =>
+  static Future<void> setIsThemeDark(bool flag) async =>
       await _preferences?.setBool(_keyIsThemeDark, flag);
 
   static bool getIsThemeDark() {
@@ -36,12 +38,31 @@ class PreferencesStorage {
   static bool getKeyboardIncognito() {
     return _preferences?.getBool(_keyKeyboardIncognito) ?? true;
   }
+
+  static int getInactivityTimeout() {
+    //default: 5 minutes
+    return _preferences?.getInt(_keyInactivityTimeout) ?? 1 * 30;
+  }
+
+  static int getFocusTimeout() {
+    //default: 5 minutes
+    return _preferences?.getInt(_keyFocusTimeout) ?? 1 * 30;
+  }
+
+  static Future<void> setInactivityTimeout(int minutes) async {
+    await _preferences?.setInt(_keyInactivityTimeout, minutes * 60);
+  }
+
+  static Future<void> setFocusTimeout(int minutes) async {
+    await _preferences?.setInt(_keyInactivityTimeout, minutes * 60);
+  }
 }
 
 class PhraseHandler {
-  static String _passphrase = "";
+  static String _passphrase = '';
 
   static initPass(String pass) => _passphrase = pass;
+  static destroy() => _passphrase = '';
 
   static String getPass() => _passphrase;
 }
@@ -78,16 +99,16 @@ class ImportPassPhraseHandler {
       importPassPhraseHash = imPhraseHash;
 }
 
-class AppInfo {
+class SafeNotesConfig {
   static String appName = 'Safe Notes';
   static String appSlogan = 'Heaven for your data!';
   static String firstLoginPageName = 'Set Encryption Phrase';
-  static String loginPageName = 'Vault Login';
+  static String loginPageName = 'Login';
   static String undecryptedLoginButtonText = 'Nah! Show Un-Decrypted';
   static String appLogoPath = 'assets/splash_500.png';
   static String appLogoAsProfilePath =
       'assets/splash.png'; //'assets/hexa_profile.png';
-  static String exportFileNamePrefix = 'vault_export_';
+  static String exportFileNamePrefix = 'safenotes_export_';
   static String exportFileNameExtension = 'json';
   static String importDialogMsg =
       'If the Notes in your import file was encrypted with diffrent passphrase then you\'ll be prompted to enter the passphrase of the device that generated this export.';
