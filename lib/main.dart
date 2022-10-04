@@ -40,6 +40,8 @@ class SafeNotesApp extends StatelessWidget {
     );
 
     sessionConfig.stream.listen(sessionHandler);
+    //  stop listening, as user will already be in auth page
+    sessionStateStream.add(SessionState.stopListening);
 
     return SessionTimeoutManager(
       sessionConfig: sessionConfig,
