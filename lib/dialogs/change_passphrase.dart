@@ -240,16 +240,16 @@ class _ChangePassphraseDialogState extends State<ChangePassphraseDialog> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           ElevatedButton(
-            child: _buttonText(submitButtonText, buttonTextFontSize),
-            onPressed: _finalSublmitChange,
-          ),
-          ElevatedButton(
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(NordColors.aurora.red),
             ),
             child: _buttonText(cancelButtonText, buttonTextFontSize),
             onPressed: () => Navigator.of(context).pop(),
-          )
+          ),
+          ElevatedButton(
+            child: _buttonText(submitButtonText, buttonTextFontSize),
+            onPressed: _finalSublmitChange,
+          ),
         ],
       ),
     );
