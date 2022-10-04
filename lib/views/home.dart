@@ -96,7 +96,6 @@ class _HomePageState extends State<HomePage> {
 
   Widget _handleAndBuildNotes() {
     final String noNotes = 'No Notes';
-    final String loadingNotes = 'Loading...';
     final double fontSize = 24.0;
 
     return Expanded(
@@ -104,7 +103,7 @@ class _HomePageState extends State<HomePage> {
           ? (notes.isEmpty
               ? Text(noNotes, style: TextStyle(fontSize: fontSize))
               : _buildNotes())
-          : Text(loadingNotes, style: TextStyle(fontSize: fontSize)),
+          : Center(child: CircularProgressIndicator()),
     );
   }
 
