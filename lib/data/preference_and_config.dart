@@ -41,12 +41,12 @@ class PreferencesStorage {
 
   static int getInactivityTimeout() {
     //default: 5 minutes
-    return _preferences?.getInt(_keyInactivityTimeout) ?? 1 * 30;
+    return _preferences?.getInt(_keyInactivityTimeout) ?? 5 * 60;
   }
 
   static int getFocusTimeout() {
     //default: 5 minutes
-    return _preferences?.getInt(_keyFocusTimeout) ?? 1 * 30;
+    return _preferences?.getInt(_keyFocusTimeout) ?? 5 * 60;
   }
 
   static Future<void> setInactivityTimeout(int minutes) async {
