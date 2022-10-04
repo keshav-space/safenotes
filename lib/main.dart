@@ -1,15 +1,16 @@
+// Dart imports:
+import 'dart:async';
+
 // Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 // Package imports:
-import 'package:provider/provider.dart';
+import 'package:local_session_timeout/local_session_timeout.dart';
 
 // Project imports:
+import 'package:safenotes/app.dart';
 import 'package:safenotes/data/preference_and_config.dart';
-import 'package:safenotes/models/app_theme.dart';
-import 'package:safenotes/views/login_views/login.dart';
-import 'package:safenotes/views/login_views/set_passphrase.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,25 +23,47 @@ Future main() async {
 }
 
 class SafeNotesApp extends StatelessWidget {
+  SafeNotesApp({Key? key}) : super(key: key);
+
+  final navigatorKey = GlobalKey<NavigatorState>();
+  NavigatorState? get _navigator => navigatorKey.currentState;
+  final sessionStateStream = StreamController<SessionState>();
+  final int foucsTimeout = PreferencesStorage.getFocusTimeout();
+  final int inactiviityTimeout = PreferencesStorage.getInactivityTimeout();
+
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => ThemeProvider(),
-      builder: (context, _) {
-        final themeProvider = Provider.of<ThemeProvider>(context);
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: AppInfo.getAppName(),
-          //Theming out
-          themeMode: themeProvider.themeMode,
-          theme: AppThemes.lightTheme,
-          darkTheme: AppThemes.darkTheme,
-
-          home: PreferencesStorage.getPassPhraseHash() != null
-              ? EncryptionPhraseLoginPage()
-              : SetEncryptionPhrasePage(),
-        );
-      },
+    final sessionConfig = SessionConfig(
+      invalidateSessionForAppLostFocus: Duration(seconds: foucsTimeout),
+      invalidateSessionForUserInactiviity:
+          Duration(seconds: inactiviityTimeout),
     );
+
+    sessionConfig.stream.listen(sessionHandler);
+
+    return SessionTimeoutManager(
+      sessionConfig: sessionConfig,
+      child: App(
+        sessionStateStream: sessionStateStream,
+        navigatorKey: navigatorKey,
+      ),
+    );
+  }
+
+  void sessionHandler(SessionTimeoutState timeoutEvent) {
+    // stop listening, as user will already be in auth page
+    sessionStateStream.add(SessionState.stopListening);
+
+    if (timeoutEvent == SessionTimeoutState.userInactivityTimeout) {
+      PhraseHandler.destroy();
+      _navigator?.pushNamedAndRemoveUntil(
+          '/authwall', (Route<dynamic> route) => false,
+          arguments: sessionStateStream);
+    } else if (timeoutEvent == SessionTimeoutState.appFocusTimeout) {
+      PhraseHandler.destroy();
+      _navigator?.pushNamedAndRemoveUntil(
+          '/authwall', (Route<dynamic> route) => false,
+          arguments: sessionStateStream);
+    }
   }
 }

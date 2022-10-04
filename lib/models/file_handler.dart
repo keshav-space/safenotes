@@ -22,7 +22,7 @@ class FileHandler {
   Future<String?> fileSave(List<SafeNote> allnotes) async {
     String? snackBackMsg;
     Directory? directory;
-    String fileName = AppInfo.getExportFileName();
+    String fileName = SafeNotesConfig.getExportFileName();
     final bool isExportEncrypted =
         ExportEncryptionControl.getIsExportEncrypted();
     final String passHash = PreferencesStorage.getPassPhraseHash().toString();
@@ -43,7 +43,7 @@ class FileHandler {
           var jsonFile = new File(directory.path + "/" + fileName);
           jsonFile.writeAsStringSync(preFixToRecord + record + postFixToRecord);
           snackBackMsg =
-              'File saved in Document folder of ${AppInfo.getAppName()}!';
+              'File saved in Document folder of ${SafeNotesConfig.getAppName()}!';
         } else {
           snackBackMsg = 'Storage access Denied!';
         }
@@ -139,7 +139,7 @@ class FileHandler {
       if (Platform.isAndroid) {
         FilePickerResult? result = await FilePicker.platform.pickFiles(
           type: FileType.custom,
-          allowedExtensions: [AppInfo.getExportFileExtension()],
+          allowedExtensions: [SafeNotesConfig.getExportFileExtension()],
           allowMultiple: false,
         );
         if (result != null) {
@@ -154,7 +154,8 @@ class FileHandler {
         if (result != null) {
           PlatformFile file = result.files.first;
           if (file.size == 0 ||
-              file.extension != AppInfo.getExportFileExtension()) return null;
+              file.extension != SafeNotesConfig.getExportFileExtension())
+            return null;
           var jsonFile = new File(file.path!);
           String content = jsonFile.readAsStringSync();
           return content;

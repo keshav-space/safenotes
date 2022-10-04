@@ -1,4 +1,5 @@
 // Dart imports:
+import 'dart:async';
 import 'dart:convert';
 
 // Flutter imports:
@@ -6,13 +7,17 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:crypto/crypto.dart';
+import 'package:local_session_timeout/local_session_timeout.dart';
 
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
-import 'package:safenotes/views/home.dart';
 import 'package:safenotes/widgets/login_button.dart';
 
 class EncryptionPhraseLoginPage extends StatefulWidget {
+  final StreamController<SessionState> sessionStream;
+  const EncryptionPhraseLoginPage({Key? key, required this.sessionStream})
+      : super(key: key);
+
   @override
   _EncryptionPhraseLoginPageState createState() =>
       _EncryptionPhraseLoginPageState();
@@ -37,7 +42,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
         child: Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
-            title: Text(AppInfo.getLoginPageName()),
+            title: Text(SafeNotesConfig.getLoginPageName()),
             centerTitle: true,
             //actions: [TheamToggle()],
           ),
@@ -60,7 +65,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
         child: Container(
           width: logoWidth,
           height: logoHeight,
-          child: Image.asset(AppInfo.getAppLogoPath()),
+          child: Image.asset(SafeNotesConfig.getAppLogoPath()),
         ),
       ),
     );
@@ -69,6 +74,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
   Widget _buildLoginWorkflow(BuildContext context) {
     final double padding = 16.0;
     const double boxSeparation = 15.0;
+    final String orText = 'OR';
     return Form(
       key: this._formKey,
       child: SingleChildScrollView(
@@ -82,7 +88,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
               UnDecryptedLoginControl.getAllowLogUnDecrypted()
                   ? [
                       const SizedBox(height: boxSeparation),
-                      Text('OR'),
+                      Text(orText),
                       const SizedBox(height: boxSeparation),
                       _buildUnDecrypt(),
                     ]
@@ -118,7 +124,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
 
   InputDecoration _inputFieldDecoration(double inputBoxEdgeRadious) {
     return InputDecoration(
-      hintText: 'Encrypton Phrase',
+      hintText: 'Encryption Phrase',
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(inputBoxEdgeRadious),
       ),
@@ -132,43 +138,51 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
     );
   }
 
-  void _togglePasswordVisibility() =>
-      setState(() => this._isHidden = !this._isHidden);
+  void _togglePasswordVisibility() {
+    setState(() => this._isHidden = !this._isHidden);
+  }
 
-  Widget _buildLoginButton() => ButtonWidget(
-        text: 'LOGIN',
-        onClicked: () async {
-          _loginController();
-        },
-      );
+  Widget _buildLoginButton() {
+    final String loginText = 'LOGIN';
+
+    return ButtonWidget(
+      text: loginText,
+      onClicked: () async {
+        _loginController();
+      },
+    );
+  }
 
   void _loginController() async {
     final form = this._formKey.currentState!;
+    final snackMsgDecryptingNotes = 'Decrypting your notes!';
+    final snackMsgWrongEncryptionPhrase = 'Wrong Encryption Phrase!';
 
     if (form.validate()) {
       final phrase = passPhraseController.text;
       if (sha256.convert(utf8.encode(phrase)).toString() ==
           PreferencesStorage.getPassPhraseHash()) {
-        _snackBarMessage(context, 'Decrypting your notes!');
+        _snackBarMessage(context, snackMsgDecryptingNotes);
 
         PhraseHandler.initPass(phrase);
         UnDecryptedLoginControl.setNoDecryptionFlag(false);
-
-        await Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => NotesPage()));
+        // start listening for session inactivity on successful login
+        widget.sessionStream.add(SessionState.startListening);
+        await Navigator.pushReplacementNamed(context, '/home',
+            arguments: widget.sessionStream);
       } else {
-        _snackBarMessage(context, 'Wrong Encryption Phrase!');
+        _snackBarMessage(context, snackMsgWrongEncryptionPhrase);
       }
     }
   }
 
   Widget _buildUnDecrypt() {
     return ButtonWidget(
-      text: AppInfo.getUndecryptedLoginButtonText(),
+      text: SafeNotesConfig.getUndecryptedLoginButtonText(),
       onClicked: () async {
         UnDecryptedLoginControl.setNoDecryptionFlag(true);
         await Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => NotesPage()));
+            .pushNamed('/home', arguments: widget.sessionStream);
       },
     );
   }
@@ -186,6 +200,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
 
   Widget _buildForgotPassphrase() {
     final String cantRecoverPassphraseMsg = 'Can\'t decrypt without phrase!';
+
     return Container(
       alignment: Alignment.centerRight,
       child: TextButton(

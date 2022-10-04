@@ -1,9 +1,13 @@
+// Dart imports:
+import 'dart:async';
+
 // Flutter imports:
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:local_session_timeout/local_session_timeout.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // Project imports:
@@ -13,22 +17,23 @@ import 'package:safenotes/dialogs/change_passphrase.dart';
 import 'package:safenotes/dialogs/export_methord.dart';
 import 'package:safenotes/dialogs/file_import.dart';
 import 'package:safenotes/dialogs/toggle_undecrypt_flag.dart';
-import 'package:safenotes/main.dart';
 import 'package:safenotes/models/file_handler.dart';
 import 'package:safenotes/models/safenote.dart';
 import 'package:safenotes/utils/snack_message.dart';
-import 'package:safenotes/views/add_edit_note.dart';
-import 'package:safenotes/views/note_view.dart';
 import 'package:safenotes/widgets/note_card.dart';
 import 'package:safenotes/widgets/search_widget.dart';
 import 'package:safenotes/widgets/theme_toggle_widget.dart';
 
-class NotesPage extends StatefulWidget {
+class HomePage extends StatefulWidget {
+  final StreamController<SessionState> sessionStateStream;
+  const HomePage({Key? key, required this.sessionStateStream})
+      : super(key: key);
+
   @override
-  _NotesPageState createState() => _NotesPageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _NotesPageState extends State<NotesPage> {
+class _HomePageState extends State<HomePage> {
   late List<SafeNote> notes;
   late List<SafeNote> allnotes;
   bool isLoading = false;
@@ -107,9 +112,7 @@ class _NotesPageState extends State<NotesPage> {
     return FloatingActionButton(
       child: Icon(Icons.add),
       onPressed: () async {
-        await Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => AddEditNotePage()),
-        );
+        await Navigator.pushNamed(context, '/addnote');
         _refreshNotes();
       },
     );
@@ -130,6 +133,7 @@ class _NotesPageState extends State<NotesPage> {
     final double itemSpacing = 10.0;
     final double dividerSpacing = 5.0;
     final double drawerRadius = 20.0;
+
     final String importDataText = 'Import Data';
     final String exportDataText = 'Export Data';
     final String snackMsgFileNotSaved = 'File not saved!';
@@ -253,9 +257,11 @@ class _NotesPageState extends State<NotesPage> {
                   setState(() {
                     isLogout = true;
                   });
-                  //TODO obliterate passphrase
-                  await Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => SafeNotesApp()));
+                  PhraseHandler.destroy();
+                  widget.sessionStateStream.add(SessionState.stopListening);
+                  await Navigator.pushNamedAndRemoveUntil(
+                      context, '/login', (Route<dynamic> route) => false,
+                      arguments: widget.sessionStateStream);
                 },
               ),
             ],
@@ -421,8 +427,7 @@ class _NotesPageState extends State<NotesPage> {
 
         return GestureDetector(
           onTap: () async {
-            await Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => NoteDetailPage(noteId: note.id!)));
+            await Navigator.pushNamed(context, '/viewnote', arguments: note);
             _refreshNotes();
           },
           child: NoteCardWidget(note: note, index: index),

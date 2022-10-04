@@ -14,10 +14,8 @@ import 'package:safenotes/widgets/note_widget.dart';
 class AddEditNotePage extends StatefulWidget {
   final SafeNote? note;
 
-  const AddEditNotePage({
-    Key? key,
-    this.note,
-  }) : super(key: key);
+  const AddEditNotePage({Key? key, this.note}) : super(key: key);
+
   @override
   _AddEditNotePageState createState() => _AddEditNotePageState();
 }
