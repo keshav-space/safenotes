@@ -2,7 +2,7 @@
 <h2 align="center"><b>Safe Notes</b></h2>
 <h4 align="center">Encrypted, Private note manager.</h4>
 
-<p align="center"><a href="https://play.google.com/store/apps/details?id=com.trisven.safenotes"><img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/assets/get-it-on-google-play-badge.png" height='65px' ></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="f-droid url"><img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/assets/get-it-on-f-droid-badge.png" height='65px'></a></p>
+<p align="center"><a href="https://play.google.com/store/apps/details?id=com.trisven.safenotes"><img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/assets/get-it-on-google-play-badge.png" height='65px' ></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://f-droid.org/en/packages/com.trisven.safenotes/"><img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/assets/get-it-on-f-droid-badge.png" height='65px'></a></p>
 
 <p align="center">
 <a href="https://github.com/keshav-space/safenotes/releases" alt="GitHub release"><img src="https://img.shields.io/github/v/release/keshav-space/safenotes" ></a>
@@ -61,7 +61,7 @@ We know you gotta change your device once in a while that's why Safe-Notes also 
 ## Installation and updates
 You can install Safe Notes using one of the following methods:
  1. Download Safe Notes from the Google Play store using this [link.](https://play.google.com/store/apps/details?id=com.trisven.safenotes)
- 2. Download Safe Notes from the F-Droid using this link.
+ 2. Download Safe Notes from the F-Droid using this [link.](https://f-droid.org/en/packages/com.trisven.safenotes/)
  3. Download the APK from [Github Releases](https://github.com/keshav-space/safenotes/releases) and install it.
  4. Build a debug APK yourself. This is the fastest way to get new features on your device, but is much more complicated, so we recommend using one of the other methods.
 
