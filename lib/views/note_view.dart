@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 // Project imports:
 import 'package:safenotes/data/database_handler.dart';
 import 'package:safenotes/data/preference_and_config.dart';
+import 'package:safenotes/dialogs/delete_confirmation.dart';
 import 'package:safenotes/models/safenote.dart';
 
 class NoteDetailPage extends StatefulWidget {
@@ -31,63 +32,88 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
 
   Future refreshNote() async {
     setState(() => isLoading = true);
-
     this.note = await NotesDatabase.instance.decryptReadNote(widget.noteId);
-
     setState(() => isLoading = false);
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          actions: UnDecryptedLoginControl.getNoDecryptionFlag()
-              ? null
-              : [editButton(), deleteButton()],
-        ),
-        body: isLoading
-            ? Center(child: CircularProgressIndicator())
-            : Padding(
-                padding: EdgeInsets.all(12),
-                child: ListView(
-                  padding: EdgeInsets.symmetric(vertical: 8),
-                  children: [
-                    SelectableText(
-                      note.title,
-                      style: TextStyle(
-                        //color: Colors.white,
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      DateFormat.yMMMd().format(note.createdTime),
-                      //style: TextStyle(color: Colors.white38),
-                    ),
-                    SizedBox(height: 8),
-                    SelectableText(
-                      note.description,
-                      style: TextStyle(/*color: Colors.white70,*/ fontSize: 18),
-                    )
-                  ],
-                ),
-              ),
-      );
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: _appBar(context),
+      body: _body(context),
+    );
+  }
 
-  Widget editButton() => IconButton(
+  PreferredSizeWidget _appBar(BuildContext context) {
+    return AppBar(
+      title: isLoading ? Text('Loading...') : null,
+      actions: UnDecryptedLoginControl.getNoDecryptionFlag() || isLoading
+          ? null
+          : [editButton(), deleteButton()],
+    );
+  }
+
+  Widget _body(BuildContext context) {
+    return isLoading
+        ? Center(child: CircularProgressIndicator())
+        : Padding(
+            padding: EdgeInsets.all(12),
+            child: ListView(
+              padding: EdgeInsets.symmetric(vertical: 8),
+              children: [
+                SelectableText(
+                  note.title,
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 10, bottom: 10),
+                  child: Text(DateFormat.yMMMd().format(note.createdTime)),
+                ),
+                SelectableText(
+                  note.description,
+                  style: TextStyle(fontSize: 18),
+                )
+              ],
+            ),
+          );
+  }
+
+  Widget editButton() {
+    return IconButton(
       icon: Icon(Icons.edit_outlined),
       onPressed: () async {
         if (isLoading) return;
         await Navigator.pushNamed(context, '/editnote', arguments: this.note);
         refreshNote();
-      });
+      },
+    );
+  }
 
-  Widget deleteButton() => IconButton(
-        icon: Icon(Icons.delete),
-        onPressed: () async {
-          await NotesDatabase.instance.delete(widget.noteId);
+  Widget deleteButton() {
+    return IconButton(
+      icon: Icon(Icons.delete),
+      onPressed: () async {
+        await confirmAndDeleteDialog(context);
+      },
+    );
+  }
 
-          Navigator.of(context).pop();
-        },
-      );
+  confirmAndDeleteDialog(BuildContext context) async {
+    return showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext contextChild) {
+        return DeleteConfirmationDialog(
+          callback: () async {
+            await NotesDatabase.instance.delete(widget.noteId);
+            Navigator.of(contextChild).pop();
+            Navigator.of(context).pop();
+          },
+        );
+      },
+    );
+  }
 }
