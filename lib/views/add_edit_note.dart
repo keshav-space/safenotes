@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
 import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 
 // Project imports:
@@ -29,40 +28,39 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
   @override
   void initState() {
     super.initState();
-    title = widget.note?.title ?? '';
-    description = widget.note?.description ?? '';
+    this.title = widget.note?.title ?? '';
+    this.description = widget.note?.description ?? '';
+    this.title = this.title == ' ' ? '' : this.title;
+    this.description = this.description == ' ' ? '' : this.description;
   }
 
   @override
   Widget build(BuildContext context) {
-    return KeyboardSizeProvider(
-        child: GestureDetector(
-            onTap: () {
-              FocusScope.of(context).unfocus();
-            },
-            child: Scaffold(
-              resizeToAvoidBottomInset: false,
-              appBar: AppBar(
-                actions: [buildButton()],
-              ),
-              body: Consumer<ScreenHeight>(builder: (context, _res, child) {
-                return Form(
-                  key: _formKey,
-                  child: NoteFormWidget(
-                    title: title,
-                    description: description,
-                    onChangedTitle: (title) =>
-                        setState(() => this.title = title),
-                    onChangedDescription: (description) =>
-                        setState(() => this.description = description),
-                  ),
-                );
-              }),
-            )));
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          actions: [buildButton()],
+        ),
+        body: Form(
+          key: _formKey,
+          child: NoteFormWidget(
+            title: title,
+            description: description,
+            onChangedTitle: (title) => setState(() => this.title = title),
+            onChangedDescription: (description) =>
+                setState(() => this.description = description),
+          ),
+        ),
+      ),
+    );
   }
 
   Widget buildButton() {
-    final isFormValid = title.isNotEmpty && description.isNotEmpty;
+    final isFormValid = title.isNotEmpty || description.isNotEmpty;
     final double buttonFontSize = 17.0;
     final String buttonText = 'Save';
 
@@ -87,21 +85,22 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
   }
 
   void addOrUpdateNote() async {
-    final isValid = _formKey.currentState!.validate();
+    // if atleast one of the field is non empty save note
+    if (this.title.isNotEmpty || this.description.isNotEmpty) {
+      // fill empty title or description with
+      this.title = this.title.isEmpty ? ' ' : this.title;
+      this.description = this.description.isEmpty ? ' ' : this.description;
 
-    if (isValid) {
-      // if AddEditNotePage() was instantiated with SafeNotes object
       final isUpdating = widget.note != null;
-
       if (isUpdating) {
         if (widget.note!.title != this.title ||
             widget.note!.description != this.description) await updateNote();
       } else {
         await addNote();
       }
-
-      Navigator.of(context).pop();
     }
+
+    Navigator.of(context).pop();
   }
 
   Future updateNote() async {

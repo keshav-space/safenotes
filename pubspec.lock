@@ -125,13 +125,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_keyboard_size:
-    dependency: "direct main"
-    description:
-      name: flutter_keyboard_size
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0+4"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:

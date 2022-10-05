@@ -66,15 +66,15 @@ class NoteFormWidget extends StatelessWidget {
         border: InputBorder.none,
         hintText: titleHint,
       ),
-      validator: _titleValidator,
+      // validator: _titleValidator,
       onChanged: onChangedTitle,
     );
   }
 
-  String? _titleValidator(String? title) {
-    final titleCantBeEmptyMsg = 'The title cannot be empty';
-    return title == null || title.isEmpty ? titleCantBeEmptyMsg : null;
-  }
+  // String? _titleValidator(String? title) {
+  //   final titleCantBeEmptyMsg = 'The title cannot be empty';
+  //   return title == null || title.isEmpty ? titleCantBeEmptyMsg : null;
+  // }
 
   Widget buildDescription(BuildContext context) {
     // maxLine is used in resizing description field on keyboard activation or dismissal
@@ -101,17 +101,17 @@ class NoteFormWidget extends StatelessWidget {
         hintText: hintDescription,
         //hintStyle: TextStyle(color: Colors.white60),
       ),
-      validator: _descriptionValidator,
+      //validator: _descriptionValidator,
       onChanged: onChangedDescription,
     );
   }
 
-  String? _descriptionValidator(String? description) {
-    final String descriptionCantBeEmptyMsg = 'The description cannot be empty';
-    return description == null || description.isEmpty
-        ? descriptionCantBeEmptyMsg
-        : null;
-  }
+  // String? _descriptionValidator(String? description) {
+  //   final String descriptionCantBeEmptyMsg = 'The description cannot be empty';
+  //   return description == null || description.isEmpty
+  //       ? descriptionCantBeEmptyMsg
+  //       : null;
+  // }
 
   int computeMaxLine(
       {required BuildContext context, required double fontHeight}) {
@@ -126,19 +126,19 @@ class NoteFormWidget extends StatelessWidget {
     /*
     When Keyboard is on screen:-
     Theoretical Ratios for top:description:keyboard 
-    theoreticalTitleNTopHeightRatio = x; 
-    theoreticalDescriptinHeightRatio = x*1.2; 
+    theoreticalTitleNTopHeightRatio = x*(3.2-1.6); 
+    theoreticalDescriptinHeightRatio = x*1.6; 
     theoreticalKeyboardHeightRatio = x;
     x + x*1.2 + x = totalHeightRatio (i.e total height of screen)
     
     From above:
     if keyboard is on-screen:
-      theoreticalDescriptinHeightRatio = x*1.2
+      theoreticalDescriptinHeightRatio = x*1.6
     if keyboard not on screen:
-      theoreticalDescriptinHeightRatio = x*2.2 (keyboard space is taken by description)
+      theoreticalDescriptinHeightRatio = x*2.6 (keyboard space is taken by description)
     */
-    double descriptionRatio = theXfactor * 2.2;
-    if (keyboard > 1) descriptionRatio = theXfactor * 1.2;
+    double descriptionRatio = theXfactor * 2.6;
+    if (keyboard > 1) descriptionRatio = theXfactor * 1.6;
     return (descriptionRatio / fontHeightRatio).round();
   }
 }
