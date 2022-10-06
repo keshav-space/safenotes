@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
 
 // Project imports:
-import 'package:safenotes/views/login_views/login.dart';
-import 'package:safenotes/views/login_views/set_passphrase.dart';
+import 'package:safenotes/views/auth_views/login.dart';
+import 'package:safenotes/views/auth_views/set_passphrase.dart';
 import 'data/preference_and_config.dart';
 
 class AuthWall extends StatelessWidget {

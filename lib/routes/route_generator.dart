@@ -13,8 +13,8 @@ import 'package:safenotes/main.dart';
 import 'package:safenotes/models/safenote.dart';
 import 'package:safenotes/views/add_edit_note.dart';
 import 'package:safenotes/views/home.dart';
-import 'package:safenotes/views/login_views/login.dart';
-import 'package:safenotes/views/login_views/set_passphrase.dart';
+import 'package:safenotes/views/auth_views/login.dart';
+import 'package:safenotes/views/auth_views/set_passphrase.dart';
 import 'package:safenotes/views/note_view.dart';
 
 class RouteGenerator {
