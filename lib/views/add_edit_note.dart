@@ -7,6 +7,7 @@ import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 // Project imports:
 import 'package:safenotes/data/database_handler.dart';
 import 'package:safenotes/data/preference_and_config.dart';
+import 'package:safenotes/dialogs/unsaved_alert.dart';
 import 'package:safenotes/models/safenote.dart';
 import 'package:safenotes/widgets/note_widget.dart';
 
@@ -36,27 +37,52 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-      },
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          actions: [buildButton()],
-        ),
-        body: Form(
-          key: _formKey,
-          child: NoteFormWidget(
-            title: title,
-            description: description,
-            onChangedTitle: (title) => setState(() => this.title = title),
-            onChangedDescription: (description) =>
-                setState(() => this.description = description),
+    return WillPopScope(
+      onWillPop: _onBackPressed,
+      child: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            actions: [buildButton()],
+          ),
+          body: Form(
+            key: _formKey,
+            child: NoteFormWidget(
+              title: title,
+              description: description,
+              onChangedTitle: (title) => setState(() => this.title = title),
+              onChangedDescription: (description) =>
+                  setState(() => this.description = description),
+            ),
           ),
         ),
       ),
     );
+  }
+
+  Future<bool> _onBackPressed() async {
+    if (widget.note == null) {
+      if (this.title.isNotEmpty || this.description.isNotEmpty)
+        return _warnDiscardChangeDialog();
+    } else {
+      if (widget.note?.title != this.title && this.title != '' ||
+          widget.note?.description != this.description &&
+              this.description != '') return _warnDiscardChangeDialog();
+    }
+    return true;
+  }
+
+  Future<bool> _warnDiscardChangeDialog() async {
+    return await showDialog(
+          context: context,
+          builder: (context) {
+            return UnsavedAlert();
+          },
+        ) ??
+        false; // return false if tapped anywhere else on screen.
   }
 
   Widget buildButton() {
@@ -99,7 +125,6 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
         await addNote();
       }
     }
-
     Navigator.of(context).pop();
   }
 
@@ -109,7 +134,6 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
       description: description,
       createdTime: DateTime.now(),
     );
-
     await NotesDatabase.instance.encryptAndUpdate(note);
   }
 
@@ -119,7 +143,6 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
       description: description,
       createdTime: DateTime.now(),
     );
-
     await NotesDatabase.instance.encryptAndStore(note);
   }
 }
