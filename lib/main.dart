@@ -11,6 +11,7 @@ import 'package:local_session_timeout/local_session_timeout.dart';
 // Project imports:
 import 'package:safenotes/app.dart';
 import 'package:safenotes/data/preference_and_config.dart';
+import 'package:safenotes/dialogs/inactivity_msg.dart';
 import 'package:safenotes/models/editor_state.dart';
 
 Future main() async {
@@ -68,6 +69,8 @@ class SafeNotesApp extends StatelessWidget {
     _navigator?.pushNamedAndRemoveUntil(
         '/authwall', (Route<dynamic> route) => false,
         arguments: sessionStateStream);
+    showInactivityDialog(navigatorKey.currentContext!);
+
     // save unsaved note if any
     await NoteEditorState().handleUngracefulNoteExit();
     PhraseHandler.destroy();
