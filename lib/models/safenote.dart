@@ -39,23 +39,16 @@ class SafeNote {
         createdTime: createdTime ?? this.createdTime,
       );
 
-  static SafeNote fromJsonAndDecrypt(Map<String, dynamic> json) => SafeNote(
-        id: json[NoteFields.id] as int?,
-
-        title: UnDecryptedLoginControl.getNoDecryptionFlag()
-            ? json[NoteFields.title] as String
-            : decryptAES(json[NoteFields.title] as String,
-                PhraseHandler.getPass()), //json[NoteFields.title] as String,
-
-        description: UnDecryptedLoginControl.getNoDecryptionFlag()
-            ? json[NoteFields.description] as String
-            : decryptAES(
-                json[NoteFields.description] as String,
-                PhraseHandler
-                    .getPass()), //json[NoteFields.description] as String,
-
-        createdTime: DateTime.parse(json[NoteFields.time] as String),
-      );
+  static SafeNote fromJsonAndDecrypt(Map<String, dynamic> json) {
+    return SafeNote(
+      id: json[NoteFields.id] as int?,
+      title:
+          decryptAES(json[NoteFields.title] as String, PhraseHandler.getPass()),
+      description: decryptAES(
+          json[NoteFields.description] as String, PhraseHandler.getPass()),
+      createdTime: DateTime.parse(json[NoteFields.time] as String),
+    );
+  }
 
   Map<String, dynamic> toJsonAndEncrypted() {
     String passphrase = PhraseHandler.getPass();

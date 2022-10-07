@@ -214,7 +214,6 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
         PreferencesStorage.setPassPhraseHash(
             sha256.convert(utf8.encode(enteredPassphrase)).toString());
         PhraseHandler.initPass(enteredPassphrase);
-        UnDecryptedLoginControl.setNoDecryptionFlag(false);
 
         await Navigator.pushReplacementNamed(context, '/home',
             arguments: widget.sessionStream);

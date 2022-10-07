@@ -16,7 +16,6 @@ import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/dialogs/change_passphrase.dart';
 import 'package:safenotes/dialogs/export_methord.dart';
 import 'package:safenotes/dialogs/file_import.dart';
-import 'package:safenotes/dialogs/toggle_undecrypt_flag.dart';
 import 'package:safenotes/models/file_handler.dart';
 import 'package:safenotes/models/safenote.dart';
 import 'package:safenotes/utils/snack_message.dart';
@@ -50,10 +49,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void dispose() {
-    // Bcz if user has log in for undecrypted data then they can move back and log in again so not closing data base
-    if (!UnDecryptedLoginControl.getAllowLogUnDecrypted() && !isLogout)
-      NotesDatabase.instance.close();
-
+    if (!isLogout) NotesDatabase.instance.close();
     super.dispose();
   }
 
@@ -70,15 +66,13 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final bool isUnDecryptedPeekOn =
-        UnDecryptedLoginControl.getNoDecryptionFlag();
     final String officialAppName = SafeNotesConfig.getAppName();
     final double appNameFontSize = 24.0;
 
     return GestureDetector(
       //onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        drawer: isUnDecryptedPeekOn ? null : _buildDrawer(context),
+        drawer: _buildDrawer(context),
         appBar: AppBar(
             title: Text(officialAppName,
                 style: TextStyle(fontSize: appNameFontSize))),
@@ -88,8 +82,7 @@ class _HomePageState extends State<HomePage> {
             _handleAndBuildNotes(),
           ],
         ),
-        floatingActionButton:
-            isUnDecryptedPeekOn ? null : _addANewNoteButton(context),
+        floatingActionButton: _addANewNoteButton(context),
       ),
     );
   }
@@ -137,7 +130,6 @@ class _HomePageState extends State<HomePage> {
     final String exportDataText = 'Export Data';
     final String snackMsgFileNotSaved = 'File not saved!';
     final String changePassText = 'Change Passphrase';
-    final String undecryptControlText = 'UnDecrypted Control';
     final String darkModeText = 'Dark Mode';
     final String helpText = 'Help and Feedback';
     final String sourceCodeText = 'Source Code';
@@ -193,15 +185,6 @@ class _HomePageState extends State<HomePage> {
                 onClicked: () async {
                   Navigator.of(context).pop();
                   await changePassphraseDialog(context);
-                },
-              ),
-              _buildMenuItem(
-                topPadding: itemSpacing,
-                text: undecryptControlText,
-                icon: Icons.settings_sharp,
-                onClicked: () async {
-                  Navigator.of(context).pop();
-                  await toggleUndecryptionDialog(context);
                 },
               ),
               _buildMenuItem(
@@ -276,16 +259,6 @@ class _HomePageState extends State<HomePage> {
       barrierDismissible: true,
       builder: (_) {
         return ChangePassphraseDialog(allnotes: allnotes);
-      },
-    );
-  }
-
-  Future<void> toggleUndecryptionDialog(BuildContext context) {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: true,
-      builder: (_) {
-        return ToggleUndecryptionFlag();
       },
     );
   }

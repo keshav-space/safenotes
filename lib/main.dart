@@ -66,13 +66,17 @@ class SafeNotesApp extends StatelessWidget {
   }
 
   Future<void> onTimeOutDo() async {
-    _navigator?.pushNamedAndRemoveUntil(
-        '/authwall', (Route<dynamic> route) => false,
-        arguments: sessionStateStream);
-    showInactivityDialog(navigatorKey.currentContext!);
+    // execute only if user is already logged
+    // no need to logout and redirect to authwall if user is not loggedIN
+    if (PhraseHandler.getPass().isNotEmpty) {
+      _navigator?.pushNamedAndRemoveUntil(
+          '/authwall', (Route<dynamic> route) => false,
+          arguments: sessionStateStream);
+      showInactivityDialog(navigatorKey.currentContext!);
 
-    // save unsaved note if any
-    await NoteEditorState().handleUngracefulNoteExit();
-    PhraseHandler.destroy();
+      // save unsaved note if any
+      await NoteEditorState().handleUngracefulNoteExit();
+      PhraseHandler.destroy();
+    }
   }
 }

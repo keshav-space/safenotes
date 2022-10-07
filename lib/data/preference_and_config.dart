@@ -5,7 +5,6 @@ class PreferencesStorage {
   static SharedPreferences? _preferences;
 
   static const _keyPassPhraseHash = 'passphrasehash';
-  static const _keyAllowUndecryptLoginFlag = 'undecryptLoginFlag';
   static const _keyIsThemeDark = 'isthemedark';
   static const _keyKeyboardIncognito = 'keyboardIcognito';
   static const _keyInactivityTimeout = 'inactivityTimeout';
@@ -18,12 +17,6 @@ class PreferencesStorage {
       await _preferences?.setString(_keyPassPhraseHash, passphrasehash);
   static String? getPassPhraseHash() =>
       _preferences?.getString(_keyPassPhraseHash);
-
-  static Future<void> setAllowUndecryptLoginFlag(bool flag) async =>
-      await _preferences?.setBool(_keyAllowUndecryptLoginFlag, flag);
-  static bool getAllowUndecryptLoginFlag() {
-    return _preferences?.getBool(_keyAllowUndecryptLoginFlag) ?? true;
-  }
 
   static Future<void> setIsThemeDark(bool flag) async =>
       await _preferences?.setBool(_keyIsThemeDark, flag);
@@ -67,15 +60,6 @@ class PhraseHandler {
   static String getPass() => _passphrase;
 }
 
-class UnDecryptedLoginControl {
-  static getAllowLogUnDecrypted() =>
-      PreferencesStorage.getAllowUndecryptLoginFlag();
-
-  static bool noDecryptionFlag = false;
-  static setNoDecryptionFlag(bool flag) => noDecryptionFlag = flag;
-  static getNoDecryptionFlag() => noDecryptionFlag;
-}
-
 class ExportEncryptionControl {
   static bool isExportEncrypted = true;
   static getIsExportEncrypted() => isExportEncrypted;
@@ -104,7 +88,6 @@ class SafeNotesConfig {
   static String appSlogan = 'Heaven for your data!';
   static String firstLoginPageName = 'Set Encryption Phrase';
   static String loginPageName = 'Login';
-  static String undecryptedLoginButtonText = 'Nah! Show Un-Decrypted';
   static String appLogoPath = 'assets/splash_500.png';
   static String appLogoAsProfilePath =
       'assets/splash.png'; //'assets/hexa_profile.png';
@@ -126,7 +109,6 @@ class SafeNotesConfig {
   static String getSourceCodeUrl() => sourceCodeUrl;
   static String getAppName() => appName;
   static String getAppSlogan() => appSlogan;
-  static String getUndecryptedLoginButtonText() => undecryptedLoginButtonText;
   static String getLoginPageName() => loginPageName;
   static String getAppLogoPath() => appLogoPath;
   static String getFirstLoginPageName() => firstLoginPageName;
