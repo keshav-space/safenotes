@@ -40,8 +40,8 @@ class PreferencesStorage {
   }
 
   static int getInactivityTimeout() {
-    //default: 5 minutes
-    return _preferences?.getInt(_keyInactivityTimeout) ?? 5 * 60;
+    //default: 7 minutes
+    return _preferences?.getInt(_keyInactivityTimeout) ?? 7 * 60;
   }
 
   static int getFocusTimeout() {

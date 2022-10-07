@@ -11,6 +11,7 @@ import 'package:local_session_timeout/local_session_timeout.dart';
 // Project imports:
 import 'package:safenotes/app.dart';
 import 'package:safenotes/data/preference_and_config.dart';
+import 'package:safenotes/models/editor_state.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,20 +53,23 @@ class SafeNotesApp extends StatelessWidget {
     );
   }
 
-  void sessionHandler(SessionTimeoutState timeoutEvent) {
+  Future<void> sessionHandler(SessionTimeoutState timeoutEvent) async {
     // stop listening, as user will already be in auth page
     sessionStateStream.add(SessionState.stopListening);
 
     if (timeoutEvent == SessionTimeoutState.userInactivityTimeout) {
-      PhraseHandler.destroy();
-      _navigator?.pushNamedAndRemoveUntil(
-          '/authwall', (Route<dynamic> route) => false,
-          arguments: sessionStateStream);
+      await onTimeOutDo();
     } else if (timeoutEvent == SessionTimeoutState.appFocusTimeout) {
-      PhraseHandler.destroy();
-      _navigator?.pushNamedAndRemoveUntil(
-          '/authwall', (Route<dynamic> route) => false,
-          arguments: sessionStateStream);
+      await onTimeOutDo();
     }
+  }
+
+  Future<void> onTimeOutDo() async {
+    _navigator?.pushNamedAndRemoveUntil(
+        '/authwall', (Route<dynamic> route) => false,
+        arguments: sessionStateStream);
+    // save unsaved note if any
+    await NoteEditorState().handleUngracefulNoteExit();
+    PhraseHandler.destroy();
   }
 }

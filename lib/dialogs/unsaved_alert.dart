@@ -1,7 +1,14 @@
+// Dart imports:
 import 'dart:ui';
 
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_nord_theme/flutter_nord_theme.dart';
+
+// Project imports:
+import 'package:safenotes/models/editor_state.dart';
 
 class UnsavedAlert extends StatefulWidget {
   @override
@@ -96,13 +103,19 @@ class _UnsavedAlertState extends State<UnsavedAlert> {
               backgroundColor: MaterialStateProperty.all(NordColors.aurora.red),
             ),
             child: _buttonText(yesButtonText, buttonTextFontSize),
-            onPressed: () => Navigator.of(context).pop(true),
+            onPressed: () {
+              // User was warned about unsaved change, and user choose to
+              // discard the changes hence the NoteEditorState().handleUngracefulExit() won't save the notes
+              NoteEditorState.setSaveAttempted(true);
+              Navigator.of(context).pop(true);
+            },
           ),
           Padding(
             padding: EdgeInsets.only(left: buttonSeparation),
             child: ElevatedButton(
               child: _buttonText(noButtonText, buttonTextFontSize),
-              onPressed: () => Navigator.of(context).pop(false),
+              onPressed: () => Navigator.of(context)
+                  .pop(false), // return false to dialog caller
             ),
           )
         ],
