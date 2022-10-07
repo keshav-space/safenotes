@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 
 // Project imports:
-import 'package:safenotes/data/database_handler.dart';
 import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/dialogs/unsaved_alert.dart';
+import 'package:safenotes/models/editor_state.dart';
 import 'package:safenotes/models/safenote.dart';
 import 'package:safenotes/widgets/note_widget.dart';
 
@@ -33,6 +33,7 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
     this.description = widget.note?.description ?? '';
     this.title = this.title == ' ' ? '' : this.title;
     this.description = this.description == ' ' ? '' : this.description;
+    NoteEditorState.setSaveAttempted(false);
   }
 
   @override
@@ -53,9 +54,16 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
             child: NoteFormWidget(
               title: title,
               description: description,
-              onChangedTitle: (title) => setState(() => this.title = title),
-              onChangedDescription: (description) =>
-                  setState(() => this.description = description),
+              onChangedTitle: (title) => setState(() {
+                this.title = title;
+                NoteEditorState.setState(
+                    widget.note, this.title, this.description);
+              }),
+              onChangedDescription: (description) => setState(() {
+                this.description = description;
+                NoteEditorState.setState(
+                    widget.note, this.title, this.description);
+              }),
             ),
           ),
         ),
@@ -64,14 +72,7 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
   }
 
   Future<bool> _onBackPressed() async {
-    if (widget.note == null) {
-      if (this.title.isNotEmpty || this.description.isNotEmpty)
-        return _warnDiscardChangeDialog();
-    } else {
-      if (widget.note?.title != this.title && this.title != '' ||
-          widget.note?.description != this.description &&
-              this.description != '') return _warnDiscardChangeDialog();
-    }
+    if (isNoteNewOrContentChanged()) return await _warnDiscardChangeDialog();
     return true;
   }
 
@@ -100,7 +101,7 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
                   : NordColors.polarNight.darkest)
               : Colors.grey.shade700,
         ),
-        onPressed: addOrUpdateNote,
+        onPressed: onSaveCallback,
         child: Text(
           buttonText,
           style:
@@ -110,39 +111,22 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
     );
   }
 
-  void addOrUpdateNote() async {
-    // if atleast one of the field is non empty save note
-    if (this.title.isNotEmpty || this.description.isNotEmpty) {
-      // fill empty title or description with
-      this.title = this.title.isEmpty ? ' ' : this.title;
-      this.description = this.description.isEmpty ? ' ' : this.description;
-
-      final isUpdating = widget.note != null;
-      if (isUpdating) {
-        if (widget.note!.title != this.title ||
-            widget.note!.description != this.description) await updateNote();
-      } else {
-        await addNote();
-      }
-    }
+  Future<void> onSaveCallback() async {
+    await NoteEditorState()
+        .addOrUpdateNote(); // this will also set NoteEditorState.setSaveAttempted = true
     Navigator.of(context).pop();
   }
 
-  Future updateNote() async {
-    final note = widget.note!.copy(
-      title: title,
-      description: description,
-      createdTime: DateTime.now(),
-    );
-    await NotesDatabase.instance.encryptAndUpdate(note);
-  }
-
-  Future addNote() async {
-    final note = SafeNote(
-      title: title,
-      description: description,
-      createdTime: DateTime.now(),
-    );
-    await NotesDatabase.instance.encryptAndStore(note);
+  bool isNoteNewOrContentChanged() {
+    if (widget.note == null) {
+      //New Note and content is not empty
+      if (this.title.isNotEmpty || this.description.isNotEmpty) return true;
+    } else {
+      // Old Note but content is changed
+      if (widget.note?.title != this.title && this.title != '' ||
+          widget.note?.description != this.description &&
+              this.description != '') return true;
+    }
+    return false;
   }
 }

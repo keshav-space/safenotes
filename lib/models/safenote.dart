@@ -57,13 +57,16 @@ class SafeNote {
         createdTime: DateTime.parse(json[NoteFields.time] as String),
       );
 
-  Map<String, dynamic> toJsonAndEncrypted() => {
-        NoteFields.id: id,
-        NoteFields.title: encryptAES(title, PhraseHandler.getPass()), //title,
-        NoteFields.description:
-            encryptAES(description, PhraseHandler.getPass()), //description,
-        NoteFields.time: createdTime.toIso8601String(),
-      };
+  Map<String, dynamic> toJsonAndEncrypted() {
+    String passphrase = PhraseHandler.getPass();
+    return {
+      NoteFields.id: id,
+      NoteFields.title: encryptAES(title, passphrase), //title,
+      NoteFields.description:
+          encryptAES(description, passphrase), //description,
+      NoteFields.time: createdTime.toIso8601String(),
+    };
+  }
 
   Map<String, dynamic> toJson() {
     final bool isExportEncrypted =

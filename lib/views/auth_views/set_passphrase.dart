@@ -67,9 +67,10 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
       padding: EdgeInsets.only(top: logoTopPadding),
       child: Center(
         child: Container(
-            width: logoWidth,
-            height: logoHeight,
-            child: Image.asset(SafeNotesConfig.getAppLogoPath())),
+          width: logoWidth,
+          height: logoHeight,
+          child: Image.asset(SafeNotesConfig.getAppLogoPath()),
+        ),
       ),
     );
   }
@@ -116,18 +117,22 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
 
   Widget _inputFieldConfirm(BuildContext context, FocusNode focus) {
     final double inputBoxEdgeRadious = 15.0;
+    final double padding = 10.0;
     final String confirmHintText = 'Confirm Encryption Phrase';
 
-    return TextFormField(
-      enableIMEPersonalizedLearning: false,
-      controller: this._passPhraseControllerConfirm,
-      focusNode: focus,
-      obscureText: this._isHiddenConfirm,
-      decoration:
-          _inputBoxDecoration('confirm', confirmHintText, inputBoxEdgeRadious),
-      keyboardType: TextInputType.visiblePassword,
-      onEditingComplete: _loginController,
-      validator: _confirmInputValidator,
+    return Padding(
+      padding: EdgeInsets.only(top: padding),
+      child: TextFormField(
+        enableIMEPersonalizedLearning: false,
+        controller: this._passPhraseControllerConfirm,
+        focusNode: focus,
+        obscureText: this._isHiddenConfirm,
+        decoration: _inputBoxDecoration(
+            'confirm', confirmHintText, inputBoxEdgeRadious),
+        keyboardType: TextInputType.visiblePassword,
+        onEditingComplete: _loginController,
+        validator: _confirmInputValidator,
+      ),
     );
   }
 
