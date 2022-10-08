@@ -11,6 +11,7 @@ import 'package:local_session_timeout/local_session_timeout.dart';
 
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
+import 'package:safenotes/models/session.dart';
 import 'package:safenotes/widgets/login_button.dart';
 
 class EncryptionPhraseLoginPage extends StatefulWidget {
@@ -151,8 +152,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
       if (sha256.convert(utf8.encode(phrase)).toString() ==
           PreferencesStorage.getPassPhraseHash()) {
         _snackBarMessage(context, snackMsgDecryptingNotes);
-
-        PhraseHandler.initPass(phrase);
+        Session.login(phrase);
 
         // start listening for session inactivity on successful login
         widget.sessionStream.add(SessionState.startListening);

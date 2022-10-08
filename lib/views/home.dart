@@ -18,6 +18,7 @@ import 'package:safenotes/dialogs/export_methord.dart';
 import 'package:safenotes/dialogs/file_import.dart';
 import 'package:safenotes/models/file_handler.dart';
 import 'package:safenotes/models/safenote.dart';
+import 'package:safenotes/models/session.dart';
 import 'package:safenotes/utils/snack_message.dart';
 import 'package:safenotes/widgets/note_card.dart';
 import 'package:safenotes/widgets/search_widget.dart';
@@ -39,7 +40,6 @@ class _HomePageState extends State<HomePage> {
   String query = '';
   bool isHiddenImport = true;
   final importPassphraseController = TextEditingController();
-  bool isLogout = false;
 
   @override
   void initState() {
@@ -49,7 +49,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void dispose() {
-    if (!isLogout) NotesDatabase.instance.close();
     super.dispose();
   }
 
@@ -172,10 +171,10 @@ class _HomePageState extends State<HomePage> {
                     return;
                   }
                   if (!wasExportMethordChoosen) return;
-                  //await fileSave();
-                  String? snackMsg = await FileHandler().fileSave(allnotes);
+
+                  String? snackMsg =
+                      await FileHandler().fileSave(allnotes.length);
                   showSnackBarMessage(context, snackMsg);
-                  ExportEncryptionControl.setIsExportEncrypted(true);
                 },
               ),
               _buildMenuItem(
@@ -236,10 +235,7 @@ class _HomePageState extends State<HomePage> {
                 icon: Icons.logout_sharp,
                 onClicked: () async {
                   Navigator.of(context).pop();
-                  setState(() {
-                    isLogout = true;
-                  });
-                  PhraseHandler.destroy();
+                  Session.logout();
                   widget.sessionStateStream.add(SessionState.stopListening);
                   await Navigator.pushNamedAndRemoveUntil(
                       context, '/login', (Route<dynamic> route) => false,

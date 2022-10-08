@@ -4,9 +4,6 @@ import 'dart:ui';
 // Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
-import 'package:flutter_nord_theme/flutter_nord_theme.dart';
-
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
 
@@ -45,30 +42,12 @@ class _ExportMethorDialogState extends State<ExportMethordDialog> {
               ),
               SizedBox(height: 15),
               ElevatedButton(
-                  child: Text('Encrypted (Recommended)'),
-                  onPressed: () {
-                    ExportEncryptionControl.setIsExportEncrypted(true);
-                    Navigator.of(context).pop(true);
-                  }),
-              SizedBox(height: 15),
-              Text(
-                'OR',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 18),
-              ),
-              SizedBox(height: 12),
-              ElevatedButton(
-                child: Text('Unencrypted (Unsecure)'),
-                style: ButtonStyle(
-                  //Highlight dangers of insecure export
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(NordColors.aurora.red),
-                ),
+                child: Text('Encrypted (Recommended)'),
                 onPressed: () {
-                  ExportEncryptionControl.setIsExportEncrypted(false);
+                  //ExportEncryptionControl.setIsExportEncrypted(true);
                   Navigator.of(context).pop(true);
                 },
-              )
+              ),
             ],
           ),
         ),

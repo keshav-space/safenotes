@@ -1,16 +1,15 @@
 // Dart imports:
 import 'dart:async';
-import 'dart:convert';
 
 // Flutter imports:
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:crypto/crypto.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
 
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
+import 'package:safenotes/models/session.dart';
 import 'package:safenotes/utils/passphrase_strength.dart';
 import 'package:safenotes/widgets/login_button.dart';
 
@@ -211,9 +210,7 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
         _snackBarMessage(context, 'Encryption Phrase Set!');
 
         // Setting hash for PassPhrase in share prefrences
-        PreferencesStorage.setPassPhraseHash(
-            sha256.convert(utf8.encode(enteredPassphrase)).toString());
-        PhraseHandler.initPass(enteredPassphrase);
+        Session.setOrChangePassphrase(enteredPassphrase);
 
         await Navigator.pushReplacementNamed(context, '/home',
             arguments: widget.sessionStream);

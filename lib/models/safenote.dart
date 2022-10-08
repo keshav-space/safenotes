@@ -62,16 +62,11 @@ class SafeNote {
   }
 
   Map<String, dynamic> toJson() {
-    final bool isExportEncrypted =
-        ExportEncryptionControl.getIsExportEncrypted();
     return {
       //"${NoteFields.id}": this.id,
-      NoteFields.title: isExportEncrypted
-          ? '${encryptAES(this.title, PhraseHandler.getPass())}'
-          : '${this.title}',
-      NoteFields.description: isExportEncrypted
-          ? '${encryptAES(this.description, PhraseHandler.getPass())}'
-          : '${this.description}',
+      NoteFields.title: '${encryptAES(this.title, PhraseHandler.getPass())}',
+      NoteFields.description:
+          '${encryptAES(this.description, PhraseHandler.getPass())}',
       NoteFields.time: '${this.createdTime.toIso8601String()}',
     };
   }

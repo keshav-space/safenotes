@@ -15,8 +15,8 @@ class PreferencesStorage {
 
   static Future<void> setPassPhraseHash(String passphrasehash) async =>
       await _preferences?.setString(_keyPassPhraseHash, passphrasehash);
-  static String? getPassPhraseHash() =>
-      _preferences?.getString(_keyPassPhraseHash);
+  static String getPassPhraseHash() =>
+      _preferences?.getString(_keyPassPhraseHash) ?? '';
 
   static Future<void> setIsThemeDark(bool flag) async =>
       await _preferences?.setBool(_keyIsThemeDark, flag);
@@ -39,7 +39,7 @@ class PreferencesStorage {
 
   static int getFocusTimeout() {
     //default: 5 minutes
-    return _preferences?.getInt(_keyFocusTimeout) ?? 5 * 60;
+    return _preferences?.getInt(_keyFocusTimeout) ?? 3 * 60;
   }
 
   static Future<void> setInactivityTimeout(int minutes) async {
@@ -58,12 +58,6 @@ class PhraseHandler {
   static destroy() => _passphrase = '';
 
   static String getPass() => _passphrase;
-}
-
-class ExportEncryptionControl {
-  static bool isExportEncrypted = true;
-  static getIsExportEncrypted() => isExportEncrypted;
-  static setIsExportEncrypted(bool flag) => isExportEncrypted = flag;
 }
 
 class ImportEncryptionControl {
