@@ -12,9 +12,9 @@ class ThemeProvider extends ChangeNotifier {
       PreferencesStorage.getIsThemeDark() ? ThemeMode.dark : ThemeMode.light;
 
   bool get isDarkMode => themeMode == ThemeMode.dark;
-  void toggleTheme(bool isOn) {
-    themeMode = isOn ? ThemeMode.dark : ThemeMode.light;
-    PreferencesStorage.setIsThemeDark(isOn);
+  void toggleTheme(bool isDark) {
+    themeMode = isDark ? ThemeMode.dark : ThemeMode.light;
+    PreferencesStorage.setIsThemeDark(isDark);
     notifyListeners();
   }
 }
