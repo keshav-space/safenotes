@@ -1,3 +1,6 @@
+// Dart imports:
+import 'dart:convert';
+
 // Package imports:
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -48,7 +51,6 @@ class NotesDatabase {
 
   Future<SafeNote> decryptReadNote(int id) async {
     final db = await instance.database;
-
     final maps = await db.query(
       tableNotes,
       columns: NoteFields.values,
@@ -65,16 +67,22 @@ class NotesDatabase {
 
   Future<List<SafeNote>> decryptReadAllNotes() async {
     final db = await instance.database;
-
     final orderBy = '${NoteFields.time} ASC';
     final result = await db.query(tableNotes, orderBy: orderBy);
-
     return result.map((json) => SafeNote.fromJsonAndDecrypt(json)).toList();
+  }
+
+  Future<String> exportAllEncrypted() async {
+    final db = await instance.database;
+    final orderBy = '${NoteFields.time} ASC';
+    final result = await db.query(tableNotes,
+        columns: ['title', 'description', 'time'], orderBy: orderBy);
+
+    return jsonEncode(result).toString();
   }
 
   Future<int> encryptAndUpdate(SafeNote note) async {
     final db = await instance.database;
-
     return db.update(
       tableNotes,
       note.toJsonAndEncrypted(),
@@ -85,7 +93,6 @@ class NotesDatabase {
 
   Future<int> delete(int id) async {
     final db = await instance.database;
-
     return await db.delete(
       tableNotes,
       where: '${NoteFields.id} = ?',

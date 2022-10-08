@@ -13,6 +13,7 @@ import 'package:safenotes/app.dart';
 import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/dialogs/inactivity_msg.dart';
 import 'package:safenotes/models/editor_state.dart';
+import 'package:safenotes/models/session.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -76,7 +77,7 @@ class SafeNotesApp extends StatelessWidget {
 
       // save unsaved note if any
       await NoteEditorState().handleUngracefulNoteExit();
-      PhraseHandler.destroy();
+      Session.logout();
     }
   }
 }

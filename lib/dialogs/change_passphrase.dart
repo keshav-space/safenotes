@@ -13,6 +13,7 @@ import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 import 'package:safenotes/data/database_handler.dart';
 import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/models/safenote.dart';
+import 'package:safenotes/models/session.dart';
 import 'package:safenotes/utils/passphrase_strength.dart';
 
 class ChangePassphraseDialog extends StatefulWidget {
@@ -272,12 +273,8 @@ class _ChangePassphraseDialogState extends State<ChangePassphraseDialog> {
 
     // Update SHA256 signature of passphrase
     if (form.validate()) {
-      PreferencesStorage.setPassPhraseHash(
-        sha256
-            .convert(utf8.encode(_newConfirmPassphraseController.text))
-            .toString(),
-      );
-      PhraseHandler.initPass(_newConfirmPassphraseController.text);
+      Session.setOrChangePassphrase(_newConfirmPassphraseController.text);
+
       // Re-encrypt and update all the existing notes
       for (final note in widget.allnotes) {
         await NotesDatabase.instance.encryptAndUpdate(note);
