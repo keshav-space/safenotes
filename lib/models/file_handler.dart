@@ -19,22 +19,22 @@ import 'package:safenotes/models/import_file_parser.dart';
 import 'package:safenotes/models/safenote.dart';
 
 class FileHandler {
-  Future<String?> fileSave(List<SafeNote> allnotes) async {
+  Future<String?> fileSave(int totalNotes) async {
     String? snackBackMsg;
     Directory? directory;
     String fileName = SafeNotesConfig.getExportFileName();
-    final bool isExportEncrypted =
-        ExportEncryptionControl.getIsExportEncrypted();
+    // final bool isExportEncrypted =
+    //     ExportEncryptionControl.getIsExportEncrypted();
     final String passHash = PreferencesStorage.getPassPhraseHash().toString();
 
     String preFixToRecord = '{ "records" : ';
-    String postFixToRecord = ', "recordHandlerHash" : ' +
-        (isExportEncrypted ? '"${passHash}"' : '"null"') +
-        ', "total" : ' +
-        allnotes.length.toString() +
-        '}';
+    String postFixToRecord =
+        ', "recordHandlerHash" : "${passHash}", "total" : ' +
+            totalNotes.toString() +
+            '}';
 
-    String record = (allnotes.map((i) => jsonEncode(i)).toList()).toString();
+    // String record = (allnotes.map((i) => jsonEncode(i)).toList()).toString();
+    String record = await NotesDatabase.instance.exportAllEncrypted();
 
     try {
       if (Platform.isIOS) {
@@ -70,7 +70,7 @@ class FileHandler {
         }
       } //Android handler end
     } catch (e) {}
-    ExportEncryptionControl.setIsExportEncrypted(true);
+    //ExportEncryptionControl.setIsExportEncrypted(true);
     return snackBackMsg;
   }
 
