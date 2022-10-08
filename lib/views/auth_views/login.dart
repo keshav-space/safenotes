@@ -73,28 +73,16 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
 
   Widget _buildLoginWorkflow(BuildContext context) {
     final double padding = 16.0;
-    const double boxSeparation = 15.0;
-    final String orText = 'OR';
+
     return Form(
       key: this._formKey,
       child: SingleChildScrollView(
         padding: EdgeInsets.all(padding),
-        child: Column(
-          children: [
-            _inputField(),
-            _buildForgotPassphrase(),
-            _buildLoginButton(),
-          ]..addAll(
-              UnDecryptedLoginControl.getAllowLogUnDecrypted()
-                  ? [
-                      const SizedBox(height: boxSeparation),
-                      Text(orText),
-                      const SizedBox(height: boxSeparation),
-                      _buildUnDecrypt(),
-                    ]
-                  : [],
-            ),
-        ),
+        child: Column(children: [
+          _inputField(),
+          _buildForgotPassphrase(),
+          _buildLoginButton(),
+        ]),
       ),
     );
   }
@@ -165,7 +153,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
         _snackBarMessage(context, snackMsgDecryptingNotes);
 
         PhraseHandler.initPass(phrase);
-        UnDecryptedLoginControl.setNoDecryptionFlag(false);
+
         // start listening for session inactivity on successful login
         widget.sessionStream.add(SessionState.startListening);
         await Navigator.pushReplacementNamed(context, '/home',
@@ -174,17 +162,6 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
         _snackBarMessage(context, snackMsgWrongEncryptionPhrase);
       }
     }
-  }
-
-  Widget _buildUnDecrypt() {
-    return ButtonWidget(
-      text: SafeNotesConfig.getUndecryptedLoginButtonText(),
-      onClicked: () async {
-        UnDecryptedLoginControl.setNoDecryptionFlag(true);
-        await Navigator.of(context)
-            .pushNamed('/home', arguments: widget.sessionStream);
-      },
-    );
   }
 
   ScaffoldMessengerState _snackBarMessage(

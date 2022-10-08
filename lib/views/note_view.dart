@@ -6,7 +6,6 @@ import 'package:intl/intl.dart';
 
 // Project imports:
 import 'package:safenotes/data/database_handler.dart';
-import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/dialogs/delete_confirmation.dart';
 import 'package:safenotes/models/safenote.dart';
 
@@ -47,9 +46,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
   PreferredSizeWidget _appBar(BuildContext context) {
     return AppBar(
       title: isLoading ? Text('Loading...') : null,
-      actions: UnDecryptedLoginControl.getNoDecryptionFlag() || isLoading
-          ? null
-          : [editButton(), deleteButton()],
+      actions: isLoading ? null : [editButton(), deleteButton()],
     );
   }
 
