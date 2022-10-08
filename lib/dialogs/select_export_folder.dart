@@ -7,12 +7,18 @@ import 'package:flutter/material.dart';
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
 
-class ExportMethordDialog extends StatefulWidget {
+class ExportChooseDirectoryDialog extends StatefulWidget {
   @override
-  _ExportMethorDialogState createState() => _ExportMethorDialogState();
+  _ExportChooseDirectoryDialogState createState() =>
+      _ExportChooseDirectoryDialogState();
 }
 
-class _ExportMethorDialogState extends State<ExportMethordDialog> {
+class _ExportChooseDirectoryDialogState
+    extends State<ExportChooseDirectoryDialog> {
+  final String dialogTitle = 'Destination Folder';
+  final String chooseFolderMsg = SafeNotesConfig.getExportDialogMsg();
+  final String buttonText = 'Choose Folder';
+
   @override
   Widget build(BuildContext context) {
     return BackdropFilter(
@@ -29,12 +35,12 @@ class _ExportMethorDialogState extends State<ExportMethordDialog> {
             children: [
               SizedBox(height: 12),
               Text(
-                'Data Export Method',
+                dialogTitle,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
               ),
               SizedBox(height: 12),
               Text(
-                SafeNotesConfig.getExportDialogMsg(),
+                chooseFolderMsg,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 16,
@@ -42,9 +48,8 @@ class _ExportMethorDialogState extends State<ExportMethordDialog> {
               ),
               SizedBox(height: 15),
               ElevatedButton(
-                child: Text('Encrypted (Recommended)'),
+                child: Text(buttonText),
                 onPressed: () {
-                  //ExportEncryptionControl.setIsExportEncrypted(true);
                   Navigator.of(context).pop(true);
                 },
               ),

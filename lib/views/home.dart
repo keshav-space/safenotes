@@ -12,7 +12,7 @@ import 'package:local_session_timeout/local_session_timeout.dart';
 import 'package:safenotes/data/database_handler.dart';
 import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/dialogs/change_passphrase.dart';
-import 'package:safenotes/dialogs/export_methord.dart';
+import 'package:safenotes/dialogs/select_export_folder.dart';
 import 'package:safenotes/dialogs/file_import.dart';
 import 'package:safenotes/models/file_handler.dart';
 import 'package:safenotes/models/safenote.dart';
@@ -134,7 +134,7 @@ class _HomePageState extends State<HomePage> {
         }
         if (!wasExportMethordChoosen) return;
 
-        String? snackMsg = await FileHandler().fileSave(allnotes.length);
+        String? snackMsg = await FileHandler().fileSave();
         showSnackBarMessage(context, snackMsg);
       },
       onChangePassCallback: () async {
@@ -167,7 +167,7 @@ class _HomePageState extends State<HomePage> {
       context: context,
       barrierDismissible: true,
       builder: (_) {
-        return ExportMethordDialog();
+        return ExportChooseDirectoryDialog();
       },
     );
   }
