@@ -14,13 +14,21 @@ import 'data/preference_and_config.dart';
 
 class AuthWall extends StatelessWidget {
   final StreamController<SessionState> sessionStateStream;
+  final bool? isKeyboardFocused;
 
-  AuthWall({Key? key, required this.sessionStateStream}) : super(key: key);
+  AuthWall({Key? key, required this.sessionStateStream, this.isKeyboardFocused})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return PreferencesStorage.getPassPhraseHash().isNotEmpty
-        ? EncryptionPhraseLoginPage(sessionStream: sessionStateStream)
-        : SetEncryptionPhrasePage(sessionStream: sessionStateStream);
+        ? EncryptionPhraseLoginPage(
+            sessionStream: sessionStateStream,
+            isKeyboardFocused: this.isKeyboardFocused,
+          )
+        : SetEncryptionPhrasePage(
+            sessionStream: sessionStateStream,
+            isKeyboardFocused: this.isKeyboardFocused,
+          );
   }
 }

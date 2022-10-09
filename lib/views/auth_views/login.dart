@@ -12,11 +12,14 @@ import 'package:local_session_timeout/local_session_timeout.dart';
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/models/session.dart';
+import 'package:safenotes/utils/snack_message.dart';
 import 'package:safenotes/widgets/login_button.dart';
 
 class EncryptionPhraseLoginPage extends StatefulWidget {
   final StreamController<SessionState> sessionStream;
-  const EncryptionPhraseLoginPage({Key? key, required this.sessionStream})
+  final bool? isKeyboardFocused;
+  const EncryptionPhraseLoginPage(
+      {Key? key, required this.sessionStream, this.isKeyboardFocused})
       : super(key: key);
 
   @override
@@ -93,7 +96,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
     return TextFormField(
       enableIMEPersonalizedLearning: false,
       controller: passPhraseController,
-      autofocus: true,
+      autofocus: widget.isKeyboardFocused ?? true, //true,
       obscureText: this._isHidden,
       decoration: _inputFieldDecoration(inputBoxEdgeRadious),
       keyboardType: TextInputType.visiblePassword,
@@ -151,7 +154,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
       final phrase = passPhraseController.text;
       if (sha256.convert(utf8.encode(phrase)).toString() ==
           PreferencesStorage.getPassPhraseHash()) {
-        _snackBarMessage(context, snackMsgDecryptingNotes);
+        showSnackBarMessage(context, snackMsgDecryptingNotes);
         Session.login(phrase);
 
         // start listening for session inactivity on successful login
@@ -159,20 +162,9 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
         await Navigator.pushReplacementNamed(context, '/home',
             arguments: widget.sessionStream);
       } else {
-        _snackBarMessage(context, snackMsgWrongEncryptionPhrase);
+        showSnackBarMessage(context, snackMsgWrongEncryptionPhrase);
       }
     }
-  }
-
-  ScaffoldMessengerState _snackBarMessage(
-      BuildContext context, String message) {
-    return ScaffoldMessenger.of(context)
-      ..removeCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(
-          content: Text(message),
-        ),
-      );
   }
 
   Widget _buildForgotPassphrase() {

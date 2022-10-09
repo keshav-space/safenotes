@@ -71,8 +71,13 @@ class SafeNotesApp extends StatelessWidget {
     // no need to logout and redirect to authwall if user is not loggedIN
     if (PhraseHandler.getPass().isNotEmpty) {
       _navigator?.pushNamedAndRemoveUntil(
-          '/authwall', (Route<dynamic> route) => false,
-          arguments: sessionStateStream);
+        '/authwall',
+        (Route<dynamic> route) => false,
+        arguments: SessionArguments(
+          sessionStream: sessionStateStream,
+          isKeyboardFocused: false,
+        ),
+      );
       showInactivityDialog(navigatorKey.currentContext!);
 
       // save unsaved note if any
