@@ -8,8 +8,6 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:crypto/crypto.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 // Project imports:
 import 'package:safenotes/data/database_handler.dart';
@@ -19,58 +17,27 @@ import 'package:safenotes/models/import_file_parser.dart';
 import 'package:safenotes/models/safenote.dart';
 
 class FileHandler {
-  Future<String?> fileSave(int totalNotes) async {
+  Future<String?> fileSave() async {
     String? snackBackMsg;
-    Directory? directory;
-    String fileName = SafeNotesConfig.getExportFileName();
-    // final bool isExportEncrypted =
-    //     ExportEncryptionControl.getIsExportEncrypted();
-    final String passHash = PreferencesStorage.getPassPhraseHash().toString();
-
-    String preFixToRecord = '{ "records" : ';
-    String postFixToRecord =
-        ', "recordHandlerHash" : "${passHash}", "total" : ' +
-            totalNotes.toString() +
-            '}';
-
-    // String record = (allnotes.map((i) => jsonEncode(i)).toList()).toString();
-    String record = await NotesDatabase.instance.exportAllEncrypted();
-
     try {
-      if (Platform.isIOS) {
-        if (await _requestPermission(Permission.storage)) {
-          directory = await getApplicationDocumentsDirectory();
-          var jsonFile = new File(directory.path + "/" + fileName);
-          jsonFile.writeAsStringSync(preFixToRecord + record + postFixToRecord);
-          snackBackMsg =
-              'File saved in Document folder of ${SafeNotesConfig.getAppName()}!';
-        } else {
-          snackBackMsg = 'Storage access Denied!';
-        }
-      } else if (Platform.isAndroid) {
-        if (await _requestPermission(Permission.storage)) {
-          directory = await getExternalStorageDirectory();
-          String downPath = "";
-          List<String> folders = directory!.path.split("/");
-          for (final folder in folders.sublist(1, folders.length)) {
-            if (folder != "Android") {
-              downPath += "/" + folder;
-            } else
-              break;
-          }
-          downPath += "/Download";
-          directory = Directory(downPath);
-          var jsonFile = new File(directory.path + "/" + fileName);
+      String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
+      if (selectedDirectory != null) {
+        final String fileName = SafeNotesConfig.getExportFileName();
+        final String passHash =
+            PreferencesStorage.getPassPhraseHash().toString();
+        String record = await NotesDatabase.instance.exportAllEncrypted();
+        String? selectedFolderName = selectedDirectory.split('/').last;
+        int totalCountOfNotes = '{'.allMatches(record).length;
+        String jsonOutputContent =
+            '{ "records" : ${record}, "recordHandlerHash" : "${passHash}", "total" : ${totalCountOfNotes.toString()} }';
 
-          jsonFile.writeAsStringSync(preFixToRecord + record + postFixToRecord);
-
-          snackBackMsg = 'File saved in Download folder!';
-        } else {
-          snackBackMsg = 'Storage access Denied!';
-        }
-      } //Android handler end
+        var jsonFile = new File('${selectedDirectory}/${fileName}');
+        jsonFile.writeAsStringSync(jsonOutputContent);
+        snackBackMsg = 'File saved in "${selectedFolderName}" folder!';
+      } else {
+        snackBackMsg = 'Destination folder not chosen!';
+      }
     } catch (e) {}
-    //ExportEncryptionControl.setIsExportEncrypted(true);
     return snackBackMsg;
   }
 
@@ -170,18 +137,6 @@ class FileHandler {
   inserNotes(List<SafeNote> imported) async {
     for (final note in imported) {
       await NotesDatabase.instance.encryptAndStore(note);
-    }
-  }
-
-  Future<bool> _requestPermission(Permission permission) async {
-    if (await permission.isGranted) {
-      return true;
-    } else {
-      var status = await permission.request();
-      if (status.isGranted) {
-        return true;
-      }
-      return false;
     }
   }
 }

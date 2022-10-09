@@ -90,7 +90,7 @@ class SafeNotesConfig {
   static String importDialogMsg =
       'If the Notes in your import file was encrypted with diffrent passphrase then you\'ll be prompted to enter the passphrase of the device that generated this export.';
   static String exportDialogMsg =
-      'We recommend using the encrypted export method, this will encrypt your data using your current encryption passphrase. \nYou will be prompted to enter your passphrase while importing it.';
+      'Choose the destination folder where you want to store your encrypted export.';
   static String mailToForFeedback =
       'mailto:safenotes@keshav.space?subject=Help and Feedback';
   static String sourceCodeUrl = 'https://safenotes.keshav.space';
