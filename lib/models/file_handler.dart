@@ -12,6 +12,7 @@ import 'package:file_picker/file_picker.dart';
 // Project imports:
 import 'package:safenotes/data/database_handler.dart';
 import 'package:safenotes/data/preference_and_config.dart';
+import 'package:safenotes/dialogs/confirm_imort.dart';
 import 'package:safenotes/dialogs/imported_file_passphrase.dart';
 import 'package:safenotes/models/import_file_parser.dart';
 import 'package:safenotes/models/safenote.dart';
@@ -42,6 +43,10 @@ class FileHandler {
   }
 
   Future<String?> selectFileAndDoImport(BuildContext context) async {
+    /*
+    Attention: Starting v2.0 unencrypted export is removed, 
+    however user are allowed to import their unencrypted backup until v3.0 
+    */
     String? dataFromFileAsString = await getFileAsString();
     String? currentPassHash = PreferencesStorage.getPassPhraseHash();
 
@@ -54,10 +59,10 @@ class FileHandler {
     try {
       var jsonDecodedData = jsonDecode(dataFromFileAsString);
       String importFileKeyHash = jsonDecodedData['recordHandlerHash'] as String;
+      ImportParser? parsedImportData;
 
       if (importFileKeyHash == "null") {
         ImportEncryptionControl.setIsImportEncrypted(false);
-        await inserNotes(ImportParser.fromJson(jsonDecodedData).getAllNotes());
       } else {
         ImportEncryptionControl.setIsImportEncrypted(true);
         if (importFileKeyHash != currentPassHash) {
@@ -75,22 +80,28 @@ class FileHandler {
         String userInputPassHashForImportNotes = sha256
             .convert(utf8.encode(ImportPassPhraseHandler.getImportPassPhrase()))
             .toString();
-
-        if (userInputPassHashForImportNotes == importFileKeyHash) {
-          await inserNotes(
-              ImportParser.fromJson(jsonDecodedData).getAllNotes());
-          ImportPassPhraseHandler.setImportPassPhrase("null");
-          ImportPassPhraseHandler.setImportPassPhraseHash(null);
-        } else {
-          ImportPassPhraseHandler.setImportPassPhrase("null");
-          ImportPassPhraseHandler.setImportPassPhraseHash(null);
+        if (userInputPassHashForImportNotes != importFileKeyHash) {
+          destroyImportCredentials();
           return "Wrong Passphrase!";
         }
+      }
+
+      parsedImportData = ImportParser.fromJson(jsonDecodedData);
+      destroyImportCredentials();
+      if (await confirmImportDialog(context, parsedImportData.totalNotes)) {
+        await inserNotes(parsedImportData.getAllNotes());
+      } else {
+        return "Import cancelled!";
       }
     } catch (e) {
       return "Failed to import file!";
     }
     return "Notes successfully imported!";
+  }
+
+  void destroyImportCredentials() {
+    ImportPassPhraseHandler.setImportPassPhrase("null");
+    ImportPassPhraseHandler.setImportPassPhraseHash(null);
   }
 
   getImportPassphraseDialog(BuildContext context) {
@@ -99,6 +110,15 @@ class FileHandler {
       barrierDismissible: true,
       builder: (_) => ImportPassPhraseDialog(),
     );
+  }
+
+  Future<bool> confirmImportDialog(BuildContext context, int totalNotes) async {
+    return await showDialog(
+          context: context,
+          barrierDismissible: true,
+          builder: (_) => ImportConfirm(importCount: totalNotes),
+        ) ??
+        false;
   }
 
   Future<String?> getFileAsString() async {

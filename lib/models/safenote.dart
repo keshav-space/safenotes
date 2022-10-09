@@ -72,6 +72,10 @@ class SafeNote {
   }
 
   static SafeNote fromJson(Map<String, dynamic> json) {
+    /*
+    Attention: Starting v2.0 unencrypted export is removed, 
+    however user are allowed to import their unencrypted backup until v3.0 
+    */
     final bool isImportEncrypted =
         ImportEncryptionControl.getIsImportEncrypted();
     return SafeNote(

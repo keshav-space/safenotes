@@ -145,16 +145,16 @@ class _ImportPassPhraseDialogState extends State<ImportPassPhraseDialog> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           ElevatedButton(
-            child: Text(formSubmitButtonText),
-            onPressed: _onEditonComplete,
-          ),
-          ElevatedButton(
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(NordColors.aurora.red),
             ),
             child: Text(formCancelButtonText),
             onPressed: () => Navigator.of(context).pop(),
-          )
+          ),
+          ElevatedButton(
+            child: Text(formSubmitButtonText),
+            onPressed: _onEditonComplete,
+          ),
         ],
       ),
     );
