@@ -6,11 +6,12 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:local_session_timeout/local_session_timeout.dart';
+import 'package:safenotes/authwall.dart';
 
 // Project imports:
-import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/main.dart';
 import 'package:safenotes/models/safenote.dart';
+import 'package:safenotes/models/session.dart';
 import 'package:safenotes/views/add_edit_note.dart';
 import 'package:safenotes/views/auth_views/login.dart';
 import 'package:safenotes/views/auth_views/set_passphrase.dart';
@@ -20,53 +21,70 @@ import 'package:safenotes/views/note_view.dart';
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     // Getting arguments passed in while calling Navigator.pushNamed
-    final args = settings.arguments;
-    final String? routName = settings.name;
+    var args = settings.arguments;
+    final String? routeName = settings.name;
 
-    switch (routName) {
+    switch (routeName) {
       case '/':
         return MaterialPageRoute(builder: (_) => SafeNotesApp());
 
       case '/login':
-        if (args is StreamController<SessionState>) {
+        if (args is SessionArguments) {
           return MaterialPageRoute(
             builder: (_) => EncryptionPhraseLoginPage(
-              sessionStream: args,
+              sessionStream: args.sessionStream,
+              isKeyboardFocused: args.isKeyboardFocused,
             ),
           );
         }
         return _errorRoute(
-            route: routName, argsType: 'StreamController<SessionState>');
+            route: routeName, argsType: 'StreamController<SessionState>');
 
       case '/signup':
-        if (args is StreamController<SessionState>) {
+        if (args is SessionArguments) {
           return MaterialPageRoute(
             builder: (_) => SetEncryptionPhrasePage(
-              sessionStream: args,
+              sessionStream: args.sessionStream,
+              isKeyboardFocused: args.isKeyboardFocused,
             ),
           );
         }
         return _errorRoute(
-            route: routName, argsType: 'StreamController<SessionState>');
+            route: routeName, argsType: 'StreamController<SessionState>');
+
+      // case '/authwall':
+      //   if (args[0] is StreamController<SessionState>) {
+      //     bool? isKeyboarFocus = args.length >= 2 ? args[1] : null;
+      //     if (PreferencesStorage.getPassPhraseHash().isEmpty) {
+      //       return MaterialPageRoute(
+      //         builder: (_) => SetEncryptionPhrasePage(
+      //           sessionStream: args[0],
+      //           isKeyboardFocused: isKeyboarFocus,
+      //         ),
+      //       );
+      //     } else {
+      //       return MaterialPageRoute(
+      //         builder: (_) => EncryptionPhraseLoginPage(
+      //           sessionStream: args[0],
+      //           isKeyboardFocused: isKeyboarFocus,
+      //         ),
+      //       );
+      //     }
+      //   }
+      //   return _errorRoute(
+      //       route: routeName, argsType: 'StreamController<SessionState>');
 
       case '/authwall':
-        if (args is StreamController<SessionState>) {
-          if (PreferencesStorage.getPassPhraseHash() == null) {
-            return MaterialPageRoute(
-              builder: (_) => SetEncryptionPhrasePage(
-                sessionStream: args,
-              ),
-            );
-          } else {
-            return MaterialPageRoute(
-              builder: (_) => EncryptionPhraseLoginPage(
-                sessionStream: args,
-              ),
-            );
-          }
+        if (args is SessionArguments) {
+          return MaterialPageRoute(
+            builder: (_) => AuthWall(
+              sessionStateStream: args.sessionStream,
+              isKeyboardFocused: args.isKeyboardFocused,
+            ),
+          );
         }
         return _errorRoute(
-            route: routName, argsType: 'StreamController<SessionState>');
+            route: routeName, argsType: 'StreamController<SessionState>');
 
       case '/home':
         if (args is StreamController<SessionState>) {
@@ -77,7 +95,7 @@ class RouteGenerator {
           );
         }
         return _errorRoute(
-            route: routName, argsType: 'StreamController<SessionState>');
+            route: routeName, argsType: 'StreamController<SessionState>');
 
       case '/viewnote':
         if (args is SafeNote) {
@@ -85,7 +103,7 @@ class RouteGenerator {
           return MaterialPageRoute(
               builder: (_) => NoteDetailPage(noteId: note.id!));
         }
-        return _errorRoute(route: routName, argsType: 'SafeNotes');
+        return _errorRoute(route: routeName, argsType: 'SafeNotes');
 
       case '/addnote':
         return MaterialPageRoute(builder: (_) => AddEditNotePage());
@@ -95,10 +113,10 @@ class RouteGenerator {
           SafeNote note = args;
           return MaterialPageRoute(builder: (_) => AddEditNotePage(note: note));
         }
-        return _errorRoute(route: routName, argsType: 'SafeNotes');
+        return _errorRoute(route: routeName, argsType: 'SafeNotes');
 
       default:
-        return _errorRoute(route: routName);
+        return _errorRoute(route: routeName);
     }
   }
 
@@ -111,8 +129,8 @@ class RouteGenerator {
         ),
         body: Center(
           child: argsType == null
-              ? Text('No route: ' + route!)
-              : Text(argsType + ', Needed for route: ' + route!),
+              ? Text('No route: ${route}')
+              : Text('${argsType}, Needed for route: ${route}'),
         ),
       );
     });

@@ -83,7 +83,11 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
       icon: Icon(Icons.edit_outlined),
       onPressed: () async {
         if (isLoading) return;
-        await Navigator.pushNamed(context, '/editnote', arguments: this.note);
+        await Navigator.pushNamed(
+          context,
+          '/editnote',
+          arguments: this.note,
+        );
         refreshNote();
       },
     );

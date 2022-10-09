@@ -11,11 +11,14 @@ import 'package:local_session_timeout/local_session_timeout.dart';
 import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/models/session.dart';
 import 'package:safenotes/utils/passphrase_strength.dart';
+import 'package:safenotes/utils/snack_message.dart';
 import 'package:safenotes/widgets/login_button.dart';
 
 class SetEncryptionPhrasePage extends StatefulWidget {
   final StreamController<SessionState> sessionStream;
-  SetEncryptionPhrasePage({Key? key, required this.sessionStream})
+  final bool? isKeyboardFocused;
+  SetEncryptionPhrasePage(
+      {Key? key, required this.sessionStream, this.isKeyboardFocused})
       : super(key: key);
 
   @override
@@ -102,7 +105,7 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
     return TextFormField(
       enableIMEPersonalizedLearning: false,
       controller: this._passPhraseController,
-      autofocus: true,
+      autofocus: widget.isKeyboardFocused ?? true, //true,
       obscureText: this._isHiddenFirst,
       decoration:
           _inputBoxDecoration('first', firstHintText, inputBoxEdgeRadious),
@@ -207,27 +210,15 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
       final enteredPassphrase = this._passPhraseController.text;
       final enteredPassphraseConfirm = this._passPhraseControllerConfirm.text;
       if (enteredPassphrase == enteredPassphraseConfirm) {
-        _snackBarMessage(context, 'Encryption Phrase Set!');
+        showSnackBarMessage(context, 'Encryption Phrase Set!');
 
         // Setting hash for PassPhrase in share prefrences
         Session.setOrChangePassphrase(enteredPassphrase);
 
         await Navigator.pushReplacementNamed(context, '/home',
             arguments: widget.sessionStream);
-      } else {
-        _snackBarMessage(context, 'Encryption Phrase missmach!');
-      }
+      } else
+        showSnackBarMessage(context, 'Encryption Phrase missmach!');
     }
-  }
-
-  ScaffoldMessengerState _snackBarMessage(
-      BuildContext context, String message) {
-    return ScaffoldMessenger.of(context)
-      ..removeCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(
-          content: Text(message),
-        ),
-      );
   }
 }

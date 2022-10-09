@@ -146,8 +146,11 @@ class _HomePageState extends State<HomePage> {
         Session.logout();
         widget.sessionStateStream.add(SessionState.stopListening);
         await Navigator.pushNamedAndRemoveUntil(
-            context, '/login', (Route<dynamic> route) => false,
-            arguments: widget.sessionStateStream);
+          context,
+          '/login',
+          (Route<dynamic> route) => false,
+          arguments: SessionArguments(sessionStream: widget.sessionStateStream),
+        );
       },
     );
   }
@@ -203,7 +206,11 @@ class _HomePageState extends State<HomePage> {
 
         return GestureDetector(
           onTap: () async {
-            await Navigator.pushNamed(context, '/viewnote', arguments: note);
+            await Navigator.pushNamed(
+              context,
+              '/viewnote',
+              arguments: note,
+            );
             _refreshNotes();
           },
           child: NoteCardWidget(note: note, index: index),
