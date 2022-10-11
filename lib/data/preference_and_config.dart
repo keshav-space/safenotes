@@ -9,6 +9,7 @@ class PreferencesStorage {
   static const _keyKeyboardIncognito = 'keyboardIcognito';
   static const _keyInactivityTimeout = 'inactivityTimeout';
   static const _keyFocusTimeout = 'focusTimeout';
+  static const _keyPreInactivityLogoutCounter = 'preInactivityLogoutCounter';
 
   static Future init() async =>
       _preferences = await SharedPreferences.getInstance();
@@ -42,12 +43,22 @@ class PreferencesStorage {
     return _preferences?.getInt(_keyFocusTimeout) ?? 3 * 60;
   }
 
-  static Future<void> setInactivityTimeout(int minutes) async {
+  static int getPreInactivityLogoutCounter() {
+    //default: 30 seconds
+    return _preferences?.getInt(_keyPreInactivityLogoutCounter) ?? 30;
+  }
+
+  static Future<void> setInactivityTimeout({required int minutes}) async {
     await _preferences?.setInt(_keyInactivityTimeout, minutes * 60);
   }
 
-  static Future<void> setFocusTimeout(int minutes) async {
-    await _preferences?.setInt(_keyInactivityTimeout, minutes * 60);
+  static Future<void> setFocusTimeout({required int minutes}) async {
+    await _preferences?.setInt(_keyFocusTimeout, minutes * 60);
+  }
+
+  static Future<void> setPreInactivityLogoutCounter(
+      {required int seconds}) async {
+    await _preferences?.setInt(_keyPreInactivityLogoutCounter, seconds);
   }
 }
 

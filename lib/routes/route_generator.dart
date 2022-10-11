@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:local_session_timeout/local_session_timeout.dart';
-import 'package:safenotes/authwall.dart';
 
 // Project imports:
+import 'package:safenotes/authwall.dart';
 import 'package:safenotes/main.dart';
 import 'package:safenotes/models/safenote.dart';
 import 'package:safenotes/models/session.dart';
@@ -51,28 +51,6 @@ class RouteGenerator {
         }
         return _errorRoute(
             route: routeName, argsType: 'StreamController<SessionState>');
-
-      // case '/authwall':
-      //   if (args[0] is StreamController<SessionState>) {
-      //     bool? isKeyboarFocus = args.length >= 2 ? args[1] : null;
-      //     if (PreferencesStorage.getPassPhraseHash().isEmpty) {
-      //       return MaterialPageRoute(
-      //         builder: (_) => SetEncryptionPhrasePage(
-      //           sessionStream: args[0],
-      //           isKeyboardFocused: isKeyboarFocus,
-      //         ),
-      //       );
-      //     } else {
-      //       return MaterialPageRoute(
-      //         builder: (_) => EncryptionPhraseLoginPage(
-      //           sessionStream: args[0],
-      //           isKeyboardFocused: isKeyboarFocus,
-      //         ),
-      //       );
-      //     }
-      //   }
-      //   return _errorRoute(
-      //       route: routeName, argsType: 'StreamController<SessionState>');
 
       case '/authwall':
         if (args is SessionArguments) {
