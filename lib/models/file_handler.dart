@@ -20,6 +20,7 @@ import 'package:safenotes/models/safenote.dart';
 class FileHandler {
   Future<String?> fileSave() async {
     String? snackBackMsg;
+
     try {
       String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
       if (selectedDirectory != null) {

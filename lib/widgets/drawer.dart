@@ -16,13 +16,13 @@ class HomeDrawer extends StatefulWidget {
   final VoidCallback onChangePassCallback;
   final VoidCallback onLogoutCallback;
 
-  HomeDrawer(
-      {Key? key,
-      required this.onImportCallback,
-      required this.onExportCallback,
-      required this.onChangePassCallback,
-      required this.onLogoutCallback})
-      : super(key: key);
+  HomeDrawer({
+    Key? key,
+    required this.onImportCallback,
+    required this.onExportCallback,
+    required this.onChangePassCallback,
+    required this.onLogoutCallback,
+  }) : super(key: key);
 
   @override
   _HomeDrawerState createState() => _HomeDrawerState();

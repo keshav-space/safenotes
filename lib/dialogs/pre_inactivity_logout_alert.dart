@@ -7,11 +7,13 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_nord_theme/flutter_nord_theme.dart';
+
+// Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
 
-StreamController<String> controller = StreamController<String>.broadcast();
+StreamController<String> _controller = StreamController<String>.broadcast();
+int _timeoutSeconds = PreferencesStorage.getPreInactivityLogoutCounter();
 int _counter = 0;
-int timeoutSeconds = PreferencesStorage.getPreInactivityLogoutCounter();
 Timer? _timer;
 
 class PreInactivityLogOff extends StatelessWidget {
@@ -65,7 +67,7 @@ class PreInactivityLogOff extends StatelessWidget {
   Widget _body(BuildContext context, double padding) {
     final String message =
         'There was no user activity for quite a while. You will be logged off unless you cancel within';
-    final initialCounterValue = timeoutSeconds.toString().padLeft(2, '0');
+    final initialCounterValue = _timeoutSeconds.toString().padLeft(2, '0');
     final double topSpacing = 15.0;
     final double bodyFontSize = 15.0;
 
@@ -75,7 +77,7 @@ class PreInactivityLogOff extends StatelessWidget {
         padding: EdgeInsets.only(
             top: topSpacing, left: padding + 5, bottom: padding),
         child: StreamBuilder(
-          stream: controller.stream,
+          stream: _controller.stream,
           builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
             return Text(
               snapshot.hasData
@@ -122,7 +124,7 @@ class PreInactivityLogOff extends StatelessWidget {
               onPressed: () => Navigator.of(context)
                   .pop(true), // return false to dialog caller
             ),
-          )
+          ),
         ],
       ),
     );
@@ -141,17 +143,22 @@ class PreInactivityLogOff extends StatelessWidget {
 }
 
 void _startTimer(BuildContext context) {
-  _counter = timeoutSeconds;
+  _counter = _timeoutSeconds;
+
   if (_timer != null) {
     _timer?.cancel();
   }
-  _timer = Timer.periodic(Duration(seconds: 1), (timer) {
-    (_counter > 0) ? _counter-- : _timer?.cancel();
-    controller.add(_counter.toString().padLeft(2, '0'));
-    if (_counter == 0) {
-      Navigator.of(context).pop();
-    }
-  });
+
+  _timer = Timer.periodic(
+    Duration(seconds: 1),
+    (timer) {
+      (_counter > 0) ? _counter-- : _timer?.cancel();
+      _controller.add(_counter.toString().padLeft(2, '0'));
+      if (_counter == 0) {
+        Navigator.of(context).pop();
+      }
+    },
+  );
 }
 
 Future<bool?> preInactivityLogOffAlert(BuildContext context) async {

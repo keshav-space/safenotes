@@ -18,9 +18,12 @@ import 'package:safenotes/widgets/login_button.dart';
 class EncryptionPhraseLoginPage extends StatefulWidget {
   final StreamController<SessionState> sessionStream;
   final bool? isKeyboardFocused;
-  const EncryptionPhraseLoginPage(
-      {Key? key, required this.sessionStream, this.isKeyboardFocused})
-      : super(key: key);
+
+  const EncryptionPhraseLoginPage({
+    Key? key,
+    required this.sessionStream,
+    this.isKeyboardFocused,
+  }) : super(key: key);
 
   @override
   _EncryptionPhraseLoginPageState createState() =>
@@ -29,10 +32,8 @@ class EncryptionPhraseLoginPage extends StatefulWidget {
 
 class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
   final _formKey = GlobalKey<FormState>();
-  bool _isHidden = true;
-
   final passPhraseController = TextEditingController();
-  _EncryptionPhraseLoginPageState();
+  bool _isHidden = true;
 
   @override
   void dispose() {
@@ -82,11 +83,13 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
       key: this._formKey,
       child: SingleChildScrollView(
         padding: EdgeInsets.all(padding),
-        child: Column(children: [
-          _inputField(),
-          _buildForgotPassphrase(),
-          _buildLoginButton(),
-        ]),
+        child: Column(
+          children: [
+            _inputField(),
+            _buildForgotPassphrase(),
+            _buildLoginButton(),
+          ],
+        ),
       ),
     );
   }
@@ -159,8 +162,11 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
 
         // start listening for session inactivity on successful login
         widget.sessionStream.add(SessionState.startListening);
-        await Navigator.pushReplacementNamed(context, '/home',
-            arguments: widget.sessionStream);
+        await Navigator.pushReplacementNamed(
+          context,
+          '/home',
+          arguments: widget.sessionStream,
+        );
       } else {
         showSnackBarMessage(context, snackMsgWrongEncryptionPhrase);
       }

@@ -22,6 +22,7 @@ class NoteFormWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double allSidePadding = 16.0;
+
     return SingleChildScrollView(
       keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       child: Padding(
@@ -71,11 +72,6 @@ class NoteFormWidget extends StatelessWidget {
     );
   }
 
-  // String? _titleValidator(String? title) {
-  //   final titleCantBeEmptyMsg = 'The title cannot be empty';
-  //   return title == null || title.isEmpty ? titleCantBeEmptyMsg : null;
-  // }
-
   Widget buildDescription(BuildContext context) {
     // maxLine is used in resizing description field on keyboard activation or dismissal
     final int maxLinesToShowAtTimeDescription =
@@ -105,13 +101,6 @@ class NoteFormWidget extends StatelessWidget {
       onChanged: onChangedDescription,
     );
   }
-
-  // String? _descriptionValidator(String? description) {
-  //   final String descriptionCantBeEmptyMsg = 'The description cannot be empty';
-  //   return description == null || description.isEmpty
-  //       ? descriptionCantBeEmptyMsg
-  //       : null;
-  // }
 
   int computeMaxLine(
       {required BuildContext context, required double fontHeight}) {

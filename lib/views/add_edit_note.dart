@@ -61,8 +61,12 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
               }),
               onChangedDescription: (description) => setState(() {
                 this.description = description;
+
                 NoteEditorState.setState(
-                    widget.note, this.title, this.description);
+                  widget.note,
+                  this.title,
+                  this.description,
+                );
               }),
             ),
           ),
@@ -104,8 +108,10 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
         onPressed: onSaveCallback,
         child: Text(
           buttonText,
-          style:
-              TextStyle(fontSize: buttonFontSize, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontSize: buttonFontSize,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );

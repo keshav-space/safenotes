@@ -17,9 +17,12 @@ import 'package:safenotes/widgets/login_button.dart';
 class SetEncryptionPhrasePage extends StatefulWidget {
   final StreamController<SessionState> sessionStream;
   final bool? isKeyboardFocused;
-  SetEncryptionPhrasePage(
-      {Key? key, required this.sessionStream, this.isKeyboardFocused})
-      : super(key: key);
+
+  SetEncryptionPhrasePage({
+    Key? key,
+    required this.sessionStream,
+    this.isKeyboardFocused,
+  }) : super(key: key);
 
   @override
   _SetEncryptionPhrasePageState createState() =>
@@ -81,6 +84,7 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
     final focusConfirm = FocusNode();
     final double padding = 16.0;
     const double inputBoxSeparation = 10.0;
+
     return Form(
       key: this._formKey,
       child: SingleChildScrollView(
@@ -107,8 +111,11 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
       controller: this._passPhraseController,
       autofocus: widget.isKeyboardFocused ?? true, //true,
       obscureText: this._isHiddenFirst,
-      decoration:
-          _inputBoxDecoration('first', firstHintText, inputBoxEdgeRadious),
+      decoration: _inputBoxDecoration(
+        'first',
+        firstHintText,
+        inputBoxEdgeRadious,
+      ),
       keyboardType: TextInputType.visiblePassword,
       onFieldSubmitted: (v) {
         FocusScope.of(context).requestFocus(focus);
@@ -130,7 +137,10 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
         focusNode: focus,
         obscureText: this._isHiddenConfirm,
         decoration: _inputBoxDecoration(
-            'confirm', confirmHintText, inputBoxEdgeRadious),
+          'confirm',
+          confirmHintText,
+          inputBoxEdgeRadious,
+        ),
         keyboardType: TextInputType.visiblePassword,
         onEditingComplete: _loginController,
         validator: _confirmInputValidator,
@@ -139,13 +149,18 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
   }
 
   InputDecoration _inputBoxDecoration(
-      String inputFieldID, String inputHintText, double inputBoxEdgeRadious) {
+    String inputFieldID,
+    String inputHintText,
+    double inputBoxEdgeRadious,
+  ) {
     bool? visibility = null;
+
     if (inputFieldID == 'first') {
       visibility = this._isHiddenFirst;
     } else {
       visibility = this._isHiddenConfirm;
     }
+
     return InputDecoration(
       hintText: inputHintText,
       border: OutlineInputBorder(
@@ -209,14 +224,17 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
     if (form.validate()) {
       final enteredPassphrase = this._passPhraseController.text;
       final enteredPassphraseConfirm = this._passPhraseControllerConfirm.text;
+
       if (enteredPassphrase == enteredPassphraseConfirm) {
         showSnackBarMessage(context, 'Encryption Phrase Set!');
 
         // Setting hash for PassPhrase in share prefrences
         Session.setOrChangePassphrase(enteredPassphrase);
-
-        await Navigator.pushReplacementNamed(context, '/home',
-            arguments: widget.sessionStream);
+        await Navigator.pushReplacementNamed(
+          context,
+          '/home',
+          arguments: widget.sessionStream,
+        );
       } else
         showSnackBarMessage(context, 'Encryption Phrase missmach!');
     }

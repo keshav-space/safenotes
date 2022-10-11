@@ -46,6 +46,7 @@ class NotesDatabase {
   Future<SafeNote> encryptAndStore(SafeNote note) async {
     final db = await instance.database;
     final id = await db.insert(tableNotes, note.toJsonAndEncrypted());
+
     return note.copy(id: id);
   }
 
@@ -69,6 +70,7 @@ class NotesDatabase {
     final db = await instance.database;
     final orderBy = '${NoteFields.time} ASC';
     final result = await db.query(tableNotes, orderBy: orderBy);
+
     return result.map((json) => SafeNote.fromJsonAndDecrypt(json)).toList();
   }
 
@@ -83,6 +85,7 @@ class NotesDatabase {
 
   Future<int> encryptAndUpdate(SafeNote note) async {
     final db = await instance.database;
+
     return db.update(
       tableNotes,
       note.toJsonAndEncrypted(),
@@ -93,6 +96,7 @@ class NotesDatabase {
 
   Future<int> delete(int id) async {
     final db = await instance.database;
+
     return await db.delete(
       tableNotes,
       where: '${NoteFields.id} = ?',

@@ -28,5 +28,9 @@ class Session {
 class SessionArguments {
   final StreamController<SessionState> sessionStream;
   final bool? isKeyboardFocused;
-  SessionArguments({required this.sessionStream, this.isKeyboardFocused});
+
+  SessionArguments({
+    required this.sessionStream,
+    this.isKeyboardFocused,
+  });
 }
