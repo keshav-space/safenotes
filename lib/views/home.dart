@@ -20,6 +20,7 @@ import 'package:safenotes/models/session.dart';
 import 'package:safenotes/utils/snack_message.dart';
 import 'package:safenotes/widgets/drawer.dart';
 import 'package:safenotes/widgets/note_card.dart';
+import 'package:safenotes/widgets/note_tile.dart';
 import 'package:safenotes/widgets/search_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -90,6 +91,7 @@ class _HomePageState extends State<HomePage> {
       child: !isLoading
           ? (notes.isEmpty
               ? Text(noNotes, style: TextStyle(fontSize: fontSize))
+              //call _buildNotesTile() for tile view
               : _buildNotes())
           : Center(child: CircularProgressIndicator()),
     );
@@ -188,6 +190,33 @@ class _HomePageState extends State<HomePage> {
             _refreshNotes();
             showSnackBarMessage(context, snackMessage);
           },
+        );
+      },
+    );
+  }
+
+  Widget _buildNotesTile() {
+    return ListView.separated(
+      padding: EdgeInsets.all(8),
+      itemCount: notes.length,
+      itemBuilder: ((context, index) {
+        final note = notes[index];
+        return GestureDetector(
+          onTap: () async {
+            await Navigator.pushNamed(
+              context,
+              '/viewnote',
+              arguments: note,
+            );
+            _refreshNotes();
+          },
+          child: NoteTileWidget(note: note, index: index),
+        );
+      }),
+      separatorBuilder: (BuildContext context, int index) {
+        return Container(
+          height: 5,
+          color: Colors.transparent,
         );
       },
     );
