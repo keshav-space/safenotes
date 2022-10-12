@@ -67,9 +67,10 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
     final double logoTopPadding = 50.0;
     final double logoWidth = 165.0;
     final double logoHeight = 165.0;
+    final double logoBottomPadding = 20.0;
 
     return Padding(
-      padding: EdgeInsets.only(top: logoTopPadding),
+      padding: EdgeInsets.only(top: logoTopPadding, bottom: logoBottomPadding),
       child: Center(
         child: Container(
           width: logoWidth,
@@ -103,8 +104,8 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
   }
 
   Widget _inputFieldFirst(FocusNode focus) {
-    final double inputBoxEdgeRadious = 15.0;
-    final String firstHintText = 'Encryption Phrase';
+    final double inputBoxEdgeRadious = 10.0;
+    final String firstHintText = 'New Passphrase';
 
     return TextFormField(
       enableIMEPersonalizedLearning: false,
@@ -112,9 +113,10 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
       autofocus: widget.isKeyboardFocused ?? true, //true,
       obscureText: this._isHiddenFirst,
       decoration: _inputBoxDecoration(
-        'first',
-        firstHintText,
-        inputBoxEdgeRadious,
+        inputFieldID: 'first',
+        inputHintText: firstHintText,
+        label: firstHintText,
+        inputBoxEdgeRadious: inputBoxEdgeRadious,
       ),
       keyboardType: TextInputType.visiblePassword,
       onFieldSubmitted: (v) {
@@ -125,9 +127,9 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
   }
 
   Widget _inputFieldConfirm(BuildContext context, FocusNode focus) {
-    final double inputBoxEdgeRadious = 15.0;
+    final double inputBoxEdgeRadious = 10.0;
     final double padding = 10.0;
-    final String confirmHintText = 'Confirm Encryption Phrase';
+    final String confirmHintText = 'Re-enter Passphrase';
 
     return Padding(
       padding: EdgeInsets.only(top: padding),
@@ -137,9 +139,10 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
         focusNode: focus,
         obscureText: this._isHiddenConfirm,
         decoration: _inputBoxDecoration(
-          'confirm',
-          confirmHintText,
-          inputBoxEdgeRadious,
+          inputFieldID: 'confirm',
+          inputHintText: confirmHintText,
+          label: confirmHintText,
+          inputBoxEdgeRadious: inputBoxEdgeRadious,
         ),
         keyboardType: TextInputType.visiblePassword,
         onEditingComplete: _loginController,
@@ -148,11 +151,12 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
     );
   }
 
-  InputDecoration _inputBoxDecoration(
-    String inputFieldID,
-    String inputHintText,
-    double inputBoxEdgeRadious,
-  ) {
+  InputDecoration _inputBoxDecoration({
+    required String inputFieldID,
+    required String inputHintText,
+    required String label,
+    required double inputBoxEdgeRadious,
+  }) {
     bool? visibility = null;
 
     if (inputFieldID == 'first') {
@@ -163,6 +167,7 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
 
     return InputDecoration(
       hintText: inputHintText,
+      label: Text(label),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(inputBoxEdgeRadious),
       ),
@@ -195,13 +200,13 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
   String? _confirmInputValidator(String? passphraseConfirm) {
     return passphraseConfirm == null ||
             passphraseConfirm != this._passPhraseController.text
-        ? 'Encryption Phrase mismatch!'
+        ? 'Passphrase mismatch!'
         : null;
   }
 
   Widget _buildLoginButton() {
     return ButtonWidget(
-      text: 'LOGIN',
+      text: 'Confirm',
       onClicked: () async {
         _loginController();
       },
@@ -212,7 +217,7 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
     return Container(
       alignment: Alignment.centerRight,
       child: TextButton(
-        child: Text('Use Strong Phrase!'),
+        child: Text('Use strong Passphrase!'),
         onPressed: () {},
       ),
     );
@@ -226,7 +231,7 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
       final enteredPassphraseConfirm = this._passPhraseControllerConfirm.text;
 
       if (enteredPassphrase == enteredPassphraseConfirm) {
-        showSnackBarMessage(context, 'Encryption Phrase Set!');
+        showSnackBarMessage(context, 'Passphrase set!');
 
         // Setting hash for PassPhrase in share prefrences
         Session.setOrChangePassphrase(enteredPassphrase);
@@ -236,7 +241,7 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
           arguments: widget.sessionStream,
         );
       } else
-        showSnackBarMessage(context, 'Encryption Phrase missmach!');
+        showSnackBarMessage(context, 'Passphrase mismatch!');
     }
   }
 }

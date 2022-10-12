@@ -109,7 +109,7 @@ class _ChangePassphraseDialogState extends State<ChangePassphraseDialog> {
   Widget _buildOldPassField(BuildContext context, FocusNode focusNew) {
     final double inputBoxEdgeRadious = 10.0;
     final String inputHintOld = 'Old Passphrase';
-    final String validationErrorMsg = 'Wrong encryption Phrase!';
+    final String validationErrorMsg = 'Wrong passphrase!';
 
     return TextFormField(
       enableIMEPersonalizedLearning: false,
@@ -191,6 +191,7 @@ class _ChangePassphraseDialogState extends State<ChangePassphraseDialog> {
   InputDecoration _inputBoxDecoration(BuildContext context, String inputFieldID,
       String inputHintText, double inputBoxEdgeRadious) {
     bool? visibility = null;
+
     if (inputFieldID == 'first') {
       visibility = this._isHiddenOld;
     } else if (inputFieldID == 'second') {

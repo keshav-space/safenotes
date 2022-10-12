@@ -10,6 +10,8 @@ class PreferencesStorage {
   static const _keyInactivityTimeout = 'inactivityTimeout';
   static const _keyFocusTimeout = 'focusTimeout';
   static const _keyPreInactivityLogoutCounter = 'preInactivityLogoutCounter';
+  static const _keyNoOfLogginAttemptAllowed = 'noOfLogginAttemptAllowed';
+  static const _keyBruteforceLockOutTime = 'bruteforceLockOutTime';
 
   static Future init() async =>
       _preferences = await SharedPreferences.getInstance();
@@ -31,6 +33,16 @@ class PreferencesStorage {
 
   static bool getKeyboardIncognito() {
     return _preferences?.getBool(_keyKeyboardIncognito) ?? true;
+  }
+
+  static int getNoOfLogginAttemptAllowed() {
+    //default: 3 unsucessful
+    return _preferences?.getInt(_keyNoOfLogginAttemptAllowed) ?? 4;
+  }
+
+  static int getBruteforceLockOutTime() {
+    //default: 30 seconds
+    return _preferences?.getInt(_keyBruteforceLockOutTime) ?? 30;
   }
 
   static int getInactivityTimeout() {
