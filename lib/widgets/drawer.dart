@@ -74,7 +74,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
               _buildMenuItem(
                 topPadding: itemSpacing,
                 text: changePassText,
-                icon: Icons.lock_sharp,
+                icon: Icons.key,
                 onClicked: widget.onChangePassCallback,
               ),
               _buildMenuItem(
@@ -83,8 +83,8 @@ class _HomeDrawerState extends State<HomeDrawer> {
                     ? lightModeText
                     : darkModeText,
                 icon: PreferencesStorage.getIsThemeDark()
-                    ? Icons.lightbulb
-                    : Icons.lightbulb_outline,
+                    ? Icons.light_mode
+                    : Icons.dark_mode,
                 onClicked: () {
                   final provider =
                       Provider.of<ThemeProvider>(context, listen: false);
@@ -95,7 +95,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
               _buildMenuItem(
                 topPadding: dividerSpacing,
                 text: helpText,
-                icon: Icons.feedback,
+                icon: Icons.help,
                 onClicked: () async {
                   Navigator.of(context).pop();
                   var mailUrl = SafeNotesConfig.getMailToForFeedback();
@@ -107,7 +107,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
               _buildMenuItem(
                 topPadding: itemSpacing,
                 text: sourceCodeText,
-                icon: Icons.folder,
+                icon: Icons.code,
                 onClicked: () async {
                   var sourceCodeUrl = SafeNotesConfig.getSourceCodeUrl();
                   try {

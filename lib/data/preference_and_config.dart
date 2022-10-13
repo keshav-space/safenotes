@@ -103,7 +103,7 @@ class ImportPassPhraseHandler {
 class SafeNotesConfig {
   static String appName = 'Safe Notes';
   static String appSlogan = 'Heaven for your data!';
-  static String firstLoginPageName = 'Set Encryption Phrase';
+  static String firstLoginPageName = 'Set Passphrase';
   static String loginPageName = 'Login';
   static String appLogoPath = 'assets/splash_500.png';
   static String appLogoAsProfilePath =

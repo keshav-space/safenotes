@@ -1,5 +1,6 @@
 // Dart imports:
 import 'dart:async';
+import 'dart:math' as math;
 
 // Flutter imports:
 import 'package:flutter/material.dart';
@@ -38,6 +39,8 @@ class _HomePageState extends State<HomePage> {
   bool isLoading = false;
   String query = '';
   bool isHiddenImport = true;
+  bool isNewFirst = true;
+  bool isGridView = true;
   final importPassphraseController = TextEditingController();
 
   @override
@@ -50,9 +53,14 @@ class _HomePageState extends State<HomePage> {
     setState(() => isLoading = true);
     // storing copy of notes in allnotes so that it does not change while doing search
     // show recently created notes first
-    this.allnotes =
-        this.notes = await NotesDatabase.instance.decryptReadAllNotes()
-          ..sort((a, b) => b.createdTime.compareTo(a.createdTime));
+    if (isNewFirst)
+      this.allnotes =
+          this.notes = await NotesDatabase.instance.decryptReadAllNotes()
+            ..sort((a, b) => b.createdTime.compareTo(a.createdTime));
+    else
+      this.allnotes =
+          this.notes = await NotesDatabase.instance.decryptReadAllNotes()
+            ..sort((a, b) => a.createdTime.compareTo(b.createdTime));
 
     setState(() => isLoading = false);
   }
@@ -63,7 +71,7 @@ class _HomePageState extends State<HomePage> {
     final double appNameFontSize = 24.0;
 
     return GestureDetector(
-      //onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         drawer: _buildDrawer(context),
         appBar: AppBar(
@@ -71,6 +79,7 @@ class _HomePageState extends State<HomePage> {
             officialAppName,
             style: TextStyle(fontSize: appNameFontSize),
           ),
+          actions: isLoading ? null : [_gridListView(), _shortNotes()],
         ),
         body: Column(
           children: <Widget>[
@@ -83,16 +92,45 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget _gridListView() {
+    return IconButton(
+      icon: !isGridView ? Icon(Icons.grid_view_sharp) : Icon(Icons.list),
+      onPressed: () {
+        setState(() {
+          isGridView = !isGridView;
+        });
+      },
+    );
+  }
+
+  Widget _shortNotes() {
+    return IconButton(
+      icon: !isNewFirst
+          ? Transform(
+              alignment: Alignment.center,
+              transform: Matrix4.rotationX(math.pi),
+              child: Icon(Icons.sort_rounded),
+            )
+          : Icon(Icons.sort_rounded),
+      onPressed: () {
+        setState(() {
+          this.isNewFirst = !this.isNewFirst;
+          _refreshNotes();
+        });
+        // await confirmAndDeleteDialog(context);
+      },
+    );
+  }
+
   Widget _handleAndBuildNotes() {
     final String noNotes = 'No Notes';
     final double fontSize = 24.0;
 
     return Expanded(
       child: !isLoading
-          ? (notes.isEmpty
+          ? notes.isEmpty
               ? Text(noNotes, style: TextStyle(fontSize: fontSize))
-              //call _buildNotesTile() for tile view
-              : _buildNotes())
+              : (isGridView ? _buildNotes() : _buildNotesTile())
           : Center(child: CircularProgressIndicator()),
     );
   }
@@ -108,7 +146,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildSearch() {
-    final String searchBoxHint = 'Title or Content';
+    final String searchBoxHint = 'Search...';
 
     return SearchWidget(
       text: query,
@@ -215,7 +253,7 @@ class _HomePageState extends State<HomePage> {
       }),
       separatorBuilder: (BuildContext context, int index) {
         return Container(
-          height: 5,
+          height: 10,
           color: Colors.transparent,
         );
       },
