@@ -15,7 +15,7 @@ showSnackBarMessage(BuildContext context, String? message) {
             textAlign: TextAlign.center,
           ),
           elevation: 6.0,
-          duration: Duration(milliseconds: 1000),
+          duration: Duration(milliseconds: 2000),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(5)),
           ),
