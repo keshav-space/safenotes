@@ -37,7 +37,7 @@ class InactivityLogoutInfo extends StatelessWidget {
   Widget _cautionIcon(BuildContext context) {
     return Icon(
       Icons.info_rounded,
-      size: 50,
+      size: 60,
       color: NordColors.frost.darkest,
     );
   }
