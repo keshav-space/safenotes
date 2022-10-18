@@ -38,14 +38,15 @@ class _HomeDrawerState extends State<HomeDrawer> {
     final double dividerSpacing = 0.0;
     final double drawerRadius = 15.0;
 
-    final String importDataText = 'Import Data';
+    final String importDataText = 'Import Backup';
     final String exportDataText = 'Export Data';
     final String changePassText = 'Change Passphrase';
     final String darkModeText = 'Dark Mode';
     final String lightModeText = 'Light Mode';
     final String helpText = 'Help and Feedback';
-    final String sourceCodeText = 'Source Code';
-    final String reportBugText = 'Report Bug';
+    // final String sourceCodeText = 'Source Code';
+    // final String reportBugText = 'Report Bug';
+    final String rateText = 'Rate App';
     final String logoutText = 'LogOut';
 
     return ClipRRect(
@@ -103,8 +104,20 @@ class _HomeDrawerState extends State<HomeDrawer> {
               _divide(topPadding: dividerSpacing),
               _buildMenuItem(
                 topPadding: dividerSpacing,
+                text: rateText,
+                icon: Icons.rate_review,
+                onClicked: () async {
+                  Navigator.of(context).pop();
+                  String playstoreUrl = SafeNotesConfig.getPlayStoreUrl();
+                  try {
+                    await launchUrlExternal(Uri.parse(playstoreUrl));
+                  } catch (e) {}
+                },
+              ),
+              _buildMenuItem(
+                topPadding: dividerSpacing,
                 text: helpText,
-                icon: Icons.help,
+                icon: Icons.help_outline,
                 onClicked: () async {
                   Navigator.of(context).pop();
                   var mailUrl = SafeNotesConfig.getMailToForFeedback();
@@ -113,29 +126,29 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   } catch (e) {}
                 },
               ),
-              _buildMenuItem(
-                topPadding: itemSpacing,
-                text: sourceCodeText,
-                icon: Icons.code,
-                onClicked: () async {
-                  var sourceCodeUrl = SafeNotesConfig.getSourceCodeUrl();
-                  try {
-                    await launchUrlExternal(Uri.parse(sourceCodeUrl));
-                  } catch (e) {}
-                },
-              ),
-              _buildMenuItem(
-                topPadding: itemSpacing,
-                text: reportBugText,
-                icon: Icons.bug_report,
-                onClicked: () async {
-                  Navigator.of(context).pop();
-                  var mailUrl = SafeNotesConfig.getBugReportUrl();
-                  try {
-                    await launchUrlExternal(Uri.parse(mailUrl));
-                  } catch (e) {}
-                },
-              ),
+              // _buildMenuItem(
+              //   topPadding: itemSpacing,
+              //   text: sourceCodeText,
+              //   icon: Icons.code,
+              //   onClicked: () async {
+              //     var sourceCodeUrl = SafeNotesConfig.getSourceCodeUrl();
+              //     try {
+              //       await launchUrlExternal(Uri.parse(sourceCodeUrl));
+              //     } catch (e) {}
+              //   },
+              // ),
+              // _buildMenuItem(
+              //   topPadding: itemSpacing,
+              //   text: reportBugText,
+              //   icon: Icons.bug_report,
+              //   onClicked: () async {
+              //     Navigator.of(context).pop();
+              //     var mailUrl = SafeNotesConfig.getBugReportUrl();
+              //     try {
+              //       await launchUrlExternal(Uri.parse(mailUrl));
+              //     } catch (e) {}
+              //   },
+              // ),
               _divide(topPadding: dividerSpacing),
               _buildMenuItem(
                 topPadding: dividerSpacing,

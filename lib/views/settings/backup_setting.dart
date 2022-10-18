@@ -1,12 +1,12 @@
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:timeago/timeago.dart' as timeago;
 
 // Package imports:
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 import 'package:settings_ui/settings_ui.dart';
+import 'package:timeago/timeago.dart' as timeago;
 import 'package:workmanager/workmanager.dart';
 
 // Project imports:

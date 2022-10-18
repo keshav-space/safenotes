@@ -14,15 +14,16 @@ import 'package:safenotes/main.dart';
 import 'package:safenotes/models/safenote.dart';
 import 'package:safenotes/models/session.dart';
 import 'package:safenotes/views/add_edit_note.dart';
-import 'package:safenotes/views/auth_views/login.dart';
-import 'package:safenotes/views/auth_views/set_passphrase.dart';
-import 'package:safenotes/views/backup_setting.dart';
+import 'package:safenotes/views/authentication/login.dart';
+import 'package:safenotes/views/authentication/set_passphrase.dart';
+import 'package:safenotes/views/settings/backup_setting.dart';
 import 'package:safenotes/views/change_passphrase.dart';
-import 'package:safenotes/views/notes_color_setting.dart';
 import 'package:safenotes/views/home.dart';
+import 'package:safenotes/views/settings/inactivity_setting.dart';
 import 'package:safenotes/views/note_view.dart';
-import 'package:safenotes/views/settings.dart';
-import 'package:safenotes/views/inactivity_setting.dart';
+import 'package:safenotes/views/settings/notes_color_setting.dart';
+import 'package:safenotes/views/settings/secure_display_setting.dart';
+import 'package:safenotes/views/settings/settings.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -163,6 +164,12 @@ class RouteGenerator {
           type: transitionType,
         );
 
+      case '/secureDisplaySetting':
+        return PageTransition(
+          child: SecureDisplaySetting(),
+          duration: Duration(milliseconds: transitionDuration),
+          type: transitionType,
+        );
       default:
         return _errorRoute(route: routeName);
     }

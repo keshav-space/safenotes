@@ -56,9 +56,11 @@ dependencies:
   settings_ui: ^2.0.2
   material_design_icons_flutter: ^5.0.6996
   page_transition: ^2.0.9
-  #workmanager: ^0.5.0
+  
   logger: ^1.1.0
   timeago: ^3.3.0
+  flutter_windowmanager: ^0.2.0
+  # workmanager: ^0.5.0
   workmanager:
     path: ../flutter_workmanager/
 

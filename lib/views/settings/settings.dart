@@ -9,13 +9,13 @@ import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:safenotes/utils/url_launcher.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/models/app_theme.dart';
 import 'package:safenotes/models/session.dart';
+import 'package:safenotes/utils/url_launcher.dart';
 
 class SettingsScreen extends StatefulWidget {
   final StreamController<SessionState> sessionStateStream;
@@ -90,12 +90,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
           title: Text('Security'),
           tiles: <SettingsTile>[
             SettingsTile.navigation(
-              leading: Icon(Icons.phonelink_lock),
-              title: Text('Logout on Inactivity'),
+              leading: Icon(MdiIcons.cellphoneKey),
+              title: Text('LogOut on Inactivity'),
               value: Text(
                   '${(PreferencesStorage.getInactivityTimeout() / 60).round()} min'),
               onPressed: (context) async {
                 await Navigator.pushNamed(context, '/inactivityTimerSettings');
+                setState(() {});
+              },
+            ),
+            SettingsTile.navigation(
+              leading: Icon(Icons.phonelink_lock),
+              title: Text('Secure Display'),
+              value: PreferencesStorage.getIsFlagSecure()
+                  ? Text('On')
+                  : Text('Off'),
+              onPressed: (context) async {
+                await Navigator.pushNamed(context, '/secureDisplaySetting');
                 setState(() {});
               },
             ),
@@ -119,7 +130,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             SettingsTile.navigation(
               leading: Icon(Icons.logout),
-              title: Text('Logout'),
+              title: Text('LogOut'),
               onPressed: (context) async {
                 Session.logout();
                 widget.sessionStateStream.add(SessionState.stopListening);
@@ -153,8 +164,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               leading: Icon(MdiIcons.github),
               title: Text('Source Code'),
               onPressed: (_) async {
-                String sourceCodeUrl =
-                    'https://github.com/keshav-space/safenotes'; //SafeNotesConfig.getSourceCodeUrl();
+                String sourceCodeUrl = SafeNotesConfig.getGithubUrl();
                 try {
                   await launchUrlExternal(Uri.parse(sourceCodeUrl));
                 } catch (e) {}
