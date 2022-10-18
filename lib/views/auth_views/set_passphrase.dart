@@ -57,6 +57,8 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
           children: [
             _buildTopLogo(),
             _buildPassphraseSetWorkflow(context),
+            Spacer(),
+            _footer(),
           ],
         ),
       ),
@@ -219,6 +221,34 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
       child: TextButton(
         child: Text('Use strong Passphrase!'),
         onPressed: () {},
+      ),
+    );
+  }
+
+  Widget _footer() {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 20),
+      child: Column(
+        children: [
+          Text(
+            "Safe Notes",
+            style: TextStyle(
+              color: PreferencesStorage.getIsThemeDark()
+                  ? Color(0xFFafb8ba)
+                  : Color(0xFF8e989c),
+              fontSize: 12,
+            ),
+          ),
+          Text(
+            "Made with ♥ on Earth",
+            style: TextStyle(
+              color: PreferencesStorage.getIsThemeDark()
+                  ? Color(0xFFafb8ba)
+                  : Color(0xFF8e989c),
+              fontSize: 12,
+            ),
+          ),
+        ],
       ),
     );
   }

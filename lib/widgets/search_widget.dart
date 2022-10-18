@@ -44,7 +44,7 @@ class _SearchWidgetState extends State<SearchWidget> {
         enableIMEPersonalizedLearning: enableIMEPLFlag,
         controller: controller,
         enableInteractiveSelection: true,
-        //autofocus: true,
+        autofocus: false,
         toolbarOptions: ToolbarOptions(
           paste: true,
           cut: true,

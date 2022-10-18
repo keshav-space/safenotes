@@ -20,20 +20,14 @@ import 'package:safenotes/models/safenote.dart';
 class FileHandler {
   Future<String?> fileSave() async {
     String? snackBackMsg;
-
     try {
       String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
       if (selectedDirectory != null) {
         final String fileName = SafeNotesConfig.getExportFileName();
-        final String passHash =
-            PreferencesStorage.getPassPhraseHash().toString();
-        String record = await NotesDatabase.instance.exportAllEncrypted();
         String? selectedFolderName = selectedDirectory.split('/').last;
-        int totalCountOfNotes = '{'.allMatches(record).length;
-        String jsonOutputContent =
-            '{ "records" : ${record}, "recordHandlerHash" : "${passHash}", "total" : ${totalCountOfNotes.toString()} }';
-
         var jsonFile = new File('${selectedDirectory}/${fileName}');
+        String jsonOutputContent = await encryptedOutputBackupContent();
+
         jsonFile.writeAsStringSync(jsonOutputContent);
         snackBackMsg = 'File saved in "${selectedFolderName}" folder!';
       } else {
@@ -41,6 +35,16 @@ class FileHandler {
       }
     } catch (e) {}
     return snackBackMsg;
+  }
+
+  static Future<String> encryptedOutputBackupContent() async {
+    final String passHash = PreferencesStorage.getPassPhraseHash().toString();
+    String record = await NotesDatabase.instance.exportAllEncrypted();
+    int totalCountOfNotes = '{'.allMatches(record).length;
+
+    String content =
+        '{ "records" : ${record}, "recordHandlerHash" : "${passHash}", "total" : ${totalCountOfNotes.toString()} }';
+    return content;
   }
 
   Future<String?> selectFileAndDoImport(BuildContext context) async {

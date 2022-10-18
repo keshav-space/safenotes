@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:local_session_timeout/local_session_timeout.dart';
+import 'package:workmanager/workmanager.dart';
 
 // Project imports:
 import 'package:safenotes/app.dart';
@@ -15,6 +16,15 @@ import 'package:safenotes/dialogs/inactivity_logout_msg.dart';
 import 'package:safenotes/dialogs/pre_inactivity_logout_alert.dart';
 import 'package:safenotes/models/editor_state.dart';
 import 'package:safenotes/models/session.dart';
+import 'package:safenotes/utils/backup_shedule.dart';
+
+@pragma('vm:entry-point')
+void callbackDispatcher() {
+  Workmanager().executeTask((task, inputData) async {
+    await ScheduledTask.backup();
+    return Future.value(true);
+  });
+}
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +32,19 @@ Future main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+
+  Workmanager().initialize(
+    callbackDispatcher,
+    isInDebugMode: true,
+  );
+
+  // Workmanager().registerOneOffTask(
+  //   "safenotes-task23",
+  //   "dailyBackup23",
+  //   tag: 'com.trisven.safenotes.dailybackup23',
+  // );
+
+  //Workmanager().cancelAll();
   await PreferencesStorage.init();
   runApp(SafeNotesApp());
 }

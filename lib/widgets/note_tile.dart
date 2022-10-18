@@ -2,70 +2,74 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 import 'package:intl/intl.dart';
 
 // Project imports:
-import '../models/safenote.dart';
-
-final _lightColors = [
-  NordColors.frost.darkest,
-  NordColors.aurora.orange,
-  NordColors.aurora.green,
-  NordColors.aurora.purple,
-  NordColors.frost.darker,
-];
+import 'package:safenotes/models/safenote.dart';
+import 'package:safenotes/utils/color.dart';
 
 class NoteTileWidget extends StatelessWidget {
+  final SafeNote note;
+  final int index;
+  //final bool isColorful;
+
   const NoteTileWidget({
     Key? key,
     required this.note,
     required this.index,
+    //required this.isColorful,
   }) : super(key: key);
-
-  final SafeNote note;
-  final int index;
 
   @override
   Widget build(BuildContext context) {
-    /// Pick colors from the accent colors based on index
-    final color = _lightColors[index % _lightColors.length];
+    // Pick colors from the accent colors based on index
+    final color = NotesColor.getNoteColor(notIndex: index);
+    final fontColor = getFontColorForBackground(color);
     final time = DateFormat.yMMMd().format(note.createdTime);
+
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration:
-          BoxDecoration(borderRadius: BorderRadius.circular(5), color: color),
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: color,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
             note.title.length > 30
-                ? (note.title.substring(0, 30).replaceAll("\n", " ") + '...')
+                ? (note.title
+                    .substring(0, 30)
+                    .replaceAll("\n", " ")) // + '...')
                 : note.title.replaceAll("\n", " "),
             style: TextStyle(
-              color: Colors.black,
+              //color: Colors.black,
+              color: fontColor,
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox.square(
-            dimension: 5,
-          ),
+          SizedBox.square(dimension: 5),
           Text(
             time,
             style: TextStyle(
-                fontSize: 13, fontWeight: FontWeight.w600, color: Colors.black),
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: fontColor,
+              //color: Colors.black,
+            ),
           ),
-          SizedBox.square(
-            dimension: 5,
-          ),
+          SizedBox.square(dimension: 5),
           Text(
             note.description.length > 90
-                ? (note.description.substring(0, 90).replaceAll("\n", " ") +
-                    '...')
+                ? (note.description
+                    .substring(0, 90)
+                    .replaceAll("\n", " ")) //+'...')
                 : note.description.replaceAll("\n", " "),
             style: TextStyle(
-              color: Colors.black,
+              //color: Colors.black,
+              color: fontColor,
               fontSize: 16,
               //fontWeight: FontWeight.bold,
             ),
