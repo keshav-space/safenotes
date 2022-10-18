@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 // Package imports:
+import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
 import 'package:workmanager/workmanager.dart';
 
@@ -17,14 +18,6 @@ import 'package:safenotes/dialogs/pre_inactivity_logout_alert.dart';
 import 'package:safenotes/models/editor_state.dart';
 import 'package:safenotes/models/session.dart';
 import 'package:safenotes/utils/backup_shedule.dart';
-
-@pragma('vm:entry-point')
-void callbackDispatcher() {
-  Workmanager().executeTask((task, inputData) async {
-    await ScheduledTask.backup();
-    return Future.value(true);
-  });
-}
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,14 +31,9 @@ Future main() async {
     isInDebugMode: true,
   );
 
-  // Workmanager().registerOneOffTask(
-  //   "safenotes-task23",
-  //   "dailyBackup23",
-  //   tag: 'com.trisven.safenotes.dailybackup23',
-  // );
-
-  //Workmanager().cancelAll();
   await PreferencesStorage.init();
+  if (PreferencesStorage.getIsFlagSecure())
+    await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
   runApp(SafeNotesApp());
 }
 
@@ -137,4 +125,12 @@ class SafeNotesApp extends StatelessWidget {
     await NoteEditorState().handleUngracefulNoteExit();
     Session.logout();
   }
+}
+
+@pragma('vm:entry-point')
+void callbackDispatcher() {
+  Workmanager().executeTask((task, inputData) async {
+    await ScheduledTask.backup();
+    return Future.value(true);
+  });
 }

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:intl/intl.dart';
-import 'package:safenotes/data/preference_and_config.dart';
 
 // Project imports:
+import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/models/safenote.dart';
 import 'package:safenotes/utils/color.dart';
 

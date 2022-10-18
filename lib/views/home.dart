@@ -1,6 +1,5 @@
 // Dart imports:
 import 'dart:async';
-import 'dart:math' as math;
 
 // Flutter imports:
 import 'package:flutter/material.dart';
@@ -104,7 +103,9 @@ class _HomePageState extends State<HomePage> {
 
   Widget _gridListView() {
     return IconButton(
-      icon: !isGridView ? Icon(Icons.grid_view_sharp) : Icon(Icons.list),
+      icon: !isGridView
+          ? Icon(Icons.grid_view_outlined)
+          : Icon(Icons.splitscreen_outlined),
       onPressed: () {
         setState(() {
           PreferencesStorage.setIsGridView(!isGridView);
@@ -118,18 +119,12 @@ class _HomePageState extends State<HomePage> {
     return IconButton(
       icon: !isNewFirst
           ? Icon(MdiIcons.sortCalendarAscending)
-          // ? Transform(
-          //     alignment: Alignment.bottomCenter,
-          //     transform: Matrix4.rotationX(math.pi),
-          //     child: Icon(Icons.sort_rounded),
-          //   )
           : Icon(MdiIcons.sortCalendarDescending),
       onPressed: () {
         setState(() {
           this.isNewFirst = !this.isNewFirst;
           _sortAndStoreNotes();
         });
-        // await confirmAndDeleteDialog(context);
       },
     );
   }
@@ -217,16 +212,6 @@ class _HomePageState extends State<HomePage> {
       },
     );
   }
-
-  // Future<void> changePassphraseDialog(BuildContext context) {
-  //   return showDialog<void>(
-  //     context: context,
-  //     barrierDismissible: true,
-  //     builder: (_) {
-  //       return ChangePassphraseDialog(allnotes: allnotes);
-  //     },
-  //   );
-  // }
 
   showExportDialog(BuildContext context) async {
     return showDialog(

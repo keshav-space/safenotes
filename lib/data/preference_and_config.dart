@@ -22,6 +22,7 @@ class PreferencesStorage {
   static const _keyColorfulNotesColorIndex = 'colorfulNotesColorIndex';
   static const _keyIsGridView = 'isGridView';
   static const _keyIsNewFirst = 'isNewFirst';
+  static const _keyIsFlagSecure = 'isFlagSecure';
 
   static Future init() async =>
       _preferences = await SharedPreferences.getInstance();
@@ -43,6 +44,12 @@ class PreferencesStorage {
 
   static Future<void> setIsThemeDark(bool flag) async =>
       await _preferences?.setBool(_keyIsThemeDark, flag);
+
+  static bool getIsFlagSecure() =>
+      _preferences?.getBool(_keyIsFlagSecure) ?? true;
+
+  static Future<void> setIsFlagSecure(bool flag) async =>
+      await _preferences?.setBool(_keyIsFlagSecure, flag);
 
   static bool getIsGridView() => _preferences?.getBool(_keyIsGridView) ?? true;
 
@@ -182,6 +189,7 @@ class SafeNotesConfig {
       'https://github.com/keshav-space/safenotes/blob/main/LICENSE';
   static String playStorUrl =
       'https://play.google.com/store/apps/details?id=com.trisven.safenotes';
+  static String githubUrl = 'https://github.com/keshav-space/safenotes';
 
   static String getLogoAsProfile() => appLogoAsProfilePath;
   static String getBugReportUrl() => bugReportUrl;
@@ -189,6 +197,7 @@ class SafeNotesConfig {
   static String getSourceCodeUrl() => sourceCodeUrl;
   static String getOpenSourceLicence() => openSourceLicence;
   static String getPlayStoreUrl() => playStorUrl;
+  static String getGithubUrl() => githubUrl;
   static String getAppName() => appName;
   static String getAppSlogan() => appSlogan;
   static String getLoginPageName() => loginPageName;
