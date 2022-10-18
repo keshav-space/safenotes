@@ -66,9 +66,9 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
         body: Column(
           children: [
             _buildTopLogo(),
-            _buildLoginWorkflow(
-              context: context,
-            ),
+            _buildLoginWorkflow(context: context),
+            Spacer(),
+            _footer(),
           ],
         ),
       ),
@@ -227,6 +227,34 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
       onClicked: () async {
         _loginController();
       },
+    );
+  }
+
+  Widget _footer() {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 20),
+      child: Column(
+        children: [
+          Text(
+            "Safe Notes",
+            style: TextStyle(
+              color: PreferencesStorage.getIsThemeDark()
+                  ? Color(0xFFafb8ba)
+                  : Color(0xFF8e989c),
+              fontSize: 12,
+            ),
+          ),
+          Text(
+            "Made with ♥ on Earth",
+            style: TextStyle(
+              color: PreferencesStorage.getIsThemeDark()
+                  ? Color(0xFFafb8ba)
+                  : Color(0xFF8e989c),
+              fontSize: 12,
+            ),
+          ),
+        ],
+      ),
     );
   }
 

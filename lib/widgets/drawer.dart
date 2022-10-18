@@ -4,17 +4,18 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/models/app_theme.dart';
+import 'package:safenotes/utils/url_launcher.dart';
 
 class HomeDrawer extends StatefulWidget {
   final VoidCallback onImportCallback;
   final VoidCallback onExportCallback;
   final VoidCallback onChangePassCallback;
   final VoidCallback onLogoutCallback;
+  final VoidCallback onSettingsCallback;
 
   HomeDrawer({
     Key? key,
@@ -22,6 +23,7 @@ class HomeDrawer extends StatefulWidget {
     required this.onExportCallback,
     required this.onChangePassCallback,
     required this.onLogoutCallback,
+    required this.onSettingsCallback,
   }) : super(key: key);
 
   @override
@@ -32,9 +34,9 @@ class _HomeDrawerState extends State<HomeDrawer> {
   @override
   Widget build(BuildContext context) {
     final drawerPaddingHorizontal = 15.0;
-    final double itemSpacing = 10.0;
-    final double dividerSpacing = 5.0;
-    final double drawerRadius = 20.0;
+    final double itemSpacing = 0.0;
+    final double dividerSpacing = 0.0;
+    final double drawerRadius = 15.0;
 
     final String importDataText = 'Import Data';
     final String exportDataText = 'Export Data';
@@ -57,7 +59,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
           child: ListView(
             padding: EdgeInsets.symmetric(horizontal: drawerPaddingHorizontal),
             children: <Widget>[
-              _drawerHeader(topPadding: 40),
+              _drawerHeader(topPadding: 70),
               _divide(topPadding: 15),
               _buildMenuItem(
                 topPadding: 15,
@@ -89,7 +91,14 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   final provider =
                       Provider.of<ThemeProvider>(context, listen: false);
                   provider.toggleTheme(!PreferencesStorage.getIsThemeDark());
+                  setState(() {});
                 },
+              ),
+              _buildMenuItem(
+                topPadding: itemSpacing,
+                text: 'Settings',
+                icon: Icons.settings,
+                onClicked: widget.onSettingsCallback,
               ),
               _divide(topPadding: dividerSpacing),
               _buildMenuItem(
@@ -100,7 +109,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   Navigator.of(context).pop();
                   var mailUrl = SafeNotesConfig.getMailToForFeedback();
                   try {
-                    await _launchUrl(Uri.parse(mailUrl));
+                    await launchUrlExternal(Uri.parse(mailUrl));
                   } catch (e) {}
                 },
               ),
@@ -111,7 +120,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                 onClicked: () async {
                   var sourceCodeUrl = SafeNotesConfig.getSourceCodeUrl();
                   try {
-                    await _launchUrl(Uri.parse(sourceCodeUrl));
+                    await launchUrlExternal(Uri.parse(sourceCodeUrl));
                   } catch (e) {}
                 },
               ),
@@ -123,7 +132,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   Navigator.of(context).pop();
                   var mailUrl = SafeNotesConfig.getBugReportUrl();
                   try {
-                    await _launchUrl(Uri.parse(mailUrl));
+                    await launchUrlExternal(Uri.parse(mailUrl));
                   } catch (e) {}
                 },
               ),
@@ -215,12 +224,6 @@ class _HomeDrawerState extends State<HomeDrawer> {
         ),
       ),
     );
-  }
-
-  Future<void> _launchUrl(Uri url) async {
-    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
-      throw 'Could not launch $url';
-    }
   }
 
   Widget _divide({required double topPadding}) {

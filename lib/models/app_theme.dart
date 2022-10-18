@@ -28,6 +28,7 @@ class AppThemes {
     primaryTextTheme: ThemeData.dark().textTheme.apply(
           fontFamily: 'NotoSerif',
         ),
+    //platform: TargetPlatform.iOS,
   );
 
   static final ThemeData lightTheme = NordTheme.light().copyWith(
@@ -37,5 +38,6 @@ class AppThemes {
     primaryTextTheme: ThemeData.light().textTheme.apply(
           fontFamily: 'NotoSerif',
         ),
+    //platform: TargetPlatform.iOS,
   );
 }

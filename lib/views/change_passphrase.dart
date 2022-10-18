@@ -1,6 +1,5 @@
 // Dart imports:
 import 'dart:convert';
-import 'dart:ui';
 
 // Flutter imports:
 import 'package:flutter/material.dart';
@@ -15,20 +14,14 @@ import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/models/safenote.dart';
 import 'package:safenotes/models/session.dart';
 import 'package:safenotes/utils/passphrase_strength.dart';
+import 'package:safenotes/utils/snack_message.dart';
 
-class ChangePassphraseDialog extends StatefulWidget {
-  final List<SafeNote> allnotes;
-
-  const ChangePassphraseDialog({
-    Key? key,
-    required this.allnotes,
-  }) : super(key: key);
-
-  @override
-  _ChangePassphraseDialogState createState() => _ChangePassphraseDialogState();
+class ChangePassphrase extends StatefulWidget {
+  const ChangePassphrase({Key? key}) : super(key: key);
+  _ChangePassphraseState createState() => _ChangePassphraseState();
 }
 
-class _ChangePassphraseDialogState extends State<ChangePassphraseDialog> {
+class _ChangePassphraseState extends State<ChangePassphrase> {
   final formKey = GlobalKey<FormState>();
   bool _isHiddenOld = true;
   bool _isHiddenNew = true;
@@ -36,68 +29,67 @@ class _ChangePassphraseDialogState extends State<ChangePassphraseDialog> {
   final _oldPassphraseController = TextEditingController();
   final _newPassphraseController = TextEditingController();
   final _newConfirmPassphraseController = TextEditingController();
+  late List<SafeNote> allnotes;
+  final _focusOld = FocusNode();
+  final _focusNew = FocusNode();
+  final _focusNewConfirm = FocusNode();
+
+  @override
+  initState() {
+    super.initState();
+    _loadNotes();
+  }
+
+  @override
+  void dispose() {
+    _focusOld.dispose();
+    _focusNew.dispose();
+    _focusNewConfirm.dispose();
+    super.dispose();
+  }
+
+  Future<void> _loadNotes() async {
+    this.allnotes = await NotesDatabase.instance.decryptReadAllNotes();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final String changePassphraseTitle = 'Change Your Passphrase';
-    final double dialogEdgeRadious = 10.0;
-    final double dialogAllAroundPadding = 15.0;
-    final double titleTopPadding = 10.0;
-    final double titleFontSize = 20.0;
-
-    return BackdropFilter(
-      filter: ImageFilter.blur(),
-      child: Dialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(dialogEdgeRadious),
-        ),
-        child: Padding(
-          padding: EdgeInsets.all(dialogAllAroundPadding),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: titleTopPadding),
-                child: Text(
-                  changePassphraseTitle,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: titleFontSize),
-                ),
-              ),
-              _buildPassphraseChangeWorkflow(context),
-            ],
-          ),
-        ),
-      ),
+    return Scaffold(
+      appBar: AppBar(),
+      body: _buildPassphraseChangeWorkflow(context),
     );
   }
 
   Widget _buildPassphraseChangeWorkflow(BuildContext context) {
-    final focusNew = FocusNode();
-    final focusNewConfirm = FocusNode();
-    final double paddingAroundForm = 5.0;
-    final double paddingBetweenInputBox = 15.0;
+    final String pageTitleName = 'Change Passphrase';
+    final double paddingBetweenInputBox = 25.0;
 
     return Form(
       key: this.formKey,
       child: SingleChildScrollView(
-        padding: EdgeInsets.all(paddingAroundForm),
+        padding: EdgeInsets.fromLTRB(15, 40, 15, 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Padding(
-              padding: EdgeInsets.only(top: paddingBetweenInputBox),
-              child: _buildOldPassField(context, focusNew),
+              padding: EdgeInsets.only(top: paddingBetweenInputBox, bottom: 10),
+              child: Text(
+                pageTitleName,
+                style: TextStyle(fontSize: 22),
+              ),
             ),
             Padding(
               padding: EdgeInsets.only(top: paddingBetweenInputBox),
-              child: _buildNewPassField(context, focusNew, focusNewConfirm),
+              child: _buildCurrentPassField(),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: paddingBetweenInputBox),
+              child: _buildNewPassField(),
             ),
             Padding(
               padding: EdgeInsets.only(
                   top: paddingBetweenInputBox, bottom: paddingBetweenInputBox),
-              child: _buildNewConfirmPassField(context, focusNewConfirm),
+              child: _buildNewConfirmPassField(),
             ),
             _buildButtons(context),
           ],
@@ -106,23 +98,25 @@ class _ChangePassphraseDialogState extends State<ChangePassphraseDialog> {
     );
   }
 
-  Widget _buildOldPassField(BuildContext context, FocusNode focusNew) {
+  Widget _buildCurrentPassField() {
     final double inputBoxEdgeRadious = 10.0;
-    final String inputHintOld = 'Old Passphrase';
+    final String inputHintOld = 'Current Passphrase';
     final String validationErrorMsg = 'Wrong passphrase!';
 
     return TextFormField(
       enableIMEPersonalizedLearning: false,
       controller: this._oldPassphraseController,
       autofocus: true,
+      focusNode: _focusOld,
       enableInteractiveSelection: false,
       obscureText: this._isHiddenOld,
       decoration: _inputBoxDecoration(
           context, 'first', inputHintOld, inputBoxEdgeRadious),
       keyboardType: TextInputType.visiblePassword,
       onFieldSubmitted: (v) {
-        FocusScope.of(context).requestFocus(focusNew);
+        FocusScope.of(context).requestFocus(_focusNew);
       },
+      textInputAction: TextInputAction.next,
       validator: (passphrase) {
         return sha256.convert(utf8.encode(passphrase!)).toString() !=
                 PreferencesStorage.getPassPhraseHash()
@@ -132,23 +126,23 @@ class _ChangePassphraseDialogState extends State<ChangePassphraseDialog> {
     );
   }
 
-  Widget _buildNewPassField(
-      BuildContext context, FocusNode focusNew, FocusNode focusNewConfirm) {
+  Widget _buildNewPassField() {
     final double inputBoxEdgeRadious = 10.0;
     final String inputHintNew = 'New Passphrase';
 
     return TextFormField(
       enableIMEPersonalizedLearning: false,
       controller: this._newPassphraseController,
-      focusNode: focusNew,
+      focusNode: _focusNew,
       enableInteractiveSelection: false,
       obscureText: this._isHiddenNew,
       decoration: _inputBoxDecoration(
           context, 'second', inputHintNew, inputBoxEdgeRadious),
       keyboardType: TextInputType.visiblePassword,
       onFieldSubmitted: (v) {
-        FocusScope.of(context).requestFocus(focusNewConfirm);
+        FocusScope.of(context).requestFocus(_focusNewConfirm);
       },
+      textInputAction: TextInputAction.next,
       validator: _firstInputValidator,
     );
   }
@@ -166,21 +160,21 @@ class _ChangePassphraseDialogState extends State<ChangePassphraseDialog> {
             : null;
   }
 
-  Widget _buildNewConfirmPassField(
-      BuildContext context, FocusNode focusNewConfirm) {
+  Widget _buildNewConfirmPassField() {
     final double inputBoxEdgeRadious = 10.0;
-    final String inputHintConfirm = 'Confirm New Pass...';
+    final String inputHintConfirm = 'Confirm New Passphrase';
     final String passPhraseMismatchMsg = 'Passphrase Mismatch!';
 
     return TextFormField(
       enableIMEPersonalizedLearning: false,
       controller: this._newConfirmPassphraseController,
-      focusNode: focusNewConfirm,
+      focusNode: _focusNewConfirm,
       enableInteractiveSelection: false,
       obscureText: this._isHiddenNewConfirm,
       decoration: _inputBoxDecoration(
           context, 'third', inputHintConfirm, inputBoxEdgeRadious),
       keyboardType: TextInputType.visiblePassword,
+      textInputAction: TextInputAction.done,
       onEditingComplete: _finalSublmitChange,
       validator: (password) => password != _newPassphraseController.text
           ? passPhraseMismatchMsg
@@ -229,41 +223,29 @@ class _ChangePassphraseDialogState extends State<ChangePassphraseDialog> {
       setState(() => this._isHiddenNewConfirm = !this._isHiddenNewConfirm);
 
   Widget _buildButtons(BuildContext context) {
-    final double paddingAroundButtonRowLR = 20.0;
-    final double paddingAroundButtonRowTop = 10.0;
-    final double buttonTextFontSize = 16.0;
-    final String submitButtonText = 'Submit';
-    final String cancelButtonText = 'Cancel';
-
-    return Container(
-      padding: EdgeInsets.fromLTRB(paddingAroundButtonRowLR,
-          paddingAroundButtonRowTop, paddingAroundButtonRowLR, 0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          ElevatedButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(NordColors.aurora.red),
-            ),
-            child: _buttonText(cancelButtonText, buttonTextFontSize),
-            onPressed: () => Navigator.of(context).pop(),
+    return Align(
+      alignment: Alignment.centerRight,
+      child: Padding(
+        padding: EdgeInsets.only(right: 10, top: 25),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            shadowColor: PreferencesStorage.getIsThemeDark()
+                ? NordColors.snowStorm.lightest
+                : NordColors.polarNight.darkest,
+            minimumSize: Size(200, 50), //Size.fromHeight(50),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            elevation: 5.0, //StadiumBorder(),
           ),
-          ElevatedButton(
-            child: _buttonText(submitButtonText, buttonTextFontSize),
-            onPressed: _finalSublmitChange,
+          child: Wrap(
+            children: <Widget>[
+              Icon(Icons.key, size: 25.0),
+              SizedBox(width: 20),
+              Text("Confirm", style: TextStyle(fontSize: 20)),
+            ],
           ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buttonText(String text, double fontSize) {
-    return Text(
-      text,
-      textAlign: TextAlign.center,
-      style: TextStyle(
-        fontWeight: FontWeight.bold,
-        fontSize: fontSize,
+          onPressed: _finalSublmitChange,
+        ),
       ),
     );
   }
@@ -275,18 +257,11 @@ class _ChangePassphraseDialogState extends State<ChangePassphraseDialog> {
     // Update SHA256 signature of passphrase
     if (form.validate()) {
       Session.setOrChangePassphrase(_newConfirmPassphraseController.text);
-
       // Re-encrypt and update all the existing notes
-      for (final note in widget.allnotes) {
+      for (final note in this.allnotes) {
         await NotesDatabase.instance.encryptAndUpdate(note);
       }
-      ScaffoldMessenger.of(context)
-        ..removeCurrentSnackBar()
-        ..showSnackBar(
-          SnackBar(
-            content: Text(passChangedSnackMsg),
-          ),
-        );
+      showSnackBarMessage(context, passChangedSnackMsg);
       Navigator.of(context).pop();
     }
   }

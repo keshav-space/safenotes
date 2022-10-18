@@ -8,16 +8,18 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:provider/provider.dart';
 
 // Project imports:
 import 'package:safenotes/data/database_handler.dart';
 import 'package:safenotes/data/preference_and_config.dart';
-import 'package:safenotes/dialogs/change_passphrase.dart';
 import 'package:safenotes/dialogs/file_import.dart';
 import 'package:safenotes/dialogs/select_export_folder.dart';
 import 'package:safenotes/models/file_handler.dart';
 import 'package:safenotes/models/safenote.dart';
 import 'package:safenotes/models/session.dart';
+import 'package:safenotes/utils/color.dart';
 import 'package:safenotes/utils/snack_message.dart';
 import 'package:safenotes/widgets/drawer.dart';
 import 'package:safenotes/widgets/note_card.dart';
@@ -26,8 +28,11 @@ import 'package:safenotes/widgets/search_widget.dart';
 
 class HomePage extends StatefulWidget {
   final StreamController<SessionState> sessionStateStream;
-  const HomePage({Key? key, required this.sessionStateStream})
-      : super(key: key);
+
+  const HomePage({
+    Key? key,
+    required this.sessionStateStream,
+  }) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -39,8 +44,8 @@ class _HomePageState extends State<HomePage> {
   bool isLoading = false;
   String query = '';
   bool isHiddenImport = true;
-  bool isNewFirst = true;
-  bool isGridView = true;
+  bool isNewFirst = PreferencesStorage.getIsNewFirst();
+  bool isGridView = PreferencesStorage.getIsGridView();
   final importPassphraseController = TextEditingController();
 
   @override
@@ -51,6 +56,11 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _refreshNotes() async {
     setState(() => isLoading = true);
+    await _sortAndStoreNotes();
+    setState(() => isLoading = false);
+  }
+
+  Future<void> _sortAndStoreNotes() async {
     // storing copy of notes in allnotes so that it does not change while doing search
     // show recently created notes first
     if (isNewFirst)
@@ -61,28 +71,28 @@ class _HomePageState extends State<HomePage> {
       this.allnotes =
           this.notes = await NotesDatabase.instance.decryptReadAllNotes()
             ..sort((a, b) => a.createdTime.compareTo(b.createdTime));
-
-    setState(() => isLoading = false);
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     final String officialAppName = SafeNotesConfig.getAppName();
-    final double appNameFontSize = 24.0;
+    //final double appNameFontSize = 24.0;
+    Provider.of<NotesColor>(context);
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      //onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         drawer: _buildDrawer(context),
         appBar: AppBar(
           title: Text(
             officialAppName,
-            style: TextStyle(fontSize: appNameFontSize),
+            //style: TextStyle(fontSize: appNameFontSize),
           ),
           actions: isLoading ? null : [_gridListView(), _shortNotes()],
         ),
         body: Column(
-          children: <Widget>[
+          children: [
             _buildSearch(),
             _handleAndBuildNotes(),
           ],
@@ -97,6 +107,7 @@ class _HomePageState extends State<HomePage> {
       icon: !isGridView ? Icon(Icons.grid_view_sharp) : Icon(Icons.list),
       onPressed: () {
         setState(() {
+          PreferencesStorage.setIsGridView(!isGridView);
           isGridView = !isGridView;
         });
       },
@@ -106,16 +117,17 @@ class _HomePageState extends State<HomePage> {
   Widget _shortNotes() {
     return IconButton(
       icon: !isNewFirst
-          ? Transform(
-              alignment: Alignment.center,
-              transform: Matrix4.rotationX(math.pi),
-              child: Icon(Icons.sort_rounded),
-            )
-          : Icon(Icons.sort_rounded),
+          ? Icon(MdiIcons.sortCalendarAscending)
+          // ? Transform(
+          //     alignment: Alignment.bottomCenter,
+          //     transform: Matrix4.rotationX(math.pi),
+          //     child: Icon(Icons.sort_rounded),
+          //   )
+          : Icon(MdiIcons.sortCalendarDescending),
       onPressed: () {
         setState(() {
           this.isNewFirst = !this.isNewFirst;
-          _refreshNotes();
+          _sortAndStoreNotes();
         });
         // await confirmAndDeleteDialog(context);
       },
@@ -178,32 +190,43 @@ class _HomePageState extends State<HomePage> {
         showSnackBarMessage(context, snackMsg);
       },
       onChangePassCallback: () async {
+        await Navigator.pushNamed(context, '/changepassphrase');
         Navigator.of(context).pop();
-        await changePassphraseDialog(context);
       },
       onLogoutCallback: () async {
-        Navigator.of(context).pop();
         Session.logout();
         widget.sessionStateStream.add(SessionState.stopListening);
         await Navigator.pushNamedAndRemoveUntil(
           context,
           '/login',
           (Route<dynamic> route) => false,
-          arguments: SessionArguments(sessionStream: widget.sessionStateStream),
+          arguments: SessionArguments(
+            sessionStream: widget.sessionStateStream,
+            isKeyboardFocused: false,
+          ),
         );
+      },
+      onSettingsCallback: () async {
+        await Navigator.pushNamed(
+          context,
+          '/settings',
+          arguments: widget.sessionStateStream,
+        );
+        Navigator.of(context).pop();
+        _refreshNotes();
       },
     );
   }
 
-  Future<void> changePassphraseDialog(BuildContext context) {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: true,
-      builder: (_) {
-        return ChangePassphraseDialog(allnotes: allnotes);
-      },
-    );
-  }
+  // Future<void> changePassphraseDialog(BuildContext context) {
+  //   return showDialog<void>(
+  //     context: context,
+  //     barrierDismissible: true,
+  //     builder: (_) {
+  //       return ChangePassphraseDialog(allnotes: allnotes);
+  //     },
+  //   );
+  // }
 
   showExportDialog(BuildContext context) async {
     return showDialog(
@@ -235,7 +258,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildNotesTile() {
     return ListView.separated(
-      padding: EdgeInsets.all(8),
+      padding: EdgeInsets.all(15),
       itemCount: notes.length,
       itemBuilder: ((context, index) {
         final note = notes[index];
@@ -248,12 +271,15 @@ class _HomePageState extends State<HomePage> {
             );
             _refreshNotes();
           },
-          child: NoteTileWidget(note: note, index: index),
+          child: NoteTileWidget(
+            note: note,
+            index: index,
+          ),
         );
       }),
       separatorBuilder: (BuildContext context, int index) {
         return Container(
-          height: 10,
+          height: 7,
           color: Colors.transparent,
         );
       },
@@ -262,12 +288,12 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildNotes() {
     return StaggeredGridView.countBuilder(
-      padding: EdgeInsets.all(8),
+      padding: EdgeInsets.all(12),
       itemCount: notes.length,
       staggeredTileBuilder: (index) => StaggeredTile.fit(2),
       crossAxisCount: 4,
-      mainAxisSpacing: 4,
-      crossAxisSpacing: 4,
+      mainAxisSpacing: 0,
+      crossAxisSpacing: 0,
       itemBuilder: (context, index) {
         final note = notes[index];
 
@@ -280,7 +306,10 @@ class _HomePageState extends State<HomePage> {
             );
             _refreshNotes();
           },
-          child: NoteCardWidget(note: note, index: index),
+          child: NoteCardWidget(
+            note: note,
+            index: index,
+          ),
         );
       },
     );
