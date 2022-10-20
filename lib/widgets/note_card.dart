@@ -2,7 +2,9 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:intl/intl.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
@@ -24,8 +26,13 @@ class NoteCardWidget extends StatelessWidget {
     // Pick colors from the accent colors based on index
     final color = NotesColor.getNoteColor(notIndex: index);
     final fontColor = getFontColorForBackground(color);
-    final time = DateFormat.yMMMd().format(note.createdTime);
-    final minHeight = getMinHeight(index);
+    DateTime now = DateTime.now();
+    DateTime todayDate = DateTime(now.year, now.month, now.day);
+    DateTime noteDate = DateTime(
+        note.createdTime.year, note.createdTime.month, note.createdTime.day);
+    String time = (todayDate == noteDate)
+        ? timeago.format(note.createdTime)
+        : DateFormat.yMMMd().format(note.createdTime);
 
     return Card(
       shadowColor:
@@ -35,21 +42,22 @@ class NoteCardWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       child: Container(
-        constraints: BoxConstraints(minHeight: minHeight),
         padding: EdgeInsets.all(10),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              note.title.length > 30
-                  ? (note.title.substring(0, 30).replaceAll("\n", " "))
-                  : note.title.replaceAll("\n", " "),
+            AutoSizeText(
+              note.title,
               style: TextStyle(
                 color: fontColor,
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
+              minFontSize: 20,
+              maxLines: 2,
+              overflow: TextOverflow.clip,
+              //overflow: TextOverflow.ellipsis,
             ),
             SizedBox(height: 4),
             Text(
@@ -61,20 +69,16 @@ class NoteCardWidget extends StatelessWidget {
               ),
             ),
             SizedBox(height: 6),
-            Text(
-              note.description.length > 60
-                  ? ((minHeight == 150)
-                      ? (note.description
-                          .substring(0, 60)
-                          .replaceAll("\n", " "))
-                      : (note.description
-                          .substring(0, 40)
-                          .replaceAll("\n", " ")))
-                  : note.description.replaceAll("\n", " "),
+            AutoSizeText(
+              note.description,
               style: TextStyle(
                 color: fontColor,
                 fontSize: 16,
+                //fontWeight: FontWeight.bold,
               ),
+              minFontSize: 16,
+              maxLines: getMaxLine(index), //3,
+              overflow: TextOverflow.clip,
             ),
           ],
         ),
@@ -82,19 +86,18 @@ class NoteCardWidget extends StatelessWidget {
     );
   }
 
-  /// To return different height for different widgets
-  double getMinHeight(int index) {
+  int getMaxLine(int index) {
     switch (index % 4) {
       case 0:
-        return 100;
+        return 2;
       case 1:
-        return 150;
+        return 3;
       case 2:
-        return 150;
+        return 4;
       case 3:
-        return 100;
+        return 3;
       default:
-        return 100;
+        return 3;
     }
   }
 }

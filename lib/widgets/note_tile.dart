@@ -2,7 +2,9 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:intl/intl.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 // Project imports:
 import 'package:safenotes/models/safenote.dart';
@@ -23,7 +25,13 @@ class NoteTileWidget extends StatelessWidget {
     // Pick colors from the accent colors based on index
     final color = NotesColor.getNoteColor(notIndex: index);
     final fontColor = getFontColorForBackground(color);
-    final time = DateFormat.yMMMd().format(note.createdTime);
+    DateTime now = DateTime.now();
+    DateTime todayDate = DateTime(now.year, now.month, now.day);
+    DateTime noteDate = DateTime(
+        note.createdTime.year, note.createdTime.month, note.createdTime.day);
+    String time = (todayDate == noteDate)
+        ? timeago.format(note.createdTime)
+        : DateFormat.yMMMd().format(note.createdTime);
 
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -35,15 +43,16 @@ class NoteTileWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            note.title.length > 30
-                ? (note.title.substring(0, 30).replaceAll("\n", " "))
-                : note.title.replaceAll("\n", " "),
+          AutoSizeText(
+            note.title,
             style: TextStyle(
               color: fontColor,
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
+            minFontSize: 20,
+            maxLines: 1,
+            overflow: TextOverflow.clip,
           ),
           SizedBox.square(dimension: 5),
           Text(
@@ -55,15 +64,15 @@ class NoteTileWidget extends StatelessWidget {
             ),
           ),
           SizedBox.square(dimension: 5),
-          Text(
-            note.description.length > 90
-                ? (note.description.substring(0, 90).replaceAll("\n", " "))
-                : note.description.replaceAll("\n", " "),
+          AutoSizeText(
+            note.description,
             style: TextStyle(
               color: fontColor,
               fontSize: 16,
-              //fontWeight: FontWeight.bold,
             ),
+            minFontSize: 16,
+            maxLines: 2,
+            overflow: TextOverflow.clip,
           ),
         ],
       ),

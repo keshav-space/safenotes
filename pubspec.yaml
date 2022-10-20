@@ -1,5 +1,5 @@
 name: safenotes
-description: A encrypted, private note keeper for Android.
+description: A encrypted, private note manager for android.
 homepage: https://safenotes.keshav.space/
 documentation: https://safenotes.keshav.space/
 
@@ -60,9 +60,14 @@ dependencies:
   logger: ^1.1.0
   timeago: ^3.3.0
   flutter_windowmanager: ^0.2.0
-  workmanager: ^0.5.0
+  workmanager: ^0.5.1
+  auto_size_text: ^3.0.0
+
   # workmanager:
-  #   path: ../flutter_workmanager/
+  #   git:
+  #     url: https://github.com/fluttercommunity/flutter_workmanager.git
+  #     ref: 29bb7f11bc38fff2735888615b8fc79d05a3c51e
+
     
 
 
