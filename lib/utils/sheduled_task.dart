@@ -25,7 +25,8 @@ class ScheduledTask {
         await PreferencesStorage.setLastBackupTime();
       }
     } catch (err) {
-      if (err is FileSystemException && err.osError?.errorCode == 17) {
+      if (err is FileSystemException &&
+          (err.osError?.errorCode == 17 || err.osError?.errorCode == 13)) {
         /*
         User has deleted the backup file and android privacy-friendly API won't allow 
         creating the file with same name unless MANAGE_EXTERNAL_STORAGE permission is used, 
@@ -34,8 +35,8 @@ class ScheduledTask {
         */
         await PreferencesStorage.incrementBackupRedundancyCounter();
       }
-      Logger().e(err.toString());
-      throw Exception(err);
+      // Logger().e(err.toString());
+      // throw Exception(err);
     }
   }
 }

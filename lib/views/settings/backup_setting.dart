@@ -1,3 +1,6 @@
+// Dart imports:
+import 'dart:io';
+
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,9 +26,9 @@ class BackupSetting extends StatefulWidget {
 }
 
 class _BackupSettingState extends State<BackupSetting> {
-  late String validChoosenDirectory = '';
-  late String lastUpdateTime = '';
-  late bool isBackupOn = false;
+  String validChoosenDirectory = '';
+  String lastUpdateTime = '';
+  bool isBackupOn = false;
 
   @override
   void initState() {
@@ -35,10 +38,24 @@ class _BackupSettingState extends State<BackupSetting> {
 
   Future<void> _refresh() async {
     // get valid path else empty string
-    validChoosenDirectory = await PreferencesStorage.getBackupDestination();
-    lastUpdateTime = PreferencesStorage.getLastBackupTime();
-    isBackupOn = PreferencesStorage.getIsBackupOn();
-    setState(() {});
+    String path = await PreferencesStorage.getBackupDestination();
+    print(path);
+    setState(() {
+      this.validChoosenDirectory = path;
+    });
+
+    String lastBackupTime = PreferencesStorage.getLastBackupTime();
+    if (validChoosenDirectory.isNotEmpty) {
+      var date = await File(
+              '${validChoosenDirectory}/${SafeNotesConfig.getBackupFileName()}')
+          .lastModified();
+      lastBackupTime = date.toIso8601String();
+    }
+
+    setState(() {
+      this.lastUpdateTime = lastBackupTime;
+      this.isBackupOn = PreferencesStorage.getIsBackupOn();
+    });
   }
 
   @override
@@ -130,7 +147,7 @@ class _BackupSettingState extends State<BackupSetting> {
   Widget _buildUpperBackupView() {
     var location = this.validChoosenDirectory.isEmpty
         ? 'Backup folder not choosen'
-        : this.validChoosenDirectory;
+        : '${this.validChoosenDirectory}/${SafeNotesConfig.getBackupFileName()}';
     var lastBackup = this.lastUpdateTime.isEmpty
         ? 'Never'
         : timeago.format(DateTime.parse(this.lastUpdateTime));
@@ -141,7 +158,7 @@ class _BackupSettingState extends State<BackupSetting> {
         Icon(
           Icons.backup,
           color: !PreferencesStorage.getIsThemeDark()
-              ? Colors.grey.shade600
+              ? NordColors.polarNight.lighter
               : null,
           size: (widthRatio * 15),
         ),
@@ -258,6 +275,13 @@ class _BackupSettingState extends State<BackupSetting> {
       tag: 'com.trisven.safenotes.dailybackup',
       frequency: Duration(minutes: 15),
       initialDelay: Duration(seconds: 10),
+      constraints: Constraints(
+        networkType: NetworkType.not_required,
+        requiresCharging: false,
+        requiresBatteryNotLow: false,
+        requiresDeviceIdle: false,
+        requiresStorageNotLow: false,
+      ),
     );
   }
 

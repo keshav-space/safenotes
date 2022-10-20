@@ -197,7 +197,7 @@ class SafeNotesConfig {
   static String strongPassphraseMessage =
       'Passphrase are similar to password but generally longer, it will be used to encrypt and decrypt your notes. Use strong passphrase and make sure to remember it. It is impossible to decrypt your notes without the passphrase. With great security comes the great responsibility of remembering the passphrase!';
   static String backupDetail =
-      'This will automatically create an encrypted local backup, which gets updated every day. Moreover, the backup is designed such that it can be used in tandem with other open-source tools like SyncThing to keep the multiple redundant backups across different devices on the local network.\nTo switch to a new device, you would simply need to copy this backup file to the new device and import that in your new Safe Notes app.\nFor more, see FAQ.';
+      'This will create an encrypted local backup, which gets automatically updated every day. Moreover, the backup is designed such that it can be used in tandem with other open-source tools like SyncThing to keep the multiple redundant backups across different devices on the local network.\nTo switch to a new device, you would simply need to copy this backup file to the new device and import that in your new Safe Notes app.\nFor more, see FAQ.';
   static String mailToForFeedback =
       'mailto:safenotes@keshav.space?subject=Help and Feedback';
   static String sourceCodeUrl = 'https://github.com/keshav-space/safenotes';
@@ -208,7 +208,7 @@ class SafeNotesConfig {
   static String playStorUrl =
       'https://play.google.com/store/apps/details?id=com.trisven.safenotes';
   static String githubUrl = 'https://github.com/keshav-space/safenotes';
-  static String faqUrl = 'https://safenotes.keshav.space/faqs.html';
+  static String faqsUrl = 'https://safenotes.keshav.space/faqs.html';
 
   static String getLogoAsProfile() => appLogoAsProfilePath;
   static String getBugReportUrl() => bugReportUrl;
@@ -230,7 +230,7 @@ class SafeNotesConfig {
   static String getExportFileExtension() => exportFileNameExtension;
 
   static String getBackupDetail() => backupDetail;
-  static String getFAQsUrl() => backupDetail;
+  static String getFAQsUrl() => faqsUrl;
   static String getBackupFileName() {
     String redundancyCounter =
         PreferencesStorage.getBackupRedundancyCounter().toString();
