@@ -20,26 +20,16 @@
 
 ## Screenshots
 
+<p align="center">
+<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/assets/github/image1.png" width="250" style="border-radius:3% 0 0 0">&nbsp;&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/assets/github/image2.gif" width="250">&nbsp;&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/assets/github/image3.png" width="250" style="border-radius:0 3% 0 0" >
+</br><img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/assets/github/image4.png" width="250" style="border-radius:0 0 0 3%">&nbsp;&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/assets/github/image5.png" width="250">&nbsp;&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/assets/github/image6.png" width="250" style="border-radius:0 0 3% 0">
+</p>
 
-| | | | |
+<!-- | | | | |
 |:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|
 |<img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/fastlane/metadata/android/en-US/images/phoneScreenshots/shot_01.png" width="180">|<img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/fastlane/metadata/android/en-US/images/phoneScreenshots/shot_02.png" width="180">|<img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/fastlane/metadata/android/en-US/images/phoneScreenshots/shot_03.png" width=180>|<img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/fastlane/metadata/android/en-US/images/phoneScreenshots/shot_04.png" width=180>| 
-|<img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/fastlane/metadata/android/en-US/images/phoneScreenshots/shot_05.png" width=180>|<img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/fastlane/metadata/android/en-US/images/phoneScreenshots/shot_06.png" width=180>|<img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/fastlane/metadata/android/en-US/images/phoneScreenshots/shot_07.png" width=180>|<img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/fastlane/metadata/android/en-US/images/phoneScreenshots/shot_08.png" width=180>|
+|<img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/fastlane/metadata/android/en-US/images/phoneScreenshots/shot_05.png" width=180>|<img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/fastlane/metadata/android/en-US/images/phoneScreenshots/shot_06.png" width=180>|<img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/fastlane/metadata/android/en-US/images/phoneScreenshots/shot_07.png" width=180>|<img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/fastlane/metadata/android/en-US/images/phoneScreenshots/shot_08.png" width=180>| -->
 
-
-<!-- [<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/shot_01.png" width=180>](fastlane/metadata/android/en-US/images/phoneScreenshots/shot_01.png) 
-[<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/shot_02.png" width=180>](fastlane/metadata/android/en-US/images/phoneScreenshots/shot_02.png)
-[<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/shot_03.png" width=180>](fastlane/metadata/android/en-US/images/phoneScreenshots/shot_03.png)
-[<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/shot_04.png" width=180>](fastlane/metadata/android/en-US/images/phoneScreenshots/shot_04.png)
-[<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/shot_05.png" width=180>](fastlane/metadata/android/en-US/images/phoneScreenshots/shot_05.png)
-[<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/shot_06.png" width=180>](fastlane/metadata/android/en-US/images/phoneScreenshots/shot_06.png)
-[<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/shot_07.png" width=180>](fastlane/metadata/android/en-US/images/phoneScreenshots/shot_07.png)
-[<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/shot_08.png" width=180>](fastlane/metadata/android/en-US/images/phoneScreenshots/shot_08.png)
-[<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/shot_09.png" width=180>](fastlane/metadata/android/en-US/images/phoneScreenshots/shot_09.png)
-[<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/shot_09.png" width=160>](fastlane/metadata/android/en-US/images/phoneScreenshots/shot_09.png)
-[<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/shot_10.png" width=160>](fastlane/metadata/android/en-US/images/phoneScreenshots/shot_10.png)
-[<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/shot_11.png" width=405>](fastlane/metadata/android/en-US/images/phoneScreenshots/shot_11.png)
-[<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/shot_12.png" width=405>](fastlane/metadata/android/en-US/images/phoneScreenshots/shot_12.png) -->
 
 ## Description
 
