@@ -13,7 +13,7 @@ class FileImportDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String titleImport = 'Import Your Data';
+    final String titleImport = 'Import Your Backup';
     final String importDialogMessage = SafeNotesConfig.getImortDialogMsg();
     final String selectFileButtonName = 'Select File';
     final double titleFontSize = 22.0;

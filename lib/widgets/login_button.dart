@@ -33,15 +33,12 @@ class ButtonWidget extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
-            elevation: 5.0, //StadiumBorder(),
+            elevation: 5.0,
           ),
           child: FittedBox(
             child: Text(
               text,
-              style: TextStyle(
-                fontSize: 20,
-                //color: Colors.white,
-              ),
+              style: TextStyle(fontSize: 20),
             ),
           ),
           onPressed: onClicked,

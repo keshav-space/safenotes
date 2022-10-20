@@ -114,8 +114,8 @@ class _UnsavedAlertState extends State<UnsavedAlert> {
             padding: EdgeInsets.only(left: buttonSeparation),
             child: ElevatedButton(
               child: _buttonText(noButtonText, buttonTextFontSize),
-              onPressed: () => Navigator.of(context)
-                  .pop(false), // return false to dialog caller
+              onPressed: () => Navigator.of(context).pop(false),
+              // return false to dialog caller
             ),
           )
         ],

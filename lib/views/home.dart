@@ -13,8 +13,7 @@ import 'package:provider/provider.dart';
 // Project imports:
 import 'package:safenotes/data/database_handler.dart';
 import 'package:safenotes/data/preference_and_config.dart';
-import 'package:safenotes/dialogs/file_import.dart';
-import 'package:safenotes/dialogs/select_export_folder.dart';
+import 'package:safenotes/dialogs/backup_import.dart';
 import 'package:safenotes/models/file_handler.dart';
 import 'package:safenotes/models/safenote.dart';
 import 'package:safenotes/models/session.dart';
@@ -76,7 +75,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final String officialAppName = SafeNotesConfig.getAppName();
-    //final double appNameFontSize = 24.0;
     Provider.of<NotesColor>(context);
 
     return GestureDetector(
@@ -84,10 +82,7 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         drawer: _buildDrawer(context),
         appBar: AppBar(
-          title: Text(
-            officialAppName,
-            //style: TextStyle(fontSize: appNameFontSize),
-          ),
+          title: Text(officialAppName),
           actions: isLoading ? null : [_gridListView(), _shortNotes()],
         ),
         body: Column(
@@ -163,26 +158,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildDrawer(BuildContext context) {
-    final String snackMsgFileNotSaved = 'File not saved!';
-
     return HomeDrawer(
       onImportCallback: () async {
         Navigator.of(context).pop();
         await showImportDialog(context);
-      },
-      onExportCallback: () async {
-        Navigator.of(context).pop();
-        bool wasExportMethordChoosen = false;
-        try {
-          wasExportMethordChoosen = await showExportDialog(context);
-        } catch (e) {
-          showSnackBarMessage(context, snackMsgFileNotSaved);
-          return;
-        }
-        if (!wasExportMethordChoosen) return;
-
-        String? snackMsg = await FileHandler().fileSave();
-        showSnackBarMessage(context, snackMsg);
       },
       onChangePassCallback: () async {
         await Navigator.pushNamed(context, '/changepassphrase');
@@ -209,16 +188,6 @@ class _HomePageState extends State<HomePage> {
         );
         Navigator.of(context).pop();
         _refreshNotes();
-      },
-    );
-  }
-
-  showExportDialog(BuildContext context) async {
-    return showDialog(
-      context: context,
-      barrierDismissible: true,
-      builder: (_) {
-        return ExportChooseDirectoryDialog();
       },
     );
   }
@@ -256,10 +225,7 @@ class _HomePageState extends State<HomePage> {
             );
             _refreshNotes();
           },
-          child: NoteTileWidget(
-            note: note,
-            index: index,
-          ),
+          child: NoteTileWidget(note: note, index: index),
         );
       }),
       separatorBuilder: (BuildContext context, int index) {
@@ -291,10 +257,7 @@ class _HomePageState extends State<HomePage> {
             );
             _refreshNotes();
           },
-          child: NoteCardWidget(
-            note: note,
-            index: index,
-          ),
+          child: NoteCardWidget(note: note, index: index),
         );
       },
     );

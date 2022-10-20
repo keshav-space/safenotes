@@ -12,13 +12,11 @@ import 'package:safenotes/utils/color.dart';
 class NoteCardWidget extends StatelessWidget {
   final SafeNote note;
   final int index;
-  //final bool isColorful;
 
   NoteCardWidget({
     Key? key,
     required this.note,
     required this.index,
-    //required this.isColorful,
   }) : super(key: key);
 
   @override
@@ -26,7 +24,6 @@ class NoteCardWidget extends StatelessWidget {
     // Pick colors from the accent colors based on index
     final color = NotesColor.getNoteColor(notIndex: index);
     final fontColor = getFontColorForBackground(color);
-
     final time = DateFormat.yMMMd().format(note.createdTime);
     final minHeight = getMinHeight(index);
 
@@ -46,13 +43,10 @@ class NoteCardWidget extends StatelessWidget {
           children: [
             Text(
               note.title.length > 30
-                  ? (note.title
-                      .substring(0, 30)
-                      .replaceAll("\n", " ")) // + '...')
+                  ? (note.title.substring(0, 30).replaceAll("\n", " "))
                   : note.title.replaceAll("\n", " "),
               style: TextStyle(
                 color: fontColor,
-                //color: Colors.black,
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
@@ -64,7 +58,6 @@ class NoteCardWidget extends StatelessWidget {
                 fontSize: 13,
                 fontWeight: FontWeight.w600,
                 color: fontColor,
-                //color: Colors.black,
               ),
             ),
             SizedBox(height: 6),
@@ -73,16 +66,14 @@ class NoteCardWidget extends StatelessWidget {
                   ? ((minHeight == 150)
                       ? (note.description
                           .substring(0, 60)
-                          .replaceAll("\n", " ")) // +'...')
+                          .replaceAll("\n", " "))
                       : (note.description
                           .substring(0, 40)
-                          .replaceAll("\n", " "))) // + '...'))
+                          .replaceAll("\n", " ")))
                   : note.description.replaceAll("\n", " "),
               style: TextStyle(
                 color: fontColor,
-                //color: Colors.black,
                 fontSize: 16,
-                //fontWeight: FontWeight.bold,
               ),
             ),
           ],

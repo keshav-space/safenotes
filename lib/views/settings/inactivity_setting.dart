@@ -40,7 +40,7 @@ class _InactivityTimerSettingState extends State<InactivityTimerSetting> {
           title: Text('Always on'),
           tiles: <SettingsTile>[
             SettingsTile.switchTile(
-              initialValue: PreferencesStorage.getIsColorful(),
+              initialValue: true,
               title: Text('Logout upon inactivity'),
               onToggle: (value) {},
               enabled: false,
@@ -68,7 +68,6 @@ class _InactivityTimerSettingState extends State<InactivityTimerSetting> {
               ? BoxDecoration(
                   color: NordColors.polarNight.darker,
                   borderRadius: BorderRadius.circular(15),
-                  //border: Border.all(color: Colors.blueAccent),
                 )
               : null,
           children: [

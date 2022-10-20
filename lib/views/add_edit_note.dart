@@ -6,7 +6,7 @@ import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
-import 'package:safenotes/dialogs/unsaved_alert.dart';
+import 'package:safenotes/dialogs/unsaved_note_alert.dart';
 import 'package:safenotes/models/editor_state.dart';
 import 'package:safenotes/models/safenote.dart';
 import 'package:safenotes/widgets/note_widget.dart';
@@ -41,14 +41,10 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
     return WillPopScope(
       onWillPop: _onBackPressed,
       child: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).unfocus();
-        },
+        onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
           resizeToAvoidBottomInset: false,
-          appBar: AppBar(
-            actions: [buildButton()],
-          ),
+          appBar: AppBar(actions: [buildButton()]),
           body: Form(
             key: _formKey,
             child: NoteFormWidget(

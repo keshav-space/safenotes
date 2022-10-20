@@ -1,5 +1,6 @@
 // Dart imports:
 import 'dart:async';
+import 'dart:io' show Platform;
 
 // Flutter imports:
 import 'package:flutter/material.dart';
@@ -13,11 +14,11 @@ import 'package:workmanager/workmanager.dart';
 // Project imports:
 import 'package:safenotes/app.dart';
 import 'package:safenotes/data/preference_and_config.dart';
-import 'package:safenotes/dialogs/inactivity_logout_msg.dart';
+import 'package:safenotes/dialogs/generic.dart';
 import 'package:safenotes/dialogs/pre_inactivity_logout_alert.dart';
 import 'package:safenotes/models/editor_state.dart';
 import 'package:safenotes/models/session.dart';
-import 'package:safenotes/utils/backup_shedule.dart';
+import 'package:safenotes/utils/sheduled_task.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +33,7 @@ Future main() async {
   );
 
   await PreferencesStorage.init();
-  if (PreferencesStorage.getIsFlagSecure())
+  if (Platform.isAndroid && PreferencesStorage.getIsFlagSecure())
     await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
   runApp(SafeNotesApp());
 }
@@ -74,22 +75,28 @@ class SafeNotesApp extends StatelessWidget {
     if (timeoutEvent == SessionTimeoutState.userInactivityTimeout) {
       await onTimeOutDo(
         context: context,
+        showPreLogoffAlert: true,
       );
       // Don't logout if user is active
     } else if (timeoutEvent == SessionTimeoutState.appFocusTimeout) {
       await onTimeOutDo(
         context: context,
+        showPreLogoffAlert: false,
       );
     }
   }
 
-  Future<void> onTimeOutDo({required BuildContext context}) async {
+  Future<void> onTimeOutDo(
+      {required BuildContext context, required bool showPreLogoffAlert}) async {
     // execute only if user is already logged
     // no need to logout and redirect to authwall if user is not loggedIN
     if (PhraseHandler.getPass().isNotEmpty) {
-      bool? isUserActive = await preInactivityLogOffAlert(context);
-      if (isUserActive == null) {
+      bool? isUserActive;
+      if (showPreLogoffAlert)
+        isUserActive = await preInactivityLogOffAlert(context);
+      if (isUserActive == null || showPreLogoffAlert == false) {
         // isUserActivie == null => show him logout Msg
+        // showPreLogoffAlert == false => i.e. triggerd by appFocusTimeout
         logout(
           context: context,
           showLogoutMsg: true,
@@ -119,7 +126,13 @@ class SafeNotesApp extends StatelessWidget {
         isKeyboardFocused: false,
       ),
     );
-    if (showLogoutMsg) showInactivityDialog(context);
+
+    if (showLogoutMsg)
+      showGenericDialog(
+        context: context,
+        icon: Icons.info_outline,
+        message: SafeNotesConfig.getInactivityLogoutMsg(),
+      );
 
     // save unsaved note if any
     await NoteEditorState().handleUngracefulNoteExit();

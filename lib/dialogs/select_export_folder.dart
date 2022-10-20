@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
+import 'package:safenotes/utils/style.dart';
 
 class ExportChooseDirectoryDialog extends StatefulWidget {
   @override
@@ -48,7 +49,10 @@ class _ExportChooseDirectoryDialogState
               ),
               SizedBox(height: 15),
               ElevatedButton(
-                child: Text(buttonText),
+                child: Text(
+                  buttonText,
+                  style: Style.buttonTextStyle(),
+                ),
                 onPressed: () {
                   Navigator.of(context).pop(true);
                 },
@@ -59,4 +63,14 @@ class _ExportChooseDirectoryDialogState
       ),
     );
   }
+}
+
+showExportDialog(BuildContext context) async {
+  return showDialog(
+    context: context,
+    barrierDismissible: true,
+    builder: (_) {
+      return ExportChooseDirectoryDialog();
+    },
+  );
 }

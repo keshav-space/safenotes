@@ -17,7 +17,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+3
+version: 2.0.0+4
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -36,7 +36,7 @@ dependencies:
 
   #sqlite database
   sqflite: ^2.1.0+1
-  #sqflite: ^2.0.0+3
+
 
   #format date
   intl: ^0.17.0
@@ -60,9 +60,10 @@ dependencies:
   logger: ^1.1.0
   timeago: ^3.3.0
   flutter_windowmanager: ^0.2.0
-  # workmanager: ^0.5.0
-  workmanager:
-    path: ../flutter_workmanager/
+  workmanager: ^0.5.0
+  # workmanager:
+  #   path: ../flutter_workmanager/
+    
 
 
 
@@ -72,6 +73,7 @@ dev_dependencies:
   flutter_launcher_icons: ^0.9.0
   flutter_native_splash: ^2.2.9
   import_sorter: ^4.6.0
+  dependency_validator: ^3.0.0
   
 
 dependency_overrides:
@@ -90,7 +92,6 @@ flutter_native_splash:
     icon_background_color_dark: "#1d5766"
 
   web: false
-
 
 
 flutter_icons:
@@ -147,3 +148,7 @@ flutter:
      - family: NotoSerif
        fonts:
          - asset: assets/fonts/NotoSerif-Regular.ttf
+
+     - family: NotoMonochromaticEmoji
+       fonts:
+         - asset: assets/fonts/NotoEmoji-VariableFont_wght.ttf

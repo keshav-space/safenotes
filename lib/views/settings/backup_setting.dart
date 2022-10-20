@@ -11,17 +11,18 @@ import 'package:workmanager/workmanager.dart';
 
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
-import 'package:safenotes/utils/backup_shedule.dart';
+import 'package:safenotes/utils/sheduled_task.dart';
 import 'package:safenotes/utils/snack_message.dart';
+import 'package:safenotes/utils/style.dart';
 
-class Backup extends StatefulWidget {
-  Backup({Key? key}) : super(key: key);
+class BackupSetting extends StatefulWidget {
+  BackupSetting({Key? key}) : super(key: key);
 
   @override
-  State<Backup> createState() => _BackupState();
+  State<BackupSetting> createState() => _BackupSettingState();
 }
 
-class _BackupState extends State<Backup> {
+class _BackupSettingState extends State<BackupSetting> {
   late String validChoosenDirectory = '';
   late String lastUpdateTime = '';
   late bool isBackupOn = false;
@@ -43,9 +44,7 @@ class _BackupState extends State<Backup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Auto Backup'),
-      ),
+      appBar: AppBar(title: Text('Auto Backup')),
       body: _bodyBackup(context),
     );
   }
@@ -70,9 +69,7 @@ class _BackupState extends State<Backup> {
                 } else
                   Workmanager().cancelAll();
                 await PreferencesStorage.setIsBackupOn(value);
-                setState(() {
-                  isBackupOn = value;
-                });
+                setState(() => isBackupOn = value);
               },
               description: Text(
                   'Turn on the auto backup and Choose backup folder from below.'),
@@ -87,10 +84,7 @@ class _BackupState extends State<Backup> {
                   children: <Widget>[
                     _buildUpperBackupView(),
                     SizedBox(height: 10),
-                    Text(
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque pharetra posuere sapien. Duis ornare ullamcorper feugiat. Pellentesque at risus at est fermentum suscipit. Vestibulum sit amet pharetra magna, quis tincidunt nunc. Morbi posuere elementum tincidunt. Nullam a efficitur metus. Donec consectetur ut turpis vitae ultrices. Vivamus semper vitae ex pulvinar facilisis. Pellentesque volutpat lobortis nunc vitae vehicula. ',
-                      //style: Styles.productRowItemName,
-                    ),
+                    Text(SafeNotesConfig.getBackupDetail()),
                     _buildButtons(context),
                   ],
                 )
@@ -140,7 +134,6 @@ class _BackupState extends State<Backup> {
     var lastBackup = this.lastUpdateTime.isEmpty
         ? 'Never'
         : timeago.format(DateTime.parse(this.lastUpdateTime));
-
     var widthRatio = MediaQuery.of(context).size.width / 100;
 
     return Row(
@@ -166,9 +159,28 @@ class _BackupState extends State<Backup> {
                 'Location: ${location}',
                 style: TextStyle(fontSize: 10),
               ),
+              if (this.validChoosenDirectory.isNotEmpty &&
+                  this.lastUpdateTime.isNotEmpty)
+                _encrypted(),
             ],
           ),
         ),
+      ],
+    );
+  }
+
+  Widget _encrypted() {
+    return Row(
+      children: [
+        Icon(
+          Icons.lock,
+          size: 15,
+          color: Colors.green,
+        ),
+        Text(
+          ' Backup encrypted',
+          style: TextStyle(fontSize: 10),
+        )
       ],
     );
   }
@@ -179,7 +191,7 @@ class _BackupState extends State<Backup> {
     final double buttonTextFontSize = 16.0;
     final String nowButtonText = 'Backup Now';
     String chooseButtonText =
-        validChoosenDirectory.isEmpty ? 'Choose folder' : 'Change folder';
+        validChoosenDirectory.isEmpty ? 'Choose Folder' : 'Change Folder';
 
     return Container(
       padding: EdgeInsets.fromLTRB(
@@ -220,17 +232,17 @@ class _BackupState extends State<Backup> {
   void onBackupNow() {
     if (validChoosenDirectory.isNotEmpty) {
       ScheduledTask.backup();
-      setState(() {
-        _refresh();
-      });
+      _refresh();
+      //setState(() => _refresh());
     }
   }
 
   void onChooseOrChange() async {
     var newPath = await FilePicker.platform.getDirectoryPath();
+
     if (newPath != null) {
       PreferencesStorage.setBackupDestination(newPath);
-      //ScheduledTask.backup();
+
       backupRegister();
       _refresh();
       showSnackBarMessage(context, 'Backup destination set!');
@@ -253,7 +265,7 @@ class _BackupState extends State<Backup> {
     return Text(
       text,
       textAlign: TextAlign.center,
-      style: TextStyle(
+      style: Style.buttonTextStyle().copyWith(
         fontWeight: FontWeight.bold,
         fontSize: fontSize,
       ),

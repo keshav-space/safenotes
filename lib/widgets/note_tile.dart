@@ -11,13 +11,11 @@ import 'package:safenotes/utils/color.dart';
 class NoteTileWidget extends StatelessWidget {
   final SafeNote note;
   final int index;
-  //final bool isColorful;
 
   const NoteTileWidget({
     Key? key,
     required this.note,
     required this.index,
-    //required this.isColorful,
   }) : super(key: key);
 
   @override
@@ -39,12 +37,9 @@ class NoteTileWidget extends StatelessWidget {
         children: [
           Text(
             note.title.length > 30
-                ? (note.title
-                    .substring(0, 30)
-                    .replaceAll("\n", " ")) // + '...')
+                ? (note.title.substring(0, 30).replaceAll("\n", " "))
                 : note.title.replaceAll("\n", " "),
             style: TextStyle(
-              //color: Colors.black,
               color: fontColor,
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -57,18 +52,14 @@ class NoteTileWidget extends StatelessWidget {
               fontSize: 13,
               fontWeight: FontWeight.w600,
               color: fontColor,
-              //color: Colors.black,
             ),
           ),
           SizedBox.square(dimension: 5),
           Text(
             note.description.length > 90
-                ? (note.description
-                    .substring(0, 90)
-                    .replaceAll("\n", " ")) //+'...')
+                ? (note.description.substring(0, 90).replaceAll("\n", " "))
                 : note.description.replaceAll("\n", " "),
             style: TextStyle(
-              //color: Colors.black,
               color: fontColor,
               fontSize: 16,
               //fontWeight: FontWeight.bold,

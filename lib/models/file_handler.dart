@@ -12,8 +12,8 @@ import 'package:file_picker/file_picker.dart';
 // Project imports:
 import 'package:safenotes/data/database_handler.dart';
 import 'package:safenotes/data/preference_and_config.dart';
-import 'package:safenotes/dialogs/confirm_imort.dart';
-import 'package:safenotes/dialogs/imported_file_passphrase.dart';
+import 'package:safenotes/dialogs/backup_passphrase.dart';
+import 'package:safenotes/dialogs/confirm_import.dart';
 import 'package:safenotes/models/import_file_parser.dart';
 import 'package:safenotes/models/safenote.dart';
 

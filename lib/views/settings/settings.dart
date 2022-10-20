@@ -13,9 +13,13 @@ import 'package:settings_ui/settings_ui.dart';
 
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
+import 'package:safenotes/dialogs/select_export_folder.dart';
 import 'package:safenotes/models/app_theme.dart';
+import 'package:safenotes/models/file_handler.dart';
 import 'package:safenotes/models/session.dart';
+import 'package:safenotes/utils/snack_message.dart';
 import 'package:safenotes/utils/url_launcher.dart';
+import 'package:safenotes/widgets/footer.dart';
 
 class SettingsScreen extends StatefulWidget {
   final StreamController<SessionState> sessionStateStream;
@@ -33,9 +37,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Settings'),
-      ),
+      appBar: AppBar(title: Text('Settings')),
       body: _settings(),
     );
   }
@@ -53,7 +55,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           title: Text('General'),
           tiles: <SettingsTile>[
             SettingsTile.navigation(
-              leading: Icon(Icons.backup),
+              leading: Icon(Icons.backup_outlined),
               title: Text('Auto Backup'),
               value:
                   PreferencesStorage.getIsBackupOn() ? Text('On') : Text('Off'),
@@ -62,8 +64,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 setState(() {});
               },
             ),
+            SettingsTile.navigation(
+              leading: Icon(Icons.file_upload_outlined),
+              title: Text('Manual Export'),
+              onPressed: (context) async {
+                final String snackMsgFileNotSaved = 'File not saved!';
+                bool wasExportMethordChoosen = false;
+                try {
+                  wasExportMethordChoosen = await showExportDialog(context);
+                } catch (e) {
+                  showSnackBarMessage(context, snackMsgFileNotSaved);
+                  return;
+                }
+                if (!wasExportMethordChoosen) return;
+
+                String? snackMsg = await FileHandler().fileSave();
+                showSnackBarMessage(context, snackMsg);
+              },
+            ),
             SettingsTile.switchTile(
-              leading: Icon(Icons.dark_mode),
+              leading: Icon(Icons.dark_mode_outlined),
               title: Text('Dark Mode'),
               initialValue: PreferencesStorage.getIsThemeDark(),
               onToggle: (bool value) {
@@ -74,7 +94,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
             SettingsTile.navigation(
-              leading: Icon(Icons.format_paint),
+              leading: Icon(Icons.format_paint_outlined),
+              // leading: Icon(Icons.format_paint),
               title: Text('Notes Color'),
               value: !PreferencesStorage.getIsColorful()
                   ? Text('Off')
@@ -119,11 +140,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     !PreferencesStorage.getKeyboardIncognito());
                 setState(() {});
               },
-              //value: Text('On'),
             ),
             SettingsTile.navigation(
               title: Text('Change Passphrase'),
-              leading: Icon(Icons.lock),
+              leading: Icon(Icons.lock_outline),
+              // leading: Icon(Icons.lock),
               onPressed: (context) async {
                 await Navigator.pushNamed(context, '/changepassphrase');
               },
@@ -151,12 +172,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
           title: Text('Misc'),
           tiles: <SettingsTile>[
             SettingsTile.navigation(
-              leading: Icon(Icons.rate_review),
+              leading: Icon(Icons.rate_review_outlined),
               title: Text('Rate Us'),
               onPressed: (_) async {
                 String playstoreUrl = SafeNotesConfig.getPlayStoreUrl();
                 try {
                   await launchUrlExternal(Uri.parse(playstoreUrl));
+                } catch (e) {}
+              },
+            ),
+            SettingsTile.navigation(
+              leading: Icon(MdiIcons.frequentlyAskedQuestions),
+              title: Text('FAQs'),
+              onPressed: (_) async {
+                String faqsUrl = SafeNotesConfig.getFAQsUrl();
+                try {
+                  await launchUrlExternal(Uri.parse(faqsUrl));
                 } catch (e) {}
               },
             ),
@@ -171,7 +202,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
             SettingsTile.navigation(
-              leading: Icon(Icons.mail),
+              leading: Icon(Icons.mail_outline),
               title: Text('Email'),
               onPressed: (_) async {
                 String email = SafeNotesConfig.getMailToForFeedback();
@@ -181,7 +212,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
             SettingsTile.navigation(
-              leading: Icon(Icons.collections_bookmark),
+              leading: Icon(Icons.collections_bookmark_outlined),
               title: Text('Open Source license'),
               onPressed: (_) async {
                 String licence = SafeNotesConfig.getOpenSourceLicence();
@@ -189,23 +220,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   await launchUrlExternal(Uri.parse(licence));
                 } catch (e) {}
               },
-              description: _footer(),
+              description:
+                  Padding(padding: EdgeInsets.only(top: 20), child: footer()),
             ),
           ],
         ),
       ],
-    );
-  }
-
-  Widget _footer() {
-    return Padding(
-      padding: EdgeInsets.only(top: 20),
-      child: Column(
-        children: [
-          Text("Safe Notes v2.0"),
-          Text("Made with ♥ on Earth"),
-        ],
-      ),
     );
   }
 }

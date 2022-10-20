@@ -9,9 +9,11 @@ import 'package:local_session_timeout/local_session_timeout.dart';
 
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
+import 'package:safenotes/dialogs/generic.dart';
 import 'package:safenotes/models/session.dart';
 import 'package:safenotes/utils/passphrase_strength.dart';
 import 'package:safenotes/utils/snack_message.dart';
+import 'package:safenotes/widgets/footer.dart';
 import 'package:safenotes/widgets/login_button.dart';
 
 class SetEncryptionPhrasePage extends StatefulWidget {
@@ -58,7 +60,7 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
             _buildTopLogo(),
             _buildPassphraseSetWorkflow(context),
             Spacer(),
-            _footer(),
+            footer(),
           ],
         ),
       ),
@@ -121,6 +123,7 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
         inputBoxEdgeRadious: inputBoxEdgeRadious,
       ),
       keyboardType: TextInputType.visiblePassword,
+      textInputAction: TextInputAction.next,
       onFieldSubmitted: (v) {
         FocusScope.of(context).requestFocus(focus);
       },
@@ -147,6 +150,7 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
           inputBoxEdgeRadious: inputBoxEdgeRadious,
         ),
         keyboardType: TextInputType.visiblePassword,
+        textInputAction: TextInputAction.done,
         onEditingComplete: _loginController,
         validator: _confirmInputValidator,
       ),
@@ -219,36 +223,14 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
     return Container(
       alignment: Alignment.centerRight,
       child: TextButton(
-        child: Text('Use strong Passphrase!'),
-        onPressed: () {},
-      ),
-    );
-  }
-
-  Widget _footer() {
-    return Padding(
-      padding: EdgeInsets.only(bottom: 20),
-      child: Column(
-        children: [
-          Text(
-            "Safe Notes",
-            style: TextStyle(
-              color: PreferencesStorage.getIsThemeDark()
-                  ? Color(0xFFafb8ba)
-                  : Color(0xFF8e989c),
-              fontSize: 12,
-            ),
-          ),
-          Text(
-            "Made with ♥ on Earth",
-            style: TextStyle(
-              color: PreferencesStorage.getIsThemeDark()
-                  ? Color(0xFFafb8ba)
-                  : Color(0xFF8e989c),
-              fontSize: 12,
-            ),
-          ),
-        ],
+        child: Text('What is passphrase?'),
+        onPressed: () {
+          showGenericDialog(
+            context: context,
+            icon: Icons.info_outline,
+            message: SafeNotesConfig.getStrongPassphraseMsg(),
+          );
+        },
       ),
     );
   }

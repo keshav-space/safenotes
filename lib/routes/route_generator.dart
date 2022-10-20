@@ -16,11 +16,11 @@ import 'package:safenotes/models/session.dart';
 import 'package:safenotes/views/add_edit_note.dart';
 import 'package:safenotes/views/authentication/login.dart';
 import 'package:safenotes/views/authentication/set_passphrase.dart';
-import 'package:safenotes/views/settings/backup_setting.dart';
 import 'package:safenotes/views/change_passphrase.dart';
 import 'package:safenotes/views/home.dart';
-import 'package:safenotes/views/settings/inactivity_setting.dart';
 import 'package:safenotes/views/note_view.dart';
+import 'package:safenotes/views/settings/backup_setting.dart';
+import 'package:safenotes/views/settings/inactivity_setting.dart';
 import 'package:safenotes/views/settings/notes_color_setting.dart';
 import 'package:safenotes/views/settings/secure_display_setting.dart';
 import 'package:safenotes/views/settings/settings.dart';
@@ -40,7 +40,6 @@ class RouteGenerator {
           duration: Duration(milliseconds: transitionDuration),
           type: transitionType,
         );
-      //return MaterialPageRoute(builder: (_) => SafeNotesApp());
 
       case '/login':
         if (args is SessionArguments) {
@@ -112,7 +111,6 @@ class RouteGenerator {
           duration: Duration(milliseconds: transitionDuration),
           type: transitionType,
         );
-      //return MaterialPageRoute(builder: (_) => AddEditNotePage());
 
       case '/editnote':
         if (args is SafeNote) {
@@ -127,7 +125,7 @@ class RouteGenerator {
 
       case '/backup':
         return PageTransition(
-          child: Backup(),
+          child: BackupSetting(),
           duration: Duration(milliseconds: transitionDuration),
           type: transitionType,
         );
@@ -179,9 +177,7 @@ class RouteGenerator {
       {required String? route, String? argsType}) {
     return MaterialPageRoute(builder: (_) {
       return Scaffold(
-        appBar: AppBar(
-          title: Text('Route Error'),
-        ),
+        appBar: AppBar(title: Text('Route Error')),
         body: Center(
           child: argsType == null
               ? Text('No route: ${route}')

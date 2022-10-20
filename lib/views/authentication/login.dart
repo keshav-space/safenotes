@@ -8,13 +8,14 @@ import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:crypto/crypto.dart';
-import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
 
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
+import 'package:safenotes/dialogs/generic.dart';
 import 'package:safenotes/models/session.dart';
 import 'package:safenotes/utils/snack_message.dart';
+import 'package:safenotes/widgets/footer.dart';
 import 'package:safenotes/widgets/login_button.dart';
 
 class EncryptionPhraseLoginPage extends StatefulWidget {
@@ -61,14 +62,13 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
         appBar: AppBar(
           title: Text(SafeNotesConfig.getLoginPageName()),
           centerTitle: true,
-          //actions: [TheamToggle()],
         ),
         body: Column(
           children: [
             _buildTopLogo(),
             _buildLoginWorkflow(context: context),
             Spacer(),
-            _footer(),
+            footer(),
           ],
         ),
       ),
@@ -143,7 +143,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
               child: Text(
                 'Exceeded number of attempts, try after ${timeLeft} seconds',
                 style: TextStyle(
-                  color: NordColors.snowStorm.lightest,
+                  //color: NordColors.snowStorm.lightest,
                   fontSize: 13,
                   fontWeight: FontWeight.bold,
                 ),
@@ -230,34 +230,6 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
     );
   }
 
-  Widget _footer() {
-    return Padding(
-      padding: EdgeInsets.only(bottom: 20),
-      child: Column(
-        children: [
-          Text(
-            "Safe Notes",
-            style: TextStyle(
-              color: PreferencesStorage.getIsThemeDark()
-                  ? Color(0xFFafb8ba)
-                  : Color(0xFF8e989c),
-              fontSize: 12,
-            ),
-          ),
-          Text(
-            "Made with ♥ on Earth",
-            style: TextStyle(
-              color: PreferencesStorage.getIsThemeDark()
-                  ? Color(0xFFafb8ba)
-                  : Color(0xFF8e989c),
-              fontSize: 12,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   void _loginController() async {
     final form = this._formKey.currentState!;
     final snackMsgDecryptingNotes = 'Decrypting your notes!';
@@ -290,7 +262,13 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
       alignment: Alignment.centerRight,
       child: TextButton(
         child: Text(cantRecoverPassphraseMsg),
-        onPressed: () {},
+        onPressed: () {
+          showGenericDialog(
+            context: context,
+            icon: Icons.info_outline,
+            message: SafeNotesConfig.getForgotPassphraseMsg(),
+          );
+        },
       ),
     );
   }

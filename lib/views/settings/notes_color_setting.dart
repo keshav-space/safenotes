@@ -25,9 +25,7 @@ class _ColorPalletState extends State<ColorPallet> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Notes Color'),
-      ),
+      appBar: AppBar(title: Text('Notes Color')),
       body: _settings(),
     );
   }

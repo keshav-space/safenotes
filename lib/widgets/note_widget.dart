@@ -7,7 +7,6 @@ import 'package:safenotes/data/preference_and_config.dart';
 class NoteFormWidget extends StatelessWidget {
   final String? title;
   final String? description;
-
   final ValueChanged<String> onChangedTitle;
   final ValueChanged<String> onChangedDescription;
 
