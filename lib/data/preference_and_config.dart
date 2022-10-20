@@ -23,6 +23,7 @@ class PreferencesStorage {
   static const _keyIsGridView = 'isGridView';
   static const _keyIsNewFirst = 'isNewFirst';
   static const _keyIsFlagSecure = 'isFlagSecure';
+  static const _keyBackupRedundancyCounter = 'backupRedundancyCounter';
 
   static Future init() async =>
       _preferences = await SharedPreferences.getInstance();
@@ -45,6 +46,13 @@ class PreferencesStorage {
   static Future<void> setIsThemeDark(bool flag) async =>
       await _preferences?.setBool(_keyIsThemeDark, flag);
 
+  static int getBackupRedundancyCounter() =>
+      _preferences?.getInt(_keyBackupRedundancyCounter) ?? 0;
+
+  static Future<void> incrementBackupRedundancyCounter() async =>
+      await _preferences?.setInt(_keyBackupRedundancyCounter,
+          PreferencesStorage.getBackupRedundancyCounter() + 1);
+
   static bool getIsFlagSecure() =>
       _preferences?.getBool(_keyIsFlagSecure) ?? true;
 
@@ -55,6 +63,7 @@ class PreferencesStorage {
 
   static Future<void> setIsGridView(bool flag) async =>
       await _preferences?.setBool(_keyIsGridView, flag);
+
   static bool getIsNewFirst() => _preferences?.getBool(_keyIsNewFirst) ?? true;
 
   static Future<void> setIsNewFirst(bool flag) async =>
@@ -114,7 +123,7 @@ class PreferencesStorage {
   }
 
   static int getFocusTimeout() {
-    //default: 5 minutes
+    //default: 3 minutes
     return _preferences?.getInt(_keyFocusTimeout) ?? 3 * 60;
   }
 
@@ -168,18 +177,27 @@ class ImportPassPhraseHandler {
 
 class SafeNotesConfig {
   static String appName = 'Safe Notes';
-  static String appSlogan = 'Heaven for your data!';
+  static String appSlogan = 'Encrypted note manager!';
   static String firstLoginPageName = 'Set Passphrase';
   static String loginPageName = 'Login';
   static String appLogoPath = 'assets/splash_500.png';
-  static String appLogoAsProfilePath =
-      'assets/splash.png'; //'assets/hexa_profile.png';
-  static String exportFileNamePrefix = 'safenotes_export_';
-  static String exportFileNameExtension = 'json';
+  static String appLogoAsProfilePath = 'assets/splash.png';
+  static String exportFileNamePrefix = 'safenotes_';
+  static String exportFileNameExtension = '.json';
+  static String backupExtension = '.json';
+  static String backupFileNamePrefix = 'safenotes_backup';
   static String importDialogMsg =
-      'If the Notes in your import file was encrypted with diffrent passphrase then you\'ll be prompted to enter the passphrase of the device that generated this export.';
+      'If the Notes in your backup file was encrypted with diffrent passphrase then you\'ll be prompted to enter the passphrase of the device that generated backup.';
   static String exportDialogMsg =
       'Choose the destination folder where you want to store your encrypted export.';
+  static String inactiviyLogoutMessage =
+      'You were logged out due to extended inactivity.\nThis is to protect your privacy.';
+  static String forgotPassphraseMessage =
+      'There is no way to decrypt these notes without the passphrase. With great security comes the great responsibility of remembering the passphrase!';
+  static String strongPassphraseMessage =
+      'Passphrase are similar to password but generally longer, it will be used to encrypt and decrypt your notes. Use strong passphrase and make sure to remember it. It is impossible to decrypt your notes without the passphrase. With great security comes the great responsibility of remembering the passphrase!';
+  static String backupDetail =
+      'This will automatically create an encrypted local backup, which gets updated every day. Moreover, the backup is designed such that it can be used in tandem with other open-source tools like SyncThing to keep the multiple redundant backups across different devices on the local network.\nTo switch to a new device, you would simply need to copy this backup file to the new device and import that in your new Safe Notes app.\nFor more, see FAQ.';
   static String mailToForFeedback =
       'mailto:safenotes@keshav.space?subject=Help and Feedback';
   static String sourceCodeUrl = 'https://github.com/keshav-space/safenotes';
@@ -190,6 +208,7 @@ class SafeNotesConfig {
   static String playStorUrl =
       'https://play.google.com/store/apps/details?id=com.trisven.safenotes';
   static String githubUrl = 'https://github.com/keshav-space/safenotes';
+  static String faqUrl = 'https://safenotes.keshav.space/faqs.html';
 
   static String getLogoAsProfile() => appLogoAsProfilePath;
   static String getBugReportUrl() => bugReportUrl;
@@ -205,7 +224,21 @@ class SafeNotesConfig {
   static String getFirstLoginPageName() => firstLoginPageName;
   static String getImortDialogMsg() => importDialogMsg;
   static String getExportDialogMsg() => exportDialogMsg;
+  static String getInactivityLogoutMsg() => inactiviyLogoutMessage;
+  static String getForgotPassphraseMsg() => forgotPassphraseMessage;
+  static String getStrongPassphraseMsg() => strongPassphraseMessage;
   static String getExportFileExtension() => exportFileNameExtension;
+
+  static String getBackupDetail() => backupDetail;
+  static String getFAQsUrl() => backupDetail;
+  static String getBackupFileName() {
+    String redundancyCounter =
+        PreferencesStorage.getBackupRedundancyCounter().toString();
+    if (redundancyCounter == '0')
+      return '${backupFileNamePrefix}${backupExtension}';
+    return '${backupFileNamePrefix}${redundancyCounter}${backupExtension}';
+  }
+
   static String getExportFileName() {
     var dateNow = DateTime.now()
         .toString()
@@ -213,6 +246,6 @@ class SafeNotesConfig {
         .replaceAll(" ", "_")
         .replaceAll(":", "")
         .substring(0, 15);
-    return (exportFileNamePrefix + dateNow + '.' + exportFileNameExtension);
+    return (exportFileNamePrefix + dateNow + exportFileNameExtension);
   }
 }
