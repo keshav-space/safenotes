@@ -9,20 +9,22 @@
 <a href="https://www.gnu.org/licenses/gpl-3.0" alt="License: GPLv3"><img src="https://img.shields.io/badge/License-GPL%20v3-blue.svg"></a>
 <a href="https://github.com/keshav-space/safenotes/actions/" alt="Build Status"><img src="https://github.com/keshav-space/safenotes/actions/workflows/flutter-ci.yml/badge.svg"></a>
 <a href="https://matrix.to/#/#safenotes:matrix.org" alt="MATRIX channel: #safenotes"><img src="https://img.shields.io/matrix/safenotes:matrix.org"></a>
-
 </p>
+
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/fastlane/metadata/android/en-US/images/featureGraphic.png"  width="768" style="border-radius:3%">
+</p>
+
 <hr>
 <p align="center"><a href="#screenshots">Screenshots</a> &bull; <a href="#description">Description</a> &bull; <a href="#features">Features</a> &bull; <a href="#installation-and-updates">Installation and updates</a> &bull; <a href="#contribution">Contribution</a>  &bull; <a href="https://safenotes.keshav.space/privacy-policy.html">Privacy Policy</a>  &bull; <a href="#license">License</a></p>
 <p align="center"><a href="https://safenotes.keshav.space/">Website</a> &bull; <a href="https://safenotes.keshav.space/bug-reporting.html">Reporting a Bug</a> &bull; <a href=".">FAQ</a> &bull; <a href=".">Press</a></p>
 <hr>
 
-
-
 ## Screenshots
-
 <p align="center">
-<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/assets/github/image1.png" width="250" style="border-radius:3% 0 0 0">&nbsp;&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/assets/github/image2.gif" width="250">&nbsp;&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/assets/github/image3.png" width="250" style="border-radius:0 3% 0 0" >
-</br><img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/assets/github/image4.png" width="250" style="border-radius:0 0 0 3%">&nbsp;&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/assets/github/image5.png" width="250">&nbsp;&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/assets/github/image6.png" width="250" style="border-radius:0 0 3% 0">
+<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/fastlane/metadata/android/en-US/images/phoneScreenshots/image1.png" width="250" style="border-radius:3% 0 0 0">&nbsp;&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/fastlane/metadata/android/en-US/images/phoneScreenshots/image2.gif" width="250">&nbsp;&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/fastlane/metadata/android/en-US/images/phoneScreenshots/image3.png" width="250" style="border-radius:0 3% 0 0" >
+</br><img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/fastlane/metadata/android/en-US/images/phoneScreenshots/image4.png" width="250" style="border-radius:0 0 0 3%">&nbsp;&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/fastlane/metadata/android/en-US/images/phoneScreenshots/image5.png" width="250">&nbsp;&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/fastlane/metadata/android/en-US/images/phoneScreenshots/image7.png" width="250" style="border-radius:0 0 3% 0">
 </p>
 
 <!-- | | | | |
