@@ -18,7 +18,7 @@
 
 <hr>
 <p align="center"><a href="#screenshots">Screenshots</a> &bull; <a href="#description">Description</a> &bull; <a href="#features">Features</a> &bull; <a href="#installation-and-updates">Installation and updates</a> &bull; <a href="#contribution">Contribution</a>  &bull; <a href="https://safenotes.keshav.space/privacy-policy.html">Privacy Policy</a>  &bull; <a href="#license">License</a></p>
-<p align="center"><a href="https://safenotes.keshav.space/">Website</a> &bull; <a href="https://safenotes.keshav.space/bug-reporting.html">Reporting a Bug</a> &bull; <a href=".">FAQ</a> &bull; <a href=".">Press</a></p>
+<p align="center"><a href="https://safenotes.keshav.space/">Website</a> &bull; <a href="https://safenotes.keshav.space/bug-reporting.html">Reporting a Bug</a> &bull; <a href="https://safenotes.keshav.space/faqs.html">FAQ</a> &bull; <a href=".">Press</a></p>
 <hr>
 
 ## Screenshots
@@ -35,16 +35,22 @@
 
 ## Description
 
-Safe-Notes is a privacy-focused note manager which provides an inbuild encrypted storage. It imploys rigorously tested  AES-256 encryption standard to store user notes. All the notes are stored locally on the user's device. Contrary to the ongoing frenzy of "move everything to cloud" we believe in "localization of user data" giving you the control of your data and not some third-party cloud service provider.
-We know you gotta change your device once in a while that's why Safe-Notes also provides a secure migration facility, which allows you to export and import your notes without having to compromise the sanctity of your data. Yes, Safe-Notes has both Light and Dark modes. Word of advice, keep your passphrase long and secret. May encryption protect us all!
+Safe Notes is a privacy-focused note manager which provides an inbuild encrypted storage. It imploys rigorously tested  AES-256 encryption standard to store user notes. All the notes are stored locally on the user's device. Contrary to the ongoing frenzy of "move everything to cloud" we believe in "localization of user data" giving you the control of your data and not some third-party cloud service provider.
+We know you gotta change your device once in a while that's why Safe Notes also provides a secure migration facility, which allows you to export and import your notes without having to compromise the sanctity of your data. Word of advice, keep your passphrase long and secret. May encryption protect us all!
 
 ### Features
 
-* Encrypted AES-256 Storage
-* Data export both encrypted and unencrypted
-* Both encrypted and un-encrypted Import options
-* Dark Theme/ Light Theme
-* Seamless migration to new device
+* Encrypted AES-256 storage
+* Android background snapshot protection
+* Incognito Keyboard
+* Brute-force protection
+* Prevents data snooping via adb
+* Inactivity guard
+* Automated encrypted backup
+* Beautiful [Arctic Nord](https://www.nordtheme.com) style dark/light theme
+* List and grid view
+* Colorful notes
+* Seamless migration to new device 
 * Completely anonymous no inbound and outbound request
 
 <!-- Hidden span to keep old links compatible. -->
@@ -57,7 +63,7 @@ You can install Safe Notes using one of the following methods:
  3. Download the APK from [Github Releases](https://github.com/keshav-space/safenotes/releases) and install it.
  4. Build a debug APK yourself. This is the fastest way to get new features on your device, but is much more complicated, so we recommend using one of the other methods.
 
-We recommend method 1 or 2 for most users. APKs installed using method 1 or 3 are compatible with each other. Building a debug APK using method 4 excludes a key entirely. Signing keys help ensure that a user isn't tricked into installing a malicious update to an app.
+We recommend method 1 or 2 for most users. Building a debug APK using method 4 excludes a key entirely. Signing keys help ensure that a user isn't tricked into installing a malicious update to an app.
 
 
 ## Contribution
@@ -68,7 +74,7 @@ If you'd like to get involved, check our [contribution notes](.github/CONTRIBUTI
 
 ## Privacy Policy
 
-The Safe Notes project aims to provide a encrypted, private, anonymous experience for local note storage. The app doesn't send any outbound requests neither does it receives any inbound requests. Therefore, the app doesn't collect any data whatsoever. You can find the document [here](https://safenotes.keshav.space/privacy-policy.html).
+The Safe Notes project aims to provide a encrypted, private, anonymous experience for local note storage. The app doesn't send any outbound requests neither does it receives any inbound requests. Hence, it doesn't collect any data whatsoever. You can find the document [here](https://safenotes.keshav.space/privacy-policy.html).
 
 ## License
 [![GNU GPLv3 Image](https://www.gnu.org/graphics/gplv3-127x51.png)](https://www.gnu.org/licenses/gpl-3.0.en.html)  
