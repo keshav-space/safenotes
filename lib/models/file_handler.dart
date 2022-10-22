@@ -131,7 +131,9 @@ class FileHandler {
       if (Platform.isAndroid) {
         FilePickerResult? result = await FilePicker.platform.pickFiles(
           type: FileType.custom,
-          allowedExtensions: [SafeNotesConfig.getExportFileExtension()],
+          allowedExtensions: [
+            SafeNotesConfig.getAllowedFileExtensionsForImport()
+          ],
           allowMultiple: false,
         );
         if (result != null) {

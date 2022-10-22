@@ -54,6 +54,9 @@ android {
            keyPassword keystoreProperties['keyPassword']
            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
            storePassword keystoreProperties['storePassword']
+        //    enable for signing apk build
+        //    v1SigningEnabled true
+        //    v2SigningEnabled true
        }
    }
    buildTypes {

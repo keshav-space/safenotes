@@ -183,6 +183,7 @@ class SafeNotesConfig {
   static String appLogoPath = 'assets/splash_500.png';
   static String appLogoAsProfilePath = 'assets/splash.png';
   static String exportFileNamePrefix = 'safenotes_';
+  static String allowedFileExtensionsForImport = 'json';
   static String exportFileNameExtension = '.json';
   static String backupExtension = '.json';
   static String backupFileNamePrefix = 'safenotes_backup';
@@ -228,6 +229,8 @@ class SafeNotesConfig {
   static String getForgotPassphraseMsg() => forgotPassphraseMessage;
   static String getStrongPassphraseMsg() => strongPassphraseMessage;
   static String getExportFileExtension() => exportFileNameExtension;
+  static String getAllowedFileExtensionsForImport() =>
+      allowedFileExtensionsForImport;
 
   static String getBackupDetail() => backupDetail;
   static String getFAQsUrl() => faqsUrl;

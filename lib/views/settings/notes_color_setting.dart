@@ -44,7 +44,7 @@ class _ColorPalletState extends State<ColorPallet> {
           tiles: <SettingsTile>[
             SettingsTile.switchTile(
               initialValue: PreferencesStorage.getIsColorful(),
-              title: Text('Colourful Notes'),
+              title: Text('Colorful  Notes'),
               onToggle: (value) {
                 final provider =
                     Provider.of<NotesColor>(context, listen: false);
