@@ -113,8 +113,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             SettingsTile.navigation(
               leading: Icon(MdiIcons.cellphoneKey),
               title: Text('LogOut on Inactivity'),
-              value: Text(
-                  '${(PreferencesStorage.getInactivityTimeout() / 60).round()} min'),
+              value: Text(inactivityTimeoutValue()),
               onPressed: (context) async {
                 await Navigator.pushNamed(context, '/inactivityTimerSettings');
                 setState(() {});
@@ -227,5 +226,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
       ],
     );
+  }
+
+  String inactivityTimeoutValue() {
+    var index = PreferencesStorage.getInactivityTimeoutIndex();
+    List<int> values = [30, 1, 2, 3, 5];
+    if (index < 1) return '${values[index]} sec';
+    return '${values[index]} min';
   }
 }

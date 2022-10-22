@@ -26,10 +26,8 @@ class NotesColor extends ChangeNotifier {
 //     if (hexColor.length == 6) {
 //       hexColor = "FF" + hexColor;
 //     }
-//     print(hexColor);
 //     return int.parse(hexColor, radix: 16);
 //   }
-
 //   HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
 // }
 

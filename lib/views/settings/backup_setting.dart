@@ -39,7 +39,7 @@ class _BackupSettingState extends State<BackupSetting> {
   Future<void> _refresh() async {
     // get valid path else empty string
     String path = await PreferencesStorage.getBackupDestination();
-    print(path);
+
     setState(() {
       this.validChoosenDirectory = path;
     });
@@ -273,13 +273,13 @@ class _BackupSettingState extends State<BackupSetting> {
       "safenotes-task",
       "dailyBackup",
       tag: 'com.trisven.safenotes.dailybackup',
-      frequency: Duration(minutes: 15),
+      frequency: Duration(hours: 15),
       initialDelay: Duration(seconds: 10),
       constraints: Constraints(
         networkType: NetworkType.not_required,
         requiresCharging: false,
         requiresBatteryNotLow: false,
-        requiresDeviceIdle: false,
+        //requiresDeviceIdle: false,
         requiresStorageNotLow: false,
       ),
     );

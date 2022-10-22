@@ -131,8 +131,9 @@ class Item {
 }
 
 const items = [
-  Item(prefix: '4 minutes', helper: null),
-  Item(prefix: '6 minutes', helper: 'Default'),
-  Item(prefix: '8 minutes', helper: null),
-  Item(prefix: '10 minutes', helper: null),
+  Item(prefix: '30 seconds', helper: null),
+  Item(prefix: '1 minutes', helper: null),
+  Item(prefix: '2 minutes', helper: 'Default'),
+  Item(prefix: '3 minutes', helper: null),
+  Item(prefix: '5 minutes', helper: null),
 ];

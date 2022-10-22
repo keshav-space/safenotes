@@ -2,6 +2,7 @@
 import 'dart:io';
 
 // Package imports:
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferencesStorage {
@@ -40,8 +41,11 @@ class PreferencesStorage {
   static Future<void> setColorfulNotesColorIndex(int index) async =>
       await _preferences?.setInt(_keyColorfulNotesColorIndex, index);
 
-  static bool getIsThemeDark() =>
-      _preferences?.getBool(_keyIsThemeDark) ?? true;
+  static bool getIsThemeDark() {
+    bool? isDark = _preferences?.getBool(_keyIsThemeDark);
+    if (isDark != null) return isDark;
+    return WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
+  }
 
   static Future<void> setIsThemeDark(bool flag) async =>
       await _preferences?.setBool(_keyIsThemeDark, flag);
@@ -116,24 +120,26 @@ class PreferencesStorage {
     /*
       index >= 0 and index < 4
     */
+    List<int> choices = [30, 60, 120, 180, 300];
     var index = _preferences?.getInt(_keyInactivityTimeout);
-    if (!(index != null && index >= 0 && index < 4)) index = 1; // default
+    if (!(index != null && index >= 0 && index < 4)) index = 2; // default
 
-    return (4 + (index * 2)) * 60;
+    return choices[index];
   }
 
   static int getFocusTimeout() {
-    //default: 3 minutes
-    return _preferences?.getInt(_keyFocusTimeout) ?? 3 * 60;
+    //default: 30 seconds
+    return _preferences?.getInt(_keyFocusTimeout) ?? 30;
   }
 
   static int getPreInactivityLogoutCounter() {
-    //default: 30 seconds
-    return _preferences?.getInt(_keyPreInactivityLogoutCounter) ?? 30;
+    // for logout popup alert
+    //default: 15 seconds
+    return _preferences?.getInt(_keyPreInactivityLogoutCounter) ?? 15;
   }
 
   static int getInactivityTimeoutIndex() =>
-      _preferences?.getInt(_keyInactivityTimeout) ?? 1;
+      _preferences?.getInt(_keyInactivityTimeout) ?? 2;
 
   static Future<void> setInactivityTimeoutIndex({required int index}) async {
     await _preferences?.setInt(_keyInactivityTimeout, index);

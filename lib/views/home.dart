@@ -267,7 +267,7 @@ class _HomePageState extends State<HomePage> {
     final notes = allnotes.where((note) {
       final titleLower = note.title.toLowerCase();
       final descriptionLower = note.description.toLowerCase();
-      final queryLower = query.toLowerCase();
+      final queryLower = query.toLowerCase().trim();
 
       return titleLower.contains(queryLower) ||
           descriptionLower.contains(queryLower);
