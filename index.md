@@ -53,6 +53,9 @@ We know you gotta change your device once in a while that's why Safe Notes also 
 * Seamless migration to new device 
 * Completely anonymous no inbound and outbound request
 
+> **Warning**  
+> Some security features cannot be guaranteed to work if you are using a rooted device.
+
 <!-- Hidden span to keep old links compatible. -->
 <span id="updates"></span>
 
