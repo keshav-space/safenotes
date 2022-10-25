@@ -1,5 +1,5 @@
 name: safenotes
-description: A encrypted, private note keeper for Android.
+description: Encrypted, private note manager
 homepage: https://safenotes.keshav.space/
 documentation: https://safenotes.keshav.space/
 
@@ -17,7 +17,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+3
+version: 2.0.0+5
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -35,7 +35,8 @@ dependencies:
   shared_preferences: ^2.0.6
 
   #sqlite database
-  sqflite: ^2.0.0+3
+  sqflite: ^2.1.0+1
+
 
   #format date
   intl: ^0.17.0
@@ -44,38 +45,60 @@ dependencies:
   tuple: ^2.0.0
   url_launcher: ^6.1.5
   path_provider: ^2.0.2
-  permission_handler: ^8.0.1
-  file_picker: ^3.0.2+2
-  provider: ^5.0.0
+  permission_handler: ^10.0.1
+  file_picker: ^5.1.0
+  provider: ^6.0.3 
   #display in grid
   flutter_staggered_grid_view: ^0.4.0-nullsaftey.3
-
   rename: ^1.3.1
+  flutter_nord_theme: ^2.0.2
+  local_session_timeout: ^2.1.1
+  settings_ui: ^2.0.2
+  material_design_icons_flutter: ^5.0.6996
+  page_transition: ^2.0.9
+  
+  logger: ^1.1.0
+  timeago: ^3.3.0
+  flutter_windowmanager: ^0.2.0
+  workmanager: ^0.5.1
+  auto_size_text: ^3.0.0
+
+  # workmanager:
+  #   git:
+  #     url: https://github.com/fluttercommunity/flutter_workmanager.git
+  #     ref: 29bb7f11bc38fff2735888615b8fc79d05a3c51e
+
+    
+
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: ^0.9.0
-  flutter_native_splash: ^2.2.9
+  flutter_native_splash: ^2.2.11
+  import_sorter: ^4.6.0
+  dependency_validator: ^3.0.0
+  
 
 dependency_overrides:
   args: 2.1.1
 
 flutter_native_splash:
-  color: "##bababa"
+  color: "#ECEFF4"
   image: assets/splash_500.png
-  color_dark: "#1d5766"
-  image_dark: assets/splash_500_dark.png
+  color_dark: "#2E3440"
+  image_dark: assets/splash_500.png
 
   android_12:
+    color: "#ECEFF4"
+    icon_background_color: "#ECEFF4"
     image: assets/splash_500.png
-    icon_background_color: "##bababa"
-    image_dark: assets/splash_500_dark.png
-    icon_background_color_dark: "#1d5766"
+    color_dark: "#2E3440"
+    icon_background_color_dark: "#2E3440"
+    image_dark: assets/splash_500.png
 
-  web: false
-
+  fullscreen: true
 
 
 flutter_icons:
@@ -128,3 +151,11 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  fonts:
+     - family: NotoSerif
+       fonts:
+         - asset: assets/fonts/NotoSerif-Regular.ttf
+
+     - family: NotoMonochromaticEmoji
+       fonts:
+         - asset: assets/fonts/NotoEmoji-VariableFont_wght.ttf

@@ -1,0 +1,9 @@
+- Incognito Keyboard
+- Brute-force protection
+- Protection against data snooping via adb
+- Android background snapshot protection
+- Inactivity guard
+- Automated encrypted backup
+- New Arctic Nord style dark/light theme
+- Support list view
+- Customization for colorful notes

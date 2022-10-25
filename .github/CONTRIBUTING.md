@@ -36,9 +36,10 @@ Safe Notes contribution guidelines
 * Respond if someone requests changes or otherwise raises issues about your PRs.
 * Try to figure out yourself why builds on our CI fail.
 * Make sure your PR is **up-to-date** with the rest of the code. Often, a simple click on "Update branch" will do the job, but if not, you must resolve the conflicts on your own. Doing this makes the maintainers' job way easier.
+* Use `meaningful` commit message and don't forget to add your `DCO` at the end of every commit message.
 
 ## Communication
 
+* Connect to us on GitHub [Discussion](https://github.com/keshav-space/safenotes/discussions) **(preferred)**
 * The #safenotes channel on [Matrix Chat](https://matrix.to/#/#safenotes:matrix.org) has the core team and other developers in it.
-* Some convenient Matrix clients, available both for phone and desktop, are listed at that link.
 * You can post your suggestions, changes, ideas etc. on either `GitHub` or `Matrix`.
