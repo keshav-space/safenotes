@@ -23,7 +23,7 @@
 
 ## Screenshots
 <p align="center">
-<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/fastlane/metadata/android/en-US/images/phoneScreenshots/image1.png" width="250" style="border-radius: 25px 0 0 0">&nbsp;&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/fastlane/metadata/android/en-US/images/phoneScreenshots/image2.gif" width="250">&nbsp;&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/fastlane/metadata/android/en-US/images/phoneScreenshots/image3.png" width="250" style="border-radius:0 25px 0 0" >
+<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/fastlane/metadata/android/en-US/images/phoneScreenshots/image1.png" width="250" style="border-radius: 25px 0 0 0">&nbsp;&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/assets/github/image2.gif" width="250">&nbsp;&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/fastlane/metadata/android/en-US/images/phoneScreenshots/image3.png" width="250" style="border-radius:0 25px 0 0" >
 </br><img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/fastlane/metadata/android/en-US/images/phoneScreenshots/image4.png" width="250" style="border-radius:0 0 0 25px">&nbsp;&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/fastlane/metadata/android/en-US/images/phoneScreenshots/image5.png" width="250">&nbsp;&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/fastlane/metadata/android/en-US/images/phoneScreenshots/image7.png" width="250" style="border-radius:0 0 25px 0">
 </p>
 
