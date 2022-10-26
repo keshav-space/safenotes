@@ -1,4 +1,4 @@
 theme: jekyll-theme-hacker
 title: Safe Notes
-description: Safe Notes is a privacy-focused note manager which provides an inbuild AES-256 encrypted storage. There is a secure migration facility that allows you to export and import your notes without compromising the sanctity of your data. May encryption protect us all!
+description: Safe Notes is a security project aimed at providing an encrypted, private note manager that works locally and protects notes from various threat actors.
 show_downloads: "true"
