@@ -13,7 +13,7 @@
 
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/fastlane/metadata/android/en-US/images/featureGraphic.png"  width="768" style="border-radius:25px;">
+<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/fastlane/metadata/android/en-US/images/featureGraphic.png"  width="768" style="border-radius:10px;">
 </p>
 
 <hr>
@@ -23,8 +23,8 @@
 
 ## Screenshots
 <p align="center">
-<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/fastlane/metadata/android/en-US/images/phoneScreenshots/image1.png" width="300" style="border-radius:25px 0 0 0">&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/fastlane/metadata/android/en-US/images/phoneScreenshots/image2.gif" width="300">&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/fastlane/metadata/android/en-US/images/phoneScreenshots/image3.png" width="300" style="border-radius:0 25px 0 0" >
-<br><img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/fastlane/metadata/android/en-US/images/phoneScreenshots/image4.png" width="300" style="border-radius:0 0 0 25px">&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/fastlane/metadata/android/en-US/images/phoneScreenshots/image5.png" width="300">&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/fastlane/metadata/android/en-US/images/phoneScreenshots/image7.png" width="300" style="border-radius:0 0 25px 0">
+<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/fastlane/metadata/android/en-US/images/phoneScreenshots/image1.png" width="19%" style="border-radius: 10px 0 0 0">&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/assets/github/image2.gif" width="19%">&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/fastlane/metadata/android/en-US/images/phoneScreenshots/image3.png" width="19%" style="border-radius:0 10px 0 0" >
+<br><img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/fastlane/metadata/android/en-US/images/phoneScreenshots/image4.png" width="19%" style="border-radius:0 0 0 10px">&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/fastlane/metadata/android/en-US/images/phoneScreenshots/image5.png" width="19%">&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/fastlane/metadata/android/en-US/images/phoneScreenshots/image7.png" width="19%" style="border-radius:0 0 10px 0">
 </p>
 
 <!-- | | | | |
@@ -37,6 +37,9 @@
 
 Safe Notes is a privacy-focused note manager which provides an inbuild encrypted storage. It imploys rigorously tested  AES-256 encryption standard to store user notes. All the notes are stored locally on the user's device. Contrary to the ongoing frenzy of "move everything to cloud" we believe in "localization of user data" giving you the control of your data and not some third-party cloud service provider.
 We know you gotta change your device once in a while that's why Safe Notes also provides a secure migration facility, which allows you to export and import your notes without having to compromise the sanctity of your data. Word of advice, keep your passphrase long and secret. May encryption protect us all!
+
+> **Note**  
+> With great security comes the great responsibility of remembering the passphrase!
 
 ### Features
 
