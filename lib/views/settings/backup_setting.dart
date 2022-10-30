@@ -37,6 +37,7 @@ class _BackupSettingState extends State<BackupSetting> {
   }
 
   Future<void> _refresh() async {
+    PreferencesStorage.reload();
     // get valid path else empty string
     String path = await PreferencesStorage.getBackupDestination();
 
@@ -45,10 +46,10 @@ class _BackupSettingState extends State<BackupSetting> {
     });
 
     String lastBackupTime = PreferencesStorage.getLastBackupTime();
-    if (validChoosenDirectory.isNotEmpty) {
-      var date = await File(
-              '${validChoosenDirectory}/${SafeNotesConfig.getBackupFileName()}')
-          .lastModified();
+    String backupFileName =
+        '${validChoosenDirectory}/${SafeNotesConfig.getBackupFileName()}';
+    if (validChoosenDirectory.isNotEmpty && File(backupFileName).existsSync()) {
+      var date = await File(backupFileName).lastModified();
       lastBackupTime = date.toIso8601String();
     }
 
@@ -269,12 +270,14 @@ class _BackupSettingState extends State<BackupSetting> {
   }
 
   void backupRegister() {
+    Workmanager().cancelByTag('com.trisven.safenotes.dailybackup');
+
     Workmanager().registerPeriodicTask(
       "safenotes-task",
       "dailyBackup",
       tag: 'com.trisven.safenotes.dailybackup',
       frequency: Duration(hours: 15),
-      initialDelay: Duration(seconds: 10),
+      initialDelay: Duration(seconds: 1),
       constraints: Constraints(
         networkType: NetworkType.not_required,
         requiresCharging: false,
