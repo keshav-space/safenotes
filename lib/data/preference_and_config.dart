@@ -25,9 +25,12 @@ class PreferencesStorage {
   static const _keyIsNewFirst = 'isNewFirst';
   static const _keyIsFlagSecure = 'isFlagSecure';
   static const _keyBackupRedundancyCounter = 'backupRedundancyCounter';
+  static const _keyMaxBackupRetryAttempts = 'maxBackupRetryAttempts';
 
   static Future init() async =>
       _preferences = await SharedPreferences.getInstance();
+
+  static reload() => _preferences?.reload();
 
   static Future<void> setPassPhraseHash(String passphrasehash) async =>
       await _preferences?.setString(_keyPassPhraseHash, passphrasehash);
@@ -130,6 +133,11 @@ class PreferencesStorage {
   static int getFocusTimeout() {
     //default: 30 seconds
     return _preferences?.getInt(_keyFocusTimeout) ?? 30;
+  }
+
+  static int getMaxBackupRetryAttempts() {
+    //default: 50
+    return _preferences?.getInt(_keyMaxBackupRetryAttempts) ?? 50;
   }
 
   static int getPreInactivityLogoutCounter() {
