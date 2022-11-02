@@ -1,19 +1,25 @@
-★ Safe Notes is an open-source project that aims to provide an encrypted, private, anonymous experience for local note storage. 
-★ Write colorful notes and they will be automatically encrypted.
-★ It employs rigorously tested AES-256 encryption standards to encrypt your notes.
-★ Comes with both Dark and Light themes.
-★ Seamless migration to new device. Use the encrypted export option to move your data from one device to another device.
+★ Safe Notes is an open-source project that aims to provide an encrypted, private note manager. 
+★ Employs rigorously tested AES-256 encryption standards to encrypt your notes.
+★ Incognito Keyboard
+★ Brute-force protection
+★ Protection against data snooping via adb
+★ Android background snapshot protection
+★ Inactivity guard
+★ Automated encrypted backup
+★ Arctic Nord style dark and light theme
+★ Customization for colorful notes
+★ Seamless migration to new device. Use the backup to move your data from one device to another device.
 ★ Safe Notes provides ultimate security - you don't have to trust us, or any other third party because everything is done locally on your phone.
 ★ Contrary to the ongoing frenzy of "move everything to cloud" we believe in "localization of user data" giving you the control of your data and not some third-party cloud service provider.
-★ Completely anonymous no inbound and outbound requests.
+★ Completely anonymous, no inbound and outbound requests.
 
 
 --- How it works ---
 
 ★ Safe Notes encrypt each note with a unique AES-256 symmetric key derived from your passphrase and randomly generated salt.
 ★ If an attacker tries to brute-force your encrypted notes it will take "Trillions Upon Trillions years" in contrast, the universe has only existed for 15 billion years. (You must use strong and long passphrase).
-★ AES-256 is symmetric key encryption that is quantum-resistant, i.e it isn't vulnerable to quantum computers.
+★ AES-256 is symmetric key encryption that is quantum-resistant, i.e. it isn't vulnerable to quantum computers.
 ★ Everything is stored locally on the user's device.
-★ Your passphrase is never stored on the device it gets purged as soon as you exit the app.
+★ Your passphrase is never stored on the device, it gets purged as soon as you exit the app.
 ★ We can't decrypt your notes even if we wanted to. That gives you the ultimate security, but it also means that a lost passphrase can never be recovered.
 ★ Safe Notes is an open-source, not-for-profit project.

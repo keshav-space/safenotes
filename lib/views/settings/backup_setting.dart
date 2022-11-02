@@ -269,25 +269,6 @@ class _BackupSettingState extends State<BackupSetting> {
     }
   }
 
-  void backupRegister() {
-    Workmanager().cancelByTag('com.trisven.safenotes.dailybackup');
-
-    Workmanager().registerPeriodicTask(
-      "safenotes-task",
-      "dailyBackup",
-      tag: 'com.trisven.safenotes.dailybackup',
-      frequency: Duration(hours: 15),
-      initialDelay: Duration(seconds: 1),
-      constraints: Constraints(
-        networkType: NetworkType.not_required,
-        requiresCharging: false,
-        requiresBatteryNotLow: false,
-        //requiresDeviceIdle: false,
-        requiresStorageNotLow: false,
-      ),
-    );
-  }
-
   Widget _buttonText(String text, double fontSize) {
     return Text(
       text,
@@ -298,4 +279,24 @@ class _BackupSettingState extends State<BackupSetting> {
       ),
     );
   }
+}
+
+void backupRegister() {
+  Workmanager().cancelByTag('com.trisven.safenotes.dailybackup');
+
+  Workmanager().registerPeriodicTask(
+    "safenotes-task",
+    "dailyBackup",
+    existingWorkPolicy: ExistingWorkPolicy.replace,
+    tag: 'com.trisven.safenotes.dailybackup',
+    frequency: Duration(hours: 15),
+    initialDelay: Duration(seconds: 1),
+    constraints: Constraints(
+      networkType: NetworkType.not_required,
+      requiresCharging: false,
+      requiresBatteryNotLow: false,
+      //requiresDeviceIdle: false,
+      requiresStorageNotLow: false,
+    ),
+  );
 }

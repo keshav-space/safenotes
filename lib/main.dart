@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 // Package imports:
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
+import 'package:safenotes/views/settings/backup_setting.dart';
 import 'package:workmanager/workmanager.dart';
 
 // Project imports:
@@ -35,6 +36,9 @@ Future main() async {
   await PreferencesStorage.init();
   if (Platform.isAndroid && PreferencesStorage.getIsFlagSecure())
     await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+
+  onAppUpdate();
+
   runApp(SafeNotesApp());
 }
 
@@ -146,4 +150,18 @@ void callbackDispatcher() {
     await ScheduledTask.backup();
     return Future.value(true);
   });
+}
+
+// run once every update
+void onAppUpdate() async {
+  if (PreferencesStorage.getAppVersionCode() !=
+      SafeNotesConfig.appVersionCode) {
+    // Re-register the background update
+    var backupDestination = await PreferencesStorage.getBackupDestination();
+    if (PreferencesStorage.getIsBackupOn() && backupDestination.isNotEmpty)
+      backupRegister();
+
+    // insure onAppUpdate is run once each update
+    PreferencesStorage.setAppVersionCodeToCurrent();
+  }
 }

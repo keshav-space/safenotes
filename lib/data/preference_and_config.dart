@@ -26,6 +26,7 @@ class PreferencesStorage {
   static const _keyIsFlagSecure = 'isFlagSecure';
   static const _keyBackupRedundancyCounter = 'backupRedundancyCounter';
   static const _keyMaxBackupRetryAttempts = 'maxBackupRetryAttempts';
+  static const _keyAppVersionCode = 'appVersionCode';
 
   static Future init() async =>
       _preferences = await SharedPreferences.getInstance();
@@ -37,6 +38,13 @@ class PreferencesStorage {
 
   static String getPassPhraseHash() =>
       _preferences?.getString(_keyPassPhraseHash) ?? '';
+
+// appVersionCode controls the one time code excution on version change
+  static int getAppVersionCode() =>
+      _preferences?.getInt(_keyAppVersionCode) ?? 1;
+
+  static Future<void> setAppVersionCodeToCurrent() async => await _preferences
+      ?.setInt(_keyAppVersionCode, SafeNotesConfig.appVersionCode);
 
   static int getColorfulNotesColorIndex() =>
       _preferences?.getInt(_keyColorfulNotesColorIndex) ?? 0;
@@ -190,6 +198,8 @@ class ImportPassPhraseHandler {
 }
 
 class SafeNotesConfig {
+  static String appVersion = '2.0.1';
+  static int appVersionCode = 6;
   static String appName = 'Safe Notes';
   static String appSlogan = 'Encrypted note manager!';
   static String firstLoginPageName = 'Set Passphrase';
