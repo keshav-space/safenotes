@@ -76,7 +76,8 @@ class SafeNotesApp extends StatelessWidget {
     sessionStateStream.add(SessionState.stopListening);
     BuildContext context = navigatorKey.currentContext!;
 
-    if (timeoutEvent == SessionTimeoutState.userInactivityTimeout) {
+    if (timeoutEvent == SessionTimeoutState.userInactivityTimeout &&
+        PreferencesStorage.getIsInactivityTimeoutOn()) {
       await onTimeOutDo(
         context: context,
         showPreLogoffAlert: true,

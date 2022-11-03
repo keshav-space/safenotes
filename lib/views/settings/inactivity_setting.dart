@@ -37,13 +37,16 @@ class _InactivityTimerSettingState extends State<InactivityTimerSetting> {
       ),
       sections: [
         SettingsSection(
-          title: Text('Always on'),
+          //title: Text('Always on'),
           tiles: <SettingsTile>[
             SettingsTile.switchTile(
-              initialValue: true,
+              initialValue: PreferencesStorage.getIsInactivityTimeoutOn(),
               title: Text('Logout upon inactivity'),
-              onToggle: (value) {},
-              enabled: false,
+              onToggle: (value) {
+                PreferencesStorage.setIsInactivityTimeoutOn(value);
+                setState(() {});
+              },
+              enabled: true,
               description: Text('Close and open app for change to take effect'),
             ),
           ],
@@ -133,7 +136,9 @@ class Item {
 const items = [
   Item(prefix: '30 seconds', helper: null),
   Item(prefix: '1 minutes', helper: null),
-  Item(prefix: '2 minutes', helper: 'Default'),
-  Item(prefix: '3 minutes', helper: null),
+  Item(prefix: '2 minutes', helper: null),
+  Item(prefix: '3 minutes', helper: 'Default'),
   Item(prefix: '5 minutes', helper: null),
+  Item(prefix: '10 minutes', helper: null),
+  Item(prefix: '15 minutes', helper: null),
 ];

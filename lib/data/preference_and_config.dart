@@ -11,6 +11,7 @@ class PreferencesStorage {
   static const _keyPassPhraseHash = 'passphrasehash';
   static const _keyIsThemeDark = 'isthemedark';
   static const _keyKeyboardIncognito = 'keyboardIcognito';
+  static const _keyIsInactivityTimeoutOn = 'isInactivityTimeoutOn';
   static const _keyInactivityTimeout = 'inactivityTimeout';
   static const _keyFocusTimeout = 'focusTimeout';
   static const _keyPreInactivityLogoutCounter = 'preInactivityLogoutCounter';
@@ -126,14 +127,19 @@ class PreferencesStorage {
     return _preferences?.getInt(_keyBruteforceLockOutTime) ?? 30;
   }
 
+  static bool getIsInactivityTimeoutOn() =>
+      _preferences?.getBool(_keyIsInactivityTimeoutOn) ?? true;
+
+  static Future<void> setIsInactivityTimeoutOn(bool flag) async =>
+      await _preferences?.setBool(_keyIsInactivityTimeoutOn, flag);
+
   static int getInactivityTimeout() {
-    //default: 6 minutes
-    /*
-      index >= 0 and index < 4
-    */
-    List<int> choices = [30, 60, 120, 180, 300];
+    //default: 4 minutes
+
+    List<int> choices = [30, 60, 120, 180, 300, 600, 900];
     var index = _preferences?.getInt(_keyInactivityTimeout);
-    if (!(index != null && index >= 0 && index < 4)) index = 2; // default
+    if (!(index != null && index >= 0 && index < choices.length))
+      index = 4; // default
 
     return choices[index];
   }
@@ -215,7 +221,7 @@ class SafeNotesConfig {
       'If the Notes in your backup file was encrypted with diffrent passphrase then you\'ll be prompted to enter the passphrase of the device that generated backup.';
   static String exportDialogMsg =
       'Choose the destination folder where you want to store your encrypted export.';
-  static String inactiviyLogoutMessage =
+  static String inactivityLogoutMessage =
       'You were logged out due to extended inactivity.\nThis is to protect your privacy.';
   static String forgotPassphraseMessage =
       'There is no way to decrypt these notes without the passphrase. With great security comes the great responsibility of remembering the passphrase!';
@@ -249,7 +255,7 @@ class SafeNotesConfig {
   static String getFirstLoginPageName() => firstLoginPageName;
   static String getImortDialogMsg() => importDialogMsg;
   static String getExportDialogMsg() => exportDialogMsg;
-  static String getInactivityLogoutMsg() => inactiviyLogoutMessage;
+  static String getInactivityLogoutMsg() => inactivityLogoutMessage;
   static String getForgotPassphraseMsg() => forgotPassphraseMessage;
   static String getStrongPassphraseMsg() => strongPassphraseMessage;
   static String getExportFileExtension() => exportFileNameExtension;
