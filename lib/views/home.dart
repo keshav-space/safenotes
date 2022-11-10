@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -74,7 +75,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final String officialAppName = SafeNotesConfig.getAppName();
+    //final String officialAppName = SafeNotesConfig.getAppName();
     Provider.of<NotesColor>(context);
 
     return GestureDetector(
@@ -82,7 +83,7 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         drawer: _buildDrawer(context),
         appBar: AppBar(
-          title: Text(officialAppName),
+          title: Text('Safe Notes'.tr()),
           actions: isLoading ? null : [_gridListView(), _shortNotes()],
         ),
         body: Column(
@@ -125,7 +126,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _handleAndBuildNotes() {
-    final String noNotes = 'No Notes';
+    final String noNotes = 'No Notes'.tr();
     final double fontSize = 24.0;
 
     return Expanded(
@@ -148,7 +149,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildSearch() {
-    final String searchBoxHint = 'Search...';
+    final String searchBoxHint = 'Search...'.tr();
 
     return SearchWidget(
       text: query,

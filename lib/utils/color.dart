@@ -1,6 +1,9 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
+import 'package:easy_localization/easy_localization.dart';
+
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
 
@@ -39,10 +42,10 @@ class NotesColorTheme {
       {required this.prefix, this.helper, required this.colorList});
 }
 
-const List<NotesColorTheme> allNotesColorTheme = [
+List<NotesColorTheme> allNotesColorTheme = [
   NotesColorTheme(
-    prefix: 'Nord Arctic',
-    helper: 'Default',
+    prefix: 'Nord Arctic'.tr(),
+    helper: 'Default'.tr(),
     colorList: <Color>[
       Color(0xFF5E81AC),
       Color(0xFFD08770),
@@ -52,8 +55,8 @@ const List<NotesColorTheme> allNotesColorTheme = [
     ],
   ),
   NotesColorTheme(
-    prefix: 'Harmony',
-    helper: 'Deep Blue, Northern Sky, Baby Blue and Coffee',
+    prefix: 'Harmony'.tr(),
+    helper: 'Deep Blue, Northern Sky, Baby Blue and Coffee'.tr(),
     colorList: <Color>[
       Color(0xFF2460A7),
       Color(0xFF85B3D1),
@@ -62,8 +65,8 @@ const List<NotesColorTheme> allNotesColorTheme = [
     ],
   ),
   NotesColorTheme(
-    prefix: 'Refreshing',
-    helper: 'Soft Pink, Peach Amber, Yucca and Arbor Green',
+    prefix: 'Refreshing'.tr(),
+    helper: 'Soft Pink, Peach Amber, Yucca and Arbor Green'.tr(),
     colorList: <Color>[
       Color(0xFFFFDDE2),
       Color(0xFFFAA094),
@@ -72,8 +75,8 @@ const List<NotesColorTheme> allNotesColorTheme = [
     ],
   ),
   NotesColorTheme(
-    prefix: 'Peace',
-    helper: 'Blue Sky, Elation, Nugget and Celestial',
+    prefix: 'Peace'.tr(),
+    helper: 'Blue Sky, Elation, Nugget and Celestial'.tr(),
     colorList: <Color>[
       Color(0xFFABD1C9),
       Color(0xFFDFDCE5),
@@ -82,8 +85,8 @@ const List<NotesColorTheme> allNotesColorTheme = [
     ],
   ),
   NotesColorTheme(
-    prefix: 'Nostalgic',
-    helper: 'Desert Sand, Burnished Brown, Old Burgundy and Mystic',
+    prefix: 'Nostalgic'.tr(),
+    helper: 'Desert Sand, Burnished Brown, Old Burgundy and Mystic'.tr(),
     colorList: <Color>[
       Color(0xFFDBBEA1),
       Color(0xFFA37B73),
@@ -92,8 +95,8 @@ const List<NotesColorTheme> allNotesColorTheme = [
     ],
   ),
   NotesColorTheme(
-    prefix: 'Sapphire',
-    helper: 'Sapphire, Light Slate Gray, Cadet Gray and American Silver',
+    prefix: 'Sapphire'.tr(),
+    helper: 'Sapphire, Light Slate Gray, Cadet Gray and American Silver'.tr(),
     colorList: <Color>[
       Color(0xFF2E5266),
       Color(0xFF6E8898),
@@ -102,8 +105,8 @@ const List<NotesColorTheme> allNotesColorTheme = [
     ],
   ),
   NotesColorTheme(
-    prefix: 'Ensemble',
-    helper: 'Light Purple, Light Blue and Light Green',
+    prefix: 'Ensemble'.tr(),
+    helper: 'Light Purple, Light Blue and Light Green'.tr(),
     colorList: <Color>[
       Color(0xFFD7A9E3),
       Color(0xFF8BBEE8),
@@ -111,8 +114,8 @@ const List<NotesColorTheme> allNotesColorTheme = [
     ],
   ),
   NotesColorTheme(
-    prefix: 'Radiant',
-    helper: 'Radiant Yellow, Living Coral and Purple',
+    prefix: 'Radiant'.tr(),
+    helper: 'Radiant Yellow, Living Coral and Purple'.tr(),
     colorList: <Color>[
       Color(0xFFF9A12E),
       Color(0xFFFC766A),
@@ -120,8 +123,8 @@ const List<NotesColorTheme> allNotesColorTheme = [
     ],
   ),
   NotesColorTheme(
-    prefix: 'Innocent',
-    helper: 'White, Pink Lady and Sky Blue',
+    prefix: 'Innocent'.tr(),
+    helper: 'White, Pink Lady and Sky Blue'.tr(),
     colorList: <Color>[
       Color(0xFFFCF6F5),
       Color(0xFFEDC2D8),
@@ -129,8 +132,8 @@ const List<NotesColorTheme> allNotesColorTheme = [
     ],
   ),
   NotesColorTheme(
-    prefix: 'Oktoberfest',
-    helper: 'Red, Yellow and Navy',
+    prefix: 'Oktoberfest'.tr(),
+    helper: 'Red, Yellow and Navy'.tr(),
     colorList: <Color>[
       Color(0xFFF65058),
       Color(0xFFFBDE44),
@@ -138,8 +141,8 @@ const List<NotesColorTheme> allNotesColorTheme = [
     ],
   ),
   NotesColorTheme(
-    prefix: 'Nature',
-    helper: 'Tanager Turquoise, Teal Blue and Kelly Green',
+    prefix: 'Nature'.tr(),
+    helper: 'Tanager Turquoise, Teal Blue and Kelly Green'.tr(),
     colorList: <Color>[
       Color(0xFF95DBE5),
       Color(0xFF078282),
@@ -147,8 +150,8 @@ const List<NotesColorTheme> allNotesColorTheme = [
     ],
   ),
   NotesColorTheme(
-    prefix: 'Knockout',
-    helper: 'Knockout Pink, Safety Yellow and Out of the Blue',
+    prefix: 'Knockout'.tr(),
+    helper: 'Knockout Pink, Safety Yellow and Out of the Blue'.tr(),
     colorList: <Color>[
       Color(0xFFFF3EA5),
       Color(0xFFEDFF00),
@@ -156,8 +159,8 @@ const List<NotesColorTheme> allNotesColorTheme = [
     ],
   ),
   NotesColorTheme(
-    prefix: 'Danger',
-    helper: 'Danger Red, Tap Shoe and Blue Blossom',
+    prefix: 'Danger'.tr(),
+    helper: 'Danger Red, Tap Shoe and Blue Blossom'.tr(),
     colorList: <Color>[
       Color(0xFFD9514E),
       Color(0xFF2A2B2D),
@@ -165,21 +168,21 @@ const List<NotesColorTheme> allNotesColorTheme = [
     ],
   ),
   NotesColorTheme(
-    prefix: 'Light Teal',
+    prefix: 'Light Teal'.tr(),
     helper: null,
     colorList: <Color>[
       Color(0xFFA7BEAE),
     ],
   ),
   NotesColorTheme(
-    prefix: 'Fresh Mint',
+    prefix: 'Fresh Mint'.tr(),
     helper: null,
     colorList: <Color>[
       Color(0xFFADEFD1),
     ],
   ),
   NotesColorTheme(
-    prefix: 'Sailor Blue',
+    prefix: 'Sailor Blue'.tr(),
     helper: null,
     colorList: <Color>[
       Color(0xFF00203F),

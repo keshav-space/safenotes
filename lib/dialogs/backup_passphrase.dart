@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:crypto/crypto.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 
 // Project imports:
@@ -42,9 +43,9 @@ class _ImportPassPhraseDialogState extends State<ImportPassPhraseDialog> {
     final double paddingTextTop = 12.0;
     final double titleFontSize = 20.0;
     final double descriptionFontSize = 15.0;
-    final String titleHeading = 'Import Data is Encrypted';
+    final String titleHeading = 'Import Data is Encrypted'.tr();
     final String description =
-        'Enter the passphrase of the device that generated this file.';
+        'Enter the passphrase of the device that generated this file.'.tr();
 
     return Padding(
       padding: EdgeInsets.all(paddingAllAround),
@@ -82,7 +83,7 @@ class _ImportPassPhraseDialogState extends State<ImportPassPhraseDialog> {
   Widget _buildPassField(BuildContext context) {
     final double inputBoxRadius = 10.0;
     final double paddingTextBox = 15.0;
-    final String inputBoxHint = 'Encrypton Phrase';
+    final String inputBoxHint = 'Encrypton Phrase'.tr();
 
     return Padding(
       padding: EdgeInsets.only(top: paddingTextBox, bottom: paddingTextBox),
@@ -125,7 +126,7 @@ class _ImportPassPhraseDialogState extends State<ImportPassPhraseDialog> {
   }
 
   String? _passphraseValidator(String? passphrase) {
-    final wrongPhraseMsg = 'Wrong Passphrase!';
+    final wrongPhraseMsg = 'Wrong passphrase!'.tr();
 
     return sha256.convert(utf8.encode(passphrase!)).toString() !=
             ImportPassPhraseHandler.getImportPassPhraseHash()
@@ -135,8 +136,8 @@ class _ImportPassPhraseDialogState extends State<ImportPassPhraseDialog> {
 
   Widget _buildButtons(BuildContext context) {
     final double paddingAroundButtonRow = 15.0;
-    final String formSubmitButtonText = 'Submit';
-    final String formCancelButtonText = 'Cancel';
+    final String formSubmitButtonText = 'Submit'.tr();
+    final String formCancelButtonText = 'Cancel'.tr();
 
     return Container(
       padding: EdgeInsets.fromLTRB(paddingAroundButtonRow,

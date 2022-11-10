@@ -1,6 +1,9 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
+import 'package:easy_localization/easy_localization.dart';
+
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
 
@@ -42,7 +45,7 @@ class NoteFormWidget extends StatelessWidget {
   Widget _buildTitle() {
     final double fontSize = 24.0;
     final int maxLinesToShowAtTimeTitle = 2;
-    final String titleHint = 'Title';
+    final String titleHint = 'Title'.tr();
     //Disable IMEPL if keyboard incognito mode is true
     final bool enableIMEPLFlag = !PreferencesStorage.getKeyboardIncognito();
 
@@ -76,7 +79,7 @@ class NoteFormWidget extends StatelessWidget {
     final int maxLinesToShowAtTimeDescription =
         computeMaxLine(context: context, fontHeight: 30.0);
     final double fontSize = 18.0;
-    final String hintDescription = 'Type something...';
+    final String hintDescription = 'Type something...'.tr();
     final bool enableIMEPLFlag = !PreferencesStorage.getKeyboardIncognito();
 
     return TextFormField(

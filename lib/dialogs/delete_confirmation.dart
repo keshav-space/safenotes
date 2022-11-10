@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 
 class DeleteConfirmationDialog extends StatelessWidget {
@@ -47,7 +48,7 @@ class DeleteConfirmationDialog extends StatelessWidget {
   }
 
   Widget _title(BuildContext context) {
-    final String title = 'Caution!';
+    final String title = 'Caution!'.tr();
     final double titleFontSize = 22.0;
 
     return Padding(
@@ -64,7 +65,7 @@ class DeleteConfirmationDialog extends StatelessWidget {
 
   Widget _body(BuildContext context) {
     final String cautionMessage =
-        'You\'re about to delete this note. This action cannot be undone.';
+        "You're about to delete this note. This action cannot be undone.".tr();
 
     return Padding(
       padding: EdgeInsets.only(top: 12),
@@ -82,8 +83,8 @@ class DeleteConfirmationDialog extends StatelessWidget {
     final double paddingAroundButtonRowLR = 15.0;
     final double paddingAroundButtonRowTop = 20.0;
     final double buttonTextFontSize = 16.0;
-    final String cancelButtonText = 'Cancel';
-    final String deleteButtonText = 'Delete';
+    final String cancelButtonText = 'Cancel'.tr();
+    final String deleteButtonText = 'Delete'.tr();
 
     return Container(
       padding: EdgeInsets.fromLTRB(paddingAroundButtonRowLR,

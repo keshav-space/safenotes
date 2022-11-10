@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
@@ -37,14 +38,15 @@ class _HomeDrawerState extends State<HomeDrawer> {
     final double dividerSpacing = 10.0;
     final double drawerRadius = 15.0;
 
-    final String importDataText = 'Import Backup';
-    final String changePassText = 'Change Passphrase';
-    final String darkModeText = 'Dark Mode';
-    final String lightModeText = 'Light Mode';
-    final String helpText = 'Help and Feedback';
-    final String faqsText = 'FAQs';
-    final String rateText = 'Rate App';
-    final String logoutText = 'LogOut';
+    final String importDataText = 'Import Backup'.tr();
+    final String changePassText = 'Change Passphrase'.tr();
+    final String darkModeText = 'Dark Mode'.tr();
+    final String lightModeText = 'Light Mode'.tr();
+    final String settings = 'Settings'.tr();
+    final String helpText = 'Help and Feedback'.tr();
+    final String faqsText = 'FAQs'.tr();
+    final String rateText = 'Rate App'.tr();
+    final String logoutText = 'LogOut'.tr();
 
     return ClipRRect(
       borderRadius: BorderRadius.only(
@@ -88,7 +90,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
               ),
               _buildMenuItem(
                 topPadding: itemSpacing,
-                text: 'Settings',
+                text: settings,
                 icon: Icons.settings_outlined,
                 onClicked: widget.onSettingsCallback,
               ),

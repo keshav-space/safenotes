@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 // Package imports:
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
-import 'package:safenotes/views/settings/backup_setting.dart';
 import 'package:workmanager/workmanager.dart';
 
 // Project imports:
@@ -20,6 +20,7 @@ import 'package:safenotes/dialogs/pre_inactivity_logout_alert.dart';
 import 'package:safenotes/models/editor_state.dart';
 import 'package:safenotes/models/session.dart';
 import 'package:safenotes/utils/sheduled_task.dart';
+import 'package:safenotes/views/settings/backup_setting.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,7 +40,18 @@ Future main() async {
 
   onAppUpdate();
 
-  runApp(SafeNotesApp());
+  await EasyLocalization.ensureInitialized();
+  runApp(
+    EasyLocalization(
+      path: 'assets/translations',
+      supportedLocales: [
+        Locale('en', 'US'),
+        //Locale('ar', 'SA'),
+      ],
+      fallbackLocale: Locale('en', 'US'),
+      child: SafeNotesApp(),
+    ),
+  );
 }
 
 class SafeNotesApp extends StatelessWidget {
@@ -136,7 +148,7 @@ class SafeNotesApp extends StatelessWidget {
       showGenericDialog(
         context: context,
         icon: Icons.info_outline,
-        message: SafeNotesConfig.getInactivityLogoutMsg(),
+        message: "inactivityLoggedOutMessage".tr(),
       );
 
     // save unsaved note if any

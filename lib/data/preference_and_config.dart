@@ -1,8 +1,10 @@
 // Dart imports:
 import 'dart:io';
 
-// Package imports:
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferencesStorage {
@@ -208,8 +210,6 @@ class SafeNotesConfig {
   static int appVersionCode = 6;
   static String appName = 'Safe Notes';
   static String appSlogan = 'Encrypted note manager!';
-  static String firstLoginPageName = 'Set Passphrase';
-  static String loginPageName = 'Login';
   static String appLogoPath = 'assets/splash_500.png';
   static String appLogoAsProfilePath = 'assets/splash.png';
   static String exportFileNamePrefix = 'safenotes_';
@@ -217,18 +217,19 @@ class SafeNotesConfig {
   static String exportFileNameExtension = '.json';
   static String backupExtension = '.json';
   static String backupFileNamePrefix = 'safenotes_backup';
-  static String importDialogMsg =
-      'If the Notes in your backup file was encrypted with diffrent passphrase then you\'ll be prompted to enter the passphrase of the device that generated backup.';
-  static String exportDialogMsg =
-      'Choose the destination folder where you want to store your encrypted export.';
-  static String inactivityLogoutMessage =
-      'You were logged out due to extended inactivity.\nThis is to protect your privacy.';
-  static String forgotPassphraseMessage =
-      'There is no way to decrypt these notes without the passphrase. With great security comes the great responsibility of remembering the passphrase!';
-  static String strongPassphraseMessage =
-      'Passphrase are similar to password but generally longer, it will be used to encrypt and decrypt your notes. Use strong passphrase and make sure to remember it. It is impossible to decrypt your notes without the passphrase. With great security comes the great responsibility of remembering the passphrase!';
-  static String backupDetail =
-      'This will create an encrypted local backup, which gets automatically updated every day. Moreover, the backup is designed such that it can be used in tandem with other open-source tools like SyncThing to keep the multiple redundant backups across different devices on the local network.\nTo switch to a new device, you would simply need to copy this backup file to the new device and import that in your new Safe Notes app.\nFor more, see FAQ.';
+  //static String firstLoginPageName = 'Set Passphrase';
+  //static String loginPageName = 'Login';
+  // static String importDialogMsg =
+  //     'If the Notes in your backup file was encrypted with diffrent passphrase then you\'ll be prompted to enter the passphrase of the device that generated backup.';
+  // static String exportDialogMsg =
+  //     'Choose the destination folder where you want to store your encrypted export.';
+  // static String inactivityLogoutMessage =
+  //     'You were logged out due to extended inactivity.\nThis is to protect your privacy.';
+  //static String forgotPassphraseMessage ='There is no way to decrypt these notes without the passphrase. With great security comes the great responsibility of remembering the passphrase!';
+  // static String strongPassphraseMessage =
+  //     'Passphrase are similar to password but generally longer, it will be used to encrypt and decrypt your notes. Use strong passphrase and make sure to remember it. It is impossible to decrypt your notes without the passphrase. With great security comes the great responsibility of remembering the passphrase!';
+  //static String backupDetail =
+  //    'This will create an encrypted local backup, which gets automatically updated every day. Moreover, the backup is designed such that it can be used in tandem with other open-source tools like SyncThing to keep the multiple redundant backups across different devices on the local network.\nTo switch to a new device, you would simply need to copy this backup file to the new device and import that in your new Safe Notes app.\nFor more, see FAQ.';
   static String mailToForFeedback =
       'mailto:safenotes@keshav.space?subject=Help and Feedback';
   static String sourceCodeUrl = 'https://github.com/keshav-space/safenotes';
@@ -250,19 +251,18 @@ class SafeNotesConfig {
   static String getGithubUrl() => githubUrl;
   static String getAppName() => appName;
   static String getAppSlogan() => appSlogan;
-  static String getLoginPageName() => loginPageName;
   static String getAppLogoPath() => appLogoPath;
-  static String getFirstLoginPageName() => firstLoginPageName;
-  static String getImortDialogMsg() => importDialogMsg;
-  static String getExportDialogMsg() => exportDialogMsg;
-  static String getInactivityLogoutMsg() => inactivityLogoutMessage;
-  static String getForgotPassphraseMsg() => forgotPassphraseMessage;
-  static String getStrongPassphraseMsg() => strongPassphraseMessage;
+  //static String getLoginPageName() => loginPageName;
+  //static String getFirstLoginPageName() => firstLoginPageName;
+  //static String getImortDialogMsg() => importDialogMsg;
+  //static String getExportDialogMsg() => exportDialogMsg;
+  //static String getInactivityLogoutMsg() => inactivityLogoutMessage;
+  //static String getForgotPassphraseMsg() => forgotPassphraseMessage;
+  //static String getStrongPassphraseMsg() => strongPassphraseMessage;
+  //static String getBackupDetail() => backupDetail;
   static String getExportFileExtension() => exportFileNameExtension;
   static String getAllowedFileExtensionsForImport() =>
       allowedFileExtensionsForImport;
-
-  static String getBackupDetail() => backupDetail;
   static String getFAQsUrl() => faqsUrl;
   static String getBackupFileName() {
     String redundancyCounter =

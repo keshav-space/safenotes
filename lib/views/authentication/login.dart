@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:crypto/crypto.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
 
 // Project imports:
@@ -60,7 +61,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: Text(SafeNotesConfig.getLoginPageName()),
+          title: Text('Login'.tr()),
           centerTitle: true,
         ),
         body: Column(
@@ -141,7 +142,8 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
             child: Align(
               alignment: Alignment.center,
               child: Text(
-                'Exceeded number of attempts, try after ${timeLeft} seconds',
+                'bruteForceTimer'
+                    .tr(namedArgs: {'timeLeft': timeLeft.toString()}),
                 style: TextStyle(
                   //color: NordColors.snowStorm.lightest,
                   fontSize: 13,
@@ -173,7 +175,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
   }
 
   String? _passphraseValidator(String? passphrase) {
-    final numberOfAttemptExceded = 'Number of attempt exceeded';
+    final numberOfAttemptExceded = 'Number of attempt exceeded'.tr();
 
     if (_noOfAllowedAttempts <= 0) {
       setState(() {
@@ -185,8 +187,8 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
     if (sha256.convert(utf8.encode(passphrase!)).toString() !=
         PreferencesStorage.getPassPhraseHash()) {
       _noOfAllowedAttempts--;
-      final wrongPhraseMsg =
-          'Wrong passphrase ${_noOfAllowedAttempts} attempts left!';
+      final wrongPhraseMsg = 'noOfAttemptsLeftMessage'.tr(
+          namedArgs: {'noOfAllowedAttempts': _noOfAllowedAttempts.toString()});
 
       return _noOfAllowedAttempts == 0
           ? numberOfAttemptExceded
@@ -197,11 +199,11 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
   }
 
   InputDecoration _inputFieldDecoration(double inputBoxEdgeRadious) {
-    final String hintText = 'Enter Passphrase';
+    final String hintText = 'Enter Passphrase'.tr();
 
     return InputDecoration(
       hintText: hintText,
-      label: Text('Passphrase'),
+      label: Text('Passphrase'.tr()),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(inputBoxEdgeRadious),
       ),
@@ -220,7 +222,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
   }
 
   Widget _buildLoginButton() {
-    final String loginText = 'Login';
+    final String loginText = 'Login'.tr();
 
     return ButtonWidget(
       text: loginText,
@@ -232,8 +234,8 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
 
   void _loginController() async {
     final form = this._formKey.currentState!;
-    final snackMsgDecryptingNotes = 'Decrypting your notes!';
-    final snackMsgWrongEncryptionPhrase = 'Wrong passphrase!';
+    final snackMsgDecryptingNotes = 'Decrypting your notes!'.tr();
+    final snackMsgWrongEncryptionPhrase = 'Wrong passphrase!'.tr();
 
     if (form.validate()) {
       final phrase = passPhraseController.text;
@@ -256,7 +258,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
   }
 
   Widget _buildForgotPassphrase() {
-    final String cantRecoverPassphraseMsg = 'Can\'t decrypt without phrase!';
+    final String cantRecoverPassphraseMsg = 'cantDecryptMessage'.tr();
 
     return Container(
       alignment: Alignment.centerRight,
@@ -266,7 +268,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
           showGenericDialog(
             context: context,
             icon: Icons.info_outline,
-            message: SafeNotesConfig.getForgotPassphraseMsg(),
+            message: 'dialogForgotPassphrase'.tr(),
           );
         },
       ),

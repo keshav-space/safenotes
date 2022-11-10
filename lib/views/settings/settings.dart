@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -37,7 +38,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Settings')),
+      appBar: AppBar(title: Text('Settings'.tr())),
       body: _settings(),
     );
   }
@@ -52,13 +53,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
       sections: [
         SettingsSection(
-          title: Text('General'),
+          title: Text('General'.tr()),
           tiles: <SettingsTile>[
             SettingsTile.navigation(
               leading: Icon(Icons.backup_outlined),
               title: Text('Auto Backup'),
-              value:
-                  PreferencesStorage.getIsBackupOn() ? Text('On') : Text('Off'),
+              value: PreferencesStorage.getIsBackupOn()
+                  ? Text('On'.tr())
+                  : Text('Off'.tr()),
               onPressed: (context) async {
                 await Navigator.pushNamed(context, '/backup');
                 setState(() {});
@@ -66,9 +68,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             SettingsTile.navigation(
               leading: Icon(Icons.file_upload_outlined),
-              title: Text('Manual Export'),
+              title: Text('Manual Export'.tr()),
               onPressed: (context) async {
-                final String snackMsgFileNotSaved = 'File not saved!';
+                final String snackMsgFileNotSaved = 'File not saved!'.tr();
                 bool wasExportMethordChoosen = false;
                 try {
                   wasExportMethordChoosen = await showExportDialog(context);
@@ -84,7 +86,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             SettingsTile.switchTile(
               leading: Icon(Icons.dark_mode_outlined),
-              title: Text('Dark Mode'),
+              title: Text('Dark Mode'.tr()),
               initialValue: PreferencesStorage.getIsThemeDark(),
               onToggle: (bool value) {
                 final provider =
@@ -96,23 +98,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
             SettingsTile.navigation(
               leading: Icon(Icons.format_paint_outlined),
               // leading: Icon(Icons.format_paint),
-              title: Text('Notes Color'),
+              title: Text('Notes Color'.tr()),
               value: !PreferencesStorage.getIsColorful()
-                  ? Text('Off')
-                  : Text('On'),
+                  ? Text('Off'.tr())
+                  : Text('On'.tr()),
               onPressed: (context) async {
                 await Navigator.pushNamed(context, '/chooseColorSettings');
                 setState(() {});
               },
             ),
+            SettingsTile.navigation(
+              leading: Icon(Icons.language_outlined),
+              title: Text('Language'.tr()),
+              value: Text(context.locale.toString()),
+              onPressed: (context) async {
+                // await Navigator.pushNamed(context, '/chooseLanguageSettings');
+                // setState(() {});
+              },
+            )
           ],
         ),
         SettingsSection(
-          title: Text('Security'),
+          title: Text('Security'.tr()),
           tiles: <SettingsTile>[
             SettingsTile.navigation(
               leading: Icon(MdiIcons.cellphoneKey),
-              title: Text('LogOut on Inactivity'),
+              title: Text('LogOut on Inactivity'.tr()),
               value: Text(inactivityTimeoutValue()),
               onPressed: (context) async {
                 await Navigator.pushNamed(context, '/inactivityTimerSettings');
@@ -121,10 +132,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             SettingsTile.navigation(
               leading: Icon(Icons.phonelink_lock),
-              title: Text('Secure Display'),
+              title: Text('Secure Display'.tr()),
               value: PreferencesStorage.getIsFlagSecure()
-                  ? Text('On')
-                  : Text('Off'),
+                  ? Text('On'.tr())
+                  : Text('Off'.tr()),
               onPressed: (context) async {
                 await Navigator.pushNamed(context, '/secureDisplaySetting');
                 setState(() {});
@@ -132,7 +143,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             SettingsTile.switchTile(
               leading: Icon(MdiIcons.incognito),
-              title: Text('Incognito Keyboard'),
+              title: Text('Incognito Keyboard'.tr()),
               initialValue: PreferencesStorage.getKeyboardIncognito(),
               onToggle: (bool value) {
                 PreferencesStorage.setKeyboardIncognito(
@@ -141,7 +152,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
             SettingsTile.navigation(
-              title: Text('Change Passphrase'),
+              title: Text('Change Passphrase'.tr()),
               leading: Icon(Icons.lock_outline),
               // leading: Icon(Icons.lock),
               onPressed: (context) async {
@@ -150,7 +161,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             SettingsTile.navigation(
               leading: Icon(Icons.logout),
-              title: Text('LogOut'),
+              title: Text('LogOut'.tr()),
               onPressed: (context) async {
                 Session.logout();
                 widget.sessionStateStream.add(SessionState.stopListening);
@@ -168,11 +179,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ],
         ),
         SettingsSection(
-          title: Text('Misc'),
+          title: Text('Miscellaneous'.tr()),
           tiles: <SettingsTile>[
             SettingsTile.navigation(
               leading: Icon(Icons.rate_review_outlined),
-              title: Text('Rate Us'),
+              title: Text('Rate Us'.tr()),
               onPressed: (_) async {
                 String playstoreUrl = SafeNotesConfig.getPlayStoreUrl();
                 try {
@@ -182,7 +193,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             SettingsTile.navigation(
               leading: Icon(MdiIcons.frequentlyAskedQuestions),
-              title: Text('FAQs'),
+              title: Text('FAQs'.tr()),
               onPressed: (_) async {
                 String faqsUrl = SafeNotesConfig.getFAQsUrl();
                 try {
@@ -192,7 +203,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             SettingsTile.navigation(
               leading: Icon(MdiIcons.github),
-              title: Text('Source Code'),
+              title: Text('Source Code'.tr()),
               onPressed: (_) async {
                 String sourceCodeUrl = SafeNotesConfig.getGithubUrl();
                 try {
@@ -202,7 +213,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             SettingsTile.navigation(
               leading: Icon(Icons.mail_outline),
-              title: Text('Email'),
+              title: Text('Email'.tr()),
               onPressed: (_) async {
                 String email = SafeNotesConfig.getMailToForFeedback();
                 try {
@@ -212,7 +223,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             SettingsTile.navigation(
               leading: Icon(Icons.collections_bookmark_outlined),
-              title: Text('Open Source license'),
+              title: Text('Open Source license'.tr()),
               onPressed: (_) async {
                 String licence = SafeNotesConfig.getOpenSourceLicence();
                 try {
@@ -230,7 +241,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   String inactivityTimeoutValue() {
     var index = PreferencesStorage.getInactivityTimeoutIndex();
-    List<int> values = [30, 1, 2, 3, 5];
+    List<int> values = [30, 1, 2, 3, 5, 10, 15];
     if (index < 1) return '${values[index]} sec';
     return '${values[index]} min';
   }

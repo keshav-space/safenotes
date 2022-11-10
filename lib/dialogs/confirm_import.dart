@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 
 // Project imports:
@@ -50,7 +51,7 @@ class _ImportConfirmState extends State<ImportConfirm> {
   }
 
   Widget _title(BuildContext context, double padding) {
-    final String title = 'Confirm Import!';
+    final String title = 'Confirm Import!'.tr();
     final double titleFontSize = 22.0;
     final double topSpacing = 10.0;
 
@@ -71,8 +72,9 @@ class _ImportConfirmState extends State<ImportConfirm> {
   }
 
   Widget _body(BuildContext context, double padding) {
-    final String cautionMessage =
-        'Do you want to import ${widget.importCount} new notes?';
+    final String cautionMessage = 'importConfirmationMessage'
+        .tr(namedArgs: {'noOfNotesInImport': widget.importCount.toString()});
+
     final double topSpacing = 15.0;
     final double bodyFontSize = 16.0;
 
@@ -97,8 +99,8 @@ class _ImportConfirmState extends State<ImportConfirm> {
     final double paddingAroundTB = 10.0;
     final double buttonSeparation = 25.0;
     final double buttonTextFontSize = 16.0;
-    final String cancelButtonText = 'Cancel';
-    final String confirmButtonText = 'Confirm';
+    final String cancelButtonText = 'Cancel'.tr();
+    final String confirmButtonText = 'Confirm'.tr();
 
     return Container(
       padding: EdgeInsets.fromLTRB(

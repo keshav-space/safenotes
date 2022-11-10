@@ -4,8 +4,10 @@ import 'dart:ui';
 // Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
+import 'package:easy_localization/easy_localization.dart';
+
 // Project imports:
-import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/utils/style.dart';
 
 class ExportChooseDirectoryDialog extends StatefulWidget {
@@ -16,9 +18,9 @@ class ExportChooseDirectoryDialog extends StatefulWidget {
 
 class _ExportChooseDirectoryDialogState
     extends State<ExportChooseDirectoryDialog> {
-  final String dialogTitle = 'Destination Folder';
-  final String chooseFolderMsg = SafeNotesConfig.getExportDialogMsg();
-  final String buttonText = 'Choose Folder';
+  final String dialogTitle = 'Destination Folder'.tr();
+  final String chooseFolderMsg = 'chooseExportDestinationMessage'.tr();
+  final String buttonText = 'Choose Folder'.tr();
 
   @override
   Widget build(BuildContext context) {
