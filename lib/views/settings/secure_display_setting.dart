@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -21,7 +22,7 @@ class _SecureDisplaySettingState extends State<SecureDisplaySetting> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Secure Display')),
+      appBar: AppBar(title: Text('Secure Display'.tr())),
       body: _settings(),
     );
   }
@@ -36,17 +37,16 @@ class _SecureDisplaySettingState extends State<SecureDisplaySetting> {
       ),
       sections: [
         SettingsSection(
-          title: Text('Close and open app for change to take effect'),
+          title: Text('Close and open app for change to take effect'.tr()),
           tiles: <SettingsTile>[
             SettingsTile.switchTile(
               initialValue: PreferencesStorage.getIsFlagSecure(),
-              title: Text('Secure Display'),
+              title: Text('Secure Display'.tr()),
               onToggle: (value) {
                 PreferencesStorage.setIsFlagSecure(value);
                 setState(() {});
               },
-              description: Text(
-                  'When turned on, the content on the screen is treated as secure, blocking background snapshots and preventing it from appearing in screenshots or from being viewed on non-secure displays.'),
+              description: Text('secureDisplaySummary'.tr()),
             ),
           ],
         ),

@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 
 // Project imports:
@@ -69,7 +70,7 @@ class GenericDialog extends StatelessWidget {
     final double paddingAroundButtonRowLR = 15.0;
     final double paddingAroundButtonRowTop = 20.0;
     final double buttonTextFontSize = 16.0;
-    final String okButtonText = 'OK';
+    final String okButtonText = 'OK'.tr();
 
     return Container(
       padding: EdgeInsets.fromLTRB(paddingAroundButtonRowLR,

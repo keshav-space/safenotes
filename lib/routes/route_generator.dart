@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:easy_localization/easy_localization.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -177,11 +178,16 @@ class RouteGenerator {
       {required String? route, String? argsType}) {
     return MaterialPageRoute(builder: (_) {
       return Scaffold(
-        appBar: AppBar(title: Text('Route Error')),
+        appBar: AppBar(title: Text('Route Error'.tr())),
         body: Center(
           child: argsType == null
-              ? Text('No route: ${route}')
-              : Text('${argsType}, Needed for route: ${route}'),
+              ? Text('noSuchRoute'.tr(namedArgs: {'route': route.toString()}))
+              : Text(
+                  'argsMismatchForRoute'.tr(namedArgs: {
+                    'argsType': argsType,
+                    'route': route.toString()
+                  }),
+                ),
         ),
       );
     });

@@ -6,6 +6,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 
 // Project imports:
@@ -44,7 +45,7 @@ class PreInactivityLogOff extends StatelessWidget {
   }
 
   Widget _title(BuildContext context, double padding) {
-    final String title = 'Logging Off';
+    final String title = 'Logging Off'.tr();
     final double titleFontSize = 22.0;
     final double topSpacing = 10.0;
 
@@ -65,8 +66,6 @@ class PreInactivityLogOff extends StatelessWidget {
   }
 
   Widget _body(BuildContext context, double padding) {
-    final String message =
-        'There was no user activity for quite a while. You will be logged off unless you cancel within';
     final initialCounterValue = _timeoutSeconds.toString().padLeft(2, '0');
     final double topSpacing = 15.0;
     final double bodyFontSize = 15.0;
@@ -79,10 +78,13 @@ class PreInactivityLogOff extends StatelessWidget {
         child: StreamBuilder(
           stream: _controller.stream,
           builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+            var countDownTime = snapshot.hasData
+                ? '00:${snapshot.data}'
+                : ' 00:${initialCounterValue}';
+
             return Text(
-              snapshot.hasData
-                  ? '${message} 00:${snapshot.data} seconds.'
-                  : '${message} 00:${initialCounterValue} seconds.',
+              'inactivityAlertMessage'
+                  .tr(namedArgs: {'countDownTime': countDownTime}),
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: bodyFontSize,
@@ -99,8 +101,8 @@ class PreInactivityLogOff extends StatelessWidget {
     final double paddingAroundTB = 10.0;
     final double buttonSeparation = 30.0;
     final double buttonTextFontSize = 16.0;
-    final String yesButtonText = 'LogOut';
-    final String noButtonText = 'Cancel';
+    final String yesButtonText = 'LogOut'.tr();
+    final String noButtonText = 'Cancel'.tr();
 
     return Container(
       padding: EdgeInsets.fromLTRB(

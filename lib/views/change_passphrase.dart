@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:crypto/crypto.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 
 // Project imports:
@@ -61,7 +62,7 @@ class _ChangePassphraseState extends State<ChangePassphrase> {
   }
 
   Widget _buildPassphraseChangeWorkflow(BuildContext context) {
-    final String pageTitleName = 'Change Passphrase';
+    final String pageTitleName = 'Change Passphrase'.tr();
     final double paddingBetweenInputBox = 25.0;
 
     return Form(
@@ -100,8 +101,8 @@ class _ChangePassphraseState extends State<ChangePassphrase> {
 
   Widget _buildCurrentPassField() {
     final double inputBoxEdgeRadious = 10.0;
-    final String inputHintOld = 'Current Passphrase';
-    final String validationErrorMsg = 'Wrong passphrase!';
+    final String inputHintOld = 'Current Passphrase'.tr();
+    final String validationErrorMsg = 'Wrong passphrase!'.tr();
 
     return TextFormField(
       enableIMEPersonalizedLearning: false,
@@ -128,7 +129,7 @@ class _ChangePassphraseState extends State<ChangePassphrase> {
 
   Widget _buildNewPassField() {
     final double inputBoxEdgeRadious = 10.0;
-    final String inputHintNew = 'New Passphrase';
+    final String inputHintNew = 'New Passphrase'.tr();
 
     return TextFormField(
       enableIMEPersonalizedLearning: false,
@@ -150,8 +151,8 @@ class _ChangePassphraseState extends State<ChangePassphrase> {
   String? _firstInputValidator(String? passphrase) {
     final int minPassphraseLength = 8;
     final double minPassphraseStrength = 0.5;
-    final String minpCharacterMsg = 'Minimum 8 characters long!';
-    final String tooWeakMsg = 'Passphrase is too weak!';
+    final String minpCharacterMsg = 'Minimum 8 characters long!'.tr();
+    final String tooWeakMsg = 'Passphrase is too weak!'.tr();
 
     return passphrase == null || passphrase.length < minPassphraseLength
         ? minpCharacterMsg
@@ -162,8 +163,8 @@ class _ChangePassphraseState extends State<ChangePassphrase> {
 
   Widget _buildNewConfirmPassField() {
     final double inputBoxEdgeRadious = 10.0;
-    final String inputHintConfirm = 'Confirm New Passphrase';
-    final String passPhraseMismatchMsg = 'Passphrase Mismatch!';
+    final String inputHintConfirm = 'Confirm New Passphrase'.tr();
+    final String passPhraseMismatchMsg = 'Passphrase Mismatch!'.tr();
 
     return TextFormField(
       enableIMEPersonalizedLearning: false,
@@ -241,7 +242,7 @@ class _ChangePassphraseState extends State<ChangePassphrase> {
             children: <Widget>[
               Icon(Icons.key, size: 25.0),
               SizedBox(width: 20),
-              Text("Confirm", style: TextStyle(fontSize: 20)),
+              Text('Confirm'.tr(), style: TextStyle(fontSize: 20)),
             ],
           ),
           onPressed: _finalSublmitChange,
@@ -252,7 +253,7 @@ class _ChangePassphraseState extends State<ChangePassphrase> {
 
   void _finalSublmitChange() async {
     final form = formKey.currentState!;
-    final String passChangedSnackMsg = 'Passphrase changed!';
+    final String passChangedSnackMsg = 'Passphrase changed!'.tr();
 
     // Update SHA256 signature of passphrase
     if (form.validate()) {

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:crypto/crypto.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';
 
 // Project imports:
@@ -29,9 +30,10 @@ class FileHandler {
         String jsonOutputContent = await encryptedOutputBackupContent();
 
         jsonFile.writeAsStringSync(jsonOutputContent);
-        snackBackMsg = 'File saved in "${selectedFolderName}" folder!';
+        snackBackMsg = 'fileSavedMessage'
+            .tr(namedArgs: {'selectedFolderName': selectedFolderName});
       } else {
-        snackBackMsg = 'Destination folder not chosen!';
+        snackBackMsg = 'Destination folder not chosen!'.tr();
       }
     } catch (e) {}
     return snackBackMsg;
@@ -56,9 +58,9 @@ class FileHandler {
     String? currentPassHash = PreferencesStorage.getPassPhraseHash();
 
     if (dataFromFileAsString == null) {
-      return "File not picked!";
+      return "File not picked!".tr();
     } else if (dataFromFileAsString == "unrecognized") {
-      return "Unrecognized File!";
+      return "Unrecognized File!".tr();
     }
 
     try {
@@ -71,12 +73,12 @@ class FileHandler {
       } else {
         ImportEncryptionControl.setIsImportEncrypted(true);
         if (importFileKeyHash != currentPassHash) {
-          // Set import passphrashhash to be used for validating user input passphrase
+          // Set import passphrasehash to be used for validating user input passphrase
           ImportPassPhraseHandler.setImportPassPhraseHash(importFileKeyHash);
           try {
             await getImportPassphraseDialog(context);
           } catch (e) {
-            return "Failed to get Key for import Notes";
+            return "Failed to get key for import data".tr();
           }
         } else {
           ImportPassPhraseHandler.setImportPassPhrase(PhraseHandler.getPass());
@@ -87,7 +89,7 @@ class FileHandler {
             .toString();
         if (userInputPassHashForImportNotes != importFileKeyHash) {
           destroyImportCredentials();
-          return "Wrong Passphrase!";
+          return "Wrong passphrase!".tr();
         }
       }
 
@@ -96,12 +98,12 @@ class FileHandler {
       if (await confirmImportDialog(context, parsedImportData.totalNotes)) {
         await inserNotes(parsedImportData.getAllNotes());
       } else {
-        return "Import cancelled!";
+        return "Import cancelled!".tr();
       }
     } catch (e) {
-      return "Failed to import file!";
+      return "Failed to import file!".tr();
     }
-    return "Notes successfully imported!";
+    return "Notes successfully imported!".tr();
   }
 
   void destroyImportCredentials() {

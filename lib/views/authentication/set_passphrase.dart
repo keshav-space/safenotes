@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:easy_localization/easy_localization.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
 
 // Project imports:
@@ -52,7 +53,7 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: Text(SafeNotesConfig.getFirstLoginPageName()),
+          title: Text('Set Passphrase'.tr()),
           centerTitle: true,
         ),
         body: Column(
@@ -109,7 +110,7 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
 
   Widget _inputFieldFirst(FocusNode focus) {
     final double inputBoxEdgeRadious = 10.0;
-    final String firstHintText = 'New Passphrase';
+    final String firstHintText = 'New Passphrase'.tr();
 
     return TextFormField(
       enableIMEPersonalizedLearning: false,
@@ -134,7 +135,7 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
   Widget _inputFieldConfirm(BuildContext context, FocusNode focus) {
     final double inputBoxEdgeRadious = 10.0;
     final double padding = 10.0;
-    final String confirmHintText = 'Re-enter Passphrase';
+    final String confirmHintText = 'Re-enter Passphrase'.tr();
 
     return Padding(
       padding: EdgeInsets.only(top: padding),
@@ -197,22 +198,22 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
     final double minPassphraseStrength = 0.5;
 
     return passphrase == null || passphrase.length < minPassphraseLength
-        ? 'Must be at least 8 characters long!'
+        ? 'Must be at least 8 characters long!'.tr()
         : (estimateBruteforceStrength(passphrase) < minPassphraseStrength)
-            ? 'Passphrase is too weak!'
+            ? 'Passphrase is too weak!'.tr()
             : null;
   }
 
   String? _confirmInputValidator(String? passphraseConfirm) {
     return passphraseConfirm == null ||
             passphraseConfirm != this._passPhraseController.text
-        ? 'Passphrase mismatch!'
+        ? 'Passphrase mismatch!'.tr()
         : null;
   }
 
   Widget _buildLoginButton() {
     return ButtonWidget(
-      text: 'Confirm',
+      text: 'Confirm'.tr(),
       onClicked: () async {
         _loginController();
       },
@@ -223,12 +224,12 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
     return Container(
       alignment: Alignment.centerRight,
       child: TextButton(
-        child: Text('What is passphrase?'),
+        child: Text('What is passphrase?'.tr()),
         onPressed: () {
           showGenericDialog(
             context: context,
             icon: Icons.info_outline,
-            message: SafeNotesConfig.getStrongPassphraseMsg(),
+            message: 'dialogMessageWhatIsPassphrase'.tr(),
           );
         },
       ),
@@ -243,7 +244,7 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
       final enteredPassphraseConfirm = this._passPhraseControllerConfirm.text;
 
       if (enteredPassphrase == enteredPassphraseConfirm) {
-        showSnackBarMessage(context, 'Passphrase set!');
+        showSnackBarMessage(context, 'Passphrase set!'.tr());
 
         // Setting hash for PassPhrase in share prefrences
         Session.setOrChangePassphrase(enteredPassphrase);
@@ -253,7 +254,7 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
           arguments: widget.sessionStream,
         );
       } else
-        showSnackBarMessage(context, 'Passphrase mismatch!');
+        showSnackBarMessage(context, 'Passphrase mismatch!'.tr());
     }
   }
 }

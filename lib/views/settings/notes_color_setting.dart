@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
@@ -25,7 +26,7 @@ class _ColorPalletState extends State<ColorPallet> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Notes Color')),
+      appBar: AppBar(title: Text('Notes Color'.tr())),
       body: _settings(),
     );
   }
@@ -44,14 +45,14 @@ class _ColorPalletState extends State<ColorPallet> {
           tiles: <SettingsTile>[
             SettingsTile.switchTile(
               initialValue: PreferencesStorage.getIsColorful(),
-              title: Text('Colorful  Notes'),
+              title: Text('Colorful Notes'.tr()),
               onToggle: (value) {
                 final provider =
                     Provider.of<NotesColor>(context, listen: false);
                 provider.toggleColor();
                 setState(() {});
               },
-              description: Text('Choose the note color theme from below'),
+              description: Text('Choose the note color theme from below'.tr()),
             ),
           ],
         ),

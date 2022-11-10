@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -22,7 +23,7 @@ class _InactivityTimerSettingState extends State<InactivityTimerSetting> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Inactiviy Timeout')),
+      appBar: AppBar(title: Text('Inactiviy Timeout'.tr())),
       body: _settings(),
     );
   }
@@ -41,13 +42,14 @@ class _InactivityTimerSettingState extends State<InactivityTimerSetting> {
           tiles: <SettingsTile>[
             SettingsTile.switchTile(
               initialValue: PreferencesStorage.getIsInactivityTimeoutOn(),
-              title: Text('Logout upon inactivity'),
+              title: Text('Logout upon inactivity'.tr()),
               onToggle: (value) {
                 PreferencesStorage.setIsInactivityTimeoutOn(value);
                 setState(() {});
               },
               enabled: true,
-              description: Text('Close and open app for change to take effect'),
+              description:
+                  Text('Close and open app for change to take effect'.tr()),
             ),
           ],
         ),
@@ -133,12 +135,12 @@ class Item {
   const Item({required this.prefix, this.helper});
 }
 
-const items = [
-  Item(prefix: '30 seconds', helper: null),
-  Item(prefix: '1 minutes', helper: null),
-  Item(prefix: '2 minutes', helper: null),
-  Item(prefix: '3 minutes', helper: 'Default'),
-  Item(prefix: '5 minutes', helper: null),
-  Item(prefix: '10 minutes', helper: null),
-  Item(prefix: '15 minutes', helper: null),
+List<Item> items = [
+  Item(prefix: '30 seconds'.tr(), helper: null),
+  Item(prefix: '1 minute'.tr(), helper: null),
+  Item(prefix: '2 minutes'.tr(), helper: null),
+  Item(prefix: '3 minutes'.tr(), helper: 'Default'.tr()),
+  Item(prefix: '5 minutes'.tr(), helper: null),
+  Item(prefix: '10 minutes'.tr(), helper: null),
+  Item(prefix: '15 minutes'.tr(), helper: null),
 ];

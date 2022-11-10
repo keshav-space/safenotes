@@ -1,12 +1,13 @@
 // Dart imports:
 import 'dart:io';
 
-// Package imports:
-// import 'package:logger/logger.dart';
-
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/models/file_handler.dart';
+
+// Package imports:
+// import 'package:logger/logger.dart';
+
 
 class ScheduledTask {
   static backup() async {

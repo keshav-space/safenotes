@@ -4,8 +4,8 @@ import 'dart:ui';
 // Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
-import 'package:safenotes/data/preference_and_config.dart';
+// Package imports:
+import 'package:easy_localization/easy_localization.dart';
 
 class FileImportDialog extends StatelessWidget {
   final VoidCallback callback;
@@ -13,9 +13,9 @@ class FileImportDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String titleImport = 'Import Your Backup';
-    final String importDialogMessage = SafeNotesConfig.getImortDialogMsg();
-    final String selectFileButtonName = 'Select File';
+    final String titleImport = 'Import Your Backup'.tr();
+    final String importDialogMessage = 'backupImportMessage'.tr();
+    final String selectFileButtonName = 'Select File'.tr();
     final double titleFontSize = 22.0;
     final double dialogBordeRadious = 10.0;
 

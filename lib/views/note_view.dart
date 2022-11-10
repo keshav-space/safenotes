@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:intl/intl.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 // Project imports:
 import 'package:safenotes/data/database_handler.dart';
@@ -45,7 +45,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
 
   PreferredSizeWidget _appBar(BuildContext context) {
     return AppBar(
-      title: isLoading ? Text('Loading...') : null,
+      title: isLoading ? Text('Loading...'.tr()) : null,
       actions: isLoading ? null : [editButton(), deleteButton()],
     );
   }

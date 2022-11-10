@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 
 // Project imports:
@@ -53,7 +54,10 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
               onChangedTitle: (title) => setState(() {
                 this.title = title;
                 NoteEditorState.setState(
-                    widget.note, this.title, this.description);
+                  widget.note,
+                  this.title,
+                  this.description,
+                );
               }),
               onChangedDescription: (description) => setState(() {
                 this.description = description;
@@ -89,7 +93,7 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
   Widget buildButton() {
     final isFormValid = title.isNotEmpty || description.isNotEmpty;
     final double buttonFontSize = 17.0;
-    final String buttonText = 'Save';
+    final String buttonText = 'Save'.tr();
 
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),

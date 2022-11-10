@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 import 'package:settings_ui/settings_ui.dart';
@@ -62,7 +63,7 @@ class _BackupSettingState extends State<BackupSetting> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Auto Backup')),
+      appBar: AppBar(title: Text('Auto Backup'.tr())),
       body: _bodyBackup(context),
     );
   }
@@ -80,7 +81,7 @@ class _BackupSettingState extends State<BackupSetting> {
           tiles: <SettingsTile>[
             SettingsTile.switchTile(
               initialValue: PreferencesStorage.getIsBackupOn(),
-              title: Text('Auto Backup'),
+              title: Text('Auto Backup'.tr()),
               onToggle: (value) async {
                 if (value == true) {
                   if (validChoosenDirectory.isNotEmpty) backupRegister();
@@ -89,8 +90,7 @@ class _BackupSettingState extends State<BackupSetting> {
                 await PreferencesStorage.setIsBackupOn(value);
                 setState(() => isBackupOn = value);
               },
-              description: Text(
-                  'Turn on the auto backup and Choose backup folder from below.'),
+              description: Text('autoBackupInstruction'.tr()),
             ),
           ],
         ),
@@ -102,7 +102,7 @@ class _BackupSettingState extends State<BackupSetting> {
                   children: <Widget>[
                     _buildUpperBackupView(),
                     SizedBox(height: 10),
-                    Text(SafeNotesConfig.getBackupDetail()),
+                    Text('backupSummary'.tr()),
                     _buildButtons(context),
                   ],
                 )
@@ -147,10 +147,10 @@ class _BackupSettingState extends State<BackupSetting> {
 
   Widget _buildUpperBackupView() {
     var location = this.validChoosenDirectory.isEmpty
-        ? 'Backup folder not choosen'
+        ? 'Backup folder not choosen'.tr()
         : '${this.validChoosenDirectory}/${SafeNotesConfig.getBackupFileName()}';
     var lastBackup = this.lastUpdateTime.isEmpty
-        ? 'Never'
+        ? 'Never'.tr()
         : timeago.format(DateTime.parse(this.lastUpdateTime));
     var widthRatio = MediaQuery.of(context).size.width / 100;
 
@@ -170,11 +170,11 @@ class _BackupSettingState extends State<BackupSetting> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Last Backup: ${lastBackup}',
+                'lastBackupTime'.tr(namedArgs: {'lastBackupTime': lastBackup}),
                 style: TextStyle(fontSize: 10),
               ),
               Text(
-                'Location: ${location}',
+                'backupLocationPath'.tr(namedArgs: {'locationPath': location}),
                 style: TextStyle(fontSize: 10),
               ),
               if (this.validChoosenDirectory.isNotEmpty &&
@@ -195,8 +195,9 @@ class _BackupSettingState extends State<BackupSetting> {
           size: 15,
           color: Colors.green,
         ),
+        SizedBox(width: 1),
         Text(
-          ' Backup encrypted',
+          'Backup encrypted'.tr(),
           style: TextStyle(fontSize: 10),
         )
       ],
@@ -207,9 +208,10 @@ class _BackupSettingState extends State<BackupSetting> {
     final double paddingAroundLR = 10.0;
     final double paddingAroundB = 20.0;
     final double buttonTextFontSize = 16.0;
-    final String nowButtonText = 'Backup Now';
-    String chooseButtonText =
-        validChoosenDirectory.isEmpty ? 'Choose Folder' : 'Change Folder';
+    final String nowButtonText = 'Backup Now'.tr();
+    String chooseButtonText = validChoosenDirectory.isEmpty
+        ? 'Choose Folder'.tr()
+        : 'Change Folder'.tr();
 
     return Container(
       padding: EdgeInsets.fromLTRB(
@@ -263,9 +265,9 @@ class _BackupSettingState extends State<BackupSetting> {
 
       backupRegister();
       _refresh();
-      showSnackBarMessage(context, 'Backup destination set!');
+      showSnackBarMessage(context, 'Backup destination set!'.tr());
     } else {
-      showSnackBarMessage(context, 'Destination not choosen!');
+      showSnackBarMessage(context, 'Destination not choosen!'.tr());
     }
   }
 
