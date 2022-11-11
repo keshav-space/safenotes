@@ -133,7 +133,7 @@
     "backupLocationPath": "Emplacement : {locationPath}",
     "lastBackupTime": "Dernière sauvegarde : {lastBackupTime}",
     "cantDecryptMessage": "Impossible de déchiffrer sans la phrase secrète",
-    "argsMismatchForRoute": "{argsType}, requis pour le chemin : {route}",
+    "argsMismatchForRoute": "{argsType}, requis pour le chemin : {route}",
     "fileSavedMessage": "Fichier enregistré dans le dossier « {selectedFolderName} » !",
     "bruteForceTimer": "Nombre de tentatives dépassé, réessayez après {timeLeft} secondes",
     "noOfAttemptsLeftMessage": "Mauvaise phrase de passe, {noOfAllowedAttempts} tentatives restantes !",
