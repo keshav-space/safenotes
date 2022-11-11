@@ -69,9 +69,13 @@ We recommend method 1 or 2 for most users. Building a debug APK using method 4 e
 
 ## Contribution
 Whether you have ideas, design changes, code cleaning, or real heavy code changes, help is always welcome.
-The more is done the better it gets!
+The more is done the better it gets!  
+If you'd like to get involved, check our [contribution notes](.github/CONTRIBUTING.md).  
 
-If you'd like to get involved, check our [contribution notes](.github/CONTRIBUTING.md).
+Help translate [Safe Notes on Hosted Weblate](https://hosted.weblate.org/engage/safe-notes/)  
+<a href="https://hosted.weblate.org/engage/safe-notes/">
+<img src="https://hosted.weblate.org/widgets/safe-notes/en/safe-notes-app/multi-auto.svg" alt="Translation status" />
+</a>
 
 ## Privacy Policy
 
