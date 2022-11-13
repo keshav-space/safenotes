@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:crypto/crypto.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 // Project imports:
 import 'package:safenotes/data/database_handler.dart';
@@ -21,21 +22,24 @@ import 'package:safenotes/models/safenote.dart';
 class FileHandler {
   Future<String?> fileSave() async {
     String? snackBackMsg;
-    try {
-      String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
-      if (selectedDirectory != null) {
-        final String fileName = SafeNotesConfig.getExportFileName();
-        String? selectedFolderName = selectedDirectory.split('/').last;
-        var jsonFile = new File('${selectedDirectory}/${fileName}');
-        String jsonOutputContent = await encryptedOutputBackupContent();
+    if (await Permission.manageExternalStorage.request().isGranted) {
+      try {
+        String? selectedDirectory =
+            await FilePicker.platform.getDirectoryPath();
+        if (selectedDirectory != null) {
+          final String fileName = SafeNotesConfig.getExportFileName();
+          String? selectedFolderName = selectedDirectory.split('/').last;
+          var jsonFile = new File('${selectedDirectory}/${fileName}');
+          String jsonOutputContent = await encryptedOutputBackupContent();
 
-        jsonFile.writeAsStringSync(jsonOutputContent);
-        snackBackMsg = 'fileSavedMessage'
-            .tr(namedArgs: {'selectedFolderName': selectedFolderName});
-      } else {
-        snackBackMsg = 'Destination folder not chosen!'.tr();
-      }
-    } catch (e) {}
+          jsonFile.writeAsStringSync(jsonOutputContent);
+          snackBackMsg = 'fileSavedMessage'
+              .tr(namedArgs: {'selectedFolderName': selectedFolderName});
+        } else {
+          snackBackMsg = 'Destination folder not chosen!'.tr();
+        }
+      } catch (e) {}
+    }
     return snackBackMsg;
   }
 

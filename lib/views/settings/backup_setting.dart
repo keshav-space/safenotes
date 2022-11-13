@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_nord_theme/flutter_nord_theme.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:workmanager/workmanager.dart';
@@ -258,16 +259,18 @@ class _BackupSettingState extends State<BackupSetting> {
   }
 
   void onChooseOrChange() async {
-    var newPath = await FilePicker.platform.getDirectoryPath();
+    if (await Permission.manageExternalStorage.request().isGranted) {
+      var newPath = await FilePicker.platform.getDirectoryPath();
 
-    if (newPath != null) {
-      PreferencesStorage.setBackupDestination(newPath);
+      if (newPath != null) {
+        PreferencesStorage.setBackupDestination(newPath);
 
-      backupRegister();
-      _refresh();
-      showSnackBarMessage(context, 'Backup destination set!'.tr());
-    } else {
-      showSnackBarMessage(context, 'Destination not choosen!'.tr());
+        backupRegister();
+        _refresh();
+        showSnackBarMessage(context, 'Backup destination set!'.tr());
+      } else {
+        showSnackBarMessage(context, 'Destination not choosen!'.tr());
+      }
     }
   }
 
