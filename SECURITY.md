@@ -27,7 +27,7 @@ Thank you for improving the security of `Safe Notes`. We appreciate your efforts
 responsible disclosure and will make every effort to acknowledge your
 contributions.
 
-Report security bugs by emailing the lead maintainer at [safenotes@keshav.space](mailto:safenotes@keshav.space?subject=%5BSafe%20Notes%5D%20Bug%20Report).
+Report security bugs by emailing the lead maintainer at [contact@safenotes.dev](mailto:contact@safenotes.dev?subject=%5BSafe%20Notes%5D%20Bug%20Report).
 
 The lead maintainer will acknowledge your email within 48 hours, and will send a
 more detailed response within 48 hours indicating the next steps in handling

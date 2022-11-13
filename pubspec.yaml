@@ -1,7 +1,7 @@
 name: safenotes
 description: Encrypted, private note manager
-homepage: https://safenotes.keshav.space/
-documentation: https://safenotes.keshav.space/
+homepage: https://safenotes.dev/
+documentation: https://safenotes.dev/
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.

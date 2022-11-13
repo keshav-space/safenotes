@@ -231,16 +231,16 @@ class SafeNotesConfig {
   //static String backupDetail =
   //    'This will create an encrypted local backup, which gets automatically updated every day. Moreover, the backup is designed such that it can be used in tandem with other open-source tools like SyncThing to keep the multiple redundant backups across different devices on the local network.\nTo switch to a new device, you would simply need to copy this backup file to the new device and import that in your new Safe Notes app.\nFor more, see FAQ.';
   static String mailToForFeedback =
-      'mailto:safenotes@keshav.space?subject=Help and Feedback';
+      'mailto:contact@safenotes.dev?subject=Help and Feedback';
   static String sourceCodeUrl = 'https://github.com/keshav-space/safenotes';
   static String bugReportUrl =
-      'mailto:safenotes@keshav.space?subject=Bug Report';
+      'mailto:contact@safenotes.dev?subject=Bug Report';
   static String openSourceLicence =
       'https://github.com/keshav-space/safenotes/blob/main/LICENSE';
   static String playStorUrl =
       'https://play.google.com/store/apps/details?id=com.trisven.safenotes';
   static String githubUrl = 'https://github.com/keshav-space/safenotes';
-  static String faqsUrl = 'https://safenotes.keshav.space/faqs.html';
+  static String faqsUrl = 'https://safenotes.dev/faqs.html';
 
   static String getLogoAsProfile() => appLogoAsProfilePath;
   static String getBugReportUrl() => bugReportUrl;
