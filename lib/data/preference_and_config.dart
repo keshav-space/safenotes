@@ -206,8 +206,8 @@ class ImportPassPhraseHandler {
 }
 
 class SafeNotesConfig {
-  static String appVersion = '2.0.1';
-  static int appVersionCode = 6;
+  static String appVersion = '2.0.2';
+  static int appVersionCode = 7;
   static String appName = 'Safe Notes';
   static String appSlogan = 'Encrypted note manager!';
   static String appLogoPath = 'assets/splash_500.png';
