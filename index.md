@@ -1,4 +1,4 @@
-<p align="center"><a href="https://safenotes.keshav.space/"><img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/assets/splash.png" width="150"></a></p> 
+<p align="center"><a href="https://safenotes.dev/"><img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/assets/splash.png" width="150"></a></p> 
 <h2 align="center"><b>Safe Notes</b></h2>
 <h4 align="center">Encrypted, Private note manager.</h4>
 
@@ -17,8 +17,8 @@
 </p>
 
 <hr>
-<p align="center"><a href="#screenshots">Screenshots</a> &bull; <a href="#description">Description</a> &bull; <a href="#features">Features</a> &bull; <a href="#installation-and-updates">Installation and updates</a> &bull; <a href="#contribution">Contribution</a>  &bull; <a href="https://safenotes.keshav.space/privacy-policy.html">Privacy Policy</a>  &bull; <a href="#license">License</a></p>
-<p align="center"><a href="https://safenotes.keshav.space/">Website</a> &bull; <a href="https://safenotes.keshav.space/bug-reporting.html">Reporting a Bug</a> &bull; <a href="https://safenotes.keshav.space/faqs.html">FAQ</a> &bull; <a href=".">Press</a></p>
+<p align="center"><a href="#screenshots">Screenshots</a> &bull; <a href="#description">Description</a> &bull; <a href="#features">Features</a> &bull; <a href="#installation-and-updates">Installation and updates</a> &bull; <a href="#contribution">Contribution</a>  &bull; <a href="https://safenotes.dev/privacy-policy.html">Privacy Policy</a>  &bull; <a href="#license">License</a></p>
+<p align="center"><a href="https://safenotes.dev/">Website</a> &bull; <a href="https://safenotes.dev/bug-reporting.html">Reporting a Bug</a> &bull; <a href="https://safenotes.dev/faqs.html">FAQ</a> &bull; <a href=".">Press</a></p>
 <hr>
 
 ## Screenshots
@@ -79,7 +79,7 @@ Help translate [Safe Notes on Hosted Weblate](https://hosted.weblate.org/engage/
 
 ## Privacy Policy
 
-The Safe Notes project aims to provide a encrypted, private, anonymous experience for local note storage. The app doesn't send any outbound requests neither does it receives any inbound requests. Hence, it doesn't collect any data whatsoever. You can find the document [here](https://safenotes.keshav.space/privacy-policy.html).
+The Safe Notes project aims to provide a encrypted, private, anonymous experience for local note storage. The app doesn't send any outbound requests neither does it receives any inbound requests. Hence, it doesn't collect any data whatsoever. You can find the document [here](https://safenotes.dev/privacy-policy.html).
 
 ## License
 [![GNU GPLv3 Image](https://www.gnu.org/graphics/gplv3-127x51.png)](https://www.gnu.org/licenses/gpl-3.0.en.html)  
