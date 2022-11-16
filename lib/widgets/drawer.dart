@@ -75,16 +75,16 @@ class _HomeDrawerState extends State<HomeDrawer> {
               ),
               _buildMenuItem(
                 topPadding: itemSpacing,
-                text: PreferencesStorage.getIsThemeDark()
+                text: PreferencesStorage.isThemeDark
                     ? lightModeText
                     : darkModeText,
-                icon: PreferencesStorage.getIsThemeDark()
+                icon: PreferencesStorage.isThemeDark
                     ? Icons.light_mode_outlined
                     : Icons.dark_mode_outlined,
                 onClicked: () {
                   final provider =
                       Provider.of<ThemeProvider>(context, listen: false);
-                  provider.toggleTheme(!PreferencesStorage.getIsThemeDark());
+                  provider.toggleTheme(!PreferencesStorage.isThemeDark);
                   setState(() {});
                 },
               ),
@@ -101,7 +101,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                 icon: Icons.rate_review_outlined,
                 onClicked: () async {
                   Navigator.of(context).pop();
-                  String playstoreUrl = SafeNotesConfig.getPlayStoreUrl();
+                  String playstoreUrl = SafeNotesConfig.playStoreUrl;
                   try {
                     await launchUrlExternal(Uri.parse(playstoreUrl));
                   } catch (e) {}
@@ -113,7 +113,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                 icon: MdiIcons.frequentlyAskedQuestions,
                 onClicked: () async {
                   Navigator.of(context).pop();
-                  String faqsUrl = SafeNotesConfig.getFAQsUrl();
+                  String faqsUrl = SafeNotesConfig.FAQsUrl;
                   try {
                     await launchUrlExternal(Uri.parse(faqsUrl));
                   } catch (e) {}
@@ -125,7 +125,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                 icon: Icons.help_outline,
                 onClicked: () async {
                   Navigator.of(context).pop();
-                  var mailUrl = SafeNotesConfig.getMailToForFeedback();
+                  var mailUrl = SafeNotesConfig.mailToForFeedback;
                   try {
                     await launchUrlExternal(Uri.parse(mailUrl));
                   } catch (e) {}
@@ -173,9 +173,9 @@ class _HomeDrawerState extends State<HomeDrawer> {
   }
 
   Widget _drawerHeader({required double topPadding}) {
-    final logoPath = SafeNotesConfig.getAppLogoPath();
-    final officialAppName = SafeNotesConfig.getAppName();
-    final appSlogan = SafeNotesConfig.getAppSlogan();
+    final logoPath = SafeNotesConfig.appLogoPath;
+    final officialAppName = SafeNotesConfig.appName;
+    final appSlogan = SafeNotesConfig.appSlogan;
     final double logoHightWidth = 75.0;
     final double appNameFontSize = 20;
     final double appSloganFontSize = 12;
@@ -226,7 +226,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
   }
 
   Widget _divide({required double topPadding}) {
-    final bool isDarkTheme = PreferencesStorage.getIsThemeDark();
+    final bool isDarkTheme = PreferencesStorage.isThemeDark;
 
     return Padding(
       padding: EdgeInsets.only(top: topPadding),

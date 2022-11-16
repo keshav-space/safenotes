@@ -1,6 +1,3 @@
-// Dart imports:
-import 'dart:io';
-
 // Flutter imports:
 import 'package:flutter/material.dart';
 
@@ -39,23 +36,23 @@ class PreferencesStorage {
   static Future<void> setPassPhraseHash(String passphrasehash) async =>
       await _preferences?.setString(_keyPassPhraseHash, passphrasehash);
 
-  static String getPassPhraseHash() =>
+  static String get passPhraseHash =>
       _preferences?.getString(_keyPassPhraseHash) ?? '';
 
 // appVersionCode controls the one time code excution on version change
-  static int getAppVersionCode() =>
+  static int get appVersionCode =>
       _preferences?.getInt(_keyAppVersionCode) ?? 1;
 
   static Future<void> setAppVersionCodeToCurrent() async => await _preferences
       ?.setInt(_keyAppVersionCode, SafeNotesConfig.appVersionCode);
 
-  static int getColorfulNotesColorIndex() =>
+  static int get colorfulNotesColorIndex =>
       _preferences?.getInt(_keyColorfulNotesColorIndex) ?? 0;
 
   static Future<void> setColorfulNotesColorIndex(int index) async =>
       await _preferences?.setInt(_keyColorfulNotesColorIndex, index);
 
-  static bool getIsThemeDark() {
+  static bool get isThemeDark {
     bool? isDark = _preferences?.getBool(_keyIsThemeDark);
     if (isDark != null) return isDark;
     return WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
@@ -64,51 +61,53 @@ class PreferencesStorage {
   static Future<void> setIsThemeDark(bool flag) async =>
       await _preferences?.setBool(_keyIsThemeDark, flag);
 
-  static int getBackupRedundancyCounter() =>
+  static int get backupRedundancyCounter =>
       _preferences?.getInt(_keyBackupRedundancyCounter) ?? 0;
 
   static Future<void> incrementBackupRedundancyCounter() async =>
       await _preferences?.setInt(_keyBackupRedundancyCounter,
-          PreferencesStorage.getBackupRedundancyCounter() + 1);
+          PreferencesStorage.backupRedundancyCounter + 1);
 
-  static bool getIsFlagSecure() =>
+  static bool get isFlagSecure =>
       _preferences?.getBool(_keyIsFlagSecure) ?? true;
 
   static Future<void> setIsFlagSecure(bool flag) async =>
       await _preferences?.setBool(_keyIsFlagSecure, flag);
 
-  static bool getIsGridView() => _preferences?.getBool(_keyIsGridView) ?? true;
+  static bool get isGridView => _preferences?.getBool(_keyIsGridView) ?? true;
 
   static Future<void> setIsGridView(bool flag) async =>
       await _preferences?.setBool(_keyIsGridView, flag);
 
-  static bool getIsNewFirst() => _preferences?.getBool(_keyIsNewFirst) ?? true;
+  static bool get isNewFirst => _preferences?.getBool(_keyIsNewFirst) ?? true;
 
   static Future<void> setIsNewFirst(bool flag) async =>
       await _preferences?.setBool(_keyIsNewFirst, flag);
 
-  static String getLastBackupTime() =>
+  static String get lastBackupTime =>
       _preferences?.getString(_keyLastBackupTime) ?? '';
 
   static Future<void> setLastBackupTime() async => await _preferences
       ?.setString(_keyLastBackupTime, DateTime.now().toIso8601String());
 
-  static bool getIsBackupOn() =>
+  static bool get isBackupOn =>
       _preferences?.getBool(_keyIsBackupOn) ?? false; //true;
 
   static Future<void> setIsBackupOn(bool flag) async =>
       await _preferences?.setBool(_keyIsBackupOn, flag);
 
-  static Future<String> getBackupDestination() async {
-    String? path = _preferences?.getString(_keyBackupDestination);
-    if (path != null && await Directory(path).exists()) return path;
-    return '';
-  }
+  // static Future<String> getBackupDestination() async {
+  //   String path = _preferences?.getString(_keyBackupDestination) ??
+  //       '/storage/emulated/0/Download/Safe Notes';
+  //   if (await Directory(path).exists()) return path;
+
+  //   return '';
+  // }
 
   static Future<void> setBackupDestination(String path) async =>
       await _preferences?.setString(_keyBackupDestination, path);
 
-  static bool getIsColorful() => _preferences?.getBool(_keyIsColorful) ?? true;
+  static bool get isColorful => _preferences?.getBool(_keyIsColorful) ?? true;
 
   static Future<void> setIsColorful(bool flag) async =>
       await _preferences?.setBool(_keyIsColorful, flag);
@@ -116,26 +115,26 @@ class PreferencesStorage {
   static Future<void> setKeyboardIncognito(bool flag) async =>
       await _preferences?.setBool(_keyKeyboardIncognito, flag);
 
-  static bool getKeyboardIncognito() =>
+  static bool get keyboardIncognito =>
       _preferences?.getBool(_keyKeyboardIncognito) ?? true;
 
-  static int getNoOfLogginAttemptAllowed() {
+  static int get noOfLogginAttemptAllowed {
     //default: 3 unsucessful
     return _preferences?.getInt(_keyNoOfLogginAttemptAllowed) ?? 4;
   }
 
-  static int getBruteforceLockOutTime() {
-    //default: 30 seconds
-    return _preferences?.getInt(_keyBruteforceLockOutTime) ?? 30;
+  static int get bruteforceLockOutTime {
+    //default: 60 seconds
+    return _preferences?.getInt(_keyBruteforceLockOutTime) ?? 60;
   }
 
-  static bool getIsInactivityTimeoutOn() =>
+  static bool get isInactivityTimeoutOn =>
       _preferences?.getBool(_keyIsInactivityTimeoutOn) ?? true;
 
   static Future<void> setIsInactivityTimeoutOn(bool flag) async =>
       await _preferences?.setBool(_keyIsInactivityTimeoutOn, flag);
 
-  static int getInactivityTimeout() {
+  static int get inactivityTimeout {
     //default: 4 minutes
 
     List<int> choices = [30, 60, 120, 180, 300, 600, 900];
@@ -146,37 +145,32 @@ class PreferencesStorage {
     return choices[index];
   }
 
-  static int getFocusTimeout() {
-    //default: 30 seconds
-    return _preferences?.getInt(_keyFocusTimeout) ?? 30;
-  }
-
-  static int getMaxBackupRetryAttempts() {
-    //default: 50
-    return _preferences?.getInt(_keyMaxBackupRetryAttempts) ?? 50;
-  }
-
-  static int getPreInactivityLogoutCounter() {
-    // for logout popup alert
-    //default: 15 seconds
-    return _preferences?.getInt(_keyPreInactivityLogoutCounter) ?? 15;
-  }
-
-  static int getInactivityTimeoutIndex() =>
-      _preferences?.getInt(_keyInactivityTimeout) ?? 2;
+  static int get inactivityTimeoutIndex =>
+      _preferences?.getInt(_keyInactivityTimeout) ?? 3;
 
   static Future<void> setInactivityTimeoutIndex({required int index}) async {
     await _preferences?.setInt(_keyInactivityTimeout, index);
   }
 
+//default: 60 seconds
+  static int get focusTimeout => _preferences?.getInt(_keyFocusTimeout) ?? 60;
+
+  //default: 50
+  static int get maxBackupRetryAttempts =>
+      _preferences?.getInt(_keyMaxBackupRetryAttempts) ?? 50;
+
+  //for logout popup alert. default: 15 seconds
+  static int get preInactivityLogoutCounter =>
+      _preferences?.getInt(_keyPreInactivityLogoutCounter) ?? 15;
+
   // static Future<void> setFocusTimeout({required int minutes}) async {
   //   await _preferences?.setInt(_keyFocusTimeout, minutes * 60);
   // }
 
-  static Future<void> setPreInactivityLogoutCounter(
-      {required int seconds}) async {
-    await _preferences?.setInt(_keyPreInactivityLogoutCounter, seconds);
-  }
+  // static Future<void> setPreInactivityLogoutCounter(
+  //     {required int seconds}) async {
+  //   await _preferences?.setInt(_keyPreInactivityLogoutCounter, seconds);
+  // }
 }
 
 class PhraseHandler {
@@ -206,79 +200,64 @@ class ImportPassPhraseHandler {
 }
 
 class SafeNotesConfig {
-  static String appVersion = '2.0.1';
-  static int appVersionCode = 6;
-  static String appName = 'Safe Notes';
-  static String appSlogan = 'Encrypted note manager!';
-  static String appLogoPath = 'assets/splash_500.png';
-  static String appLogoAsProfilePath = 'assets/splash.png';
-  static String exportFileNamePrefix = 'safenotes_';
-  static String allowedFileExtensionsForImport = 'json';
-  static String exportFileNameExtension = '.json';
-  static String backupExtension = '.json';
-  static String backupFileNamePrefix = 'safenotes_backup';
-  //static String firstLoginPageName = 'Set Passphrase';
-  //static String loginPageName = 'Login';
-  // static String importDialogMsg =
-  //     'If the Notes in your backup file was encrypted with diffrent passphrase then you\'ll be prompted to enter the passphrase of the device that generated backup.';
-  // static String exportDialogMsg =
-  //     'Choose the destination folder where you want to store your encrypted export.';
-  // static String inactivityLogoutMessage =
-  //     'You were logged out due to extended inactivity.\nThis is to protect your privacy.';
-  //static String forgotPassphraseMessage ='There is no way to decrypt these notes without the passphrase. With great security comes the great responsibility of remembering the passphrase!';
-  // static String strongPassphraseMessage =
-  //     'Passphrase are similar to password but generally longer, it will be used to encrypt and decrypt your notes. Use strong passphrase and make sure to remember it. It is impossible to decrypt your notes without the passphrase. With great security comes the great responsibility of remembering the passphrase!';
-  //static String backupDetail =
-  //    'This will create an encrypted local backup, which gets automatically updated every day. Moreover, the backup is designed such that it can be used in tandem with other open-source tools like SyncThing to keep the multiple redundant backups across different devices on the local network.\nTo switch to a new device, you would simply need to copy this backup file to the new device and import that in your new Safe Notes app.\nFor more, see FAQ.';
-  static String mailToForFeedback =
+  static String _appVersion = '2.0.1';
+  static int _appVersionCode = 6;
+  static String _appName = 'Safe Notes';
+  static String _appSlogan = 'Encrypted note manager!';
+  static String _appLogoPath = 'assets/splash_500.png';
+  static String _appLogoAsProfilePath = 'assets/splash.png';
+  static String _exportFileNamePrefix = 'safenotes_';
+  static String _allowedFileExtensionsForImport = 'json';
+  static String _exportFileNameExtension = '.json';
+  static String _backupExtension = '.json';
+  static String _backupFileNamePrefix = 'safenotes_backup';
+  static String _mailToForFeedback =
       'mailto:contact@safenotes.dev?subject=Help and Feedback';
-  static String sourceCodeUrl = 'https://github.com/keshav-space/safenotes';
-  static String bugReportUrl =
+  static String _sourceCodeUrl = 'https://github.com/keshav-space/safenotes';
+  static String _bugReportUrl =
       'mailto:contact@safenotes.dev?subject=Bug Report';
-  static String openSourceLicence =
+  static String _openSourceLicence =
       'https://github.com/keshav-space/safenotes/blob/main/LICENSE';
-  static String playStorUrl =
+  static String _playStorUrl =
       'https://play.google.com/store/apps/details?id=com.trisven.safenotes';
-  static String githubUrl = 'https://github.com/keshav-space/safenotes';
-  static String faqsUrl = 'https://safenotes.dev/faqs.html';
+  static String _githubUrl = 'https://github.com/keshav-space/safenotes';
+  static String _faqsUrl = 'https://safenotes.dev/faqs.html';
+  static String _downloadDirectory = '/storage/emulated/0/Download/';
+  static String _backupDirectory = '/storage/emulated/0/Download/Safe Notes/';
 
-  static String getLogoAsProfile() => appLogoAsProfilePath;
-  static String getBugReportUrl() => bugReportUrl;
-  static String getMailToForFeedback() => mailToForFeedback;
-  static String getSourceCodeUrl() => sourceCodeUrl;
-  static String getOpenSourceLicence() => openSourceLicence;
-  static String getPlayStoreUrl() => playStorUrl;
-  static String getGithubUrl() => githubUrl;
-  static String getAppName() => appName;
-  static String getAppSlogan() => appSlogan;
-  static String getAppLogoPath() => appLogoPath;
-  //static String getLoginPageName() => loginPageName;
-  //static String getFirstLoginPageName() => firstLoginPageName;
-  //static String getImortDialogMsg() => importDialogMsg;
-  //static String getExportDialogMsg() => exportDialogMsg;
-  //static String getInactivityLogoutMsg() => inactivityLogoutMessage;
-  //static String getForgotPassphraseMsg() => forgotPassphraseMessage;
-  //static String getStrongPassphraseMsg() => strongPassphraseMessage;
-  //static String getBackupDetail() => backupDetail;
-  static String getExportFileExtension() => exportFileNameExtension;
-  static String getAllowedFileExtensionsForImport() =>
-      allowedFileExtensionsForImport;
-  static String getFAQsUrl() => faqsUrl;
-  static String getBackupFileName() {
+  static String get appName => _appName;
+  static String get appVersion => _appVersion;
+  static int get appVersionCode => _appVersionCode;
+  static String get logoAsProfile => _appLogoAsProfilePath;
+  static String get bugReportUrl => _bugReportUrl;
+  static String get mailToForFeedback => _mailToForFeedback;
+  static String get sourceCodeUrl => _sourceCodeUrl;
+  static String get openSourceLicence => _openSourceLicence;
+  static String get playStoreUrl => _playStorUrl;
+  static String get githubUrl => _githubUrl;
+  static String get appSlogan => _appSlogan;
+  static String get appLogoPath => _appLogoPath;
+  static String get exportFileExtension => _exportFileNameExtension;
+  static String get importFileExtension => _allowedFileExtensionsForImport;
+  static String get FAQsUrl => _faqsUrl;
+  static String get downloadDirectory => _downloadDirectory;
+  static String get backupDirectory => _backupDirectory;
+
+  static String get backupFileName {
     String redundancyCounter =
-        PreferencesStorage.getBackupRedundancyCounter().toString();
+        PreferencesStorage.backupRedundancyCounter.toString();
     if (redundancyCounter == '0')
-      return '${backupFileNamePrefix}${backupExtension}';
-    return '${backupFileNamePrefix}${redundancyCounter}${backupExtension}';
+      return '${_backupFileNamePrefix}${_backupExtension}';
+    return '${_backupFileNamePrefix}${redundancyCounter}${_backupExtension}';
   }
 
-  static String getExportFileName() {
+  static String get exportFileName {
     var dateNow = DateTime.now()
         .toString()
         .replaceAll("-", "")
         .replaceAll(" ", "_")
         .replaceAll(":", "")
         .substring(0, 15);
-    return (exportFileNamePrefix + dateNow + exportFileNameExtension);
+    return (_exportFileNamePrefix + dateNow + _exportFileNameExtension);
   }
 }

@@ -1,9 +1,13 @@
+// Dart imports:
+import 'dart:async';
+
 // Flutter imports:
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_nord_theme/flutter_nord_theme.dart';
+import 'package:local_session_timeout/local_session_timeout.dart';
 
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
@@ -13,9 +17,11 @@ import 'package:safenotes/models/safenote.dart';
 import 'package:safenotes/widgets/note_widget.dart';
 
 class AddEditNotePage extends StatefulWidget {
+  final StreamController<SessionState> sessionStateStream;
   final SafeNote? note;
 
-  const AddEditNotePage({Key? key, this.note}) : super(key: key);
+  const AddEditNotePage({Key? key, this.note, required this.sessionStateStream})
+      : super(key: key);
 
   @override
   _AddEditNotePageState createState() => _AddEditNotePageState();
@@ -51,6 +57,7 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
             child: NoteFormWidget(
               title: title,
               description: description,
+              sessionStateStream: widget.sessionStateStream,
               onChangedTitle: (title) => setState(() {
                 this.title = title;
                 NoteEditorState.setState(
@@ -61,7 +68,6 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
               }),
               onChangedDescription: (description) => setState(() {
                 this.description = description;
-
                 NoteEditorState.setState(
                   widget.note,
                   this.title,
@@ -100,7 +106,7 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: isFormValid
-              ? (PreferencesStorage.getIsThemeDark()
+              ? (PreferencesStorage.isThemeDark
                   ? null
                   : NordColors.polarNight.darkest)
               : Colors.grey.shade700,

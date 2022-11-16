@@ -13,7 +13,7 @@ import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 import 'package:safenotes/data/preference_and_config.dart';
 
 StreamController<String> _controller = StreamController<String>.broadcast();
-int _timeoutSeconds = PreferencesStorage.getPreInactivityLogoutCounter();
+int _timeoutSeconds = PreferencesStorage.preInactivityLogoutCounter;
 int _counter = 0;
 Timer? _timer;
 

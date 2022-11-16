@@ -10,7 +10,7 @@ import 'package:safenotes/data/preference_and_config.dart';
 class Style {
   static TextStyle buttonTextStyle() {
     return TextStyle(
-      color: PreferencesStorage.getIsThemeDark()
+      color: PreferencesStorage.isThemeDark
           ? NordColors.polarNight.darkest
           : Colors.white,
     );

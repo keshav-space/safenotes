@@ -1,18 +1,26 @@
+// Dart imports:
+import 'dart:async';
+
 // Flutter imports:
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:easy_localization/easy_localization.dart';
+import 'package:local_session_timeout/local_session_timeout.dart';
 
 // Project imports:
 import 'package:safenotes/data/database_handler.dart';
 import 'package:safenotes/dialogs/delete_confirmation.dart';
 import 'package:safenotes/models/safenote.dart';
+import 'package:safenotes/routes/route_generator.dart';
 
 class NoteDetailPage extends StatefulWidget {
   final int noteId;
+  final StreamController<SessionState> sessionStateStream;
 
-  const NoteDetailPage({Key? key, required this.noteId}) : super(key: key);
+  const NoteDetailPage(
+      {Key? key, required this.noteId, required this.sessionStateStream})
+      : super(key: key);
 
   @override
   _NoteDetailPageState createState() => _NoteDetailPageState();
@@ -86,7 +94,10 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
         await Navigator.pushNamed(
           context,
           '/editnote',
-          arguments: this.note,
+          arguments: AddEditNoteArguments(
+            sessionStream: widget.sessionStateStream,
+            note: this.note,
+          ),
         );
         refreshNote();
       },

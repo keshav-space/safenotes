@@ -69,18 +69,16 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
   }
 
   Widget _buildTopLogo() {
-    final double logoTopPadding = 50.0;
-    final double logoWidth = 165.0;
-    final double logoHeight = 165.0;
-    final double logoBottomPadding = 20.0;
+    final double topPadding = MediaQuery.of(context).size.height * 0.070;
+    final double dimensions = MediaQuery.of(context).size.width * 0.40;
 
     return Padding(
-      padding: EdgeInsets.only(top: logoTopPadding, bottom: logoBottomPadding),
+      padding: EdgeInsets.only(top: topPadding),
       child: Center(
         child: Container(
-          width: logoWidth,
-          height: logoHeight,
-          child: Image.asset(SafeNotesConfig.getAppLogoPath()),
+          width: dimensions,
+          height: dimensions,
+          child: Image.asset(SafeNotesConfig.appLogoPath),
         ),
       ),
     );
@@ -248,6 +246,9 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
 
         // Setting hash for PassPhrase in share prefrences
         Session.setOrChangePassphrase(enteredPassphrase);
+        // start listening for session inactivity on successful login
+        widget.sessionStream.add(SessionState.startListening);
+
         await Navigator.pushReplacementNamed(
           context,
           '/home',

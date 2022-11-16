@@ -31,11 +31,11 @@ Future main() async {
 
   Workmanager().initialize(
     callbackDispatcher,
-    isInDebugMode: false,
+    isInDebugMode: true,
   );
 
   await PreferencesStorage.init();
-  if (Platform.isAndroid && PreferencesStorage.getIsFlagSecure())
+  if (Platform.isAndroid && PreferencesStorage.isFlagSecure)
     await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
 
   onAppUpdate();
@@ -60,8 +60,8 @@ class SafeNotesApp extends StatelessWidget {
   final navigatorKey = GlobalKey<NavigatorState>();
   NavigatorState? get _navigator => navigatorKey.currentState;
   final sessionStateStream = StreamController<SessionState>();
-  final int foucsTimeout = PreferencesStorage.getFocusTimeout();
-  final int inactivityTimeout = PreferencesStorage.getInactivityTimeout();
+  final int foucsTimeout = PreferencesStorage.focusTimeout;
+  final int inactivityTimeout = PreferencesStorage.inactivityTimeout;
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +89,7 @@ class SafeNotesApp extends StatelessWidget {
     BuildContext context = navigatorKey.currentContext!;
 
     if (timeoutEvent == SessionTimeoutState.userInactivityTimeout &&
-        PreferencesStorage.getIsInactivityTimeoutOn()) {
+        PreferencesStorage.isInactivityTimeoutOn) {
       await onTimeOutDo(
         context: context,
         showPreLogoffAlert: true,
@@ -167,12 +167,10 @@ void callbackDispatcher() {
 
 // run once every update
 void onAppUpdate() async {
-  if (PreferencesStorage.getAppVersionCode() !=
-      SafeNotesConfig.appVersionCode) {
+  if (PreferencesStorage.appVersionCode != SafeNotesConfig.appVersionCode) {
     // Re-register the background update
-    var backupDestination = await PreferencesStorage.getBackupDestination();
-    if (PreferencesStorage.getIsBackupOn() && backupDestination.isNotEmpty)
-      backupRegister();
+
+    if (PreferencesStorage.isBackupOn) backupRegister();
 
     // insure onAppUpdate is run once each update
     PreferencesStorage.setAppVersionCodeToCurrent();

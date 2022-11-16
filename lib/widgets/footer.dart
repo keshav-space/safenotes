@@ -6,9 +6,8 @@ import 'package:safenotes/data/preference_and_config.dart';
 
 Widget footer() {
   final double fontSize = 12;
-  final Color color = PreferencesStorage.getIsThemeDark()
-      ? Color(0xFFafb8ba)
-      : Color(0xFF8e989c);
+  final Color color =
+      PreferencesStorage.isThemeDark ? Color(0xFFafb8ba) : Color(0xFF8e989c);
   final TextStyle style = TextStyle(color: color, fontSize: fontSize);
 
   return Padding(

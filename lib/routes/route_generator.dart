@@ -96,10 +96,13 @@ class RouteGenerator {
             route: routeName, argsType: 'StreamController<SessionState>');
 
       case '/viewnote':
-        if (args is SafeNote) {
-          SafeNote note = args;
+        if (args is NoteDetailPageArguments) {
+          //SafeNote note = args;
           return PageTransition(
-            child: NoteDetailPage(noteId: note.id!),
+            child: NoteDetailPage(
+              noteId: args.note.id!,
+              sessionStateStream: args.sessionStream,
+            ),
             duration: Duration(milliseconds: transitionDuration),
             type: transitionType,
           );
@@ -107,17 +110,23 @@ class RouteGenerator {
         return _errorRoute(route: routeName, argsType: 'SafeNotes');
 
       case '/addnote':
-        return PageTransition(
-          child: AddEditNotePage(),
-          duration: Duration(milliseconds: transitionDuration),
-          type: transitionType,
-        );
+        if (args is StreamController<SessionState>) {
+          return PageTransition(
+            child: AddEditNotePage(sessionStateStream: args),
+            duration: Duration(milliseconds: transitionDuration),
+            type: transitionType,
+          );
+        }
+        return _errorRoute(
+            route: routeName, argsType: 'StreamController<SessionState>');
 
       case '/editnote':
-        if (args is SafeNote) {
-          SafeNote note = args;
+        if (args is AddEditNoteArguments) {
           return PageTransition(
-            child: AddEditNotePage(note: note),
+            child: AddEditNotePage(
+              sessionStateStream: args.sessionStream,
+              note: args.note,
+            ),
             duration: Duration(milliseconds: transitionDuration),
             type: transitionType,
           );
@@ -179,17 +188,40 @@ class RouteGenerator {
     return MaterialPageRoute(builder: (_) {
       return Scaffold(
         appBar: AppBar(title: Text('Route Error'.tr())),
-        body: Center(
-          child: argsType == null
-              ? Text('noSuchRoute'.tr(namedArgs: {'route': route.toString()}))
-              : Text(
-                  'argsMismatchForRoute'.tr(namedArgs: {
-                    'argsType': argsType,
-                    'route': route.toString()
-                  }),
-                ),
+        body: Padding(
+          padding: EdgeInsets.only(left: 5, right: 5),
+          child: Center(
+            child: argsType == null
+                ? Text('noSuchRoute'.tr(namedArgs: {'route': route.toString()}))
+                : Text(
+                    'argsMismatchForRoute'.tr(namedArgs: {
+                      'argsType': argsType,
+                      'route': route.toString()
+                    }),
+                  ),
+          ),
         ),
       );
     });
   }
+}
+
+class AddEditNoteArguments {
+  final StreamController<SessionState> sessionStream;
+  final SafeNote? note;
+
+  AddEditNoteArguments({
+    required this.sessionStream,
+    this.note,
+  });
+}
+
+class NoteDetailPageArguments {
+  final StreamController<SessionState> sessionStream;
+  final SafeNote note;
+
+  NoteDetailPageArguments({
+    required this.sessionStream,
+    required this.note,
+  });
 }

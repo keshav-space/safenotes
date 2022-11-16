@@ -38,7 +38,7 @@ class App extends StatelessWidget {
           navigatorKey: navigatorKey,
           initialRoute: '/',
           onGenerateRoute: RouteGenerator.generateRoute,
-          title: SafeNotesConfig.getAppName(),
+          title: SafeNotesConfig.appName,
           themeMode: themeProvider.themeMode,
           theme: AppThemes.lightTheme,
           darkTheme: AppThemes.darkTheme,

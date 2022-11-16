@@ -18,7 +18,7 @@ class InactivityTimerSetting extends StatefulWidget {
 }
 
 class _InactivityTimerSettingState extends State<InactivityTimerSetting> {
-  var _selectedIndex = PreferencesStorage.getInactivityTimeoutIndex();
+  var _selectedIndex = PreferencesStorage.inactivityTimeoutIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class _InactivityTimerSettingState extends State<InactivityTimerSetting> {
           //title: Text('Always on'),
           tiles: <SettingsTile>[
             SettingsTile.switchTile(
-              initialValue: PreferencesStorage.getIsInactivityTimeoutOn(),
+              initialValue: PreferencesStorage.isInactivityTimeoutOn,
               title: Text('Logout upon inactivity'.tr()),
               onToggle: (value) {
                 PreferencesStorage.setIsInactivityTimeoutOn(value);
@@ -66,10 +66,10 @@ class _InactivityTimerSettingState extends State<InactivityTimerSetting> {
     return CupertinoPageScaffold(
       child: SingleChildScrollView(
         child: CupertinoFormSection.insetGrouped(
-          backgroundColor: PreferencesStorage.getIsThemeDark()
+          backgroundColor: PreferencesStorage.isThemeDark
               ? NordColors.polarNight.darkest
               : Color(0x00000000),
-          decoration: PreferencesStorage.getIsThemeDark()
+          decoration: PreferencesStorage.isThemeDark
               ? BoxDecoration(
                   color: NordColors.polarNight.darker,
                   borderRadius: BorderRadius.circular(15),

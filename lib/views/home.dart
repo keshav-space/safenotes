@@ -15,11 +15,10 @@ import 'package:provider/provider.dart';
 import 'package:safenotes/data/database_handler.dart';
 import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/dialogs/backup_import.dart';
-import 'package:safenotes/models/file_handler.dart';
 import 'package:safenotes/models/safenote.dart';
 import 'package:safenotes/models/session.dart';
+import 'package:safenotes/routes/route_generator.dart';
 import 'package:safenotes/utils/color.dart';
-import 'package:safenotes/utils/snack_message.dart';
 import 'package:safenotes/widgets/drawer.dart';
 import 'package:safenotes/widgets/note_card.dart';
 import 'package:safenotes/widgets/note_tile.dart';
@@ -43,17 +42,17 @@ class _HomePageState extends State<HomePage> {
   bool isLoading = false;
   String query = '';
   bool isHiddenImport = true;
-  bool isNewFirst = PreferencesStorage.getIsNewFirst();
-  bool isGridView = PreferencesStorage.getIsGridView();
+  bool isNewFirst = PreferencesStorage.isNewFirst;
+  bool isGridView = PreferencesStorage.isGridView;
   final importPassphraseController = TextEditingController();
-
+  //bool isListner = false;
   @override
   void initState() {
     super.initState();
-    _refreshNotes();
+    refreshNotes();
   }
 
-  Future<void> _refreshNotes() async {
+  Future<void> refreshNotes() async {
     setState(() => isLoading = true);
     await _sortAndStoreNotes();
     setState(() => isLoading = false);
@@ -62,15 +61,16 @@ class _HomePageState extends State<HomePage> {
   Future<void> _sortAndStoreNotes() async {
     // storing copy of notes in allnotes so that it does not change while doing search
     // show recently created notes first
+    List<SafeNote> _tmpNotes;
     if (isNewFirst)
-      this.allnotes =
-          this.notes = await NotesDatabase.instance.decryptReadAllNotes()
-            ..sort((a, b) => b.createdTime.compareTo(a.createdTime));
+      _tmpNotes = await NotesDatabase.instance.decryptReadAllNotes()
+        ..sort((a, b) => b.createdTime.compareTo(a.createdTime));
     else
-      this.allnotes =
-          this.notes = await NotesDatabase.instance.decryptReadAllNotes()
-            ..sort((a, b) => a.createdTime.compareTo(b.createdTime));
-    setState(() {});
+      _tmpNotes = await NotesDatabase.instance.decryptReadAllNotes()
+        ..sort((a, b) => a.createdTime.compareTo(b.createdTime));
+    setState(() {
+      this.allnotes = this.notes = _tmpNotes;
+    });
   }
 
   @override
@@ -84,7 +84,13 @@ class _HomePageState extends State<HomePage> {
         drawer: _buildDrawer(context),
         appBar: AppBar(
           title: Text('Safe Notes'.tr()),
-          actions: isLoading ? null : [_gridListView(), _shortNotes()],
+          actions: isLoading
+              ? null
+              : [
+                  //_DevSessionListner(),
+                  _gridListView(),
+                  _shortNotes(),
+                ],
         ),
         body: Column(
           children: [
@@ -110,6 +116,22 @@ class _HomePageState extends State<HomePage> {
       },
     );
   }
+
+  // Widget _DevSessionListner() {
+  //   return IconButton(
+  //     icon: isListner ? Icon(Icons.toggle_on) : Icon(Icons.toggle_off),
+  //     onPressed: () {
+  //       if (isListner == true)
+  //         widget.sessionStateStream.add(SessionState.stopListening);
+  //       else
+  //         widget.sessionStateStream.add(SessionState.startListening);
+
+  //       setState(() {
+  //         this.isListner = !this.isListner;
+  //       });
+  //     },
+  //   );
+  // }
 
   Widget _shortNotes() {
     return IconButton(
@@ -142,8 +164,12 @@ class _HomePageState extends State<HomePage> {
     return FloatingActionButton(
       child: Icon(Icons.add),
       onPressed: () async {
-        await Navigator.pushNamed(context, '/addnote');
-        _refreshNotes();
+        await Navigator.pushNamed(
+          context,
+          '/addnote',
+          arguments: widget.sessionStateStream,
+        );
+        refreshNotes();
       },
     );
   }
@@ -162,7 +188,9 @@ class _HomePageState extends State<HomePage> {
     return HomeDrawer(
       onImportCallback: () async {
         Navigator.of(context).pop();
-        await showImportDialog(context);
+        widget.sessionStateStream.add(SessionState.stopListening);
+        await showImportDialog(context, homeRefresh: refreshNotes);
+        widget.sessionStateStream.add(SessionState.startListening);
       },
       onChangePassCallback: () async {
         await Navigator.pushNamed(context, '/changepassphrase');
@@ -188,25 +216,7 @@ class _HomePageState extends State<HomePage> {
           arguments: widget.sessionStateStream,
         );
         Navigator.of(context).pop();
-        _refreshNotes();
-      },
-    );
-  }
-
-  Future<void> showImportDialog(BuildContext context) async {
-    return showDialog(
-      context: context,
-      barrierDismissible: true,
-      builder: (BuildContext contextChild) {
-        return FileImportDialog(
-          callback: () async {
-            Navigator.of(contextChild).pop();
-            String? snackMessage =
-                await FileHandler().selectFileAndDoImport(context);
-            _refreshNotes();
-            showSnackBarMessage(context, snackMessage);
-          },
-        );
+        refreshNotes();
       },
     );
   }
@@ -222,9 +232,12 @@ class _HomePageState extends State<HomePage> {
             await Navigator.pushNamed(
               context,
               '/viewnote',
-              arguments: note,
+              arguments: NoteDetailPageArguments(
+                note: note,
+                sessionStream: widget.sessionStateStream,
+              ),
             );
-            _refreshNotes();
+            refreshNotes();
           },
           child: NoteTileWidget(note: note, index: index),
         );
@@ -254,9 +267,12 @@ class _HomePageState extends State<HomePage> {
             await Navigator.pushNamed(
               context,
               '/viewnote',
-              arguments: note,
+              arguments: NoteDetailPageArguments(
+                note: note,
+                sessionStream: widget.sessionStateStream,
+              ),
             );
-            _refreshNotes();
+            refreshNotes();
           },
           child: NoteCardWidget(note: note, index: index),
         );

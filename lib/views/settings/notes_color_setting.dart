@@ -20,7 +20,7 @@ class ColorPallet extends StatefulWidget {
 }
 
 class _ColorPalletState extends State<ColorPallet> {
-  var _selectedIndex = PreferencesStorage.getColorfulNotesColorIndex();
+  var _selectedIndex = PreferencesStorage.colorfulNotesColorIndex;
   var items = allNotesColorTheme;
 
   @override
@@ -44,7 +44,7 @@ class _ColorPalletState extends State<ColorPallet> {
           //title: Text('General'),
           tiles: <SettingsTile>[
             SettingsTile.switchTile(
-              initialValue: PreferencesStorage.getIsColorful(),
+              initialValue: PreferencesStorage.isColorful,
               title: Text('Colorful Notes'.tr()),
               onToggle: (value) {
                 final provider =
@@ -138,7 +138,7 @@ class _ColorPalletState extends State<ColorPallet> {
       padding: EdgeInsets.only(
           left: widthRatio * 5, right: widthRatio * 5, bottom: heightRatio * 1),
       child: Container(
-        decoration: PreferencesStorage.getIsThemeDark()
+        decoration: PreferencesStorage.isThemeDark
             ? BoxDecoration(
                 color: NordColors.polarNight.darker,
                 borderRadius: BorderRadius.circular(containerRadius),
@@ -166,10 +166,10 @@ class _ColorPalletState extends State<ColorPallet> {
   Widget _buildColourComboList(BuildContext context) {
     return CupertinoPageScaffold(
       child: CupertinoFormSection.insetGrouped(
-        backgroundColor: PreferencesStorage.getIsThemeDark()
+        backgroundColor: PreferencesStorage.isThemeDark
             ? NordColors.polarNight.darkest
             : Color(0x00000000),
-        decoration: PreferencesStorage.getIsThemeDark()
+        decoration: PreferencesStorage.isThemeDark
             ? BoxDecoration(
                 color: NordColors.polarNight.darker,
                 borderRadius: BorderRadius.circular(15),
