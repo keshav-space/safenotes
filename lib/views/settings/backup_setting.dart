@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:easy_localization/easy_localization.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -16,8 +15,8 @@ import 'package:workmanager/workmanager.dart';
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/utils/sheduled_task.dart';
-import 'package:safenotes/utils/snack_message.dart';
-import 'package:safenotes/utils/style.dart';
+import 'package:safenotes/utils/storage_permission.dart';
+import 'package:safenotes/widgets/login_button.dart';
 
 class BackupSetting extends StatefulWidget {
   BackupSetting({Key? key}) : super(key: key);
@@ -27,7 +26,7 @@ class BackupSetting extends StatefulWidget {
 }
 
 class _BackupSettingState extends State<BackupSetting> {
-  String validChoosenDirectory = '';
+  String validWorkingBackupFullyQualifiedPath = '';
   String lastUpdateTime = '';
   bool isBackupOn = false;
 
@@ -40,30 +39,28 @@ class _BackupSettingState extends State<BackupSetting> {
   Future<void> _refresh() async {
     PreferencesStorage.reload();
     // get valid path else empty string
-    String path = await PreferencesStorage.getBackupDestination();
+
+    String lastBackupTime = PreferencesStorage.lastBackupTime;
+    String path = '';
+    if (lastBackupTime.isNotEmpty &&
+        await Directory(SafeNotesConfig.backupDirectory).exists())
+      path = SafeNotesConfig.backupDirectory + SafeNotesConfig.backupFileName;
+
+    lastBackupTime = lastBackupTime.isEmpty
+        ? 'Never'.tr()
+        : timeago.format(DateTime.parse(lastBackupTime));
 
     setState(() {
-      this.validChoosenDirectory = path;
-    });
-
-    String lastBackupTime = PreferencesStorage.getLastBackupTime();
-    String backupFileName =
-        '${validChoosenDirectory}/${SafeNotesConfig.getBackupFileName()}';
-    if (validChoosenDirectory.isNotEmpty && File(backupFileName).existsSync()) {
-      var date = await File(backupFileName).lastModified();
-      lastBackupTime = date.toIso8601String();
-    }
-
-    setState(() {
+      this.validWorkingBackupFullyQualifiedPath = path;
       this.lastUpdateTime = lastBackupTime;
-      this.isBackupOn = PreferencesStorage.getIsBackupOn();
+      this.isBackupOn = PreferencesStorage.isBackupOn;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Auto Backup'.tr())),
+      appBar: AppBar(title: Text('Backup'.tr())),
       body: _bodyBackup(context),
     );
   }
@@ -80,14 +77,17 @@ class _BackupSettingState extends State<BackupSetting> {
         SettingsSection(
           tiles: <SettingsTile>[
             SettingsTile.switchTile(
-              initialValue: PreferencesStorage.getIsBackupOn(),
-              title: Text('Auto Backup'.tr()),
+              initialValue: PreferencesStorage.isBackupOn,
+              title: Text('Backup'.tr()),
               onToggle: (value) async {
+                await PreferencesStorage.setIsBackupOn(value);
                 if (value == true) {
-                  if (validChoosenDirectory.isNotEmpty) backupRegister();
+                  if (await _handleBackupPermissionAndLocation() == true) {
+                    backupRegister();
+                    await onBackupNow();
+                  }
                 } else
                   Workmanager().cancelAll();
-                await PreferencesStorage.setIsBackupOn(value);
                 setState(() => isBackupOn = value);
               },
               description: Text('autoBackupInstruction'.tr()),
@@ -103,7 +103,9 @@ class _BackupSettingState extends State<BackupSetting> {
                     _buildUpperBackupView(),
                     SizedBox(height: 10),
                     Text('backupSummary'.tr()),
-                    _buildButtons(context),
+                    //_buildButtons(context),
+                    SizedBox(height: 10),
+                    _buildBackupNowButton()
                   ],
                 )
               ],
@@ -120,7 +122,7 @@ class _BackupSettingState extends State<BackupSetting> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: widthRatio * 5),
       child: Container(
-        decoration: PreferencesStorage.getIsThemeDark()
+        decoration: PreferencesStorage.isThemeDark
             ? BoxDecoration(
                 color: NordColors.polarNight.darker,
                 borderRadius: BorderRadius.circular(15),
@@ -146,19 +148,13 @@ class _BackupSettingState extends State<BackupSetting> {
   }
 
   Widget _buildUpperBackupView() {
-    var location = this.validChoosenDirectory.isEmpty
-        ? 'Backup folder not choosen'.tr()
-        : '${this.validChoosenDirectory}/${SafeNotesConfig.getBackupFileName()}';
-    var lastBackup = this.lastUpdateTime.isEmpty
-        ? 'Never'.tr()
-        : timeago.format(DateTime.parse(this.lastUpdateTime));
     var widthRatio = MediaQuery.of(context).size.width / 100;
 
     return Row(
       children: [
         Icon(
           Icons.backup,
-          color: !PreferencesStorage.getIsThemeDark()
+          color: !PreferencesStorage.isThemeDark
               ? NordColors.polarNight.lighter
               : null,
           size: (widthRatio * 15),
@@ -170,16 +166,22 @@ class _BackupSettingState extends State<BackupSetting> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'lastBackupTime'.tr(namedArgs: {'lastBackupTime': lastBackup}),
+                'lastBackupTime'
+                    .tr(namedArgs: {'lastBackupTime': this.lastUpdateTime}),
                 style: TextStyle(fontSize: 10),
               ),
               Text(
-                'backupLocationPath'.tr(namedArgs: {'locationPath': location}),
+                'backupLocationPath'.tr(namedArgs: {
+                  'locationPath': this.validWorkingBackupFullyQualifiedPath
+                }),
                 style: TextStyle(fontSize: 10),
               ),
-              if (this.validChoosenDirectory.isNotEmpty &&
+              if (this.validWorkingBackupFullyQualifiedPath.isNotEmpty &&
                   this.lastUpdateTime.isNotEmpty)
-                _encrypted(),
+                Padding(
+                  padding: EdgeInsets.only(top: 2),
+                  child: _encrypted(),
+                )
             ],
           ),
         ),
@@ -204,82 +206,34 @@ class _BackupSettingState extends State<BackupSetting> {
     );
   }
 
-  Widget _buildButtons(BuildContext context) {
-    final double paddingAroundLR = 10.0;
-    final double paddingAroundB = 20.0;
-    final double buttonTextFontSize = 16.0;
-    final String nowButtonText = 'Backup Now'.tr();
-    String chooseButtonText = validChoosenDirectory.isEmpty
-        ? 'Choose Folder'.tr()
-        : 'Change Folder'.tr();
+  Widget _buildBackupNowButton() {
+    final String loginText = 'Backup Now'.tr();
 
-    return Container(
-      padding: EdgeInsets.fromLTRB(
-          paddingAroundLR, paddingAroundB, paddingAroundLR, 0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18),
-              ),
-              elevation: 5.0,
-            ),
-            child: _buttonText(chooseButtonText, buttonTextFontSize),
-            onPressed: this.isBackupOn ? onChooseOrChange : null,
-          ),
-          ElevatedButton(
-            child: _buttonText(nowButtonText, buttonTextFontSize),
-            style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18),
-              ),
-              elevation: 5.0,
-              backgroundColor: validChoosenDirectory.isNotEmpty
-                  ? NordColors.aurora.green
-                  : Colors.grey.shade600,
-            ),
-            onPressed: validChoosenDirectory.isNotEmpty && isBackupOn
-                ? onBackupNow
-                : null,
-          ),
-        ],
-      ),
+    return ButtonWidget(
+      text: loginText,
+      onClicked:
+          validWorkingBackupFullyQualifiedPath.isNotEmpty && this.isBackupOn
+              ? onBackupNow
+              : null,
     );
   }
 
-  void onBackupNow() {
-    if (validChoosenDirectory.isNotEmpty) {
-      ScheduledTask.backup();
-      _refresh();
-      //setState(() => _refresh());
-    }
+  Future<void> onBackupNow() async {
+    await ScheduledTask.backup();
+    await _refresh();
   }
 
-  void onChooseOrChange() async {
-    var newPath = await FilePicker.platform.getDirectoryPath();
+  Future<bool> _handleBackupPermissionAndLocation() async {
+    if (!await handleStoragePermission()) return false;
 
-    if (newPath != null) {
-      PreferencesStorage.setBackupDestination(newPath);
-
-      backupRegister();
-      _refresh();
-      showSnackBarMessage(context, 'Backup destination set!'.tr());
-    } else {
-      showSnackBarMessage(context, 'Destination not choosen!'.tr());
+    // create Safe Notes folder if doesn't exist
+    if (this.validWorkingBackupFullyQualifiedPath.isEmpty) {
+      // If the download directory doesn't exists return false
+      if (!await Directory(SafeNotesConfig.downloadDirectory).exists())
+        return false;
+      await Directory(SafeNotesConfig.backupDirectory).create(recursive: false);
     }
-  }
-
-  Widget _buttonText(String text, double fontSize) {
-    return Text(
-      text,
-      textAlign: TextAlign.center,
-      style: Style.buttonTextStyle().copyWith(
-        fontWeight: FontWeight.bold,
-        fontSize: fontSize,
-      ),
-    );
+    return true;
   }
 }
 
