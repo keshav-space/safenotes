@@ -21,7 +21,7 @@ class AuthWall extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PreferencesStorage.getPassPhraseHash().isNotEmpty
+    return PreferencesStorage.passPhraseHash.isNotEmpty
         ? EncryptionPhraseLoginPage(
             sessionStream: sessionStateStream,
             isKeyboardFocused: this.isKeyboardFocused,

@@ -29,7 +29,7 @@ class _SearchWidgetState extends State<SearchWidget> {
     final styleHint = TextStyle(color: Colors.black54);
     final style = widget.text.isEmpty ? styleHint : styleActive;
     final searchBoxRadius = 7.0;
-    final bool enableIMEPLFlag = !PreferencesStorage.getKeyboardIncognito();
+    final bool enableIMEPLFlag = !PreferencesStorage.keyboardIncognito;
 
     return Container(
       height: 42,

@@ -7,6 +7,10 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:easy_localization/easy_localization.dart';
 
+// Project imports:
+import 'package:safenotes/models/file_handler.dart';
+import 'package:safenotes/utils/snack_message.dart';
+
 class FileImportDialog extends StatelessWidget {
   final VoidCallback callback;
   FileImportDialog({required this.callback});
@@ -63,4 +67,23 @@ class FileImportDialog extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<void> showImportDialog(BuildContext context,
+    {VoidCallback? homeRefresh}) async {
+  return showDialog(
+    context: context,
+    barrierDismissible: true,
+    builder: (BuildContext contextChild) {
+      return FileImportDialog(
+        callback: () async {
+          Navigator.of(contextChild).pop();
+          String? snackMessage =
+              await FileHandler().selectFileAndImport(context);
+          if (homeRefresh != null) homeRefresh();
+          showSnackBarMessage(context, snackMessage);
+        },
+      );
+    },
+  );
 }

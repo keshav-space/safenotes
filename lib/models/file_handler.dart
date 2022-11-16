@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:crypto/crypto.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:media_scanner/media_scanner.dart';
 
 // Project imports:
 import 'package:safenotes/data/database_handler.dart';
@@ -17,30 +18,40 @@ import 'package:safenotes/dialogs/backup_passphrase.dart';
 import 'package:safenotes/dialogs/confirm_import.dart';
 import 'package:safenotes/models/import_file_parser.dart';
 import 'package:safenotes/models/safenote.dart';
+import 'package:safenotes/utils/cache_manager.dart';
+
+//import 'package:media_scanner/media_scanner.dart';
+
+//import 'package:safenotes/utils/storage_permission.dart';
 
 class FileHandler {
-  Future<String?> fileSave() async {
-    String? snackBackMsg;
-    try {
-      String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
-      if (selectedDirectory != null) {
-        final String fileName = SafeNotesConfig.getExportFileName();
-        String? selectedFolderName = selectedDirectory.split('/').last;
-        var jsonFile = new File('${selectedDirectory}/${fileName}');
-        String jsonOutputContent = await encryptedOutputBackupContent();
+  // Future<String?> fileSave() async {
+  //   String? snackBackMsg;
+  //   try {
+  //     String downloadDirectory = SafeNotesConfig.downloadDirectory;
 
-        jsonFile.writeAsStringSync(jsonOutputContent);
-        snackBackMsg = 'fileSavedMessage'
-            .tr(namedArgs: {'selectedFolderName': selectedFolderName});
-      } else {
-        snackBackMsg = 'Destination folder not chosen!'.tr();
-      }
-    } catch (e) {}
-    return snackBackMsg;
-  }
+  //     if (await handleStoragePermission() &&
+  //         await Directory(downloadDirectory).existsSync()) {
+  //       String exportFileFullPathName =
+  //           downloadDirectory + SafeNotesConfig.exportFileName;
+
+  //       var jsonFile = new File(exportFileFullPathName);
+  //       String jsonOutputContent = await encryptedOutputBackupContent();
+
+  //       jsonFile.writeAsStringSync(jsonOutputContent);
+  //       MediaScanner.loadMedia(path: jsonFile.path);
+
+  //       snackBackMsg = 'fileSavedMessage'
+  //           .tr(namedArgs: {'exportFileFullPathName': exportFileFullPathName});
+  //     } else {
+  //       snackBackMsg = 'Destination folder not chosen!'.tr();
+  //     }
+  //   } catch (e) {}
+  //   return snackBackMsg;
+  // }
 
   static Future<String> encryptedOutputBackupContent() async {
-    final String passHash = PreferencesStorage.getPassPhraseHash().toString();
+    final String passHash = PreferencesStorage.passPhraseHash.toString();
     String record = await NotesDatabase.instance.exportAllEncrypted();
     int totalCountOfNotes = '{'.allMatches(record).length;
 
@@ -49,13 +60,14 @@ class FileHandler {
     return content;
   }
 
-  Future<String?> selectFileAndDoImport(BuildContext context) async {
+  Future<String?> selectFileAndImport(BuildContext context) async {
     /*
     Attention: Starting v2.0 unencrypted export is removed, 
     however user are allowed to import their unencrypted backup until v3.0 
     */
     String? dataFromFileAsString = await getFileAsString();
-    String? currentPassHash = PreferencesStorage.getPassPhraseHash();
+    print(dataFromFileAsString);
+    String? currentPassHash = PreferencesStorage.passPhraseHash;
 
     if (dataFromFileAsString == null) {
       return "File not picked!".tr();
@@ -131,17 +143,21 @@ class FileHandler {
   Future<String?> getFileAsString() async {
     try {
       if (Platform.isAndroid) {
+        // emptpyCache to prevent filepicker from picking old cached version
+        // starting Android 11 all files are provided through cache mechanism and not directly
+        await CacheManager.emptyCache();
+
         FilePickerResult? result = await FilePicker.platform.pickFiles(
           type: FileType.custom,
-          allowedExtensions: [
-            SafeNotesConfig.getAllowedFileExtensionsForImport()
-          ],
+          allowedExtensions: [SafeNotesConfig.importFileExtension],
           allowMultiple: false,
         );
         if (result != null) {
           PlatformFile file = result.files.first;
           if (file.size == 0) return null;
           var jsonFile = new File(file.path!);
+          MediaScanner.loadMedia(path: jsonFile.path);
+          print(jsonFile.path);
           String content = jsonFile.readAsStringSync();
           return content;
         }
@@ -150,7 +166,7 @@ class FileHandler {
         if (result != null) {
           PlatformFile file = result.files.first;
           if (file.size == 0 ||
-              file.extension != SafeNotesConfig.getExportFileExtension())
+              file.extension != SafeNotesConfig.exportFileExtension)
             return null;
           var jsonFile = new File(file.path!);
           String content = jsonFile.readAsStringSync();

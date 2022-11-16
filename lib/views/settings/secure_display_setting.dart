@@ -40,7 +40,7 @@ class _SecureDisplaySettingState extends State<SecureDisplaySetting> {
           title: Text('Close and open app for change to take effect'.tr()),
           tiles: <SettingsTile>[
             SettingsTile.switchTile(
-              initialValue: PreferencesStorage.getIsFlagSecure(),
+              initialValue: PreferencesStorage.isFlagSecure,
               title: Text('Secure Display'.tr()),
               onToggle: (value) {
                 PreferencesStorage.setIsFlagSecure(value);

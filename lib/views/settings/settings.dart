@@ -14,21 +14,17 @@ import 'package:settings_ui/settings_ui.dart';
 
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
-import 'package:safenotes/dialogs/select_export_folder.dart';
+import 'package:safenotes/dialogs/backup_import.dart';
 import 'package:safenotes/models/app_theme.dart';
-import 'package:safenotes/models/file_handler.dart';
 import 'package:safenotes/models/session.dart';
-import 'package:safenotes/utils/snack_message.dart';
 import 'package:safenotes/utils/url_launcher.dart';
 import 'package:safenotes/widgets/footer.dart';
 
 class SettingsScreen extends StatefulWidget {
   final StreamController<SessionState> sessionStateStream;
 
-  SettingsScreen({
-    Key? key,
-    required this.sessionStateStream,
-  }) : super(key: key);
+  SettingsScreen({Key? key, required this.sessionStateStream})
+      : super(key: key);
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
@@ -57,8 +53,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
           tiles: <SettingsTile>[
             SettingsTile.navigation(
               leading: Icon(Icons.backup_outlined),
-              title: Text('Auto Backup'),
-              value: PreferencesStorage.getIsBackupOn()
+              title: Text('Backup'),
+              value: PreferencesStorage.isBackupOn
                   ? Text('On'.tr())
                   : Text('Off'.tr()),
               onPressed: (context) async {
@@ -67,31 +63,38 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
             SettingsTile.navigation(
-              leading: Icon(Icons.file_upload_outlined),
-              title: Text('Manual Export'.tr()),
+              leading: Icon(MdiIcons.fileDownloadOutline),
+              title: Text('Import Backup'.tr()),
               onPressed: (context) async {
-                final String snackMsgFileNotSaved = 'File not saved!'.tr();
-                bool wasExportMethordChoosen = false;
-                try {
-                  wasExportMethordChoosen = await showExportDialog(context);
-                } catch (e) {
-                  showSnackBarMessage(context, snackMsgFileNotSaved);
-                  return;
-                }
-                if (!wasExportMethordChoosen) return;
-
-                String? snackMsg = await FileHandler().fileSave();
-                showSnackBarMessage(context, snackMsg);
+                await showImportDialog(context);
               },
             ),
+            // SettingsTile.navigation(
+            //   leading: Icon(Icons.file_upload_outlined),
+            //   title: Text('Manual Export'.tr()),
+            //   onPressed: (context) async {
+            //     final String snackMsgFileNotSaved = 'File not saved!'.tr();
+            //     bool wasExportMethordChoosen = false;
+            //     try {
+            //       wasExportMethordChoosen = await showExportDialog(context);
+            //     } catch (e) {
+            //       showSnackBarMessage(context, snackMsgFileNotSaved);
+            //       return;
+            //     }
+            //     if (!wasExportMethordChoosen) return;
+
+            //     String? snackMsg = await FileHandler().fileSave();
+            //     showSnackBarMessage(context, snackMsg);
+            //   },
+            // ),
             SettingsTile.switchTile(
               leading: Icon(Icons.dark_mode_outlined),
               title: Text('Dark Mode'.tr()),
-              initialValue: PreferencesStorage.getIsThemeDark(),
+              initialValue: PreferencesStorage.isThemeDark,
               onToggle: (bool value) {
                 final provider =
                     Provider.of<ThemeProvider>(context, listen: false);
-                provider.toggleTheme(!PreferencesStorage.getIsThemeDark());
+                provider.toggleTheme(!PreferencesStorage.isThemeDark);
                 setState(() {});
               },
             ),
@@ -99,7 +102,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               leading: Icon(Icons.format_paint_outlined),
               // leading: Icon(Icons.format_paint),
               title: Text('Notes Color'.tr()),
-              value: !PreferencesStorage.getIsColorful()
+              value: !PreferencesStorage.isColorful
                   ? Text('Off'.tr())
                   : Text('On'.tr()),
               onPressed: (context) async {
@@ -133,7 +136,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             SettingsTile.navigation(
               leading: Icon(Icons.phonelink_lock),
               title: Text('Secure Display'.tr()),
-              value: PreferencesStorage.getIsFlagSecure()
+              value: PreferencesStorage.isFlagSecure
                   ? Text('On'.tr())
                   : Text('Off'.tr()),
               onPressed: (context) async {
@@ -144,10 +147,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
             SettingsTile.switchTile(
               leading: Icon(MdiIcons.incognito),
               title: Text('Incognito Keyboard'.tr()),
-              initialValue: PreferencesStorage.getKeyboardIncognito(),
+              initialValue: PreferencesStorage.keyboardIncognito,
               onToggle: (bool value) {
                 PreferencesStorage.setKeyboardIncognito(
-                    !PreferencesStorage.getKeyboardIncognito());
+                    !PreferencesStorage.keyboardIncognito);
                 setState(() {});
               },
             ),
@@ -185,7 +188,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               leading: Icon(Icons.rate_review_outlined),
               title: Text('Rate Us'.tr()),
               onPressed: (_) async {
-                String playstoreUrl = SafeNotesConfig.getPlayStoreUrl();
+                String playstoreUrl = SafeNotesConfig.playStoreUrl;
                 try {
                   await launchUrlExternal(Uri.parse(playstoreUrl));
                 } catch (e) {}
@@ -195,7 +198,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               leading: Icon(MdiIcons.frequentlyAskedQuestions),
               title: Text('FAQs'.tr()),
               onPressed: (_) async {
-                String faqsUrl = SafeNotesConfig.getFAQsUrl();
+                String faqsUrl = SafeNotesConfig.FAQsUrl;
                 try {
                   await launchUrlExternal(Uri.parse(faqsUrl));
                 } catch (e) {}
@@ -205,7 +208,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               leading: Icon(MdiIcons.github),
               title: Text('Source Code'.tr()),
               onPressed: (_) async {
-                String sourceCodeUrl = SafeNotesConfig.getGithubUrl();
+                String sourceCodeUrl = SafeNotesConfig.githubUrl;
                 try {
                   await launchUrlExternal(Uri.parse(sourceCodeUrl));
                 } catch (e) {}
@@ -215,7 +218,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               leading: Icon(Icons.mail_outline),
               title: Text('Email'.tr()),
               onPressed: (_) async {
-                String email = SafeNotesConfig.getMailToForFeedback();
+                String email = SafeNotesConfig.mailToForFeedback;
                 try {
                   await launchUrlExternal(Uri.parse(email));
                 } catch (e) {}
@@ -225,7 +228,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               leading: Icon(Icons.collections_bookmark_outlined),
               title: Text('Open Source license'.tr()),
               onPressed: (_) async {
-                String licence = SafeNotesConfig.getOpenSourceLicence();
+                String licence = SafeNotesConfig.openSourceLicence;
                 try {
                   await launchUrlExternal(Uri.parse(licence));
                 } catch (e) {}
@@ -240,7 +243,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   String inactivityTimeoutValue() {
-    var index = PreferencesStorage.getInactivityTimeoutIndex();
+    var index = PreferencesStorage.inactivityTimeoutIndex;
     List<int> values = [30, 1, 2, 3, 5, 10, 15];
     if (index < 1) return '${values[index]} sec';
     return '${values[index]} min';

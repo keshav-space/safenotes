@@ -1,3 +1,6 @@
+// Dart imports:
+import 'dart:async';
+
 // Project imports:
 import 'package:safenotes/data/database_handler.dart';
 import 'package:safenotes/models/safenote.dart';

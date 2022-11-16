@@ -120,7 +120,7 @@ class _ChangePassphraseState extends State<ChangePassphrase> {
       textInputAction: TextInputAction.next,
       validator: (passphrase) {
         return sha256.convert(utf8.encode(passphrase!)).toString() !=
-                PreferencesStorage.getPassPhraseHash()
+                PreferencesStorage.passPhraseHash
             ? validationErrorMsg
             : null;
       },
@@ -230,7 +230,7 @@ class _ChangePassphraseState extends State<ChangePassphrase> {
         padding: EdgeInsets.only(right: 10, top: 25),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            shadowColor: PreferencesStorage.getIsThemeDark()
+            shadowColor: PreferencesStorage.isThemeDark
                 ? NordColors.snowStorm.lightest
                 : NordColors.polarNight.darkest,
             minimumSize: Size(200, 50), //Size.fromHeight(50),

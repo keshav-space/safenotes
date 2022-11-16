@@ -9,7 +9,7 @@ import 'package:safenotes/data/preference_and_config.dart';
 
 class ButtonWidget extends StatelessWidget {
   final String text;
-  final VoidCallback onClicked;
+  final VoidCallback? onClicked;
 
   const ButtonWidget({
     Key? key,
@@ -26,7 +26,7 @@ class ButtonWidget extends StatelessWidget {
       child: SizedBox(
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            shadowColor: PreferencesStorage.getIsThemeDark()
+            shadowColor: PreferencesStorage.isThemeDark
                 ? NordColors.snowStorm.lightest
                 : NordColors.polarNight.darkest,
             minimumSize: Size.fromHeight(50),

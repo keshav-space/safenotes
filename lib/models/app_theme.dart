@@ -9,7 +9,7 @@ import 'package:safenotes/data/preference_and_config.dart';
 
 class ThemeProvider extends ChangeNotifier {
   ThemeMode themeMode =
-      PreferencesStorage.getIsThemeDark() ? ThemeMode.dark : ThemeMode.light;
+      PreferencesStorage.isThemeDark ? ThemeMode.dark : ThemeMode.light;
 
   bool get isDarkMode => themeMode == ThemeMode.dark;
 

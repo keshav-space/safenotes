@@ -1,25 +1,32 @@
+// Dart imports:
+import 'dart:async';
+
 // Flutter imports:
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:easy_localization/easy_localization.dart';
+import 'package:local_session_timeout/local_session_timeout.dart';
 
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
 
 class NoteFormWidget extends StatelessWidget {
+  final StreamController<SessionState> sessionStateStream;
+
   final String? title;
   final String? description;
   final ValueChanged<String> onChangedTitle;
   final ValueChanged<String> onChangedDescription;
 
-  const NoteFormWidget({
-    Key? key,
-    this.title = '',
-    this.description = '',
-    required this.onChangedTitle,
-    required this.onChangedDescription,
-  }) : super(key: key);
+  const NoteFormWidget(
+      {Key? key,
+      this.title = '',
+      this.description = '',
+      required this.onChangedTitle,
+      required this.onChangedDescription,
+      required this.sessionStateStream})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +40,7 @@ class NoteFormWidget extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             _buildTitle(),
-            SizedBox(height: 8),
+            SizedBox(height: 2),
             buildDescription(context),
             SizedBox(height: 16),
           ],
@@ -47,7 +54,7 @@ class NoteFormWidget extends StatelessWidget {
     final int maxLinesToShowAtTimeTitle = 2;
     final String titleHint = 'Title'.tr();
     //Disable IMEPL if keyboard incognito mode is true
-    final bool enableIMEPLFlag = !PreferencesStorage.getKeyboardIncognito();
+    final bool enableIMEPLFlag = !PreferencesStorage.keyboardIncognito;
 
     return TextFormField(
       enableIMEPersonalizedLearning: enableIMEPLFlag,
@@ -80,7 +87,7 @@ class NoteFormWidget extends StatelessWidget {
         computeMaxLine(context: context, fontHeight: 30.0);
     final double fontSize = 18.0;
     final String hintDescription = 'Type something...'.tr();
-    final bool enableIMEPLFlag = !PreferencesStorage.getKeyboardIncognito();
+    final bool enableIMEPLFlag = !PreferencesStorage.keyboardIncognito;
 
     return TextFormField(
       enableIMEPersonalizedLearning: enableIMEPLFlag,
@@ -129,7 +136,7 @@ class NoteFormWidget extends StatelessWidget {
       theoreticalDescriptinHeightRatio = x*2.6 (keyboard space is taken by description)
     */
     double descriptionRatio = theXfactor * 2.6;
-    if (keyboard > 1) descriptionRatio = theXfactor * 1.6;
+    if (keyboard > 0) descriptionRatio = theXfactor * 1.4;
     return (descriptionRatio / fontHeightRatio).round();
   }
 }

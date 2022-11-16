@@ -35,8 +35,7 @@ class NoteCardWidget extends StatelessWidget {
         : DateFormat.yMMMd().format(note.createdTime);
 
     return Card(
-      shadowColor:
-          PreferencesStorage.getIsThemeDark() ? Colors.white : Colors.black,
+      shadowColor: PreferencesStorage.isThemeDark ? Colors.white : Colors.black,
       color: color,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),

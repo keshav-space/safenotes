@@ -44,7 +44,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
   @override
   void initState() {
     super.initState();
-    _noOfAllowedAttempts = PreferencesStorage.getNoOfLogginAttemptAllowed();
+    _noOfAllowedAttempts = PreferencesStorage.noOfLogginAttemptAllowed;
     _isKeyboardFocused = widget.isKeyboardFocused ?? true;
   }
 
@@ -77,19 +77,17 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
   }
 
   Widget _buildTopLogo() {
-    const double topPadding = 70.0;
-    final double logoWidth = 185.0;
-    final double logoHeight = 185.0;
-    const double bottomPadding = 0.0;
+    final double topPadding = MediaQuery.of(context).size.height * 0.080;
+    final double dimensions = MediaQuery.of(context).size.width * 0.45;
 
     return Padding(
-      padding: const EdgeInsets.only(top: topPadding, bottom: bottomPadding),
+      padding: EdgeInsets.only(top: topPadding),
       child: Center(
         child: Container(
-          width: logoWidth,
-          height: logoHeight,
+          width: dimensions,
+          height: dimensions,
           child: Image.asset(
-            SafeNotesConfig.getAppLogoPath(),
+            SafeNotesConfig.appLogoPath,
           ),
         ),
       ),
@@ -185,7 +183,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
     }
 
     if (sha256.convert(utf8.encode(passphrase!)).toString() !=
-        PreferencesStorage.getPassPhraseHash()) {
+        PreferencesStorage.passPhraseHash) {
       _noOfAllowedAttempts--;
       final wrongPhraseMsg = 'noOfAttemptsLeftMessage'.tr(
           namedArgs: {'noOfAllowedAttempts': _noOfAllowedAttempts.toString()});
@@ -240,12 +238,13 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
     if (form.validate()) {
       final phrase = passPhraseController.text;
       if (sha256.convert(utf8.encode(phrase)).toString() ==
-          PreferencesStorage.getPassPhraseHash()) {
+          PreferencesStorage.passPhraseHash) {
         showSnackBarMessage(context, snackMsgDecryptingNotes);
         Session.login(phrase);
 
         // start listening for session inactivity on successful login
         widget.sessionStream.add(SessionState.startListening);
+
         await Navigator.pushReplacementNamed(
           context,
           '/home',
@@ -276,8 +275,8 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
   }
 }
 
-int _noOfAllowedAttempts = PreferencesStorage.getNoOfLogginAttemptAllowed();
-int _lockoutTime = PreferencesStorage.getBruteforceLockOutTime();
+int _noOfAllowedAttempts = PreferencesStorage.noOfLogginAttemptAllowed;
+int _lockoutTime = PreferencesStorage.bruteforceLockOutTime;
 int _counter = 0;
 
 Timer? _timer;
@@ -296,7 +295,7 @@ void _startTimer(VoidCallback callback) {
       (_counter > 0) ? _counter-- : _timer?.cancel();
       _controller.add(_counter.toString().padLeft(2, '0'));
       if (_counter <= 0) {
-        _noOfAllowedAttempts = PreferencesStorage.getNoOfLogginAttemptAllowed();
+        _noOfAllowedAttempts = PreferencesStorage.noOfLogginAttemptAllowed;
         callback();
       }
     },

@@ -10,15 +10,15 @@ import 'package:safenotes/data/preference_and_config.dart';
 class NotesColor extends ChangeNotifier {
   static Color getNoteColor({required int notIndex}) {
     var _lightColors =
-        allNotesColorTheme[PreferencesStorage.getColorfulNotesColorIndex()]
+        allNotesColorTheme[PreferencesStorage.colorfulNotesColorIndex]
             .colorList;
-    return PreferencesStorage.getIsColorful()
+    return PreferencesStorage.isColorful
         ? _lightColors[notIndex % _lightColors.length]
         : Color(0xFFA7BEAE);
   }
 
   void toggleColor() {
-    PreferencesStorage.setIsColorful(!PreferencesStorage.getIsColorful());
+    PreferencesStorage.setIsColorful(!PreferencesStorage.isColorful);
     notifyListeners();
   }
 }
