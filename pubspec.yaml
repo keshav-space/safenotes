@@ -63,6 +63,8 @@ dependencies:
   workmanager: ^0.5.1
   auto_size_text: ^3.0.0
   easy_localization: ^3.0.1
+  device_info_plus: ^8.0.0
+  media_scanner: ^2.1.0
 
   # workmanager:
   #   git:
