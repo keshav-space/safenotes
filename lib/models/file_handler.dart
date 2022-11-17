@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:crypto/crypto.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:media_scanner/media_scanner.dart';
 
 // Project imports:
 import 'package:safenotes/data/database_handler.dart';
@@ -19,6 +18,7 @@ import 'package:safenotes/dialogs/confirm_import.dart';
 import 'package:safenotes/models/import_file_parser.dart';
 import 'package:safenotes/models/safenote.dart';
 import 'package:safenotes/utils/cache_manager.dart';
+import 'package:safenotes/utils/device_info.dart';
 
 //import 'package:media_scanner/media_scanner.dart';
 
@@ -66,7 +66,6 @@ class FileHandler {
     however user are allowed to import their unencrypted backup until v3.0 
     */
     String? dataFromFileAsString = await getFileAsString();
-    print(dataFromFileAsString);
     String? currentPassHash = PreferencesStorage.passPhraseHash;
 
     if (dataFromFileAsString == null) {
@@ -146,17 +145,24 @@ class FileHandler {
         // emptpyCache to prevent filepicker from picking old cached version
         // starting Android 11 all files are provided through cache mechanism and not directly
         await CacheManager.emptyCache();
+        FilePickerResult? result;
 
-        FilePickerResult? result = await FilePicker.platform.pickFiles(
-          type: FileType.custom,
-          allowedExtensions: [SafeNotesConfig.importFileExtension],
-          allowMultiple: false,
-        );
+        if (await isAndroidSdkVersionAbove(29))
+          result = await FilePicker.platform.pickFiles(
+            type: FileType.custom,
+            allowedExtensions: [SafeNotesConfig.importFileExtension],
+            allowMultiple: false,
+          );
+        else
+          result = await FilePicker.platform.pickFiles(
+            type: FileType.any,
+            allowMultiple: false,
+          );
         if (result != null) {
           PlatformFile file = result.files.first;
           if (file.size == 0) return null;
           var jsonFile = new File(file.path!);
-          MediaScanner.loadMedia(path: jsonFile.path);
+          //   MediaScanner.loadMedia(path: jsonFile.path);
           print(jsonFile.path);
           String content = jsonFile.readAsStringSync();
           return content;
