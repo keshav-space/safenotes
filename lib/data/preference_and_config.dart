@@ -124,8 +124,8 @@ class PreferencesStorage {
   }
 
   static int get bruteforceLockOutTime {
-    //default: 60 seconds
-    return _preferences?.getInt(_keyBruteforceLockOutTime) ?? 60;
+    //default: 30 seconds
+    return _preferences?.getInt(_keyBruteforceLockOutTime) ?? 30;
   }
 
   static bool get isInactivityTimeoutOn =>

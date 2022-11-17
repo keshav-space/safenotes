@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 // Package imports:
 import 'package:crypto/crypto.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
 
 // Project imports:
@@ -63,48 +64,34 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          appBar: AppBar(
-            title: Text('Login'.tr()),
-            centerTitle: true,
-          ),
-          body: CustomScrollView(
-            controller: _scrollController,
-            slivers: [
-              SliverFillRemaining(
-                hasScrollBody: false,
-                child: Padding(
-                  padding: EdgeInsets.only(bottom: bottom),
-                  child: Column(
-                    children: [
-                      _buildTopLogo(),
-                      _buildLoginWorkflow(context: context),
-                      Spacer(),
-                      Padding(
-                        padding: EdgeInsets.only(top: 5),
-                        child: footer(),
-                      ),
-                    ],
-                  ),
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          title: Text('Login'.tr()),
+          centerTitle: true,
+        ),
+        body: CustomScrollView(
+          controller: _scrollController,
+          slivers: [
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: bottom),
+                child: Column(
+                  children: [
+                    _buildTopLogo(),
+                    _buildLoginWorkflow(context: context),
+                    Spacer(),
+                    Padding(
+                      padding: EdgeInsets.only(top: 5),
+                      child: footer(),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          )
-
-          // SingleChildScrollView(
-          //   child: Padding(
-          //     padding: EdgeInsets.only(bottom: bottom),
-          //     child: Column(
-          //       children: [
-          //         _buildTopLogo(),
-          //         _buildLoginWorkflow(context: context),
-          //         //Spacer(),
-          //         footer(),
-          //       ],
-          //     ),
-          //   ),
-          // ),
-          ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -181,7 +168,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
                 'bruteForceTimer'
                     .tr(namedArgs: {'timeLeft': timeLeft.toString()}),
                 style: TextStyle(
-                  //color: NordColors.snowStorm.lightest,
+                  color: NordColors.aurora.red,
                   fontSize: 13,
                   fontWeight: FontWeight.bold,
                 ),
@@ -262,9 +249,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
 
     return ButtonWidget(
       text: loginText,
-      onClicked: () async {
-        _loginController();
-      },
+      onClicked: this._isLocked ? null : () async => _loginController(),
     );
   }
 
