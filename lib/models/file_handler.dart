@@ -163,7 +163,7 @@ class FileHandler {
           if (file.size == 0) return null;
           var jsonFile = new File(file.path!);
           //   MediaScanner.loadMedia(path: jsonFile.path);
-          print(jsonFile.path);
+
           String content = jsonFile.readAsStringSync();
           return content;
         }

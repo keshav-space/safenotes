@@ -108,7 +108,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                 },
               ),
               _buildMenuItem(
-                topPadding: dividerSpacing,
+                topPadding: itemSpacing,
                 text: faqsText,
                 icon: MdiIcons.frequentlyAskedQuestions,
                 onClicked: () async {
@@ -120,7 +120,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                 },
               ),
               _buildMenuItem(
-                topPadding: dividerSpacing,
+                topPadding: itemSpacing,
                 text: helpText,
                 icon: Icons.help_outline,
                 onClicked: () async {

@@ -37,6 +37,7 @@ class EncryptionPhraseLoginPage extends StatefulWidget {
 class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final passPhraseController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
   bool? _isKeyboardFocused;
   bool _isHidden = true;
   bool _isLocked = false;
@@ -56,24 +57,61 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final bottom = MediaQuery.of(context).viewInsets.bottom;
+    scrollToBottomIfOnScreenKeyboard();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          title: Text('Login'.tr()),
-          centerTitle: true,
-        ),
-        body: Column(
-          children: [
-            _buildTopLogo(),
-            _buildLoginWorkflow(context: context),
-            Spacer(),
-            footer(),
-          ],
-        ),
-      ),
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            title: Text('Login'.tr()),
+            centerTitle: true,
+          ),
+          body: CustomScrollView(
+            controller: _scrollController,
+            slivers: [
+              SliverFillRemaining(
+                hasScrollBody: false,
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: bottom),
+                  child: Column(
+                    children: [
+                      _buildTopLogo(),
+                      _buildLoginWorkflow(context: context),
+                      Spacer(),
+                      Padding(
+                        padding: EdgeInsets.only(top: 5),
+                        child: footer(),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          )
+
+          // SingleChildScrollView(
+          //   child: Padding(
+          //     padding: EdgeInsets.only(bottom: bottom),
+          //     child: Column(
+          //       children: [
+          //         _buildTopLogo(),
+          //         _buildLoginWorkflow(context: context),
+          //         //Spacer(),
+          //         footer(),
+          //       ],
+          //     ),
+          //   ),
+          // ),
+          ),
     );
+  }
+
+  void scrollToBottomIfOnScreenKeyboard() {
+    if (MediaQuery.of(context).viewInsets.bottom > 0)
+      _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+          duration: Duration(milliseconds: 500), curve: Curves.ease);
   }
 
   Widget _buildTopLogo() {

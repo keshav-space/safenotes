@@ -36,6 +36,9 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
   final _formKey = GlobalKey<FormState>();
   final _passPhraseController = TextEditingController();
   final _passPhraseControllerConfirm = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
+  final _focusFirst = FocusNode();
+  final _focusSecond = FocusNode();
   bool _isHiddenFirst = true;
   bool _isHiddenConfirm = true;
 
@@ -48,6 +51,9 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
 
   @override
   Widget build(BuildContext context) {
+    final bottom = MediaQuery.of(context).viewInsets.bottom;
+    scrollToBottomIfOnScreenKeyboard();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -56,12 +62,26 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
           title: Text('Set Passphrase'.tr()),
           centerTitle: true,
         ),
-        body: Column(
-          children: [
-            _buildTopLogo(),
-            _buildPassphraseSetWorkflow(context),
-            Spacer(),
-            footer(),
+        body: CustomScrollView(
+          controller: _scrollController,
+          slivers: [
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: bottom),
+                child: Column(
+                  children: [
+                    _buildTopLogo(),
+                    _buildPassphraseSetWorkflow(context),
+                    Spacer(),
+                    Padding(
+                      padding: EdgeInsets.only(top: 5),
+                      child: footer(),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -85,7 +105,6 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
   }
 
   Widget _buildPassphraseSetWorkflow(BuildContext context) {
-    final focusConfirm = FocusNode();
     final double padding = 16.0;
     const double inputBoxSeparation = 10.0;
 
@@ -95,9 +114,9 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
         padding: EdgeInsets.all(padding),
         child: Column(
           children: [
-            _inputFieldFirst(focusConfirm),
+            _inputFieldFirst(),
             const SizedBox(height: inputBoxSeparation),
-            _inputFieldConfirm(context, focusConfirm),
+            _inputFieldConfirm(context),
             _buildForgotPassphrase(),
             _buildLoginButton(),
           ],
@@ -106,7 +125,13 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
     );
   }
 
-  Widget _inputFieldFirst(FocusNode focus) {
+  void scrollToBottomIfOnScreenKeyboard() {
+    if (MediaQuery.of(context).viewInsets.bottom > 0)
+      _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+          duration: Duration(milliseconds: 500), curve: Curves.ease);
+  }
+
+  Widget _inputFieldFirst() {
     final double inputBoxEdgeRadious = 10.0;
     final String firstHintText = 'New Passphrase'.tr();
 
@@ -115,6 +140,7 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
       controller: this._passPhraseController,
       autofocus: widget.isKeyboardFocused ?? true, //true,
       obscureText: this._isHiddenFirst,
+      focusNode: _focusFirst,
       decoration: _inputBoxDecoration(
         inputFieldID: 'first',
         inputHintText: firstHintText,
@@ -124,13 +150,13 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
       keyboardType: TextInputType.visiblePassword,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (v) {
-        FocusScope.of(context).requestFocus(focus);
+        FocusScope.of(context).requestFocus(_focusSecond);
       },
       validator: _firstInputValidator,
     );
   }
 
-  Widget _inputFieldConfirm(BuildContext context, FocusNode focus) {
+  Widget _inputFieldConfirm(BuildContext context) {
     final double inputBoxEdgeRadious = 10.0;
     final double padding = 10.0;
     final String confirmHintText = 'Re-enter Passphrase'.tr();
@@ -140,7 +166,7 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
       child: TextFormField(
         enableIMEPersonalizedLearning: false,
         controller: this._passPhraseControllerConfirm,
-        focusNode: focus,
+        focusNode: _focusSecond,
         obscureText: this._isHiddenConfirm,
         decoration: _inputBoxDecoration(
           inputFieldID: 'confirm',

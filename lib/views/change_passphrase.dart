@@ -30,6 +30,7 @@ class _ChangePassphraseState extends State<ChangePassphrase> {
   final _oldPassphraseController = TextEditingController();
   final _newPassphraseController = TextEditingController();
   final _newConfirmPassphraseController = TextEditingController();
+  final _scrollController = ScrollController();
   late List<SafeNote> allnotes;
   final _focusOld = FocusNode();
   final _focusNew = FocusNode();
@@ -55,10 +56,28 @@ class _ChangePassphraseState extends State<ChangePassphrase> {
 
   @override
   Widget build(BuildContext context) {
+    final bottom = MediaQuery.of(context).viewInsets.bottom;
+    scrollToBottomIfOnScreenKeyboard();
+
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(),
-      body: _buildPassphraseChangeWorkflow(context),
+      body: SingleChildScrollView(
+        reverse: true,
+        controller: _scrollController,
+        child: Padding(
+          padding: EdgeInsets.only(bottom: bottom),
+          child: _buildPassphraseChangeWorkflow(context),
+        ),
+      ),
+      //body: _buildPassphraseChangeWorkflow(context),
     );
+  }
+
+  void scrollToBottomIfOnScreenKeyboard() {
+    if (MediaQuery.of(context).viewInsets.bottom > 0)
+      _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+          duration: Duration(milliseconds: 500), curve: Curves.ease);
   }
 
   Widget _buildPassphraseChangeWorkflow(BuildContext context) {
