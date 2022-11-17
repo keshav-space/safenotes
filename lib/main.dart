@@ -31,7 +31,7 @@ Future main() async {
 
   Workmanager().initialize(
     callbackDispatcher,
-    isInDebugMode: true,
+    isInDebugMode: false,
   );
 
   await PreferencesStorage.init();
