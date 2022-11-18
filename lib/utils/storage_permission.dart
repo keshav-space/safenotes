@@ -1,5 +1,7 @@
 // Package imports:
 import 'package:permission_handler/permission_handler.dart';
+
+// Project imports:
 import 'package:safenotes/utils/device_info.dart';
 
 // return true on successful storage permission
@@ -11,13 +13,11 @@ Future<bool> handleStoragePermission() async {
 }
 
 Future<bool> _requestPermission(Permission permission) async {
-  if (await permission.isGranted) {
+  if (await permission.isGranted)
     return true;
-  } else {
+  else {
     var status = await permission.request();
-    if (status.isGranted) {
-      return true;
-    }
+    if (status.isGranted) return true;
     return false;
   }
 }

@@ -205,10 +205,10 @@ class _ColorPalletState extends State<ColorPallet> {
     return Padding(
       padding: EdgeInsets.only(top: 5, bottom: 5),
       child: CupertinoFormRow(
-        prefix: Text(prefix),
+        prefix: Text(prefix.tr()),
         helper: helper != null
             ? Text(
-                helper,
+                helper.tr(),
                 style: Theme.of(context).textTheme.bodySmall,
               )
             : null,

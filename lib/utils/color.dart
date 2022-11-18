@@ -1,9 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
-import 'package:easy_localization/easy_localization.dart';
-
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
 
@@ -23,30 +20,23 @@ class NotesColor extends ChangeNotifier {
   }
 }
 
-// class HexColor extends Color {
-//   static int _getColorFromHex(String hexColor) {
-//     hexColor = hexColor.toUpperCase().replaceAll("#", "");
-//     if (hexColor.length == 6) {
-//       hexColor = "FF" + hexColor;
-//     }
-//     return int.parse(hexColor, radix: 16);
-//   }
-//   HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
-// }
+Color getFontColorForBackground(Color background) {
+  return (background.computeLuminance() > 0.179) ? Colors.black : Colors.white;
+}
 
 class NotesColorTheme {
   final String prefix;
   final String? helper;
-  final List<Color> colorList;
+  final List colorList;
   const NotesColorTheme(
       {required this.prefix, this.helper, required this.colorList});
 }
 
 List<NotesColorTheme> allNotesColorTheme = [
   NotesColorTheme(
-    prefix: 'Nord Arctic'.tr(),
-    helper: 'Default'.tr(),
-    colorList: <Color>[
+    prefix: 'Nord Arctic',
+    helper: 'Default',
+    colorList: [
       Color(0xFF5E81AC),
       Color(0xFFD08770),
       Color(0xFFA3BE8C),
@@ -55,9 +45,9 @@ List<NotesColorTheme> allNotesColorTheme = [
     ],
   ),
   NotesColorTheme(
-    prefix: 'Harmony'.tr(),
-    helper: 'Deep Blue, Northern Sky, Baby Blue and Coffee'.tr(),
-    colorList: <Color>[
+    prefix: 'Harmony',
+    helper: 'Deep Blue, Northern Sky, Baby Blue and Coffee',
+    colorList: [
       Color(0xFF2460A7),
       Color(0xFF85B3D1),
       Color(0xFFB3C7D6),
@@ -65,9 +55,9 @@ List<NotesColorTheme> allNotesColorTheme = [
     ],
   ),
   NotesColorTheme(
-    prefix: 'Refreshing'.tr(),
-    helper: 'Soft Pink, Peach Amber, Yucca and Arbor Green'.tr(),
-    colorList: <Color>[
+    prefix: 'Refreshing',
+    helper: 'Soft Pink, Peach Amber, Yucca and Arbor Green',
+    colorList: [
       Color(0xFFFFDDE2),
       Color(0xFFFAA094),
       Color(0xFF9ED9CC),
@@ -75,9 +65,9 @@ List<NotesColorTheme> allNotesColorTheme = [
     ],
   ),
   NotesColorTheme(
-    prefix: 'Peace'.tr(),
-    helper: 'Blue Sky, Elation, Nugget and Celestial'.tr(),
-    colorList: <Color>[
+    prefix: 'Peace',
+    helper: 'Blue Sky, Elation, Nugget and Celestial',
+    colorList: [
       Color(0xFFABD1C9),
       Color(0xFFDFDCE5),
       Color(0xFFDBB04A),
@@ -85,9 +75,9 @@ List<NotesColorTheme> allNotesColorTheme = [
     ],
   ),
   NotesColorTheme(
-    prefix: 'Nostalgic'.tr(),
-    helper: 'Desert Sand, Burnished Brown, Old Burgundy and Mystic'.tr(),
-    colorList: <Color>[
+    prefix: 'Nostalgic',
+    helper: 'Desert Sand, Burnished Brown, Old Burgundy and Mystic',
+    colorList: [
       Color(0xFFDBBEA1),
       Color(0xFFA37B73),
       Color(0xFF3E282B),
@@ -95,9 +85,9 @@ List<NotesColorTheme> allNotesColorTheme = [
     ],
   ),
   NotesColorTheme(
-    prefix: 'Sapphire'.tr(),
-    helper: 'Sapphire, Light Slate Gray, Cadet Gray and American Silver'.tr(),
-    colorList: <Color>[
+    prefix: 'Sapphire',
+    helper: 'Sapphire, Light Slate Gray, Cadet Gray and American Silver',
+    colorList: [
       Color(0xFF2E5266),
       Color(0xFF6E8898),
       Color(0xFF9FB1BC),
@@ -105,91 +95,87 @@ List<NotesColorTheme> allNotesColorTheme = [
     ],
   ),
   NotesColorTheme(
-    prefix: 'Ensemble'.tr(),
-    helper: 'Light Purple, Light Blue and Light Green'.tr(),
-    colorList: <Color>[
+    prefix: 'Ensemble',
+    helper: 'Light Purple, Light Blue and Light Green',
+    colorList: [
       Color(0xFFD7A9E3),
       Color(0xFF8BBEE8),
       Color(0xFFA8D5BA),
     ],
   ),
   NotesColorTheme(
-    prefix: 'Radiant'.tr(),
-    helper: 'Radiant Yellow, Living Coral and Purple'.tr(),
-    colorList: <Color>[
+    prefix: 'Radiant',
+    helper: 'Radiant Yellow, Living Coral and Purple',
+    colorList: [
       Color(0xFFF9A12E),
       Color(0xFFFC766A),
       Color(0xFF9B4A97),
     ],
   ),
   NotesColorTheme(
-    prefix: 'Innocent'.tr(),
-    helper: 'White, Pink Lady and Sky Blue'.tr(),
-    colorList: <Color>[
+    prefix: 'Innocent',
+    helper: 'White, Pink Lady and Sky Blue',
+    colorList: [
       Color(0xFFFCF6F5),
       Color(0xFFEDC2D8),
       Color(0xFF8ABAD3),
     ],
   ),
   NotesColorTheme(
-    prefix: 'Oktoberfest'.tr(),
-    helper: 'Red, Yellow and Navy'.tr(),
-    colorList: <Color>[
+    prefix: 'Oktoberfest',
+    helper: 'Red, Yellow and Navy',
+    colorList: [
       Color(0xFFF65058),
       Color(0xFFFBDE44),
       Color(0xFF28334A),
     ],
   ),
   NotesColorTheme(
-    prefix: 'Nature'.tr(),
-    helper: 'Tanager Turquoise, Teal Blue and Kelly Green'.tr(),
-    colorList: <Color>[
+    prefix: 'Nature',
+    helper: 'Tanager Turquoise, Teal Blue and Kelly Green',
+    colorList: [
       Color(0xFF95DBE5),
       Color(0xFF078282),
       Color(0xFF339E66),
     ],
   ),
   NotesColorTheme(
-    prefix: 'Knockout'.tr(),
-    helper: 'Knockout Pink, Safety Yellow and Out of the Blue'.tr(),
-    colorList: <Color>[
+    prefix: 'Knockout',
+    helper: 'Knockout Pink, Safety Yellow and Out of the Blue',
+    colorList: [
       Color(0xFFFF3EA5),
       Color(0xFFEDFF00),
       Color(0xFF00A4CC),
     ],
   ),
   NotesColorTheme(
-    prefix: 'Danger'.tr(),
-    helper: 'Danger Red, Tap Shoe and Blue Blossom'.tr(),
-    colorList: <Color>[
+    prefix: 'Danger',
+    helper: 'Danger Red, Tap Shoe and Blue Blossom',
+    colorList: [
       Color(0xFFD9514E),
       Color(0xFF2A2B2D),
       Color(0xFF2DA8D8),
     ],
   ),
   NotesColorTheme(
-    prefix: 'Light Teal'.tr(),
+    prefix: 'Light Teal',
     helper: null,
-    colorList: <Color>[
+    colorList: [
       Color(0xFFA7BEAE),
     ],
   ),
   NotesColorTheme(
-    prefix: 'Fresh Mint'.tr(),
+    prefix: 'Fresh Mint',
     helper: null,
-    colorList: <Color>[
+    colorList: [
       Color(0xFFADEFD1),
     ],
   ),
   NotesColorTheme(
-    prefix: 'Sailor Blue'.tr(),
+    prefix: 'Sailor Blue',
     helper: null,
-    colorList: <Color>[
+    colorList: [
       Color(0xFF00203F),
     ],
   ),
 ];
-
-Color getFontColorForBackground(Color background) {
-  return (background.computeLuminance() > 0.179) ? Colors.black : Colors.white;
-}

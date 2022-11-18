@@ -1,6 +1,8 @@
 // Flutter imports:
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:easy_localization/easy_localization.dart';
 
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
@@ -25,9 +27,7 @@ Widget footer() {
             Text(madeWith, style: style),
             Text(
               '♥',
-              style: style.copyWith(
-                fontFamily: 'NotoMonochromaticEmoji',
-              ),
+              style: style.copyWith(fontFamily: 'NotoMonochromaticEmoji'),
             ),
             Text(onEarth, style: style)
           ],

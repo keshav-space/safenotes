@@ -205,13 +205,13 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      officialAppName,
+                      officialAppName.tr(),
                       style: TextStyle(fontSize: appNameFontSize),
                     ),
                     Padding(
                       padding: EdgeInsets.only(bottom: 5),
                       child: Text(
-                        appSlogan,
+                        appSlogan.tr(),
                         style: TextStyle(fontSize: appSloganFontSize),
                       ),
                     ),

@@ -1,6 +1,7 @@
-// Flutter imports:
+// Dart imports:
 import 'dart:async';
 
+// Flutter imports:
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -57,33 +58,37 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
             reverse: true,
             child: Padding(
               padding: EdgeInsets.only(bottom: bottom),
-              child: Form(
-                key: _formKey,
-                child: NoteFormWidget(
-                  title: title,
-                  description: description,
-                  sessionStateStream: widget.sessionStateStream,
-                  onChangedTitle: (title) => setState(() {
-                    this.title = title;
-                    NoteEditorState.setState(
-                      widget.note,
-                      this.title,
-                      this.description,
-                    );
-                  }),
-                  onChangedDescription: (description) => setState(() {
-                    this.description = description;
-                    NoteEditorState.setState(
-                      widget.note,
-                      this.title,
-                      this.description,
-                    );
-                  }),
-                ),
-              ),
+              child: _buildBody(),
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildBody() {
+    return Form(
+      key: _formKey,
+      child: NoteFormWidget(
+        title: title,
+        description: description,
+        sessionStateStream: widget.sessionStateStream,
+        onChangedTitle: (title) => setState(() {
+          this.title = title;
+          NoteEditorState.setState(
+            widget.note,
+            this.title,
+            this.description,
+          );
+        }),
+        onChangedDescription: (description) => setState(() {
+          this.description = description;
+          NoteEditorState.setState(
+            widget.note,
+            this.title,
+            this.description,
+          );
+        }),
       ),
     );
   }
