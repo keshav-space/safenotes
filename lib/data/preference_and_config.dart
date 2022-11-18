@@ -224,6 +224,12 @@ class SafeNotesConfig {
   static String _faqsUrl = 'https://safenotes.dev/faqs.html';
   static String _downloadDirectory = '/storage/emulated/0/Download/';
   static String _backupDirectory = '/storage/emulated/0/Download/Safe Notes/';
+  static Map<String, Locale> _locales = {
+    "English": Locale('en', 'US'),
+    "中国人": Locale('zh', 'CN'),
+    "Français": Locale('fr'),
+    "Português": Locale('pt', 'BR'),
+  };
 
   static String get appName => _appName;
   static String get appVersion => _appVersion;
@@ -242,6 +248,25 @@ class SafeNotesConfig {
   static String get FAQsUrl => _faqsUrl;
   static String get downloadDirectory => _downloadDirectory;
   static String get backupDirectory => _backupDirectory;
+  static Map<String, Locale> get allLocale => _locales;
+  static List<Locale> get localesValues => _locales.values.toList();
+  static List<String> get localesKeys => _locales.keys.toList();
+  static List<LanguageItem> get languageItems {
+    List<LanguageItem> items = [];
+    localesKeys.forEach((element) {
+      items.add(LanguageItem(prefix: element, helper: null));
+    });
+    return items;
+  }
+
+  static Map<String, String> get mapLocaleName {
+    //{'en_US':'English'}
+    Map<String, String> _mapLocaleName = Map();
+    _locales.forEach((key, value) {
+      _mapLocaleName[value.toString()] = key;
+    });
+    return _mapLocaleName;
+  }
 
   static String get backupFileName {
     String redundancyCounter =
@@ -260,4 +285,10 @@ class SafeNotesConfig {
         .substring(0, 15);
     return (_exportFileNamePrefix + dateNow + _exportFileNameExtension);
   }
+}
+
+class LanguageItem {
+  final String prefix;
+  final String? helper;
+  const LanguageItem({required this.prefix, this.helper});
 }

@@ -96,9 +96,11 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
   }
 
   void scrollToBottomIfOnScreenKeyboard() {
-    if (MediaQuery.of(context).viewInsets.bottom > 0)
-      _scrollController.animateTo(_scrollController.position.maxScrollExtent,
-          duration: Duration(milliseconds: 500), curve: Curves.ease);
+    try {
+      if (MediaQuery.of(context).viewInsets.bottom > 0)
+        _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+            duration: Duration(milliseconds: 500), curve: Curves.ease);
+    } catch (e) {}
   }
 
   Widget _buildTopLogo() {

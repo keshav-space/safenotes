@@ -22,6 +22,7 @@ import 'package:safenotes/views/home.dart';
 import 'package:safenotes/views/note_view.dart';
 import 'package:safenotes/views/settings/backup_setting.dart';
 import 'package:safenotes/views/settings/inactivity_setting.dart';
+import 'package:safenotes/views/settings/language_setting.dart';
 import 'package:safenotes/views/settings/notes_color_setting.dart';
 import 'package:safenotes/views/settings/secure_display_setting.dart';
 import 'package:safenotes/views/settings/settings.dart';
@@ -168,6 +169,13 @@ class RouteGenerator {
       case '/inactivityTimerSettings':
         return PageTransition(
           child: InactivityTimerSetting(),
+          duration: Duration(milliseconds: transitionDuration),
+          type: transitionType,
+        );
+
+      case '/chooseLanguageSettings':
+        return PageTransition(
+          child: LanguageSetting(),
           duration: Duration(milliseconds: transitionDuration),
           type: transitionType,
         );

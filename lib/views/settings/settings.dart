@@ -53,7 +53,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           tiles: <SettingsTile>[
             SettingsTile.navigation(
               leading: Icon(Icons.backup_outlined),
-              title: Text('Backup'),
+              title: Text('Backup'.tr()),
               value: PreferencesStorage.isBackupOn
                   ? Text('On'.tr())
                   : Text('Off'.tr()),
@@ -69,24 +69,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 await showImportDialog(context);
               },
             ),
-            // SettingsTile.navigation(
-            //   leading: Icon(Icons.file_upload_outlined),
-            //   title: Text('Manual Export'.tr()),
-            //   onPressed: (context) async {
-            //     final String snackMsgFileNotSaved = 'File not saved!'.tr();
-            //     bool wasExportMethordChoosen = false;
-            //     try {
-            //       wasExportMethordChoosen = await showExportDialog(context);
-            //     } catch (e) {
-            //       showSnackBarMessage(context, snackMsgFileNotSaved);
-            //       return;
-            //     }
-            //     if (!wasExportMethordChoosen) return;
-
-            //     String? snackMsg = await FileHandler().fileSave();
-            //     showSnackBarMessage(context, snackMsg);
-            //   },
-            // ),
             SettingsTile.switchTile(
               leading: Icon(Icons.dark_mode_outlined),
               title: Text('Dark Mode'.tr()),
@@ -112,11 +94,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             SettingsTile.navigation(
               leading: Icon(Icons.language_outlined),
-              title: Text('Language'.tr()),
-              value: Text(context.locale.toString()),
+              title: Text('Language'),
+              value: Text(
+                  SafeNotesConfig.mapLocaleName[context.locale.toString()]!),
               onPressed: (context) async {
-                // await Navigator.pushNamed(context, '/chooseLanguageSettings');
-                // setState(() {});
+                await Navigator.pushNamed(context, '/chooseLanguageSettings');
+                setState(() {});
               },
             )
           ],

@@ -44,10 +44,7 @@ Future main() async {
   runApp(
     EasyLocalization(
       path: 'assets/translations',
-      supportedLocales: [
-        Locale('en', 'US'),
-        //Locale('ar', 'SA'),
-      ],
+      supportedLocales: SafeNotesConfig.localesValues,
       fallbackLocale: Locale('en', 'US'),
       child: SafeNotesApp(),
     ),
