@@ -152,8 +152,10 @@ class PreferencesStorage {
     await _preferences?.setInt(_keyInactivityTimeout, index);
   }
 
-//default: 60 seconds
-  static int get focusTimeout => _preferences?.getInt(_keyFocusTimeout) ?? 60;
+//default = inactivityTimeout
+  static int get focusTimeout =>
+      _preferences?.getInt(_keyFocusTimeout) ??
+      PreferencesStorage.inactivityTimeout;
 
   //default: 50
   static int get maxBackupRetryAttempts =>

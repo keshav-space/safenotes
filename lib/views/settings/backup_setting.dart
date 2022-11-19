@@ -85,7 +85,7 @@ class _BackupSettingState extends State<BackupSetting> {
               onToggle: (value) async {
                 await PreferencesStorage.setIsBackupOn(value);
                 if (value == true) {
-                  if (await _handleBackupPermissionAndLocation() == true) {
+                  if (await handleBackupPermissionAndLocation() == true) {
                     backupRegister();
                     await onBackupNow();
                   }
@@ -225,19 +225,17 @@ class _BackupSettingState extends State<BackupSetting> {
     await ScheduledTask.backup();
     await _refresh();
   }
+}
 
-  Future<bool> _handleBackupPermissionAndLocation() async {
-    if (!await handleStoragePermission()) return false;
+Future<bool> handleBackupPermissionAndLocation() async {
+  if (!await handleStoragePermission()) return false;
 
-    // create Safe Notes folder if doesn't exist
-    if (this.validWorkingBackupFullyQualifiedPath.isEmpty) {
-      // If the download directory doesn't exists return false
-      if (!await Directory(SafeNotesConfig.downloadDirectory).exists())
-        return false;
-      await Directory(SafeNotesConfig.backupDirectory).create(recursive: false);
-    }
-    return true;
-  }
+  // If the download directory doesn't exists return false
+  if (!await Directory(SafeNotesConfig.downloadDirectory).exists())
+    return false;
+  await Directory(SafeNotesConfig.backupDirectory).create(recursive: false);
+
+  return true;
 }
 
 void backupRegister() {

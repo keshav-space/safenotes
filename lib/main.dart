@@ -167,7 +167,12 @@ void onAppUpdate() async {
   if (PreferencesStorage.appVersionCode != SafeNotesConfig.appVersionCode) {
     // Re-register the background update
 
-    if (PreferencesStorage.isBackupOn) backupRegister();
+    if (PreferencesStorage.isBackupOn) {
+      if (await handleBackupPermissionAndLocation()) {
+        backupRegister();
+        await ScheduledTask.backup();
+      }
+    }
 
     // insure onAppUpdate is run once each update
     PreferencesStorage.setAppVersionCodeToCurrent();

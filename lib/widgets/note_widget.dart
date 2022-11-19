@@ -61,7 +61,7 @@ class NoteFormWidget extends StatelessWidget {
       maxLines: maxLinesToShowAtTimeTitle,
       initialValue: this.title,
       enableInteractiveSelection: true,
-      autofocus: true,
+      //autofocus: true,
       toolbarOptions: ToolbarOptions(
         paste: true,
         cut: true,
