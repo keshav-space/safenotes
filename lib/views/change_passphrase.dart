@@ -63,31 +63,30 @@ class _ChangePassphraseState extends State<ChangePassphrase> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(),
       body: SingleChildScrollView(
-        reverse: true,
+        //reverse: true,
         controller: _scrollController,
         child: Padding(
           padding: EdgeInsets.only(bottom: bottom),
           child: _buildPassphraseChangeWorkflow(context),
         ),
       ),
-      //body: _buildPassphraseChangeWorkflow(context),
     );
   }
 
   void scrollToBottomIfOnScreenKeyboard() {
     if (MediaQuery.of(context).viewInsets.bottom > 0)
       _scrollController.animateTo(_scrollController.position.maxScrollExtent,
-          duration: Duration(milliseconds: 500), curve: Curves.ease);
+          duration: Duration(milliseconds: 300), curve: Curves.ease);
   }
 
   Widget _buildPassphraseChangeWorkflow(BuildContext context) {
     final String pageTitleName = 'Change Passphrase'.tr();
     final double paddingBetweenInputBox = 25.0;
 
-    return Form(
-      key: this.formKey,
-      child: SingleChildScrollView(
-        padding: EdgeInsets.fromLTRB(15, 40, 15, 0),
+    return Padding(
+      padding: EdgeInsets.all(20),
+      child: Form(
+        key: this.formKey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -246,7 +245,7 @@ class _ChangePassphraseState extends State<ChangePassphrase> {
     return Align(
       alignment: Alignment.centerRight,
       child: Padding(
-        padding: EdgeInsets.only(right: 10, top: 25),
+        padding: EdgeInsets.only(right: 10, top: 25, bottom: 20),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             shadowColor: PreferencesStorage.isThemeDark

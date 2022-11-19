@@ -1,10 +1,11 @@
 // Flutter imports:
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:intl/intl.dart';
-import 'package:timeago/timeago.dart' as timeago;
+import 'package:safenotes/utils/string_utils.dart';
+import 'package:safenotes/utils/time.dart';
 
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
@@ -26,12 +27,16 @@ class NoteCardWidget extends StatelessWidget {
     // Pick colors from the accent colors based on index
     final color = NotesColor.getNoteColor(notIndex: index);
     final fontColor = getFontColorForBackground(color);
+
     DateTime now = DateTime.now();
     DateTime todayDate = DateTime(now.year, now.month, now.day);
     DateTime noteDate = DateTime(
         note.createdTime.year, note.createdTime.month, note.createdTime.day);
     String time = (todayDate == noteDate)
-        ? timeago.format(note.createdTime)
+        ? humanTime(
+            time: note.createdTime,
+            localeString: context.locale.toString(),
+          )
         : DateFormat.yMMMd().format(note.createdTime);
 
     return Card(
@@ -47,7 +52,7 @@ class NoteCardWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AutoSizeText(
-              note.title,
+              sanitize(note.title),
               style: TextStyle(
                 color: fontColor,
                 fontSize: 20,
@@ -69,7 +74,7 @@ class NoteCardWidget extends StatelessWidget {
             ),
             SizedBox(height: 6),
             AutoSizeText(
-              note.description,
+              sanitize(note.description),
               style: TextStyle(
                 color: fontColor,
                 fontSize: 16,

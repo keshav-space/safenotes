@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_nord_theme/flutter_nord_theme.dart';
+import 'package:safenotes/utils/time.dart';
 import 'package:settings_ui/settings_ui.dart';
-import 'package:timeago/timeago.dart' as timeago;
 import 'package:workmanager/workmanager.dart';
 
 // Project imports:
@@ -48,7 +48,10 @@ class _BackupSettingState extends State<BackupSetting> {
 
     lastBackupTime = lastBackupTime.isEmpty
         ? 'Never'.tr()
-        : timeago.format(DateTime.parse(lastBackupTime));
+        : humanTime(
+            time: DateTime.parse(lastBackupTime),
+            localeString: context.locale.toString(),
+          );
 
     setState(() {
       this.validWorkingBackupFullyQualifiedPath = path;
