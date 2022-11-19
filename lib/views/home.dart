@@ -75,11 +75,12 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    //final String officialAppName = SafeNotesConfig.getAppName();
     Provider.of<NotesColor>(context);
 
     return GestureDetector(
-      //onTap: () => FocusScope.of(context).unfocus(),
+      onTap: dismissKeyboard,
+      onVerticalDragStart: dismissKeyboard,
+      onVerticalDragDown: dismissKeyboard,
       child: Scaffold(
         drawer: _buildDrawer(context),
         appBar: AppBar(
@@ -296,5 +297,12 @@ class _HomePageState extends State<HomePage> {
         this.notes = notes;
       },
     );
+  }
+
+  void dismissKeyboard([var _]) {
+    final FocusScopeNode currentScope = FocusScope.of(context);
+    if (!currentScope.hasPrimaryFocus && currentScope.hasFocus) {
+      FocusManager.instance.primaryFocus?.unfocus();
+    }
   }
 }
