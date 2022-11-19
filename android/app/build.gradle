@@ -43,7 +43,7 @@ android {
         
         applicationId "com.trisven.safenotes"
         minSdkVersion 25
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
