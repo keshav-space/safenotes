@@ -1,0 +1,3 @@
+- Support for Chinese, French, and Portuguese
+- Auto-scroll in text-editor and auth screen
+- New backup workflow
