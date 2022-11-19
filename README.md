@@ -92,7 +92,5 @@ published by the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.  
 
 ## Supporters
-<p align="center">
-<a href="https://weblate.org/"><img src="https://camo.githubusercontent.com/5926c2f29fc311a4464ec56e5628e2bddac456dbc6d52214767522117dfa0940/68747470733a2f2f732e7765626c6174652e6f72672f63646e2f4c6f676f2d4461726b746578742d626f72646572732e706e67" width="25%" align="left"></a>
-Weblate is helping with continuous localization as part of their ongoing support for libre software projects.
-</p>
+|<a href="https://weblate.org/"><img src="https://camo.githubusercontent.com/5926c2f29fc311a4464ec56e5628e2bddac456dbc6d52214767522117dfa0940/68747470733a2f2f732e7765626c6174652e6f72672f63646e2f4c6f676f2d4461726b746578742d626f72646572732e706e67" width="75%"></a>|Weblate is helping with continuous localization as part of their ongoing support for libre software projects.|
+|:---:|:---:|
