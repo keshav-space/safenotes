@@ -14,7 +14,7 @@ import 'package:safenotes/data/database_handler.dart';
 import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/models/safenote.dart';
 import 'package:safenotes/models/session.dart';
-import 'package:safenotes/utils/passphrase_strength.dart';
+import 'package:safenotes/utils/passphrase_util.dart';
 import 'package:safenotes/utils/snack_message.dart';
 
 class ChangePassphrase extends StatefulWidget {

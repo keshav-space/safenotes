@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:safenotes/utils/string_utils.dart';
-import 'package:safenotes/utils/time.dart';
+import 'package:safenotes/utils/time_utils.dart';
 
 // Project imports:
 import 'package:safenotes/models/safenote.dart';
-import 'package:safenotes/utils/color.dart';
+import 'package:safenotes/utils/notes_color.dart';
 
 class NoteTileWidget extends StatelessWidget {
   final SafeNote note;

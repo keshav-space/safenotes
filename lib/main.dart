@@ -16,7 +16,7 @@ import 'package:workmanager/workmanager.dart';
 import 'package:safenotes/app.dart';
 import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/dialogs/generic.dart';
-import 'package:safenotes/dialogs/pre_inactivity_logout_alert.dart';
+import 'package:safenotes/dialogs/logout_alert.dart';
 import 'package:safenotes/models/editor_state.dart';
 import 'package:safenotes/models/session.dart';
 import 'package:safenotes/utils/sheduled_task.dart';

@@ -13,7 +13,7 @@ import 'package:provider/provider.dart';
 import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/models/app_theme.dart';
 import 'package:safenotes/routes/route_generator.dart';
-import 'package:safenotes/utils/color.dart';
+import 'package:safenotes/utils/notes_color.dart';
 import 'authwall.dart';
 
 class App extends StatelessWidget {

@@ -12,7 +12,7 @@ import 'package:local_session_timeout/local_session_timeout.dart';
 import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/dialogs/generic.dart';
 import 'package:safenotes/models/session.dart';
-import 'package:safenotes/utils/passphrase_strength.dart';
+import 'package:safenotes/utils/passphrase_util.dart';
 import 'package:safenotes/utils/snack_message.dart';
 import 'package:safenotes/widgets/footer.dart';
 import 'package:safenotes/widgets/login_button.dart';

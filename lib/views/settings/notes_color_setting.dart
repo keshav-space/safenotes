@@ -10,7 +10,7 @@ import 'package:settings_ui/settings_ui.dart';
 
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
-import 'package:safenotes/utils/color.dart';
+import 'package:safenotes/utils/notes_color.dart';
 
 class ColorPallet extends StatefulWidget {
   ColorPallet({Key? key}) : super(key: key);

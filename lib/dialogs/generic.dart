@@ -9,7 +9,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 
 // Project imports:
-import 'package:safenotes/utils/style.dart';
+import 'package:safenotes/utils/styles.dart';
 
 class GenericDialog extends StatelessWidget {
   final IconData icon;

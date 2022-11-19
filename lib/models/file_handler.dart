@@ -15,7 +15,7 @@ import 'package:safenotes/data/database_handler.dart';
 import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/dialogs/backup_passphrase.dart';
 import 'package:safenotes/dialogs/confirm_import.dart';
-import 'package:safenotes/models/import_file_parser.dart';
+import 'package:safenotes/models/parse_import.dart';
 import 'package:safenotes/models/safenote.dart';
 import 'package:safenotes/utils/cache_manager.dart';
 import 'package:safenotes/utils/device_info.dart';

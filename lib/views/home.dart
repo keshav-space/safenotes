@@ -18,7 +18,7 @@ import 'package:safenotes/dialogs/backup_import.dart';
 import 'package:safenotes/models/safenote.dart';
 import 'package:safenotes/models/session.dart';
 import 'package:safenotes/routes/route_generator.dart';
-import 'package:safenotes/utils/color.dart';
+import 'package:safenotes/utils/notes_color.dart';
 import 'package:safenotes/widgets/drawer.dart';
 import 'package:safenotes/widgets/note_card.dart';
 import 'package:safenotes/widgets/note_tile.dart';

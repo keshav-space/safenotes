@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_nord_theme/flutter_nord_theme.dart';
-import 'package:safenotes/utils/time.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:workmanager/workmanager.dart';
 
@@ -16,6 +15,7 @@ import 'package:workmanager/workmanager.dart';
 import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/utils/sheduled_task.dart';
 import 'package:safenotes/utils/storage_permission.dart';
+import 'package:safenotes/utils/time_utils.dart';
 import 'package:safenotes/widgets/login_button.dart';
 
 class BackupSetting extends StatefulWidget {
