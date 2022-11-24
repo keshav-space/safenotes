@@ -132,7 +132,7 @@
     "You're about to delete this note. This action cannot be undone.": "Du er i ferd med å slette dette notatet for godt.",
     "No route: {route}": "Ingen rute: {route}",
     "Location: {locationPath}": "Sted: {locationPath}",
-    "Last Backup: {lastBackupTime}": "Siste sikkerhetskopi: {Last Backup: {lastBackupTime}}",
+    "Last Backup: {lastBackupTime}": "Siste sikkerhetskopi: {lastBackupTime}",
     "Can't decrypt without phrase!": "Kan ikke dekryptere uten passord.",
     "{argsType}, Needed for route: {route}": "{argsType}, trengs for ruten: {route}",
     "File saved at '{exportFileFullPathName}'": "Fil lagret i «{exportFileFullPathName}»-mappen.",
