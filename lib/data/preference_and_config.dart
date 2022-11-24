@@ -17,7 +17,7 @@ class PreferencesStorage {
   static const _keyNoOfLogginAttemptAllowed = 'noOfLogginAttemptAllowed';
   static const _keyBruteforceLockOutTime = 'bruteforceLockOutTime';
   static const _keyIsColorful = 'isColorful';
-  static const _keyLastBackupTime = 'Last Backup: {lastBackupTime}';
+  static const _keyLastBackupTime = 'lastBackupTime';
   static const _keyBackupDestination = 'backupDestination';
   static const _keyIsBackupOn = 'isBackupOn';
   static const _keyColorfulNotesColorIndex = 'colorfulNotesColorIndex';

@@ -132,7 +132,7 @@
     "You're about to delete this note. This action cannot be undone.": "You're about to delete this note. This action cannot be undone.",
     "No route: {route}": "No route: {route}",
     "Location: {locationPath}": "Location: {locationPath}",
-    "Last Backup: {Last Backup: {lastBackupTime}}": "Last Backup: {Last Backup: {lastBackupTime}}",
+    "Last Backup: {lastBackupTime}": "Last Backup: {lastBackupTime}",
     "Can't decrypt without phrase!": "Can't decrypt without phrase!",
     "{argsType}, Needed for route: {route}": "{argsType}, Needed for route: {route}",
     "File saved at '{exportFileFullPathName}'": "File saved at '{exportFileFullPathName}'",
