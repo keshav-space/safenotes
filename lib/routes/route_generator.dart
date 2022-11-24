@@ -200,9 +200,10 @@ class RouteGenerator {
           padding: EdgeInsets.only(left: 5, right: 5),
           child: Center(
             child: argsType == null
-                ? Text('noSuchRoute'.tr(namedArgs: {'route': route.toString()}))
+                ? Text('No route: {route}'
+                    .tr(namedArgs: {'route': route.toString()}))
                 : Text(
-                    'argsMismatchForRoute'.tr(namedArgs: {
+                    '{argsType}, Needed for route: {route}'.tr(namedArgs: {
                       'argsType': argsType,
                       'route': route.toString()
                     }),

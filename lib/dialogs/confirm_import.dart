@@ -72,7 +72,7 @@ class _ImportConfirmState extends State<ImportConfirm> {
   }
 
   Widget _body(BuildContext context, double padding) {
-    final String cautionMessage = 'importConfirmationMessage'
+    final String cautionMessage = 'Do you want to import {noOfNotesInImport} new notes?'
         .tr(namedArgs: {'noOfNotesInImport': widget.importCount.toString()});
 
     final double topSpacing = 15.0;

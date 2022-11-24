@@ -145,7 +145,9 @@ class SafeNotesApp extends StatelessWidget {
       showGenericDialog(
         context: context,
         icon: Icons.info_outline,
-        message: "inactivityLoggedOutMessage".tr(),
+        message:
+            "You were logged out due to extended inactivity.\nThis is to protect your privacy."
+                .tr(),
       );
 
     // save unsaved note if any

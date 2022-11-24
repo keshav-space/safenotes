@@ -93,7 +93,7 @@ class _BackupSettingState extends State<BackupSetting> {
                   Workmanager().cancelAll();
                 setState(() => isBackupOn = value);
               },
-              description: Text('autoBackupInstruction'.tr()),
+              // description: Text('Turn on the auto backup and Choose backup folder from below.'.tr()),
             ),
           ],
         ),
@@ -105,7 +105,9 @@ class _BackupSettingState extends State<BackupSetting> {
                   children: <Widget>[
                     _buildUpperBackupView(),
                     SizedBox(height: 10),
-                    Text('backupSummary'.tr()),
+                    Text(
+                        "This will create an encrypted local backup, which gets automatically updated every day. Moreover, the backup is designed such that it can be used in tandem with other open-source tools like SyncThing to keep the multiple redundant backups across different devices on the local network.\nTo switch to a new device, you would simply need to copy this backup file to the new device and import that in your new Safe Notes app.\nFor more, see FAQ."
+                            .tr()),
                     //_buildButtons(context),
                     SizedBox(height: 10),
                     _buildBackupNowButton()
@@ -169,12 +171,12 @@ class _BackupSettingState extends State<BackupSetting> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'lastBackupTime'
+                'Last Backup: {lastBackupTime}'
                     .tr(namedArgs: {'lastBackupTime': this.lastUpdateTime}),
                 style: TextStyle(fontSize: 10),
               ),
               Text(
-                'backupLocationPath'.tr(namedArgs: {
+                'Location: {locationPath}'.tr(namedArgs: {
                   'locationPath': this.validWorkingBackupFullyQualifiedPath
                 }),
                 style: TextStyle(fontSize: 10),

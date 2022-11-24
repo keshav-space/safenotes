@@ -253,7 +253,7 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
           showGenericDialog(
             context: context,
             icon: Icons.info_outline,
-            message: 'dialogMessageWhatIsPassphrase'.tr(),
+            message: 'Passphrase is similar to password but generally longer, it will be used to encrypt and decrypt your notes. Use strong passphrase and make sure to remember it. It is impossible to decrypt your notes without the passphrase. With great security comes the great responsibility of remembering the passphrase!'.tr(),
           );
         },
       ),

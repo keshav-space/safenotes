@@ -83,7 +83,7 @@ class PreInactivityLogOff extends StatelessWidget {
                 : ' 00:${initialCounterValue}';
 
             return Text(
-              'inactivityAlertMessage'
+              'There was no user activity for quite a while. You will be logged off unless you cancel within {countDownTime} seconds.'
                   .tr(namedArgs: {'countDownTime': countDownTime}),
               style: TextStyle(
                 fontWeight: FontWeight.bold,

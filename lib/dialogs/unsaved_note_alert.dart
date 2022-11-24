@@ -51,8 +51,8 @@ class _UnsavedAlertState extends State<UnsavedAlert> {
     return Align(
       alignment: Alignment.centerLeft,
       child: Padding(
-        padding: EdgeInsets.only(
-            top: topSpacing, left: padding + 5), //, right: 100),
+        padding:
+            EdgeInsets.only(top: topSpacing, left: padding), //, right: 100),
         child: Text(
           title,
           style: TextStyle(
@@ -72,11 +72,11 @@ class _UnsavedAlertState extends State<UnsavedAlert> {
     return Align(
       alignment: Alignment.centerLeft,
       child: Padding(
-        padding: EdgeInsets.only(
-            top: topSpacing, left: padding + 5, bottom: padding),
+        padding:
+            EdgeInsets.only(top: topSpacing, left: padding, bottom: padding),
         child: Text(
           cautionMessage,
-          textAlign: TextAlign.center,
+          //textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: bodyFontSize,
           ),

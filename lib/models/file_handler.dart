@@ -41,7 +41,7 @@ class FileHandler {
   //       jsonFile.writeAsStringSync(jsonOutputContent);
   //       MediaScanner.loadMedia(path: jsonFile.path);
 
-  //       snackBackMsg = 'fileSavedMessage'
+  //       snackBackMsg = "File saved at '{exportFileFullPathName}'"
   //           .tr(namedArgs: {'exportFileFullPathName': exportFileFullPathName});
   //     } else {
   //       snackBackMsg = 'Destination folder not chosen!'.tr();

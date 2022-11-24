@@ -167,7 +167,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
             child: Align(
               alignment: Alignment.center,
               child: Text(
-                'bruteForceTimer'
+                'Exceeded number of attempts, try after {timeLeft} seconds'
                     .tr(namedArgs: {'timeLeft': timeLeft.toString()}),
                 style: TextStyle(
                   color: NordColors.aurora.red,
@@ -212,7 +212,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
     if (sha256.convert(utf8.encode(passphrase!)).toString() !=
         PreferencesStorage.passPhraseHash) {
       _noOfAllowedAttempts--;
-      final wrongPhraseMsg = 'noOfAttemptsLeftMessage'.tr(
+      final wrongPhraseMsg = 'Wrong passphrase {noOfAllowedAttempts} attempts left!'.tr(
           namedArgs: {'noOfAllowedAttempts': _noOfAllowedAttempts.toString()});
 
       return _noOfAllowedAttempts == 0
@@ -282,7 +282,8 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
   }
 
   Widget _buildForgotPassphrase() {
-    final String cantRecoverPassphraseMsg = 'cantDecryptMessage'.tr();
+    final String cantRecoverPassphraseMsg =
+        "Can't decrypt without phrase!".tr();
 
     return Container(
       alignment: Alignment.centerRight,
@@ -292,7 +293,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
           showGenericDialog(
             context: context,
             icon: Icons.info_outline,
-            message: 'dialogForgotPassphrase'.tr(),
+            message: 'There is no way to decrypt these notes without the passphrase. With great security comes the great responsibility of remembering the passphrase!'.tr(),
           );
         },
       ),

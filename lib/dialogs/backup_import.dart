@@ -18,7 +18,9 @@ class FileImportDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String titleImport = 'Import Your Backup'.tr();
-    final String importDialogMessage = 'backupImportMessage'.tr();
+    final String importDialogMessage =
+        "If the Notes in your backup file was encrypted with different passphrase then you'll be prompted to enter the passphrase of the device that generated backup."
+            .tr();
     final String selectFileButtonName = 'Select File'.tr();
     final double titleFontSize = 22.0;
     final double dialogBordeRadious = 10.0;
@@ -42,6 +44,7 @@ class FileImportDialog extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   fontSize: titleFontSize,
                 ),
+                textAlign: TextAlign.center,
               ),
               SizedBox(height: 12),
               Text(
