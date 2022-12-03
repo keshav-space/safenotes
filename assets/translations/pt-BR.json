@@ -135,7 +135,7 @@
     "Last Backup: {lastBackupTime}": "Último backup: {lastBackupTime}",
     "Can't decrypt without phrase!": "Não é possível descriptografar sem uma senha!",
     "{argsType}, Needed for route: {route}": "{argsType}, necessário para rota: {route}",
-    "File saved at '{exportFileFullPathName}'": "Arquivo salvo na pasta '{selectedFolderName}'!",
+    "File saved at '{exportFileFullPathName}'": "Arquivo salvo na pasta '{selectedFolderName}'",
     "Exceeded number of attempts, try after {timeLeft} seconds": "Número de tentativas excedido, tente após {timeLeft} segundos",
     "Wrong passphrase {noOfAllowedAttempts} attempts left!": "Senha incorreta, {noOfAllowedAttempts} tentativas restantes!",
     "Do you want to import {noOfNotesInImport} new notes?": "Deseja importar {noOfNotesInImport} novas notas?",
