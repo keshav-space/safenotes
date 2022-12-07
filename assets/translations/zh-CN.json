@@ -135,7 +135,7 @@
     "Last Backup: {lastBackupTime}": "最后一次备份: {lastBackupTime}",
     "Can't decrypt without phrase!": "没有密码口令无法解密！",
     "{argsType}, Needed for route: {route}": "{argsType}, 路线需要: {route}",
-    "File saved at '{exportFileFullPathName}'": "文件保存在 '{exportFileFullPathName}' 文件夹!",
+    "File saved at '{exportFileFullPathName}'": "文件保存在 '{exportFileFullPathName}' 文件夹",
     "Exceeded number of attempts, try after {timeLeft} seconds": "尝试次数已超限, {timeLeft} 秒后再试",
     "Wrong passphrase {noOfAllowedAttempts} attempts left!": "密码口令错误！还可尝试 {noOfAllowedAttempts} 次！",
     "Do you want to import {noOfNotesInImport} new notes?": "你要导入 {noOfNotesInImport} 新笔记吗?",
