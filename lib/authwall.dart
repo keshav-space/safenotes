@@ -8,9 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
 
 // Project imports:
+import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/views/authentication/login.dart';
 import 'package:safenotes/views/authentication/set_passphrase.dart';
-import 'data/preference_and_config.dart';
 
 class AuthWall extends StatelessWidget {
   final StreamController<SessionState> sessionStateStream;
