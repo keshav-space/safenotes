@@ -104,7 +104,7 @@ class SafeNotesApp extends StatelessWidget {
       {required BuildContext context, required bool showPreLogoffAlert}) async {
     // execute only if user is already logged
     // no need to logout and redirect to authwall if user is not loggedIN
-    if (PhraseHandler.getPass().isNotEmpty) {
+    if (PhraseHandler.getPass.isNotEmpty) {
       bool? isUserActive;
       if (showPreLogoffAlert)
         isUserActive = await preInactivityLogOffAlert(context);

@@ -21,6 +21,7 @@ import 'package:safenotes/views/change_passphrase.dart';
 import 'package:safenotes/views/home.dart';
 import 'package:safenotes/views/note_view.dart';
 import 'package:safenotes/views/settings/backup_setting.dart';
+import 'package:safenotes/views/settings/biometric_setting.dart';
 import 'package:safenotes/views/settings/inactivity_setting.dart';
 import 'package:safenotes/views/settings/language_setting.dart';
 import 'package:safenotes/views/settings/notes_color_setting.dart';
@@ -186,6 +187,14 @@ class RouteGenerator {
           duration: Duration(milliseconds: transitionDuration),
           type: transitionType,
         );
+
+      case '/biometricSetting':
+        return PageTransition(
+          child: BiometricSetting(),
+          duration: Duration(milliseconds: transitionDuration),
+          type: transitionType,
+        );
+
       default:
         return _errorRoute(route: routeName);
     }

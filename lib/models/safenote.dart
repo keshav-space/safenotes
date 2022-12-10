@@ -43,15 +43,15 @@ class SafeNote {
     return SafeNote(
       id: json[NoteFields.id] as int?,
       title:
-          decryptAES(json[NoteFields.title] as String, PhraseHandler.getPass()),
+          decryptAES(json[NoteFields.title] as String, PhraseHandler.getPass),
       description: decryptAES(
-          json[NoteFields.description] as String, PhraseHandler.getPass()),
+          json[NoteFields.description] as String, PhraseHandler.getPass),
       createdTime: DateTime.parse(json[NoteFields.time] as String),
     );
   }
 
   Map<String, dynamic> toJsonAndEncrypted() {
-    String passphrase = PhraseHandler.getPass();
+    String passphrase = PhraseHandler.getPass;
     return {
       NoteFields.id: id,
       NoteFields.title: encryptAES(title, passphrase), //title,
@@ -64,9 +64,9 @@ class SafeNote {
   Map<String, dynamic> toJson() {
     return {
       //"${NoteFields.id}": this.id,
-      NoteFields.title: '${encryptAES(this.title, PhraseHandler.getPass())}',
+      NoteFields.title: '${encryptAES(this.title, PhraseHandler.getPass)}',
       NoteFields.description:
-          '${encryptAES(this.description, PhraseHandler.getPass())}',
+          '${encryptAES(this.description, PhraseHandler.getPass)}',
       NoteFields.time: '${this.createdTime.toIso8601String()}',
     };
   }

@@ -8,6 +8,7 @@ import 'package:local_session_timeout/local_session_timeout.dart';
 
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
+import 'package:safenotes/models/biometric_auth.dart';
 
 class Session {
   static login(String passphrase) {
@@ -22,6 +23,7 @@ class Session {
     PreferencesStorage.setPassPhraseHash(
         sha256.convert(utf8.encode(passphrase)).toString());
     PhraseHandler.initPass(passphrase);
+    if (PreferencesStorage.isBiometricAuthEnabled) BiometricAuth.setAuthKey();
   }
 }
 

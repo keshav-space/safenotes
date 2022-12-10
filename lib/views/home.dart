@@ -219,6 +219,13 @@ class _HomePageState extends State<HomePage> {
         Navigator.of(context).pop();
         refreshNotes();
       },
+      onBiometricsCallback: () async {
+        await Navigator.pushNamed(
+          context,
+          '/biometricSetting',
+        );
+        Navigator.of(context).pop();
+      },
     );
   }
 

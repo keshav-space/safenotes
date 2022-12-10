@@ -27,6 +27,9 @@ class PreferencesStorage {
   static const _keyBackupRedundancyCounter = 'backupRedundancyCounter';
   static const _keyMaxBackupRetryAttempts = 'maxBackupRetryAttempts';
   static const _keyAppVersionCode = 'appVersionCode';
+  static const _keyIsBiometricAuthEnabled = 'isBiometricAuthEnabled';
+  static const _keyBiometricAttemptAllTimeCount =
+      'biometricAttemptAllTimeCount';
 
   static Future init() async =>
       _preferences = await SharedPreferences.getInstance();
@@ -148,9 +151,8 @@ class PreferencesStorage {
   static int get inactivityTimeoutIndex =>
       _preferences?.getInt(_keyInactivityTimeout) ?? 3;
 
-  static Future<void> setInactivityTimeoutIndex({required int index}) async {
-    await _preferences?.setInt(_keyInactivityTimeout, index);
-  }
+  static Future<void> setInactivityTimeoutIndex({required int index}) async =>
+      await _preferences?.setInt(_keyInactivityTimeout, index);
 
 //default: 60 seconds
   static int get focusTimeout => _preferences?.getInt(_keyFocusTimeout) ?? 60;
@@ -171,6 +173,17 @@ class PreferencesStorage {
   //     {required int seconds}) async {
   //   await _preferences?.setInt(_keyPreInactivityLogoutCounter, seconds);
   // }
+  static bool get isBiometricAuthEnabled =>
+      _preferences?.getBool(_keyIsBiometricAuthEnabled) ?? false;
+  static Future<void> setIsBiometricAuthEnabled(bool flag) async =>
+      await _preferences?.setBool(_keyIsBiometricAuthEnabled, flag);
+
+  static int get biometricAttemptAllTimeCount =>
+      _preferences?.getInt(_keyBiometricAttemptAllTimeCount) ?? 0;
+
+  static Future<void> incrementBiometricAttemptAllTimeCount() async =>
+      await _preferences?.setInt(_keyBiometricAttemptAllTimeCount,
+          PreferencesStorage.biometricAttemptAllTimeCount + 1);
 }
 
 class PhraseHandler {
@@ -179,7 +192,7 @@ class PhraseHandler {
   static initPass(String pass) => _passphrase = pass;
   static destroy() => _passphrase = '';
 
-  static String getPass() => _passphrase;
+  static String get getPass => _passphrase;
 }
 
 class ImportEncryptionControl {

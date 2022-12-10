@@ -92,7 +92,7 @@ class FileHandler {
             return "Failed to get key for import data".tr();
           }
         } else {
-          ImportPassPhraseHandler.setImportPassPhrase(PhraseHandler.getPass());
+          ImportPassPhraseHandler.setImportPassPhrase(PhraseHandler.getPass);
         }
 
         String userInputPassHashForImportNotes = sha256
