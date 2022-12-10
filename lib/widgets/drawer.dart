@@ -17,6 +17,7 @@ class HomeDrawer extends StatefulWidget {
   final VoidCallback onChangePassCallback;
   final VoidCallback onLogoutCallback;
   final VoidCallback onSettingsCallback;
+  final VoidCallback onBiometricsCallback;
 
   HomeDrawer({
     Key? key,
@@ -24,6 +25,7 @@ class HomeDrawer extends StatefulWidget {
     required this.onChangePassCallback,
     required this.onLogoutCallback,
     required this.onSettingsCallback,
+    required this.onBiometricsCallback,
   }) : super(key: key);
 
   @override
@@ -47,6 +49,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
     final String faqsText = 'FAQs'.tr();
     final String rateText = 'Rate App'.tr();
     final String logoutText = 'LogOut'.tr();
+    final String biometrics = 'Biometrics'.tr();
 
     return ClipRRect(
       borderRadius: BorderRadius.only(
@@ -87,6 +90,12 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   provider.toggleTheme(!PreferencesStorage.isThemeDark);
                   setState(() {});
                 },
+              ),
+              _buildMenuItem(
+                topPadding: itemSpacing,
+                text: biometrics,
+                icon: Icons.fingerprint,
+                onClicked: widget.onBiometricsCallback,
               ),
               _buildMenuItem(
                 topPadding: itemSpacing,

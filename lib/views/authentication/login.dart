@@ -7,14 +7,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 // Package imports:
+import 'package:after_layout/after_layout.dart';
 import 'package:crypto/crypto.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_nord_theme/flutter_nord_theme.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
 
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/dialogs/generic.dart';
+import 'package:safenotes/models/biometric_auth.dart';
 import 'package:safenotes/models/session.dart';
 import 'package:safenotes/utils/snack_message.dart';
 import 'package:safenotes/widgets/footer.dart';
@@ -35,7 +38,15 @@ class EncryptionPhraseLoginPage extends StatefulWidget {
       _EncryptionPhraseLoginPageState();
 }
 
-class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
+class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
+    with AfterLayoutMixin<EncryptionPhraseLoginPage> {
+  // BiometricAuth:
+  final LocalAuthentication auth = LocalAuthentication();
+  _BiometricState _supportState = _BiometricState.unknown;
+  bool forcePassphraseInput =
+      PreferencesStorage.biometricAttemptAllTimeCount % 5 == 0;
+
+  //ClassicLogin:
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final passPhraseController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
@@ -48,12 +59,29 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
     super.initState();
     _noOfAllowedAttempts = PreferencesStorage.noOfLogginAttemptAllowed;
     _isKeyboardFocused = widget.isKeyboardFocused ?? true;
+
+    // BiometricAuth:
+    this.auth.isDeviceSupported().then(
+      (bool isSupported) {
+        setState(() => _supportState = isSupported
+            ? _BiometricState.supported
+            : _BiometricState.unsupported);
+      },
+    );
   }
 
   @override
   void dispose() {
     passPhraseController.dispose();
     super.dispose();
+  }
+
+  @override
+  Future<void> afterFirstLayout(BuildContext context) async {
+    if (PreferencesStorage.isBiometricAuthEnabled &&
+        (widget.isKeyboardFocused ?? true)) {
+      await _authenticate();
+    }
   }
 
   @override
@@ -134,6 +162,9 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
             _inputField(),
             _buildForgotPassphrase(),
             _buildLoginButton(),
+            if (PreferencesStorage.isBiometricAuthEnabled &&
+                !this.forcePassphraseInput)
+              _buildBiometricAuthButton(context),
           ],
         ),
       ),
@@ -212,8 +243,11 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
     if (sha256.convert(utf8.encode(passphrase!)).toString() !=
         PreferencesStorage.passPhraseHash) {
       _noOfAllowedAttempts--;
-      final wrongPhraseMsg = 'Wrong passphrase {noOfAllowedAttempts} attempts left!'.tr(
-          namedArgs: {'noOfAllowedAttempts': _noOfAllowedAttempts.toString()});
+      final wrongPhraseMsg =
+          'Wrong passphrase {noOfAllowedAttempts} attempts left!'.tr(
+              namedArgs: {
+            'noOfAllowedAttempts': _noOfAllowedAttempts.toString()
+          });
 
       return _noOfAllowedAttempts == 0
           ? numberOfAttemptExceded
@@ -255,28 +289,82 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
     );
   }
 
+  Widget _buildBiometricAuthButton(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.only(top: 10),
+          child: Text(
+            'OR'.tr(),
+            style: TextStyle(fontSize: 15),
+          ),
+        ),
+        Align(
+          alignment: Alignment.centerRight,
+          child: Padding(
+            padding: EdgeInsets.only(top: 10, bottom: 20),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                shadowColor: PreferencesStorage.isThemeDark
+                    ? NordColors.snowStorm.lightest
+                    : NordColors.polarNight.darkest,
+                minimumSize: Size(200, 50), //Size.fromHeight(50),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                elevation: 5.0,
+              ),
+              child: Wrap(
+                children: <Widget>[
+                  Icon(
+                    Icons.fingerprint,
+                    size: 30.0,
+                  ),
+                  SizedBox(width: 10),
+                  Text(
+                    'Biometric'.tr(),
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ],
+              ),
+              onPressed: _authenticate,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   void _loginController() async {
     final form = this._formKey.currentState!;
-    final snackMsgDecryptingNotes = 'Decrypting your notes!'.tr();
     final snackMsgWrongEncryptionPhrase = 'Wrong passphrase!'.tr();
 
     if (form.validate()) {
       final phrase = passPhraseController.text;
-      if (sha256.convert(utf8.encode(phrase)).toString() ==
-          PreferencesStorage.passPhraseHash) {
-        showSnackBarMessage(context, snackMsgDecryptingNotes);
-        Session.login(phrase);
+      await _login(phrase);
+    } else
+      showSnackBarMessage(context, snackMsgWrongEncryptionPhrase);
+  }
 
-        // start listening for session inactivity on successful login
-        widget.sessionStream.add(SessionState.startListening);
+  Future<void> _login(String passphrase) async {
+    final snackMsgDecryptingNotes = 'Decrypting your notes!'.tr();
+    final snackMsgWrongEncryptionPhrase = 'Wrong passphrase!'.tr();
+    if (sha256.convert(utf8.encode(passphrase)).toString() ==
+        PreferencesStorage.passPhraseHash) {
+      showSnackBarMessage(context, snackMsgDecryptingNotes);
+      Session.login(passphrase);
 
-        await Navigator.pushReplacementNamed(
-          context,
-          '/home',
-          arguments: widget.sessionStream,
-        );
-      } else
-        showSnackBarMessage(context, snackMsgWrongEncryptionPhrase);
+      // re-enable biometric auth
+      if (this.forcePassphraseInput)
+        PreferencesStorage.incrementBiometricAttemptAllTimeCount();
+
+      // start listening for session inactivity on successful login
+      widget.sessionStream.add(SessionState.startListening);
+
+      await Navigator.pushReplacementNamed(
+        context,
+        '/home',
+        arguments: widget.sessionStream,
+      );
     } else
       showSnackBarMessage(context, snackMsgWrongEncryptionPhrase);
   }
@@ -293,11 +381,51 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage> {
           showGenericDialog(
             context: context,
             icon: Icons.info_outline,
-            message: 'There is no way to decrypt these notes without the passphrase. With great security comes the great responsibility of remembering the passphrase!'.tr(),
+            message:
+                'There is no way to decrypt these notes without the passphrase. With great security comes the great responsibility of remembering the passphrase!'
+                    .tr(),
           );
         },
       ),
     );
+  }
+
+  Future<bool> _authenticate() async {
+    bool authenticated = false;
+    print(PreferencesStorage.biometricAttemptAllTimeCount);
+    if (this._supportState == _BiometricState.unsupported) {
+      showGenericDialog(
+        context: context,
+        icon: Icons.error_outline,
+        message:
+            "No biometrics found.\nGo to your device settings to enroll your biometric."
+                .tr(),
+      );
+    } else if (this.forcePassphraseInput) {
+      showGenericDialog(
+        context: context,
+        icon: Icons.info_outline,
+        message: "Still remember your passphrase?".tr(),
+      );
+    } else {
+      PreferencesStorage.incrementBiometricAttemptAllTimeCount();
+      try {
+        authenticated = await this.auth.authenticate(
+              localizedReason: 'Login using your biometric credential',
+              options: const AuthenticationOptions(stickyAuth: true),
+            );
+      } on PlatformException catch (e) {
+        print(e);
+      } catch (e) {
+        print(e);
+      }
+      if (authenticated) await _login(await BiometricAuth.authKey);
+    }
+    setState(() {
+      this.forcePassphraseInput =
+          PreferencesStorage.biometricAttemptAllTimeCount % 5 == 0;
+    });
+    return authenticated;
   }
 }
 
@@ -311,9 +439,7 @@ StreamController<String> _controller = StreamController<String>.broadcast();
 void _startTimer(VoidCallback callback) {
   _counter = _lockoutTime;
 
-  if (_timer != null) {
-    _timer?.cancel();
-  }
+  if (_timer != null) _timer?.cancel();
 
   _timer = Timer.periodic(
     Duration(seconds: 1),
@@ -327,3 +453,5 @@ void _startTimer(VoidCallback callback) {
     },
   );
 }
+
+enum _BiometricState { unknown, supported, unsupported }

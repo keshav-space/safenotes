@@ -1,6 +1,4 @@
 // Flutter imports:
-
-// Flutter imports:
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -46,7 +44,9 @@ class _SecureDisplaySettingState extends State<SecureDisplaySetting> {
                 PreferencesStorage.setIsFlagSecure(value);
                 setState(() {});
               },
-              description: Text('When turned on, the content on the screen is treated as secure, blocking background snapshots and preventing it from appearing in screenshots or from being viewed on non-secure displays.'.tr()),
+              description: Text(
+                  'When turned on, the content on the screen is treated as secure, blocking background snapshots and preventing it from appearing in screenshots or from being viewed on non-secure displays.'
+                      .tr()),
             ),
           ],
         ),

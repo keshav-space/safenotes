@@ -108,6 +108,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
           title: Text('Security'.tr()),
           tiles: <SettingsTile>[
             SettingsTile.navigation(
+              leading: Icon(MdiIcons.fingerprint),
+              title: Text('Biometric'.tr()),
+              value: PreferencesStorage.isBiometricAuthEnabled
+                  ? Text('On'.tr())
+                  : Text('Off'.tr()),
+              onPressed: (context) async {
+                await Navigator.pushNamed(context, '/biometricSetting');
+                setState(() {});
+              },
+            ),
+            SettingsTile.navigation(
               leading: Icon(MdiIcons.cellphoneKey),
               title: Text('LogOut on Inactivity'.tr()),
               value: Text(inactivityTimeoutValue()),
