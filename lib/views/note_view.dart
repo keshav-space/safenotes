@@ -13,6 +13,7 @@ import 'package:safenotes/data/database_handler.dart';
 import 'package:safenotes/dialogs/delete_confirmation.dart';
 import 'package:safenotes/models/safenote.dart';
 import 'package:safenotes/routes/route_generator.dart';
+import 'package:safenotes/utils/text_direction_util.dart';
 
 class NoteDetailPage extends StatefulWidget {
   final int noteId;
@@ -68,6 +69,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
               children: [
                 SelectableText(
                   note.title,
+                  textDirection: getTextDirecton(note.title),
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
@@ -75,10 +77,14 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 10, bottom: 10),
-                  child: Text(DateFormat.yMMMd().format(note.createdTime)),
+                  child: Text(
+                    DateFormat.yMMMd().format(note.createdTime),
+                    textDirection: getTextDirecton(note.title),
+                  ),
                 ),
                 SelectableText(
                   note.description,
+                  textDirection: getTextDirecton(note.description),
                   style: TextStyle(fontSize: 18),
                 )
               ],

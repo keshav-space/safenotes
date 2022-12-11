@@ -10,6 +10,7 @@ import 'package:local_session_timeout/local_session_timeout.dart';
 
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
+import 'package:safenotes/utils/text_direction_util.dart';
 
 class NoteFormWidget extends StatelessWidget {
   final StreamController<SessionState> sessionStateStream;
@@ -19,14 +20,14 @@ class NoteFormWidget extends StatelessWidget {
   final ValueChanged<String> onChangedTitle;
   final ValueChanged<String> onChangedDescription;
 
-  const NoteFormWidget(
-      {Key? key,
-      this.title = '',
-      this.description = '',
-      required this.onChangedTitle,
-      required this.onChangedDescription,
-      required this.sessionStateStream})
-      : super(key: key);
+  const NoteFormWidget({
+    Key? key,
+    this.title = '',
+    this.description = '',
+    required this.onChangedTitle,
+    required this.onChangedDescription,
+    required this.sessionStateStream,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +60,7 @@ class NoteFormWidget extends StatelessWidget {
     return TextFormField(
       enableIMEPersonalizedLearning: enableIMEPLFlag,
       maxLines: maxLinesToShowAtTimeTitle,
+      textDirection: getTextDirecton(this.title!),
       initialValue: this.title,
       enableInteractiveSelection: true,
       //autofocus: true,
@@ -94,6 +96,7 @@ class NoteFormWidget extends StatelessWidget {
       //maxLines: maxLinesToShowAtTimeDescription,
       maxLines: null,
       initialValue: this.description,
+      textDirection: getTextDirecton(this.description!),
       enableInteractiveSelection: true,
       toolbarOptions: ToolbarOptions(
         paste: true,
