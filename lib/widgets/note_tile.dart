@@ -8,6 +8,7 @@ import 'package:easy_localization/easy_localization.dart';
 // Project imports:
 import 'package:safenotes/models/safenote.dart';
 import 'package:safenotes/utils/notes_color.dart';
+import 'package:safenotes/utils/text_direction_util.dart';
 import 'package:safenotes/utils/string_utils.dart';
 import 'package:safenotes/utils/time_utils.dart';
 
@@ -45,11 +46,14 @@ class NoteTileWidget extends StatelessWidget {
         color: color,
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        //crossAxisAlignment: CrossAxisAlignment.start,
+        //mainAxisAlignment: MainAxisAlignment.center,
         children: [
           AutoSizeText(
             sanitize(note.title),
+            textDirection: getTextDirecton(note.title),
             style: TextStyle(
               color: fontColor,
               fontSize: 20,
@@ -62,6 +66,7 @@ class NoteTileWidget extends StatelessWidget {
           SizedBox.square(dimension: 5),
           Text(
             time,
+            textDirection: getTextDirecton(time),
             style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w600,
@@ -71,6 +76,7 @@ class NoteTileWidget extends StatelessWidget {
           SizedBox.square(dimension: 5),
           AutoSizeText(
             sanitize(note.description),
+            textDirection: getTextDirecton(note.description),
             style: TextStyle(
               color: fontColor,
               fontSize: 16,

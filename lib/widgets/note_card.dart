@@ -9,6 +9,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/models/safenote.dart';
 import 'package:safenotes/utils/notes_color.dart';
+import 'package:safenotes/utils/text_direction_util.dart';
 import 'package:safenotes/utils/string_utils.dart';
 import 'package:safenotes/utils/time_utils.dart';
 
@@ -49,10 +50,12 @@ class NoteCardWidget extends StatelessWidget {
         padding: EdgeInsets.all(10),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          //crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             AutoSizeText(
               sanitize(note.title),
+              textDirection: getTextDirecton(note.title),
               style: TextStyle(
                 color: fontColor,
                 fontSize: 20,
@@ -66,6 +69,7 @@ class NoteCardWidget extends StatelessWidget {
             SizedBox(height: 4),
             Text(
               time,
+              textDirection: getTextDirecton(time),
               style: TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w600,
@@ -75,6 +79,7 @@ class NoteCardWidget extends StatelessWidget {
             SizedBox(height: 6),
             AutoSizeText(
               sanitize(note.description),
+              textDirection: getTextDirecton(note.description),
               style: TextStyle(
                 color: fontColor,
                 fontSize: 16,
