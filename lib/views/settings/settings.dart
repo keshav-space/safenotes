@@ -70,6 +70,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
             SettingsTile.switchTile(
+              leading: Icon(MdiIcons.arrowCollapseVertical),
+              title: Text('Compact Notes'.tr()),
+              initialValue: PreferencesStorage.isCompactPreview,
+              onToggle: (bool value) {
+                PreferencesStorage.setIsCompactPreview(value);
+                setState(() {});
+              },
+            ),
+            SettingsTile.switchTile(
               leading: Icon(Icons.dark_mode_outlined),
               title: Text('Dark Mode'.tr()),
               initialValue: PreferencesStorage.isThemeDark,
