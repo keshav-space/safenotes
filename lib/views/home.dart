@@ -21,7 +21,9 @@ import 'package:safenotes/routes/route_generator.dart';
 import 'package:safenotes/utils/notes_color.dart';
 import 'package:safenotes/widgets/drawer.dart';
 import 'package:safenotes/widgets/note_card.dart';
+import 'package:safenotes/widgets/note_card_compact.dart';
 import 'package:safenotes/widgets/note_tile.dart';
+import 'package:safenotes/widgets/note_tile_compact.dart';
 import 'package:safenotes/widgets/search_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -247,7 +249,9 @@ class _HomePageState extends State<HomePage> {
             );
             refreshNotes();
           },
-          child: NoteTileWidget(note: note, index: index),
+          child: PreferencesStorage.isCompactPreview
+              ? NoteTileWidgetCompact(note: note, index: index)
+              : NoteTileWidget(note: note, index: index),
         );
       }),
       separatorBuilder: (BuildContext context, int index) {
@@ -282,7 +286,9 @@ class _HomePageState extends State<HomePage> {
             );
             refreshNotes();
           },
-          child: NoteCardWidget(note: note, index: index),
+          child: PreferencesStorage.isCompactPreview
+              ? NoteCardWidgetCompact(note: note, index: index)
+              : NoteCardWidget(note: note, index: index),
         );
       },
     );

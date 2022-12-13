@@ -30,6 +30,7 @@ class PreferencesStorage {
   static const _keyIsBiometricAuthEnabled = 'isBiometricAuthEnabled';
   static const _keyBiometricAttemptAllTimeCount =
       'biometricAttemptAllTimeCount';
+  static const _keyIsCompactPreview = 'isCompactPreview';
 
   static Future init() async =>
       _preferences = await SharedPreferences.getInstance();
@@ -184,6 +185,11 @@ class PreferencesStorage {
   static Future<void> incrementBiometricAttemptAllTimeCount() async =>
       await _preferences?.setInt(_keyBiometricAttemptAllTimeCount,
           PreferencesStorage.biometricAttemptAllTimeCount + 1);
+
+  static bool get isCompactPreview =>
+      _preferences?.getBool(_keyIsCompactPreview) ?? false;
+  static Future<void> setIsCompactPreview(bool flag) async =>
+      await _preferences?.setBool(_keyIsCompactPreview, flag);
 }
 
 class PhraseHandler {
