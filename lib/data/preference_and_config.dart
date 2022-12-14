@@ -155,8 +155,9 @@ class PreferencesStorage {
   static Future<void> setInactivityTimeoutIndex({required int index}) async =>
       await _preferences?.setInt(_keyInactivityTimeout, index);
 
-//default: 60 seconds
-  static int get focusTimeout => _preferences?.getInt(_keyFocusTimeout) ?? 60;
+//default: Same as inactivityTimeout
+  static int get focusTimeout => PreferencesStorage.inactivityTimeout;
+  // static int get focusTimeout => _preferences?.getInt(_keyFocusTimeout) ?? 60;
 
   //default: 50
   static int get maxBackupRetryAttempts =>
