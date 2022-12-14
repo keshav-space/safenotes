@@ -93,7 +93,6 @@ class _BackupSettingState extends State<BackupSetting> {
                   Workmanager().cancelAll();
                 setState(() => isBackupOn = value);
               },
-              // description: Text('Turn on the auto backup and Choose backup folder from below.'.tr()),
             ),
           ],
         ),
