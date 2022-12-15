@@ -92,24 +92,24 @@ dependency_overrides:
 
 flutter_native_splash:
   color: "#ECEFF4"
-  image: assets/splash_500.png
+  image: assets/images/splash_500.png
   color_dark: "#2E3440"
-  image_dark: assets/splash_500.png
+  image_dark: assets/images/splash_500.png
 
   android_12:
     color: "#ECEFF4"
     icon_background_color: "#ECEFF4"
-    image: assets/splash_12.png
+    image: assets/images/splash_12.png
     color_dark: "#2E3440"
     icon_background_color_dark: "#2E3440"
-    image_dark: assets/splash_12.png
+    image_dark: assets/images/splash_12.png
 
   fullscreen: true
 
 flutter_icons:
   android: true
   ios: false
-  image_path: "assets/icon.png"
+  image_path: "assets/images/icon.png"
   min_sdk_android: 21
 
   
@@ -123,7 +123,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/
+    - assets/images/
     - assets/translations/
 
   fonts:

@@ -224,8 +224,8 @@ class SafeNotesConfig {
   static int _appVersionCode = 8;
   static String _appName = 'Safe Notes';
   static String _appSlogan = 'Encrypted note manager!';
-  static String _appLogoPath = 'assets/splash_500.png';
-  static String _appLogoAsProfilePath = 'assets/splash.png';
+  static String _appLogoPath = 'assets/images/splash_500.png';
+  static String _appLogoAsProfilePath = 'assets/images/splash.png';
   static String _exportFileNamePrefix = 'safenotes_';
   static String _allowedFileExtensionsForImport = 'json';
   static String _exportFileNameExtension = '.json';
