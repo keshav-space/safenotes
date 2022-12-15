@@ -1,8 +1,8 @@
-<p align="center"><a href="https://safenotes.dev/"><img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/assets/splash.png" width="150"></a></p> 
+<p align="center"><a href="https://safenotes.dev/"><img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/assets/images/splash.png" width="150"></a></p> 
 <h2 align="center"><b>Safe Notes</b></h2>
 <h4 align="center">Encrypted, Private note manager.</h4>
 
-<p align="center"><a href="https://play.google.com/store/apps/details?id=com.trisven.safenotes"><img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/assets/get-it-on-google-play-badge.png"  style="padding-right: 3%;"></a><a href="https://f-droid.org/en/packages/com.trisven.safenotes/"><img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/assets/get-it-on-f-droid-badge.png" ></a></p>
+<p align="center"><a href="https://play.google.com/store/apps/details?id=com.trisven.safenotes"><img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/assets/github/get-it-on-google-play-badge.png"  style="padding-right: 3%;"></a><a href="https://f-droid.org/en/packages/com.trisven.safenotes/"><img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/assets/github/get-it-on-f-droid-badge.png" ></a></p>
 
 <p align="center">
 <a href="https://github.com/keshav-space/safenotes/releases" alt="GitHub release"><img src="https://img.shields.io/github/v/release/keshav-space/safenotes" ></a>
