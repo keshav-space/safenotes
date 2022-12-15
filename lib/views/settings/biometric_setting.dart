@@ -39,7 +39,7 @@ class _BiometricSettingState extends State<BiometricSetting> {
           tiles: <SettingsTile>[
             SettingsTile.switchTile(
               initialValue: PreferencesStorage.isBiometricAuthEnabled,
-              title: Text('Enable biometric'.tr()),
+              title: Text('Enable Biometric Auth'.tr()),
               onToggle: (value) {
                 if (value)
                   BiometricAuth.enable();
@@ -49,7 +49,7 @@ class _BiometricSettingState extends State<BiometricSetting> {
                 setState(() {});
               },
               description: Text(
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut aliquet purus leo, ut convallis libero pellentesque at. Morbi porta eget massa a condimentum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aenean vehicula lacus bibendum, fringilla purus ut, cursus sem. In imperdiet risus lacus, ac lacinia quam cursus quis. Cras maximus urna tincidunt ipsum imperdiet, non varius urna tempus. Ut eros nunc, posuere in lobortis quis, lobortis eget nibh. Fusce non urna vel mi ultricies interdum at eu elit. Etiam eu consectetur ligula.'
+                "Users are advised to assess their threat perception before enabling biometric authentication. Don't enable this if you're storing state secrets! Visit FAQs for more information."
                     .tr(),
               ),
             ),
