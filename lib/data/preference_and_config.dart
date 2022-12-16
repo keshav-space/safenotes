@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class PreferencesStorage {
   static SharedPreferences? _preferences;
@@ -246,10 +247,22 @@ class SafeNotesConfig {
   static String _backupDirectory = '/storage/emulated/0/Download/Safe Notes/';
   static Map<String, Locale> _locales = {
     "English": Locale('en', 'US'),
-    "中国人": Locale('zh', 'CN'),
+    "简体中文": Locale('zh', 'CN'),
     "Français": Locale('fr'),
     "Português": Locale('pt', 'BR'),
+    "Русский": Locale('ru'),
+    "Türk": Locale('tr'),
   };
+
+  // set timeago local for all supported language
+  static void setTimeagoLocale() {
+    timeago.setLocaleMessages('en', timeago.EnMessages());
+    timeago.setLocaleMessages('zh_CN', timeago.ZhCnMessages());
+    timeago.setLocaleMessages('fr_short', timeago.FrMessages());
+    timeago.setLocaleMessages('pt_BR', timeago.PtBrMessages());
+    timeago.setLocaleMessages('ru', timeago.RuMessages());
+    timeago.setLocaleMessages('tr', timeago.TrMessages());
+  }
 
   static String get appName => _appName;
   static String get appVersion => _appVersion;

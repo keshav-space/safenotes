@@ -49,7 +49,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
     final String faqsText = 'FAQs'.tr();
     final String rateText = 'Rate App'.tr();
     final String logoutText = 'LogOut'.tr();
-    final String biometrics = 'Biometrics'.tr();
+    final String biometrics = 'Biometric'.tr();
 
     return ClipRRect(
       borderRadius: BorderRadius.only(
