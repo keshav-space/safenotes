@@ -103,14 +103,27 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             SettingsTile.navigation(
               leading: Icon(Icons.language_outlined),
-              title: Text('Language'),
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text('Language'.tr()),
+                  if (context.locale.toString() != 'en_US')
+                    Padding(
+                      padding: EdgeInsets.only(top: 5),
+                      child: Text(
+                        'Language',
+                        style: TextStyle(fontSize: 12),
+                      ),
+                    ),
+                ],
+              ),
               value: Text(
                   SafeNotesConfig.mapLocaleName[context.locale.toString()]!),
               onPressed: (context) async {
                 await Navigator.pushNamed(context, '/chooseLanguageSettings');
                 setState(() {});
               },
-            )
+            ),
           ],
         ),
         SettingsSection(
