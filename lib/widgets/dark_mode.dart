@@ -16,7 +16,7 @@ Future darkModalBottomSheet(BuildContext context) {
   final _offText = "Off".tr();
   final _darkModeText = 'Dark mode'.tr();
   final _lightOutText = "Light out".tr();
-  final _darkThemeText = 'Dark Theme'.tr();
+  final _darkThemeText = 'Dark theme'.tr();
   final _systemDefaultSettingsText = "Use device settings".tr();
 
   return showModalBottomSheet(
