@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 // Project imports:
@@ -237,9 +236,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
     return Padding(
       padding: EdgeInsets.only(top: topPadding),
       child: Divider(
-        color: isDarkTheme
-            ? NordColors.snowStorm.lightest
-            : NordColors.polarNight.darker,
+        color: isDarkTheme ? Colors.grey.shade700 : Colors.grey.shade500,
       ),
     );
   }

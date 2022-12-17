@@ -25,14 +25,18 @@ Future darkModalBottomSheet(BuildContext context) {
       borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
     ),
     builder: (context) {
-      DarkMode _darkMode = DarkMode.values[PreferencesStorage.darkModeEnum];
-      DarkTheme _darkTheme = DarkTheme.values[PreferencesStorage.darkThemeEnum];
+      DarkModeEnum _darkMode =
+          DarkModeEnum.values[PreferencesStorage.darkModeEnum];
+      DarkThemeEnum _darkTheme =
+          DarkThemeEnum.values[PreferencesStorage.darkThemeEnum];
 
       return StatefulBuilder(
         builder: (BuildContext context, StateSetter setModalState) {
           final _symetricPadding = MediaQuery.of(context).size.width * 0.04;
           final _topHeadingPadding = MediaQuery.of(context).size.height * 0.03;
           final _leftHeadingPadding = MediaQuery.of(context).size.height * 0.03;
+          final _headTextStyle =
+              TextStyle(fontWeight: FontWeight.bold, fontSize: 20);
           final _innerTextStyle = TextStyle(fontSize: 15);
 
           return Column(
@@ -45,135 +49,105 @@ Future darkModalBottomSheet(BuildContext context) {
                   top: _topHeadingPadding,
                   left: _leftHeadingPadding,
                 ),
-                child: Text(
-                  _darkModeText,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                ),
+                child: Text(_darkModeText, style: _headTextStyle),
               ),
-              //Divider(),
+              _divider(),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: _symetricPadding),
                 child: Column(
                   children: [
-                    RadioListTile<DarkMode>(
+                    RadioListTile<DarkModeEnum>(
                       title: Text(_offText, style: _innerTextStyle),
-                      value: DarkMode.off,
+                      value: DarkModeEnum.off,
                       groupValue: _darkMode,
                       onChanged: (value) {
-                        final provider =
-                            Provider.of<ThemeProvider>(context, listen: false);
-                        provider.setIsDarkMode(false);
-
-                        setModalState(() {
-                          _darkMode = value!;
-                          PreferencesStorage.setDarkModeEnum(
-                              index: _darkMode.index);
-                        });
+                        setModalStateDarkMode(
+                          context: context,
+                          setModalState: setModalState,
+                          darkMode: _darkMode,
+                          value: value,
+                          isDarkMode: false,
+                        );
                       },
                       controlAffinity: ListTileControlAffinity.trailing,
                     ),
-                    RadioListTile<DarkMode>(
+                    RadioListTile<DarkModeEnum>(
                       title: Text(_onText, style: _innerTextStyle),
-                      value: DarkMode.on,
+                      value: DarkModeEnum.on,
                       groupValue: _darkMode,
                       onChanged: (value) {
-                        final provider =
-                            Provider.of<ThemeProvider>(context, listen: false);
-                        provider.setIsDarkMode(true);
-
-                        setModalState(() {
-                          _darkMode = value!;
-                          PreferencesStorage.setDarkModeEnum(
-                              index: _darkMode.index);
-                        });
+                        setModalStateDarkMode(
+                          context: context,
+                          setModalState: setModalState,
+                          darkMode: _darkMode,
+                          value: value,
+                          isDarkMode: true,
+                        );
                       },
                       controlAffinity: ListTileControlAffinity.trailing,
                     ),
-                    RadioListTile<DarkMode>(
+                    RadioListTile<DarkModeEnum>(
                       title: Text(
                         _systemDefaultSettingsText,
                         style: _innerTextStyle,
                       ),
-                      value: DarkMode.device,
+                      value: DarkModeEnum.device,
                       groupValue: _darkMode,
                       onChanged: (value) {
-                        var _brightness =
-                            MediaQuery.of(context).platformBrightness;
-                        bool _isDarkMode = _brightness == Brightness.dark;
-
-                        final provider =
-                            Provider.of<ThemeProvider>(context, listen: false);
-                        provider.setIsDarkMode(_isDarkMode);
-
-                        setModalState(() {
-                          _darkMode = value!;
-                          PreferencesStorage.setDarkModeEnum(
-                              index: _darkMode.index);
-                        });
+                        setModalStateDarkMode(
+                          context: context,
+                          setModalState: setModalState,
+                          darkMode: _darkMode,
+                          value: value,
+                          isDarkMode:
+                              MediaQuery.of(context).platformBrightness ==
+                                  Brightness.dark,
+                        );
                       },
                       controlAffinity: ListTileControlAffinity.trailing,
                     ),
                   ],
                 ),
               ),
-              Divider(),
+              _divider(),
               Padding(
                 padding: EdgeInsets.only(
                   top: _topHeadingPadding / 2,
                   left: _leftHeadingPadding,
                 ),
-                child: Text(
-                  _darkThemeText,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                ),
+                child: Text(_darkThemeText, style: _headTextStyle),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: _symetricPadding),
                 child: Column(
                   children: [
-                    RadioListTile<DarkTheme>(
-                      title: Text(
-                        _dimText,
-                        style: _innerTextStyle,
-                      ),
-                      value: DarkTheme.dim,
+                    RadioListTile<DarkThemeEnum>(
+                      title: Text(_dimText, style: _innerTextStyle),
+                      value: DarkThemeEnum.dim,
                       groupValue: _darkTheme,
                       onChanged: (value) {
-                        final provider =
-                            Provider.of<ThemeProvider>(context, listen: false);
-                        provider.setIsDarkDimTheme(true);
-
-                        setModalState(() {
-                          _darkTheme = value!;
-                          PreferencesStorage.setDarkThemeEnum(
-                              index: _darkTheme.index);
-                        });
+                        setModalStateDarkTheme(
+                          context: context,
+                          setModalState: setModalState,
+                          darkTheme: _darkTheme,
+                          value: value,
+                          isDarkDim: true,
+                        );
                       },
                       controlAffinity: ListTileControlAffinity.trailing,
                     ),
-                    RadioListTile<DarkTheme>(
-                      title: Text(
-                        _lightOutText,
-                        style: _innerTextStyle,
-                      ),
-                      value: DarkTheme.lightOut,
+                    RadioListTile<DarkThemeEnum>(
+                      title: Text(_lightOutText, style: _innerTextStyle),
+                      value: DarkThemeEnum.lightOut,
                       groupValue: _darkTheme,
                       onChanged: (value) {
-                        final provider =
-                            Provider.of<ThemeProvider>(context, listen: false);
-                        provider.setIsDarkDimTheme(false);
-
-                        setModalState(() {
-                          _darkTheme = value!;
-                          PreferencesStorage.setDarkThemeEnum(
-                              index: _darkTheme.index);
-                        });
+                        setModalStateDarkTheme(
+                          context: context,
+                          setModalState: setModalState,
+                          darkTheme: _darkTheme,
+                          value: value,
+                          isDarkDim: false,
+                        );
                       },
                       controlAffinity: ListTileControlAffinity.trailing,
                     ),
@@ -188,6 +162,42 @@ Future darkModalBottomSheet(BuildContext context) {
   );
 }
 
-enum DarkMode { off, on, device }
+Widget _divider() => Divider(
+      color: PreferencesStorage.isThemeDark ? null : Colors.grey.shade400,
+    );
 
-enum DarkTheme { dim, lightOut }
+void setModalStateDarkTheme({
+  required BuildContext context,
+  required StateSetter setModalState,
+  required DarkThemeEnum darkTheme,
+  required var value,
+  required bool isDarkDim,
+}) {
+  final provider = Provider.of<ThemeProvider>(context, listen: false);
+  provider.setIsDarkDimTheme(isDarkDim);
+
+  setModalState(() {
+    darkTheme = value!;
+    PreferencesStorage.setDarkThemeEnum(index: darkTheme.index);
+  });
+}
+
+void setModalStateDarkMode({
+  required BuildContext context,
+  required StateSetter setModalState,
+  required DarkModeEnum darkMode,
+  required var value,
+  required bool isDarkMode,
+}) {
+  final provider = Provider.of<ThemeProvider>(context, listen: false);
+  provider.setIsDarkMode(isDarkMode);
+
+  setModalState(() {
+    darkMode = value!;
+    PreferencesStorage.setDarkModeEnum(index: darkMode.index);
+  });
+}
+
+enum DarkModeEnum { off, on, device }
+
+enum DarkThemeEnum { dim, lightOut }
