@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:easy_localization/easy_localization.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -32,6 +33,9 @@ class PreferencesStorage {
   static const _keyBiometricAttemptAllTimeCount =
       'biometricAttemptAllTimeCount';
   static const _keyIsCompactPreview = 'isCompactPreview';
+  static const _keyIsDimTheme = 'isDimTheme';
+  static const _keyDarkModeEnum = 'isDarkModeEnum';
+  static const _keyDarkThemeEnum = 'isDarkThemeEnum';
 
   static Future init() async =>
       _preferences = await SharedPreferences.getInstance();
@@ -192,6 +196,18 @@ class PreferencesStorage {
       _preferences?.getBool(_keyIsCompactPreview) ?? false;
   static Future<void> setIsCompactPreview(bool flag) async =>
       await _preferences?.setBool(_keyIsCompactPreview, flag);
+
+  static bool get isDimTheme => _preferences?.getBool(_keyIsDimTheme) ?? true;
+  static Future<void> setIsDimTheme(bool flag) async =>
+      await _preferences?.setBool(_keyIsDimTheme, flag);
+
+  static int get darkModeEnum => _preferences?.getInt(_keyDarkModeEnum) ?? 0;
+  static Future<void> setDarkModeEnum({required int index}) async =>
+      await _preferences?.setInt(_keyDarkModeEnum, index);
+
+  static int get darkThemeEnum => _preferences?.getInt(_keyDarkThemeEnum) ?? 0;
+  static Future<void> setDarkThemeEnum({required int index}) async =>
+      await _preferences?.setInt(_keyDarkThemeEnum, index);
 }
 
 class PhraseHandler {

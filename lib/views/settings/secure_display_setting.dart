@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
+import 'package:safenotes/models/app_theme.dart';
 
 class SecureDisplaySetting extends StatefulWidget {
   SecureDisplaySetting({Key? key}) : super(key: key);
@@ -30,8 +30,8 @@ class _SecureDisplaySettingState extends State<SecureDisplaySetting> {
       platform: DevicePlatform.iOS,
       lightTheme: SettingsThemeData(),
       darkTheme: SettingsThemeData(
-        settingsListBackground: NordColors.polarNight.darkest,
-        settingsSectionBackground: NordColors.polarNight.darker,
+        settingsListBackground: AppThemes.darkSettingsScaffold,
+        settingsSectionBackground: AppThemes.darkSettingsCanvas,
       ),
       sections: [
         SettingsSection(

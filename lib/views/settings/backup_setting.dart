@@ -7,12 +7,12 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:workmanager/workmanager.dart';
 
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
+import 'package:safenotes/models/app_theme.dart';
 import 'package:safenotes/utils/sheduled_task.dart';
 import 'package:safenotes/utils/storage_permission.dart';
 import 'package:safenotes/utils/time_utils.dart';
@@ -73,8 +73,8 @@ class _BackupSettingState extends State<BackupSetting> {
       platform: DevicePlatform.iOS,
       //lightTheme: SettingsThemeData(),
       darkTheme: SettingsThemeData(
-        settingsListBackground: NordColors.polarNight.darkest,
-        settingsSectionBackground: NordColors.polarNight.darker,
+        settingsListBackground: AppThemes.darkSettingsScaffold,
+        settingsSectionBackground: AppThemes.darkSettingsCanvas,
       ),
       sections: [
         SettingsSection(
@@ -128,7 +128,7 @@ class _BackupSettingState extends State<BackupSetting> {
       child: Container(
         decoration: PreferencesStorage.isThemeDark
             ? BoxDecoration(
-                color: NordColors.polarNight.darker,
+                color: AppThemes.darkSettingsCanvas,
                 borderRadius: BorderRadius.circular(15),
               )
             : BoxDecoration(
@@ -159,7 +159,7 @@ class _BackupSettingState extends State<BackupSetting> {
         Icon(
           Icons.backup,
           color: !PreferencesStorage.isThemeDark
-              ? NordColors.polarNight.lighter
+              ? AppThemes.darkSettingsCanvas
               : null,
           size: (widthRatio * 15),
         ),

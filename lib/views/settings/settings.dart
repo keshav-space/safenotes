@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +17,7 @@ import 'package:safenotes/dialogs/backup_import.dart';
 import 'package:safenotes/models/app_theme.dart';
 import 'package:safenotes/models/session.dart';
 import 'package:safenotes/utils/url_launcher.dart';
+import 'package:safenotes/widgets/dark_mode.dart';
 import 'package:safenotes/widgets/footer.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -33,6 +33,8 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
+    Provider.of<ThemeProvider>(context);
+
     return Scaffold(
       appBar: AppBar(title: Text('Settings'.tr())),
       body: _settings(),
@@ -44,8 +46,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
       platform: DevicePlatform.iOS,
       lightTheme: SettingsThemeData(),
       darkTheme: SettingsThemeData(
-        settingsListBackground: NordColors.polarNight.darkest,
-        settingsSectionBackground: NordColors.polarNight.darker,
+        settingsListBackground: AppThemes.darkSettingsScaffold,
+        settingsSectionBackground: AppThemes.darkSettingsCanvas,
       ),
       sections: [
         SettingsSection(
@@ -78,14 +80,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 setState(() {});
               },
             ),
-            SettingsTile.switchTile(
+            SettingsTile.navigation(
               leading: Icon(Icons.dark_mode_outlined),
               title: Text('Dark Mode'.tr()),
-              initialValue: PreferencesStorage.isThemeDark,
-              onToggle: (bool value) {
-                final provider =
-                    Provider.of<ThemeProvider>(context, listen: false);
-                provider.toggleTheme(!PreferencesStorage.isThemeDark);
+              value: !PreferencesStorage.isThemeDark
+                  ? Text('Off'.tr())
+                  : Text('On'.tr()),
+              onPressed: (context) {
+                // final provider =
+                //     Provider.of<ThemeProvider>(context, listen: false);
+                // provider.setIsDarkMode(!PreferencesStorage.isThemeDark);
+                // setState(() {});
+                darkModalBottomSheet(context);
                 setState(() {});
               },
             ),
