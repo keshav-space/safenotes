@@ -162,9 +162,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
             _inputField(),
             _buildForgotPassphrase(),
             _buildLoginButton(),
-            if (PreferencesStorage.isBiometricAuthEnabled &&
-                !this.forcePassphraseInput)
-              _buildBiometricAuthButton(context),
+            _buildBiometricAuthButton(context),
           ],
         ),
       ),
@@ -233,7 +231,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
   String? _passphraseValidator(String? passphrase) {
     final numberOfAttemptExceded = 'Number of attempt exceeded'.tr();
 
-    if (_noOfAllowedAttempts <= 0) {
+    if (_noOfAllowedAttempts <= 1) {
       setState(() {
         this._isLocked = true;
       });
@@ -326,7 +324,11 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
                   ),
                 ],
               ),
-              onPressed: _authenticate,
+              onPressed: (PreferencesStorage.isBiometricAuthEnabled &&
+                      !this.forcePassphraseInput &&
+                      !this._isLocked)
+                  ? _authenticate
+                  : null,
             ),
           ),
         ),

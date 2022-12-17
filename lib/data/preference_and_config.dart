@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:easy_localization/easy_localization.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -14,13 +13,12 @@ class PreferencesStorage {
   static const _keyKeyboardIncognito = 'keyboardIcognito';
   static const _keyIsInactivityTimeoutOn = 'isInactivityTimeoutOn';
   static const _keyInactivityTimeout = 'inactivityTimeout';
-  static const _keyFocusTimeout = 'focusTimeout';
+  //static const _keyFocusTimeout = 'focusTimeout';
   static const _keyPreInactivityLogoutCounter = 'preInactivityLogoutCounter';
   static const _keyNoOfLogginAttemptAllowed = 'noOfLogginAttemptAllowed';
   static const _keyBruteforceLockOutTime = 'bruteforceLockOutTime';
   static const _keyIsColorful = 'isColorful';
   static const _keyLastBackupTime = 'lastBackupTime';
-  static const _keyBackupDestination = 'backupDestination';
   static const _keyIsBackupOn = 'isBackupOn';
   static const _keyColorfulNotesColorIndex = 'colorfulNotesColorIndex';
   static const _keyIsGridView = 'isGridView';
@@ -104,17 +102,6 @@ class PreferencesStorage {
 
   static Future<void> setIsBackupOn(bool flag) async =>
       await _preferences?.setBool(_keyIsBackupOn, flag);
-
-  // static Future<String> getBackupDestination() async {
-  //   String path = _preferences?.getString(_keyBackupDestination) ??
-  //       '/storage/emulated/0/Download/Safe Notes';
-  //   if (await Directory(path).exists()) return path;
-
-  //   return '';
-  // }
-
-  static Future<void> setBackupDestination(String path) async =>
-      await _preferences?.setString(_keyBackupDestination, path);
 
   static bool get isColorful => _preferences?.getBool(_keyIsColorful) ?? true;
 
@@ -201,10 +188,12 @@ class PreferencesStorage {
   static Future<void> setIsDimTheme(bool flag) async =>
       await _preferences?.setBool(_keyIsDimTheme, flag);
 
-  static int get darkModeEnum => _preferences?.getInt(_keyDarkModeEnum) ?? 0;
+  //Default is the device settings. i.e enumIndex = 2
+  static int get darkModeEnum => _preferences?.getInt(_keyDarkModeEnum) ?? 2;
   static Future<void> setDarkModeEnum({required int index}) async =>
       await _preferences?.setInt(_keyDarkModeEnum, index);
 
+  //Default is Dim. i.e enumIndex = 0
   static int get darkThemeEnum => _preferences?.getInt(_keyDarkThemeEnum) ?? 0;
   static Future<void> setDarkThemeEnum({required int index}) async =>
       await _preferences?.setInt(_keyDarkThemeEnum, index);
@@ -248,6 +237,10 @@ class SafeNotesConfig {
   static String _exportFileNameExtension = '.json';
   static String _backupExtension = '.json';
   static String _backupFileNamePrefix = 'safenotes_backup';
+  static String _githubUrl = 'https://github.com/keshav-space/safenotes';
+  static String _faqsUrl = 'https://safenotes.dev/faqs.html';
+  static String _downloadDirectory = '/storage/emulated/0/Download/';
+  static String _backupDirectory = '/storage/emulated/0/Download/Safe Notes/';
   static String _mailToForFeedback =
       'mailto:contact@safenotes.dev?subject=Help and Feedback';
   static String _sourceCodeUrl = 'https://github.com/keshav-space/safenotes';
@@ -257,10 +250,7 @@ class SafeNotesConfig {
       'https://github.com/keshav-space/safenotes/blob/main/LICENSE';
   static String _playStorUrl =
       'https://play.google.com/store/apps/details?id=com.trisven.safenotes';
-  static String _githubUrl = 'https://github.com/keshav-space/safenotes';
-  static String _faqsUrl = 'https://safenotes.dev/faqs.html';
-  static String _downloadDirectory = '/storage/emulated/0/Download/';
-  static String _backupDirectory = '/storage/emulated/0/Download/Safe Notes/';
+
   static Map<String, Locale> _locales = {
     "English": Locale('en', 'US'),
     "简体中文": Locale('zh', 'CN'),
