@@ -5,12 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:provider/provider.dart';
 
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
-import 'package:safenotes/models/app_theme.dart';
 import 'package:safenotes/utils/url_launcher.dart';
+import 'package:safenotes/widgets/dark_mode.dart';
 
 class HomeDrawer extends StatefulWidget {
   final VoidCallback onImportCallback;
@@ -85,10 +84,8 @@ class _HomeDrawerState extends State<HomeDrawer> {
                     ? Icons.light_mode_outlined
                     : Icons.dark_mode_outlined,
                 onClicked: () {
-                  final provider =
-                      Provider.of<ThemeProvider>(context, listen: false);
-                  provider.toggleTheme(!PreferencesStorage.isThemeDark);
-                  setState(() {});
+                  Navigator.of(context).pop();
+                  darkModalBottomSheet(context);
                 },
               ),
               _buildMenuItem(
