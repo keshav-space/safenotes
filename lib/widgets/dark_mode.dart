@@ -1,3 +1,6 @@
+// Dart imports:
+import 'dart:math' as math;
+
 // Flutter imports:
 import 'package:flutter/material.dart';
 
@@ -43,12 +46,15 @@ Future darkModalBottomSheet(BuildContext context) {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Icon(MdiIcons.colorHelper),
-              Padding(
-                padding: EdgeInsets.only(
-                  top: _topHeadingPadding,
-                  left: _leftHeadingPadding,
+              Transform.rotate(
+                angle: 180 * math.pi / 180,
+                child: IconButton(
+                  icon: Icon(MdiIcons.colorHelper),
+                  onPressed: null,
                 ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: _leftHeadingPadding),
                 child: Text(_darkModeText, style: _headTextStyle),
               ),
               _divider(),
@@ -69,6 +75,7 @@ Future darkModalBottomSheet(BuildContext context) {
                           isDarkMode: false,
                         );
                       },
+                      dense: true,
                       controlAffinity: ListTileControlAffinity.trailing,
                     ),
                     RadioListTile<DarkModeEnum>(
@@ -84,6 +91,7 @@ Future darkModalBottomSheet(BuildContext context) {
                           isDarkMode: true,
                         );
                       },
+                      dense: true,
                       controlAffinity: ListTileControlAffinity.trailing,
                     ),
                     RadioListTile<DarkModeEnum>(
@@ -104,6 +112,7 @@ Future darkModalBottomSheet(BuildContext context) {
                                   Brightness.dark,
                         );
                       },
+                      dense: true,
                       controlAffinity: ListTileControlAffinity.trailing,
                     ),
                   ],
@@ -134,6 +143,7 @@ Future darkModalBottomSheet(BuildContext context) {
                           isDarkDim: true,
                         );
                       },
+                      dense: true,
                       controlAffinity: ListTileControlAffinity.trailing,
                     ),
                     RadioListTile<DarkThemeEnum>(
@@ -149,6 +159,7 @@ Future darkModalBottomSheet(BuildContext context) {
                           isDarkDim: false,
                         );
                       },
+                      dense: true,
                       controlAffinity: ListTileControlAffinity.trailing,
                     ),
                   ],
