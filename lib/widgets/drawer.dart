@@ -34,9 +34,13 @@ class _HomeDrawerState extends State<HomeDrawer> {
   @override
   Widget build(BuildContext context) {
     final drawerPaddingHorizontal = 15.0;
-    final double itemSpacing = 0.0;
-    final double dividerSpacing = 10.0;
+
     final double drawerRadius = 15.0;
+    final height = MediaQuery.of(context).size.height;
+    final _topHeadPadding = height * 0.05;
+    final _bottomHeadPadding = height * 0.02;
+    final double dividerSpacing = height * 0.01;
+    final double itemSpacing = 0;
 
     final String importDataText = 'Import Backup'.tr();
     final String changePassText = 'Change Passphrase'.tr();
@@ -46,7 +50,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
     final String helpText = 'Help and Feedback'.tr();
     final String faqsText = 'FAQs'.tr();
     final String rateText = 'Rate App'.tr();
-    final String logoutText = 'LogOut'.tr();
+    final String logoutText = 'Logout'.tr();
     final String biometrics = 'Biometric'.tr();
 
     return ClipRRect(
@@ -60,10 +64,10 @@ class _HomeDrawerState extends State<HomeDrawer> {
           child: ListView(
             padding: EdgeInsets.symmetric(horizontal: drawerPaddingHorizontal),
             children: <Widget>[
-              _drawerHeader(topPadding: 70),
-              _divide(topPadding: 25),
+              _drawerHeader(topPadding: _topHeadPadding),
+              _divide(topPadding: _bottomHeadPadding),
               _buildMenuItem(
-                topPadding: 20,
+                topPadding: height * 0.005,
                 text: importDataText,
                 icon: MdiIcons.fileDownloadOutline,
                 onClicked: widget.onImportCallback,
@@ -158,14 +162,15 @@ class _HomeDrawerState extends State<HomeDrawer> {
     VoidCallback? onClicked,
   }) {
     final double fontSize = 15.0;
-    final double leftPaddingMenuItem = 10.0;
+    final double leftPaddingMenuItem = 5.0;
 
     return Padding(
       padding: EdgeInsets.only(top: topPadding),
       child: ListTile(
-        horizontalTitleGap: 0,
+        horizontalTitleGap: 5,
         contentPadding: EdgeInsets.only(left: leftPaddingMenuItem),
         visualDensity: VisualDensity.compact,
+        dense: true,
         leading: Icon(icon),
         title: Text(
           text,
@@ -178,10 +183,13 @@ class _HomeDrawerState extends State<HomeDrawer> {
   }
 
   Widget _drawerHeader({required double topPadding}) {
+    final width = MediaQuery.of(context).size.width;
+
     final logoPath = SafeNotesConfig.appLogoPath;
     final officialAppName = SafeNotesConfig.appName;
     final appSlogan = SafeNotesConfig.appSlogan;
-    final double logoHightWidth = 75.0;
+    final double logoHightWidth = width * 0.25;
+    // final double logoHightWidth = 75.0;
     final double appNameFontSize = 20;
     final double appSloganFontSize = 12;
     final double logoNameGap = 10.0;
