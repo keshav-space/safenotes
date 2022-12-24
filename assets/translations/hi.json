@@ -149,7 +149,7 @@
     "Wrong passphrase {noOfAllowedAttempts} attempts left!": "गलत पासफ़्रेज़ {noOfAllowedAttempts} प्रयास शेष!",
     "Do you want to import {noOfNotesInImport} new notes?": "क्या आप {noOfNotesInImport} नए नोट आयात करना चाहते हैं?",
     "Turn on the auto backup and Choose backup folder from below.": "",
-    "You were logged out due to extended inactivity.\nThis is to protect your privacy.": "",
+    "You were logged out due to extended inactivity. This is to protect your privacy.": "",
     "There was no user activity for quite a while. You will be logged off unless you cancel within {countDownTime} seconds.": "",
     "There is no way to decrypt these notes without the passphrase. With great security comes the great responsibility of remembering the passphrase!": "पासफ़्रेज़ के बिना इन नोटों को डिक्रिप्ट करने का कोई तरीका नहीं है। बड़ी सुरक्षा के साथ पासफ़्रेज़ को याद रखने की बड़ी ज़िम्मेदारी आती है!",
     "If the Notes in your backup file was encrypted with different passphrase then you'll be prompted to enter the passphrase of the device that generated backup.": "यदि आपकी बैकअप फ़ाइल में नोट्स भिन्न पासफ़्रेज़ के साथ एन्क्रिप्ट किए गए थे, तो आपको बैकअप उत्पन्न करने वाले डिवाइस का पासफ़्रेज़ दर्ज करने के लिए कहा जाएगा।",

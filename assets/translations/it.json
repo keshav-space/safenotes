@@ -149,7 +149,7 @@
     "Wrong passphrase {noOfAllowedAttempts} attempts left!": "Password sbagliata, {noOfAllowedAttempts} tentativi rimanenti!",
     "Do you want to import {noOfNotesInImport} new notes?": "Vuoi importare {noOfNotesInImport} nuove note?",
     "Turn on the auto backup and Choose backup folder from below.": "Attiva il backup automatico e scegli la cartella qui sotto.",
-    "You were logged out due to extended inactivity.\nThis is to protect your privacy.": "Sei stato/a disconnesso/a per inattività. \nQuesto è per proteggere la tua privacy.",
+    "You were logged out due to extended inactivity. This is to protect your privacy.": "Sei stato/a disconnesso/a per inattività. Questo è per proteggere la tua privacy.",
     "There was no user activity for quite a while. You will be logged off unless you cancel within {countDownTime} seconds.": "Non c'è stata attività per un po'. Sarai disconnesso/a se non annulli entro {countDownTime} secondi.",
     "There is no way to decrypt these notes without the passphrase. With great security comes the great responsibility of remembering the passphrase!": "Non c'è modo per decrittografare queste note senza la passphrase. Con grande sicurezza vi è grande responsabilità di ricordarsi la passphrase!",
     "If the Notes in your backup file was encrypted with different passphrase then you'll be prompted to enter the passphrase of the device that generated backup.": "Se le note nel tuo fil di backup sono state crittografate con una passphrase diversa, ti verrà chiesto di inserire la passphrase del dispositivo che ha generato il backup.",

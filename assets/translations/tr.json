@@ -149,7 +149,7 @@
     "Wrong passphrase {noOfAllowedAttempts} attempts left!": "{noOfAllowedAttempts} yanlış parola denemesi kaldı!",
     "Do you want to import {noOfNotesInImport} new notes?": "{noOfNotesInImport} yeni notu içe aktarmak istiyor musunuz?",
     "Turn on the auto backup and Choose backup folder from below.": "Otomatik yedeklemeyi açın ve aşağıdan yedekleme klasörünü seçin.",
-    "You were logged out due to extended inactivity.\nThis is to protect your privacy.": "Uzun süreli hareketsizlik nedeniyle oturumunuz kapatıldı.\nBu, gizliliğinizi korumak içindir.",
+    "You were logged out due to extended inactivity. This is to protect your privacy.": "Uzun süreli hareketsizlik nedeniyle oturumunuz kapatıldı. Bu, gizliliğinizi korumak içindir.",
     "There was no user activity for quite a while. You will be logged off unless you cancel within {countDownTime} seconds.": "Uzun süredir kullanıcı etkinliği yoktu. {countDownTime} saniye içinde iptal etmezseniz oturumunuz kapatılacaktır.",
     "There is no way to decrypt these notes without the passphrase. With great security comes the great responsibility of remembering the passphrase!": "Parola olmadan bu notların şifresini çözmenin hiçbir yolu yoktur. Büyük güvenlik, parolayı hatırlama sorumluluğunu da beraberinde getirir!",
     "If the Notes in your backup file was encrypted with different passphrase then you'll be prompted to enter the passphrase of the device that generated backup.": "Yedekleme dosyanızdaki notlar farklı bir parola ile şifrelenmişse, yedeklemeyi oluşturan aygıtın parolasını girmeniz istenecektir.",

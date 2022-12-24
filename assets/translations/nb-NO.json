@@ -149,7 +149,7 @@
     "Wrong passphrase {noOfAllowedAttempts} attempts left!": "Feil passord. {noOfAllowedAttempts} forsøk igjen.",
     "Do you want to import {noOfNotesInImport} new notes?": "Vil du importere {noOfNotesInImport} nye notater?",
     "Turn on the auto backup and Choose backup folder from below.": "Skru på automatisk sikkerhetskopiering og vel sikkerhetskopieringsmappe nedenfor.",
-    "You were logged out due to extended inactivity.\nThis is to protect your privacy.": "Du ble logget ut som følge av lang tids inaktivitet.\nDette hegner om ditt personvern.",
+    "You were logged out due to extended inactivity. This is to protect your privacy.": "Du ble logget ut som følge av lang tids inaktivitet. Dette hegner om ditt personvern.",
     "There was no user activity for quite a while. You will be logged off unless you cancel within {countDownTime} seconds.": "Ingen aktivitet på lang tid. Du vil bli utlogget med mindre du avbryter innen {countDownTime} sekunder.",
     "There is no way to decrypt these notes without the passphrase. With great security comes the great responsibility of remembering the passphrase!": "Kunne ikke dekryptere disse notatene uten passordet. Du må altså huske passordet for å ikke miste tilgangen for godt.",
     "If the Notes in your backup file was encrypted with different passphrase then you'll be prompted to enter the passphrase of the device that generated backup.": "Hvis notatene i sikkerhetskopifilen din ble kryptert med et annet passord vil du bli spurt om å skrive det inn det for enheten som lagde sikkerhetskopien.",

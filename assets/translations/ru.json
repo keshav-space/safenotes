@@ -147,7 +147,7 @@
     "Wrong passphrase {noOfAllowedAttempts} attempts left!": "Неправильная парольная фраза, {noOfAllowedAttempts} попыток осталось!",
     "Do you want to import {noOfNotesInImport} new notes?": "Вы хотите импортировать {noOfNotesInImport} новые заметки?",
     "Turn on the auto backup and Choose backup folder from below.": "Включите авто резервное копирование и выберите папку из списка ниже.",
-    "You were logged out due to extended inactivity.\nThis is to protect your privacy.": "Вы вышли из системы ввиду неактивности.\nЭто для защиты вашей конфиденциальности.",
+    "You were logged out due to extended inactivity. This is to protect your privacy.": "Вы вышли из системы ввиду неактивности. Это для защиты вашей конфиденциальности.",
     "There was no user activity for quite a while. You will be logged off unless you cancel within {countDownTime} seconds.": "В течение некоторого времени пользователь не проявлял никакой активности. Вы выйдете из системы, если не отмените действие в течение {countDownTime} секунд.",
     "There is no way to decrypt these notes without the passphrase. With great security comes the great responsibility of remembering the passphrase!": "Без парольной фразы расшифровать эти записи невозможно. С большой безопасностью приходит большая ответственность за запоминание парольной фразы!",
     "If the Notes in your backup file was encrypted with different passphrase then you'll be prompted to enter the passphrase of the device that generated backup.": "Если заметки в файле резервной копии были зашифрованы другой парольной фразой, вам будет предложено ввести парольную фразу устройства, на котором была создана резервная копия.",

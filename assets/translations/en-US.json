@@ -149,7 +149,7 @@
     "Wrong passphrase {noOfAllowedAttempts} attempts left!": "Wrong passphrase {noOfAllowedAttempts} attempts left!",
     "Do you want to import {noOfNotesInImport} new notes?": "Do you want to import {noOfNotesInImport} new notes?",
     "Turn on the auto backup and Choose backup folder from below.": "Turn on the auto backup and Choose backup folder from below.",
-    "You were logged out due to extended inactivity.\nThis is to protect your privacy.": "You were logged out due to extended inactivity.\nThis is to protect your privacy.",
+    "You were logged out due to extended inactivity. This is to protect your privacy.": "You were logged out due to extended inactivity. This is to protect your privacy.",
     "There was no user activity for quite a while. You will be logged off unless you cancel within {countDownTime} seconds.": "There was no user activity for quite a while. You will be logged off unless you cancel within {countDownTime} seconds.",
     "There is no way to decrypt these notes without the passphrase. With great security comes the great responsibility of remembering the passphrase!": "There is no way to decrypt these notes without the passphrase. With great security comes the great responsibility of remembering the passphrase!",
     "If the Notes in your backup file was encrypted with different passphrase then you'll be prompted to enter the passphrase of the device that generated backup.": "If the Notes in your backup file was encrypted with different passphrase then you'll be prompted to enter the passphrase of the device that generated backup.",

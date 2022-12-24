@@ -149,7 +149,7 @@
     "Wrong passphrase {noOfAllowedAttempts} attempts left!": "密码口令错误！还可尝试 {noOfAllowedAttempts} 次！",
     "Do you want to import {noOfNotesInImport} new notes?": "你要导入 {noOfNotesInImport} 新笔记吗?",
     "Turn on the auto backup and Choose backup folder from below.": "打开自动备份，然后选择下面的备份文件夹.",
-    "You were logged out due to extended inactivity.\nThis is to protect your privacy.": "你由于长时间不活动已退出.\n这是为了保护你的隐私.",
+    "You were logged out due to extended inactivity. This is to protect your privacy.": "你由于长时间不活动已退出. 这是为了保护你的隐私.",
     "There was no user activity for quite a while. You will be logged off unless you cancel within {countDownTime} seconds.": "用户很长一段时间没有活动. 除非在 {countDownTime} 内取消，否则你将被退出.",
     "There is no way to decrypt these notes without the passphrase. With great security comes the great responsibility of remembering the passphrase!": "没有密码是无法解密这些笔记的。因为有了极大的安全性，那也就有了记住密码口令的重大责任!",
     "If the Notes in your backup file was encrypted with different passphrase then you'll be prompted to enter the passphrase of the device that generated backup.": "如果备份文件中的笔记使用不同的密码口令加密，则会提示您输入生成备份的设备的密码口令.",
