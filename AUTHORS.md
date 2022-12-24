@@ -12,3 +12,4 @@ Contributors
 * J. Lavoie [@weblate.org/Edanas](https://hosted.weblate.org/user/Edanas)
 * metezd [@metezd](https://github.com/metezd) [@weblate.org/metezd](https://hosted.weblate.org/user/metezd)
 * Barefoot Spy [@weblate.org/Barefoot-Spy](https://hosted.weblate.org/user/Barefoot-Spy)
+* Ettore Atalan [@Atalanttore](https://github.com/Atalanttore) [@weblate.org/Atalanttore](https://hosted.weblate.org/user/Atalanttore)
