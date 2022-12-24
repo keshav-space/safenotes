@@ -8,6 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 
+// Project imports:
+import 'package:safenotes/utils/styles.dart';
+
 class DeleteConfirmationDialog extends StatelessWidget {
   final VoidCallback callback;
   DeleteConfirmationDialog({required this.callback});
@@ -42,23 +45,19 @@ class DeleteConfirmationDialog extends StatelessWidget {
   Widget _cautionIcon(BuildContext context) {
     return Icon(
       Icons.warning_rounded,
-      size: 70,
+      size: MediaQuery.of(context).size.width * 0.17,
       color: NordColors.aurora.yellow,
     );
   }
 
   Widget _title(BuildContext context) {
     final String title = 'Caution!'.tr();
-    final double titleFontSize = 22.0;
 
     return Padding(
       padding: EdgeInsets.only(top: 12),
       child: Text(
         title,
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: titleFontSize,
-        ),
+        style: dialogHeadTextStyle,
       ),
     );
   }
@@ -72,9 +71,7 @@ class DeleteConfirmationDialog extends StatelessWidget {
       child: Text(
         cautionMessage,
         textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 16,
-        ),
+        style: dialogBodyTextStyle,
       ),
     );
   }
@@ -82,7 +79,7 @@ class DeleteConfirmationDialog extends StatelessWidget {
   Widget _buildButtons(BuildContext context) {
     final double paddingAroundButtonRowLR = 15.0;
     final double paddingAroundButtonRowTop = 20.0;
-    final double buttonTextFontSize = 16.0;
+    final double buttonTextFontSize = 14.0;
     final String cancelButtonText = 'Cancel'.tr();
     final String deleteButtonText = 'Delete'.tr();
 

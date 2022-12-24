@@ -15,8 +15,11 @@ class GenericDialog extends StatelessWidget {
   final IconData icon;
   final String message;
 
-  GenericDialog({Key? key, required this.icon, required this.message})
-      : super(key: key);
+  GenericDialog({
+    Key? key,
+    required this.icon,
+    required this.message,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +49,10 @@ class GenericDialog extends StatelessWidget {
 
   Widget _buildIcon(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 10),
+      padding: EdgeInsets.only(bottom: 15),
       child: Icon(
         this.icon,
-        size: 50,
+        size: MediaQuery.of(context).size.width * 0.12,
         color: NordColors.frost.darkest,
       ),
     );
@@ -57,11 +60,11 @@ class GenericDialog extends StatelessWidget {
 
   Widget _body(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+      padding: EdgeInsets.only(top: 0, left: 0, right: 0),
       child: Text(
         this.message,
         textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 16),
+        style: dialogBodyTextStyle,
       ),
     );
   }
@@ -69,7 +72,7 @@ class GenericDialog extends StatelessWidget {
   Widget _buildButtons(BuildContext context) {
     final double paddingAroundButtonRowLR = 15.0;
     final double paddingAroundButtonRowTop = 20.0;
-    final double buttonTextFontSize = 16.0;
+    final double buttonTextFontSize = 14.0;
     final String okButtonText = 'OK'.tr();
 
     return Container(
@@ -95,10 +98,11 @@ class GenericDialog extends StatelessWidget {
   }
 }
 
-showGenericDialog(
-    {required BuildContext context,
-    required IconData icon,
-    required String message}) async {
+showGenericDialog({
+  required BuildContext context,
+  required IconData icon,
+  required String message,
+}) async {
   return showDialog(
     context: context,
     barrierDismissible: true,

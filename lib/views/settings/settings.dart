@@ -148,7 +148,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             SettingsTile.navigation(
               leading: Icon(MdiIcons.cellphoneKey),
-              title: Text('LogOut on Inactivity'.tr()),
+              title: Text('Logout on Inactivity'.tr()),
               value: Text(inactivityTimeoutValue()),
               onPressed: (context) async {
                 await Navigator.pushNamed(context, '/inactivityTimerSettings');
@@ -186,7 +186,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             SettingsTile.navigation(
               leading: Icon(Icons.logout),
-              title: Text('LogOut'.tr()),
+              title: Text('Logout'.tr()),
               onPressed: (context) async {
                 Session.logout();
                 widget.sessionStateStream.add(SessionState.stopListening);

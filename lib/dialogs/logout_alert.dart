@@ -101,7 +101,7 @@ class PreInactivityLogOff extends StatelessWidget {
     final double paddingAroundTB = 10.0;
     final double buttonSeparation = 30.0;
     final double buttonTextFontSize = 16.0;
-    final String yesButtonText = 'LogOut'.tr();
+    final String yesButtonText = 'Logout'.tr();
     final String noButtonText = 'Cancel'.tr();
 
     return Container(

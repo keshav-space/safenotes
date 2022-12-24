@@ -125,7 +125,7 @@ class FileHandler {
   getImportPassphraseDialog(BuildContext context) {
     return showDialog(
       context: context,
-      barrierDismissible: true,
+      barrierDismissible: false,
       builder: (_) => ImportPassPhraseDialog(),
     );
   }
@@ -133,7 +133,7 @@ class FileHandler {
   Future<bool> confirmImportDialog(BuildContext context, int totalNotes) async {
     return await showDialog(
           context: context,
-          barrierDismissible: true,
+          barrierDismissible: false,
           builder: (_) => ImportConfirm(importCount: totalNotes),
         ) ??
         false;

@@ -16,3 +16,12 @@ class Style {
     );
   }
 }
+
+TextStyle dialogBodyTextStyle = TextStyle(
+  fontSize: 14,
+);
+
+TextStyle dialogHeadTextStyle = TextStyle(
+  fontWeight: FontWeight.bold,
+  fontSize: 20,
+);

@@ -9,7 +9,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 
 // Project imports:
-import 'package:safenotes/models/editor_state.dart';
+import 'package:safenotes/utils/styles.dart';
 
 class ImportConfirm extends StatefulWidget {
   final int importCount;
@@ -52,7 +52,6 @@ class _ImportConfirmState extends State<ImportConfirm> {
 
   Widget _title(BuildContext context, double padding) {
     final String title = 'Confirm Import!'.tr();
-    final double titleFontSize = 22.0;
     final double topSpacing = 10.0;
 
     return Align(
@@ -62,21 +61,17 @@ class _ImportConfirmState extends State<ImportConfirm> {
             top: topSpacing, left: padding + 5), //, right: 100),
         child: Text(
           title,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: titleFontSize,
-          ),
+          style: dialogHeadTextStyle,
         ),
       ),
     );
   }
 
   Widget _body(BuildContext context, double padding) {
-    final String cautionMessage = 'Do you want to import {noOfNotesInImport} new notes?'
-        .tr(namedArgs: {'noOfNotesInImport': widget.importCount.toString()});
-
+    final String cautionMessage =
+        'Do you want to import {noOfNotesInImport} new notes?'.tr(
+            namedArgs: {'noOfNotesInImport': widget.importCount.toString()});
     final double topSpacing = 15.0;
-    final double bodyFontSize = 16.0;
 
     return Align(
       alignment: Alignment.centerLeft,
@@ -86,9 +81,7 @@ class _ImportConfirmState extends State<ImportConfirm> {
         child: Text(
           cautionMessage,
           textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: bodyFontSize,
-          ),
+          style: dialogBodyTextStyle,
         ),
       ),
     );
@@ -98,7 +91,7 @@ class _ImportConfirmState extends State<ImportConfirm> {
     final double paddingAroundLR = 15.0;
     final double paddingAroundTB = 10.0;
     final double buttonSeparation = 25.0;
-    final double buttonTextFontSize = 16.0;
+    final double buttonTextFontSize = 14.0;
     final String cancelButtonText = 'Cancel'.tr();
     final String confirmButtonText = 'Confirm'.tr();
 
@@ -114,9 +107,6 @@ class _ImportConfirmState extends State<ImportConfirm> {
             ),
             child: _buttonText(cancelButtonText, buttonTextFontSize),
             onPressed: () {
-              // User was warned about unsaved change, and user choose to
-              // discard the changes hence the NoteEditorState().handleUngracefulExit() won't save the notes
-              NoteEditorState.setSaveAttempted(true);
               Navigator.of(context).pop(false);
             },
           ),

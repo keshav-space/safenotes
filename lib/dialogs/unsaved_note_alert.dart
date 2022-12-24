@@ -10,6 +10,7 @@ import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 
 // Project imports:
 import 'package:safenotes/models/editor_state.dart';
+import 'package:safenotes/utils/styles.dart';
 
 class UnsavedAlert extends StatefulWidget {
   @override
@@ -45,7 +46,6 @@ class _UnsavedAlertState extends State<UnsavedAlert> {
 
   Widget _title(BuildContext context, double padding) {
     final String title = 'Are you sure?'.tr();
-    final double titleFontSize = 22.0;
     final double topSpacing = 10.0;
 
     return Align(
@@ -55,10 +55,7 @@ class _UnsavedAlertState extends State<UnsavedAlert> {
             EdgeInsets.only(top: topSpacing, left: padding), //, right: 100),
         child: Text(
           title,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: titleFontSize,
-          ),
+          style: dialogHeadTextStyle,
         ),
       ),
     );
@@ -67,7 +64,6 @@ class _UnsavedAlertState extends State<UnsavedAlert> {
   Widget _body(BuildContext context, double padding) {
     final String cautionMessage = 'Do you want to discard changes.'.tr();
     final double topSpacing = 15.0;
-    final double bodyFontSize = 16.0;
 
     return Align(
       alignment: Alignment.centerLeft,
@@ -77,9 +73,7 @@ class _UnsavedAlertState extends State<UnsavedAlert> {
         child: Text(
           cautionMessage,
           //textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: bodyFontSize,
-          ),
+          style: dialogBodyTextStyle,
         ),
       ),
     );
@@ -89,7 +83,7 @@ class _UnsavedAlertState extends State<UnsavedAlert> {
     final double paddingAroundLR = 15.0;
     final double paddingAroundTB = 10.0;
     final double buttonSeparation = 25.0;
-    final double buttonTextFontSize = 16.0;
+    final double buttonTextFontSize = 15.0;
     final String yesButtonText = 'Yes'.tr();
     final String noButtonText = 'No'.tr();
 

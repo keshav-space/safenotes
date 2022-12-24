@@ -146,7 +146,7 @@ class SafeNotesApp extends StatelessWidget {
         context: context,
         icon: Icons.info_outline,
         message:
-            "You were logged out due to extended inactivity.\nThis is to protect your privacy."
+            "You were logged out due to extended inactivity. This is to protect your privacy."
                 .tr(),
       );
 
