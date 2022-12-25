@@ -129,10 +129,14 @@ flutter:
     - assets/translations/
 
   fonts:
-     - family: NotoSerif
-       fonts:
-         - asset: assets/fonts/NotoSerif-Regular.ttf
+    - family: NotoSerif
+      fonts:
+        - asset: assets/fonts/NotoSerif-Regular.ttf
+    
+    - family: MerriweatherBlack
+      fonts:
+        - asset: assets/fonts/Merriweather-Black.ttf
 
-     - family: NotoMonochromaticEmoji
-       fonts:
-         - asset: assets/fonts/NotoEmoji-VariableFont_wght.ttf
+    - family: NotoMonochromaticEmoji
+      fonts:
+        - asset: assets/fonts/NotoEmoji-VariableFont_wght.ttf

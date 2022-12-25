@@ -2,10 +2,10 @@
 import 'dart:ui';
 
 // Flutter imports:
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 

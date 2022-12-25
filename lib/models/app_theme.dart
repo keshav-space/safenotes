@@ -32,27 +32,27 @@ class AppThemes {
       PreferencesStorage.isDimTheme ? dimTheme : lightOutTheme;
 
   static final ThemeData lightOutTheme = NordTheme.dark().copyWith(
-      textTheme: ThemeData.dark().textTheme.apply(
-            fontFamily: 'NotoSerif',
-          ),
-      primaryTextTheme: ThemeData.dark().textTheme.apply(
-            fontFamily: 'NotoSerif',
-          ),
-      backgroundColor: Colors.black,
-      bottomAppBarColor: Colors.grey.shade900,
-      dialogBackgroundColor: Colors.grey.shade900,
-      // primaryColor: Colors.black,
-      scaffoldBackgroundColor: Colors.black,
-      canvasColor: Colors.black,
-      // primaryColorDark: Colors.black,
-      appBarTheme: AppBarTheme().copyWith(
-        color: Colors.grey.shade900,
-      ),
-      bottomSheetTheme: BottomSheetThemeData().copyWith(
-        modalBackgroundColor: Colors.grey.shade900,
-      )
-      //platform: TargetPlatform.iOS,
-      );
+    textTheme: ThemeData.dark().textTheme.apply(
+          fontFamily: 'NotoSerif',
+        ),
+    primaryTextTheme: ThemeData.dark().textTheme.apply(
+          fontFamily: 'NotoSerif',
+        ),
+    backgroundColor: Colors.black,
+    bottomAppBarColor: Colors.grey.shade900,
+    dialogBackgroundColor: Colors.grey.shade900,
+    // primaryColor: Colors.black,
+    scaffoldBackgroundColor: Colors.black,
+    canvasColor: Colors.black,
+    // primaryColorDark: Colors.black,
+    appBarTheme: AppBarTheme().copyWith(
+      color: Colors.grey.shade900,
+    ),
+    bottomSheetTheme: BottomSheetThemeData().copyWith(
+      modalBackgroundColor: Colors.grey.shade900,
+    ),
+    //platform: TargetPlatform.iOS,
+  );
 
   static final ThemeData dimTheme = NordTheme.dark().copyWith(
     textTheme: ThemeData.dark().textTheme.apply(

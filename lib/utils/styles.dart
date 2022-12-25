@@ -22,6 +22,16 @@ TextStyle dialogBodyTextStyle = TextStyle(
 );
 
 TextStyle dialogHeadTextStyle = TextStyle(
+  fontFamily: 'MerriweatherBlack',
   fontWeight: FontWeight.bold,
+  letterSpacing: 0,
   fontSize: 20,
+);
+
+TextStyle appBarTitle = TextStyle(
+  fontFamily: 'MerriweatherBlack',
+  fontWeight: FontWeight.bold,
+  letterSpacing: -0.4,
+  fontSize: 20,
+  color: Colors.white,
 );

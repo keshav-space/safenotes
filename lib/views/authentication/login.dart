@@ -132,8 +132,8 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
   }
 
   Widget _buildTopLogo() {
-    final double topPadding = MediaQuery.of(context).size.height * 0.080;
-    final double dimensions = MediaQuery.of(context).size.width * 0.45;
+    final double topPadding = MediaQuery.of(context).size.height * 0.050;
+    final double dimensions = MediaQuery.of(context).size.width * 0.40;
 
     return Padding(
       padding: EdgeInsets.only(top: topPadding),
@@ -374,11 +374,17 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
   Widget _buildForgotPassphrase() {
     final String cantRecoverPassphraseMsg =
         "Can't decrypt without phrase!".tr();
+    double fontSize = 10;
 
     return Container(
       alignment: Alignment.centerRight,
       child: TextButton(
-        child: Text(cantRecoverPassphraseMsg),
+        child: Text(
+          cantRecoverPassphraseMsg,
+          style: TextStyle(
+            fontSize: fontSize,
+          ),
+        ),
         onPressed: () {
           showGenericDialog(
             context: context,
@@ -407,7 +413,9 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
       showGenericDialog(
         context: context,
         icon: Icons.info_outline,
-        message: "Still remember your passphrase?".tr(),
+        message:
+            "Still remember your passphrase? Use passphrase to login this time."
+                .tr(),
       );
     } else {
       PreferencesStorage.incrementBiometricAttemptAllTimeCount();
@@ -416,10 +424,8 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
               localizedReason: 'Login using your biometric credential',
               options: const AuthenticationOptions(stickyAuth: true),
             );
-      } on PlatformException catch (e) {
-        print(e);
       } catch (e) {
-        print(e);
+        //print(e);
       }
       if (authenticated) await _login(await BiometricAuth.authKey);
     }

@@ -39,7 +39,7 @@ class _BiometricSettingState extends State<BiometricSetting> {
           tiles: <SettingsTile>[
             SettingsTile.switchTile(
               initialValue: PreferencesStorage.isBiometricAuthEnabled,
-              title: Text('Enable Biometric Auth'.tr()),
+              title: Text('Enable biometric authentication'.tr()),
               onToggle: (value) {
                 if (value)
                   BiometricAuth.enable();

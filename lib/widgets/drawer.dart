@@ -2,11 +2,14 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:provider/provider.dart';
 
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
+import 'package:safenotes/models/app_theme.dart';
 import 'package:safenotes/utils/url_launcher.dart';
 import 'package:safenotes/widgets/dark_mode.dart';
 
@@ -33,8 +36,9 @@ class HomeDrawer extends StatefulWidget {
 class _HomeDrawerState extends State<HomeDrawer> {
   @override
   Widget build(BuildContext context) {
-    final drawerPaddingHorizontal = 15.0;
+    Provider.of<ThemeProvider>(context);
 
+    final drawerPaddingHorizontal = 15.0;
     final double drawerRadius = 15.0;
     final height = MediaQuery.of(context).size.height;
     final _topHeadPadding = height * 0.05;
@@ -59,10 +63,9 @@ class _HomeDrawerState extends State<HomeDrawer> {
         bottomRight: Radius.circular(drawerRadius),
       ),
       child: Drawer(
-        child: Material(
-          //color: Color.fromRGBO(0, 290, 55, 50),
-          child: ListView(
-            padding: EdgeInsets.symmetric(horizontal: drawerPaddingHorizontal),
+        child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(horizontal: drawerPaddingHorizontal),
+          child: Column(
             children: <Widget>[
               _drawerHeader(topPadding: _topHeadPadding),
               _divide(topPadding: _bottomHeadPadding),
@@ -161,7 +164,6 @@ class _HomeDrawerState extends State<HomeDrawer> {
     Widget? toggle,
     VoidCallback? onClicked,
   }) {
-    final double fontSize = 15.0;
     final double leftPaddingMenuItem = 5.0;
 
     return Padding(
@@ -172,9 +174,19 @@ class _HomeDrawerState extends State<HomeDrawer> {
         visualDensity: VisualDensity.compact,
         dense: true,
         leading: Icon(icon),
-        title: Text(
+        title: AutoSizeText(
           text,
-          style: TextStyle(fontSize: fontSize),
+          minFontSize: 8,
+          maxLines: 1,
+          style: TextStyle(
+            fontFamily: 'MerriweatherBlack',
+            fontWeight: FontWeight.bold,
+            letterSpacing: -0.4,
+            fontSize: 16,
+            color: PreferencesStorage.isThemeDark
+                ? Colors.white
+                : Colors.grey.shade600,
+          ),
         ),
         trailing: toggle,
         onTap: onClicked,
@@ -211,26 +223,37 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   child: Image.asset(logoPath),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(left: logoNameGap),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      officialAppName.tr(),
-                      style: TextStyle(fontSize: appNameFontSize),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 5),
-                      child: Text(
-                        appSlogan.tr(),
-                        style: TextStyle(fontSize: appSloganFontSize),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.only(left: logoNameGap),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      AutoSizeText(
+                        officialAppName.tr(),
+                        maxLines: 1,
+                        minFontSize: 8,
+                        style: TextStyle(
+                          fontFamily: 'MerriweatherBlack',
+                          fontWeight: FontWeight.bold,
+                          fontSize: appNameFontSize,
+                        ),
                       ),
-                    ),
-                  ],
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 5),
+                        child: AutoSizeText(
+                          appSlogan.tr(),
+                          maxLines: 1,
+                          minFontSize: 8,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(fontSize: appSloganFontSize),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
+              )
             ],
           ),
         ),
