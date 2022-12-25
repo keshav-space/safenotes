@@ -2,6 +2,7 @@
 import 'dart:ui';
 
 // Flutter imports:
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -20,7 +21,7 @@ class UnsavedAlert extends StatefulWidget {
 class _UnsavedAlertState extends State<UnsavedAlert> {
   @override
   Widget build(BuildContext context) {
-    final double paddingAllAround = 10.0;
+    final double paddingAllAround = 20.0;
     final double dialogRadius = 10.0;
 
     return BackdropFilter(
@@ -34,9 +35,9 @@ class _UnsavedAlertState extends State<UnsavedAlert> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              _title(context, paddingAllAround),
-              _body(context, paddingAllAround),
-              _buildButtons(context),
+              _title(),
+              _body(),
+              _buildButtons(),
             ],
           ),
         ),
@@ -44,15 +45,14 @@ class _UnsavedAlertState extends State<UnsavedAlert> {
     );
   }
 
-  Widget _title(BuildContext context, double padding) {
+  Widget _title() {
     final String title = 'Are you sure?'.tr();
     final double topSpacing = 10.0;
 
     return Align(
       alignment: Alignment.centerLeft,
       child: Padding(
-        padding:
-            EdgeInsets.only(top: topSpacing, left: padding), //, right: 100),
+        padding: EdgeInsets.only(top: topSpacing), //, right: 100),
         child: Text(
           title,
           style: dialogHeadTextStyle,
@@ -61,15 +61,14 @@ class _UnsavedAlertState extends State<UnsavedAlert> {
     );
   }
 
-  Widget _body(BuildContext context, double padding) {
+  Widget _body() {
     final String cautionMessage = 'Do you want to discard changes.'.tr();
     final double topSpacing = 15.0;
 
     return Align(
       alignment: Alignment.centerLeft,
       child: Padding(
-        padding:
-            EdgeInsets.only(top: topSpacing, left: padding, bottom: padding),
+        padding: EdgeInsets.only(top: topSpacing, bottom: topSpacing),
         child: Text(
           cautionMessage,
           //textAlign: TextAlign.center,
@@ -79,49 +78,49 @@ class _UnsavedAlertState extends State<UnsavedAlert> {
     );
   }
 
-  Widget _buildButtons(BuildContext context) {
-    final double paddingAroundLR = 15.0;
-    final double paddingAroundTB = 10.0;
-    final double buttonSeparation = 25.0;
+  Widget _buildButtons() {
     final double buttonTextFontSize = 15.0;
     final String yesButtonText = 'Yes'.tr();
     final String noButtonText = 'No'.tr();
 
     return Container(
-      padding: EdgeInsets.fromLTRB(
-          paddingAroundLR, paddingAroundTB, paddingAroundLR, paddingAroundTB),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          ElevatedButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(NordColors.aurora.red),
+          Expanded(
+            child: ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all(NordColors.aurora.red),
+              ),
+              child: _buttonText(yesButtonText, buttonTextFontSize),
+              onPressed: () {
+                // User was warned about unsaved change, and user choose to
+                // discard the changes hence the NoteEditorState().handleUngracefulExit() won't save the notes
+                NoteEditorState.setSaveAttempted(true);
+                Navigator.of(context).pop(true);
+              },
             ),
-            child: _buttonText(yesButtonText, buttonTextFontSize),
-            onPressed: () {
-              // User was warned about unsaved change, and user choose to
-              // discard the changes hence the NoteEditorState().handleUngracefulExit() won't save the notes
-              NoteEditorState.setSaveAttempted(true);
-              Navigator.of(context).pop(true);
-            },
           ),
-          Padding(
-            padding: EdgeInsets.only(left: buttonSeparation),
+          SizedBox(width: MediaQuery.of(context).size.width * 0.06),
+          Expanded(
             child: ElevatedButton(
               child: _buttonText(noButtonText, buttonTextFontSize),
               onPressed: () => Navigator.of(context).pop(false),
               // return false to dialog caller
             ),
-          )
+          ),
         ],
       ),
     );
   }
 
   Widget _buttonText(String text, double fontSize) {
-    return Text(
+    return AutoSizeText(
       text,
       textAlign: TextAlign.center,
+      minFontSize: 8,
+      maxLines: 1,
       style: TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: fontSize,

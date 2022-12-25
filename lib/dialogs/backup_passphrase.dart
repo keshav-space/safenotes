@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:ui';
 
 // Flutter imports:
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -12,6 +13,7 @@ import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
+import 'package:safenotes/utils/styles.dart';
 
 class ImportPassPhraseDialog extends StatefulWidget {
   @override
@@ -51,26 +53,21 @@ class _ImportPassPhraseDialogState extends State<ImportPassPhraseDialog> {
       padding: EdgeInsets.all(paddingAllAround),
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Padding(
             padding: EdgeInsets.only(top: paddingTextTop),
             child: Text(
               titleHeading,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: titleFontSize,
-              ),
+              style: dialogHeadTextStyle,
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: paddingTextTop),
+            padding:
+                EdgeInsets.only(top: paddingTextTop, bottom: paddingTextTop),
             child: Text(
               description,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: descriptionFontSize,
-              ),
+              style: dialogBodyTextStyle,
             ),
           ),
           _buildPassField(context),
@@ -136,6 +133,7 @@ class _ImportPassPhraseDialogState extends State<ImportPassPhraseDialog> {
 
   Widget _buildButtons(BuildContext context) {
     final double paddingAroundButtonRow = 15.0;
+    final double buttonTextFontSize = 15.0;
     final String formSubmitButtonText = 'Submit'.tr();
     final String formCancelButtonText = 'Cancel'.tr();
 
@@ -145,18 +143,37 @@ class _ImportPassPhraseDialogState extends State<ImportPassPhraseDialog> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          ElevatedButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(NordColors.aurora.red),
+          Expanded(
+            child: ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all(NordColors.aurora.red),
+              ),
+              child: _buttonText(formCancelButtonText, buttonTextFontSize),
+              onPressed: () => Navigator.of(context).pop(),
             ),
-            child: Text(formCancelButtonText),
-            onPressed: () => Navigator.of(context).pop(),
           ),
-          ElevatedButton(
-            child: Text(formSubmitButtonText),
-            onPressed: _onEditonComplete,
+          SizedBox(width: MediaQuery.of(context).size.width * 0.06),
+          Expanded(
+            child: ElevatedButton(
+              child: _buttonText(formSubmitButtonText, buttonTextFontSize),
+              onPressed: _onEditonComplete,
+            ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buttonText(String text, double fontSize) {
+    return AutoSizeText(
+      text,
+      textAlign: TextAlign.center,
+      minFontSize: 8,
+      maxLines: 1,
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: fontSize,
       ),
     );
   }

@@ -2,6 +2,7 @@
 import 'dart:ui';
 
 // Flutter imports:
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -26,7 +27,7 @@ class ImportConfirm extends StatefulWidget {
 class _ImportConfirmState extends State<ImportConfirm> {
   @override
   Widget build(BuildContext context) {
-    final double paddingAllAround = 10.0;
+    final double paddingAllAround = 20.0;
     final double dialogRadius = 10.0;
 
     return BackdropFilter(
@@ -40,9 +41,9 @@ class _ImportConfirmState extends State<ImportConfirm> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              _title(context, paddingAllAround),
-              _body(context, paddingAllAround),
-              _buildButtons(context),
+              _title(),
+              _body(paddingAllAround),
+              _buildButtons(),
             ],
           ),
         ),
@@ -50,15 +51,14 @@ class _ImportConfirmState extends State<ImportConfirm> {
     );
   }
 
-  Widget _title(BuildContext context, double padding) {
+  Widget _title() {
     final String title = 'Confirm Import!'.tr();
     final double topSpacing = 10.0;
 
     return Align(
       alignment: Alignment.centerLeft,
       child: Padding(
-        padding: EdgeInsets.only(
-            top: topSpacing, left: padding + 5), //, right: 100),
+        padding: EdgeInsets.only(top: topSpacing), //, right: 100),
         child: Text(
           title,
           style: dialogHeadTextStyle,
@@ -67,7 +67,7 @@ class _ImportConfirmState extends State<ImportConfirm> {
     );
   }
 
-  Widget _body(BuildContext context, double padding) {
+  Widget _body(double padding) {
     final String cautionMessage =
         'Do you want to import {noOfNotesInImport} new notes?'.tr(
             namedArgs: {'noOfNotesInImport': widget.importCount.toString()});
@@ -76,57 +76,55 @@ class _ImportConfirmState extends State<ImportConfirm> {
     return Align(
       alignment: Alignment.centerLeft,
       child: Padding(
-        padding: EdgeInsets.only(
-            top: topSpacing, left: padding + 5, bottom: padding),
+        padding: EdgeInsets.only(top: topSpacing, bottom: padding),
         child: Text(
           cautionMessage,
-          textAlign: TextAlign.center,
           style: dialogBodyTextStyle,
         ),
       ),
     );
   }
 
-  Widget _buildButtons(BuildContext context) {
-    final double paddingAroundLR = 15.0;
-    final double paddingAroundTB = 10.0;
-    final double buttonSeparation = 25.0;
-    final double buttonTextFontSize = 14.0;
+  Widget _buildButtons() {
+    final double buttonTextFontSize = 15.0;
     final String cancelButtonText = 'Cancel'.tr();
     final String confirmButtonText = 'Confirm'.tr();
 
     return Container(
-      padding: EdgeInsets.fromLTRB(
-          paddingAroundLR, paddingAroundTB, paddingAroundLR, paddingAroundTB),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          ElevatedButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(NordColors.aurora.red),
+          Expanded(
+            child: ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all(NordColors.aurora.red),
+              ),
+              child: _buttonText(cancelButtonText, buttonTextFontSize),
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
             ),
-            child: _buttonText(cancelButtonText, buttonTextFontSize),
-            onPressed: () {
-              Navigator.of(context).pop(false);
-            },
           ),
-          Padding(
-            padding: EdgeInsets.only(left: buttonSeparation),
+          SizedBox(width: MediaQuery.of(context).size.width * 0.1),
+          Expanded(
             child: ElevatedButton(
               child: _buttonText(confirmButtonText, buttonTextFontSize),
               onPressed: () => Navigator.of(context)
                   .pop(true), // return false to dialog caller
             ),
-          )
+          ),
         ],
       ),
     );
   }
 
   Widget _buttonText(String text, double fontSize) {
-    return Text(
+    return AutoSizeText(
       text,
       textAlign: TextAlign.center,
+      minFontSize: 8,
+      maxLines: 1,
       style: TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: fontSize,

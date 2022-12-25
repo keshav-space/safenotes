@@ -22,7 +22,7 @@ class FileImportDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double paddingAllAround = 10.0;
+    final double paddingAllAround = 20.0;
     final double dialogRadius = 10.0;
 
     return BackdropFilter(
@@ -36,9 +36,9 @@ class FileImportDialog extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              _title(context, paddingAllAround),
-              _body(context, paddingAllAround),
-              _buildButtons(context),
+              _title(),
+              _body(),
+              _buildButtons(),
             ],
           ),
         ),
@@ -46,21 +46,23 @@ class FileImportDialog extends StatelessWidget {
     );
   }
 
-  Widget _title(BuildContext context, double padding) {
+  Widget _title() {
     final String title = 'Import your backup'.tr();
     final double topSpacing = 15.0;
 
     return Align(
       alignment: Alignment.centerLeft,
       child: Padding(
-        padding:
-            EdgeInsets.only(top: topSpacing, left: padding), //, right: 100),
-        child: Text(title, style: dialogHeadTextStyle),
+        padding: EdgeInsets.only(top: topSpacing), //, right: 100),
+        child: Text(
+          title,
+          style: dialogHeadTextStyle,
+        ),
       ),
     );
   }
 
-  Widget _body(BuildContext context, double padding) {
+  Widget _body() {
     final String cautionMessage =
         "If the Notes in your backup file was encrypted with different passphrase then you'll be prompted to enter the passphrase of the device that generated backup."
             .tr();
@@ -69,23 +71,21 @@ class FileImportDialog extends StatelessWidget {
     return Align(
       alignment: Alignment.centerLeft,
       child: Padding(
-        padding:
-            EdgeInsets.only(top: topSpacing, left: padding, bottom: padding),
-        child: Text(cautionMessage, style: dialogBodyTextStyle),
+        padding: EdgeInsets.only(top: topSpacing),
+        child: Text(
+          cautionMessage,
+          style: dialogBodyTextStyle,
+        ),
       ),
     );
   }
 
-  Widget _buildButtons(BuildContext context) {
-    final double paddingAroundLR = 10.0;
-    final double paddingAroundTB = 5.0;
-    final double buttonTextFontSize = 14.0;
+  Widget _buildButtons() {
+    final double buttonTextFontSize = 15.0;
     final String yesButtonText = 'Select file'.tr();
 
     return Container(
       alignment: Alignment.centerRight,
-      padding: EdgeInsets.fromLTRB(
-          paddingAroundLR, 0, paddingAroundLR, paddingAroundTB),
       child: ElevatedButton(
         child: _buttonText(yesButtonText, buttonTextFontSize),
         onPressed: this.callback,

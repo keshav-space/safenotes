@@ -2,6 +2,7 @@
 import 'dart:ui';
 
 // Flutter imports:
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -89,26 +90,34 @@ class DeleteConfirmationDialog extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          ElevatedButton(
-            child: _buttonText(cancelButtonText, buttonTextFontSize),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-          ElevatedButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(NordColors.aurora.red),
+          Expanded(
+            child: ElevatedButton(
+              child: _buttonText(cancelButtonText, buttonTextFontSize),
+              onPressed: () => Navigator.of(context).pop(),
             ),
-            child: _buttonText(deleteButtonText, buttonTextFontSize),
-            onPressed: this.callback,
-          )
+          ),
+          SizedBox(width: MediaQuery.of(context).size.width * 0.1),
+          Expanded(
+            child: ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all(NordColors.aurora.red),
+              ),
+              child: _buttonText(deleteButtonText, buttonTextFontSize),
+              onPressed: this.callback,
+            ),
+          ),
         ],
       ),
     );
   }
 
   Widget _buttonText(String text, double fontSize) {
-    return Text(
+    return AutoSizeText(
       text,
       textAlign: TextAlign.center,
+      minFontSize: 8,
+      maxLines: 1,
       style: TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: fontSize,
