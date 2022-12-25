@@ -11,6 +11,7 @@ import 'package:settings_ui/settings_ui.dart';
 import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/models/app_theme.dart';
 import 'package:safenotes/utils/notes_color.dart';
+import 'package:safenotes/utils/styles.dart';
 
 class ColorPallet extends StatefulWidget {
   ColorPallet({Key? key}) : super(key: key);
@@ -26,7 +27,12 @@ class _ColorPalletState extends State<ColorPallet> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Notes Color'.tr())),
+      appBar: AppBar(
+        title: Text(
+          'Notes Color'.tr(),
+          style: appBarTitle,
+        ),
+      ),
       body: _settings(),
     );
   }

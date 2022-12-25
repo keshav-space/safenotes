@@ -14,6 +14,7 @@ import 'package:safenotes/dialogs/generic.dart';
 import 'package:safenotes/models/session.dart';
 import 'package:safenotes/utils/passphrase_util.dart';
 import 'package:safenotes/utils/snack_message.dart';
+import 'package:safenotes/utils/styles.dart';
 import 'package:safenotes/widgets/footer.dart';
 import 'package:safenotes/widgets/login_button.dart';
 
@@ -59,7 +60,10 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: Text('Set Passphrase'.tr()),
+          title: Text(
+            'Set Passphrase'.tr(),
+            style: appBarTitle,
+          ),
           centerTitle: true,
         ),
         body: CustomScrollView(
@@ -253,7 +257,9 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
           showGenericDialog(
             context: context,
             icon: Icons.info_outline,
-            message: 'Passphrase is similar to password but generally longer, it will be used to encrypt and decrypt your notes. Use strong passphrase and make sure to remember it. It is impossible to decrypt your notes without the passphrase. With great security comes the great responsibility of remembering the passphrase!'.tr(),
+            message:
+                'Passphrase is similar to password but generally longer, it will be used to encrypt and decrypt your notes. Use strong passphrase and make sure to remember it. It is impossible to decrypt your notes without the passphrase. With great security comes the great responsibility of remembering the passphrase!'
+                    .tr(),
           );
         },
       ),

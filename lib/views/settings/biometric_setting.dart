@@ -9,6 +9,7 @@ import 'package:settings_ui/settings_ui.dart';
 import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/models/app_theme.dart';
 import 'package:safenotes/models/biometric_auth.dart';
+import 'package:safenotes/utils/styles.dart';
 
 class BiometricSetting extends StatefulWidget {
   BiometricSetting({Key? key}) : super(key: key);
@@ -21,7 +22,12 @@ class _BiometricSettingState extends State<BiometricSetting> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Biometric'.tr())),
+      appBar: AppBar(
+        title: Text(
+          'Biometric'.tr(),
+          style: appBarTitle,
+        ),
+      ),
       body: _settings(),
     );
   }

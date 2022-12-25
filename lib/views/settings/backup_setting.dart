@@ -15,6 +15,7 @@ import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/models/app_theme.dart';
 import 'package:safenotes/utils/sheduled_task.dart';
 import 'package:safenotes/utils/storage_permission.dart';
+import 'package:safenotes/utils/styles.dart';
 import 'package:safenotes/utils/time_utils.dart';
 import 'package:safenotes/widgets/login_button.dart';
 
@@ -63,7 +64,12 @@ class _BackupSettingState extends State<BackupSetting> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Backup'.tr())),
+      appBar: AppBar(
+        title: Text(
+          'Backup'.tr(),
+          style: appBarTitle,
+        ),
+      ),
       body: _bodyBackup(context),
     );
   }

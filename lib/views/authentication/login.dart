@@ -20,6 +20,7 @@ import 'package:safenotes/dialogs/generic.dart';
 import 'package:safenotes/models/biometric_auth.dart';
 import 'package:safenotes/models/session.dart';
 import 'package:safenotes/utils/snack_message.dart';
+import 'package:safenotes/utils/styles.dart';
 import 'package:safenotes/widgets/footer.dart';
 import 'package:safenotes/widgets/login_button.dart';
 
@@ -94,7 +95,10 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: Text('Login'.tr()),
+          title: Text(
+            'Login'.tr(),
+            style: appBarTitle,
+          ),
           centerTitle: true,
         ),
         body: CustomScrollView(

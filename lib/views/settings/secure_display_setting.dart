@@ -8,6 +8,7 @@ import 'package:settings_ui/settings_ui.dart';
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/models/app_theme.dart';
+import 'package:safenotes/utils/styles.dart';
 
 class SecureDisplaySetting extends StatefulWidget {
   SecureDisplaySetting({Key? key}) : super(key: key);
@@ -20,7 +21,12 @@ class _SecureDisplaySettingState extends State<SecureDisplaySetting> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Secure Display'.tr())),
+      appBar: AppBar(
+        title: Text(
+          'Secure Display'.tr(),
+          style: appBarTitle,
+        ),
+      ),
       body: _settings(),
     );
   }

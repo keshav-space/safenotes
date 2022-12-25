@@ -9,6 +9,7 @@ import 'package:settings_ui/settings_ui.dart';
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/models/app_theme.dart';
+import 'package:safenotes/utils/styles.dart';
 
 class LanguageSetting extends StatefulWidget {
   LanguageSetting({Key? key}) : super(key: key);
@@ -21,7 +22,12 @@ class _LanguageSettingState extends State<LanguageSetting> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Language'.tr())),
+      appBar: AppBar(
+        title: Text(
+          'Language'.tr(),
+          style: appBarTitle,
+        ),
+      ),
       body: _settings(),
     );
   }

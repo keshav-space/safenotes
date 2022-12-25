@@ -16,6 +16,7 @@ import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/dialogs/backup_import.dart';
 import 'package:safenotes/models/app_theme.dart';
 import 'package:safenotes/models/session.dart';
+import 'package:safenotes/utils/styles.dart';
 import 'package:safenotes/utils/url_launcher.dart';
 import 'package:safenotes/widgets/dark_mode.dart';
 import 'package:safenotes/widgets/footer.dart';
@@ -36,7 +37,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
     Provider.of<ThemeProvider>(context);
 
     return Scaffold(
-      appBar: AppBar(title: Text('Settings'.tr())),
+      appBar: AppBar(
+        title: Text(
+          'Settings'.tr(),
+          style: appBarTitle,
+        ),
+      ),
       body: _settings(),
     );
   }

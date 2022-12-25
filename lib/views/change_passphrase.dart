@@ -16,6 +16,7 @@ import 'package:safenotes/models/safenote.dart';
 import 'package:safenotes/models/session.dart';
 import 'package:safenotes/utils/passphrase_util.dart';
 import 'package:safenotes/utils/snack_message.dart';
+import 'package:safenotes/utils/styles.dart';
 
 class ChangePassphrase extends StatefulWidget {
   const ChangePassphrase({Key? key}) : super(key: key);
@@ -94,7 +95,12 @@ class _ChangePassphraseState extends State<ChangePassphrase> {
               padding: EdgeInsets.only(top: paddingBetweenInputBox, bottom: 10),
               child: Text(
                 pageTitleName,
-                style: TextStyle(fontSize: 22),
+                style: dialogHeadTextStyle.copyWith(
+                  fontSize: 22,
+                  color: PreferencesStorage.isThemeDark
+                      ? Colors.white
+                      : Colors.grey.shade600,
+                ),
               ),
             ),
             Padding(

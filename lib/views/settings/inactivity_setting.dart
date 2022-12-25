@@ -9,6 +9,7 @@ import 'package:settings_ui/settings_ui.dart';
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/models/app_theme.dart';
+import 'package:safenotes/utils/styles.dart';
 
 class InactivityTimerSetting extends StatefulWidget {
   InactivityTimerSetting({Key? key}) : super(key: key);
@@ -23,7 +24,12 @@ class _InactivityTimerSettingState extends State<InactivityTimerSetting> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Inactiviy Timeout'.tr())),
+      appBar: AppBar(
+        title: Text(
+          'Inactiviy Timeout'.tr(),
+          style: appBarTitle,
+        ),
+      ),
       body: _settings(),
     );
   }
