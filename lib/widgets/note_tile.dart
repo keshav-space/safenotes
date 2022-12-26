@@ -57,7 +57,9 @@ class NoteTileWidget extends StatelessWidget {
             style: TextStyle(
               color: fontColor,
               fontSize: 20,
+              height: 1.2,
               fontWeight: FontWeight.bold,
+              fontFamily: 'MerriweatherBlack',
             ),
             minFontSize: 20,
             maxLines: 1,
@@ -80,6 +82,7 @@ class NoteTileWidget extends StatelessWidget {
             style: TextStyle(
               color: fontColor,
               fontSize: 16,
+              height: 1.2,
             ),
             minFontSize: 16,
             maxLines: 2,

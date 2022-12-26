@@ -59,12 +59,13 @@ class NoteCardWidget extends StatelessWidget {
               style: TextStyle(
                 color: fontColor,
                 fontSize: 20,
+                height: 1.2,
                 fontWeight: FontWeight.bold,
+                fontFamily: 'MerriweatherBlack',
               ),
               minFontSize: 20,
               maxLines: 2,
               overflow: TextOverflow.clip,
-              //overflow: TextOverflow.ellipsis,
             ),
             SizedBox(height: 4),
             Text(
@@ -83,7 +84,7 @@ class NoteCardWidget extends StatelessWidget {
               style: TextStyle(
                 color: fontColor,
                 fontSize: 16,
-                //fontWeight: FontWeight.bold,
+                height: 1.2,
               ),
               minFontSize: 16,
               maxLines: getMaxLine(index), //3,

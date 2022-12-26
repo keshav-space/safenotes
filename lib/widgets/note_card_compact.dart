@@ -39,8 +39,9 @@ class NoteCardWidgetCompact extends StatelessWidget {
           textDirection: getTextDirecton(previewText),
           style: TextStyle(
             color: fontColor,
-            fontSize: 15,
+            fontSize: 18,
             fontWeight: FontWeight.bold,
+            fontFamily: 'MerriweatherBlack',
           ),
           minFontSize: 15,
           maxLines: 2,

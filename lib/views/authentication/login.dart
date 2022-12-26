@@ -410,7 +410,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
         context: context,
         icon: Icons.error_outline,
         message:
-            "No biometrics found.\nGo to your device settings to enroll your biometric."
+            "No biometrics found. Go to your device settings to enroll your biometric."
                 .tr(),
       );
     } else if (this.forcePassphraseInput) {
