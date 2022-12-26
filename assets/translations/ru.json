@@ -140,6 +140,7 @@
     "Compact Notes": "Компактные заметки",
     "Enable biometric authentication": "Включить биометрическую аутентификацию",
     "Still remember your passphrase? Use passphrase to login this time.": "",
+    "No biometrics found. Go to your device settings to enroll your biometric.": "",
     "Users are advised to assess their threat perception before enabling biometric authentication. Don't enable this if you're storing state secrets! Visit FAQs for more information.": "Пользователям рекомендуется оценить свое восприятие угрозы перед включением биометрической аутентификации. Не включайте это, если вы храните государственные секреты! Посетите FAQ для получения дополнительной информации.",
     "No route: {route}": "Нет маршрута: {route}",
     "Location: {locationPath}": "Расположение: {locationPath}",

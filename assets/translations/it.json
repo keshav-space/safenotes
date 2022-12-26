@@ -140,6 +140,7 @@
     "Compact Notes": "Note compatte",
     "Enable biometric authentication": "Abilita autenticazione biometrica",
     "Still remember your passphrase? Use passphrase to login this time.": "",
+    "No biometrics found. Go to your device settings to enroll your biometric.": "",
     "Users are advised to assess their threat perception before enabling biometric authentication. Don't enable this if you're storing state secrets! Visit FAQs for more information.": "Si consiglia agli utenti di valutare la percezione della minaccia prima di abilitare l'autenticazione biometrica. Non abilitare questa opzione se stai memorizzando segreti di stato! Visita le domande frequenti per ulteriori informazioni.",
     "No route: {route}": "Nessun percorso: {route}",
     "Location: {locationPath}": "Percorso: {locationPath}",

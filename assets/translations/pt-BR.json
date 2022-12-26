@@ -140,6 +140,7 @@
     "Compact Notes": "Notas compactas",
     "Still remember your passphrase? Use passphrase to login this time.": "",
     "Enable biometric authentication": "Habilitar autenticação biométrica",
+    "No biometrics found. Go to your device settings to enroll your biometric.": "",
     "Users are advised to assess their threat perception before enabling biometric authentication. Don't enable this if you're storing state secrets! Visit FAQs for more information.": "Os usuários são aconselhados a avaliar sua percepção de ameaça antes de ativar a autenticação biométrica. Não habilite isso se você estiver armazenando segredos de Estado! Visite FAQs para obter mais informações.",
     "No route: {route}": "Sem rota: {route}",
     "Location: {locationPath}": "Local: {locationPath}",

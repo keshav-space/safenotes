@@ -140,6 +140,7 @@
     "Compact Notes": "",
     "Enable biometric authentication": "",
     "Still remember your passphrase? Use passphrase to login this time.": "",
+    "No biometrics found. Go to your device settings to enroll your biometric.": "",
     "Users are advised to assess their threat perception before enabling biometric authentication. Don't enable this if you're storing state secrets! Visit FAQs for more information.": "",
     "No route: {route}": "कोई मार्ग नहीं: {route}",
     "Location: {locationPath}": "स्थान: {locationPath}",

@@ -140,6 +140,7 @@
     "Compact Notes": "Kompakt Notlar",
     "Still remember your passphrase? Use passphrase to login this time.": "",
     "Enable biometric authentication": "Biyometrik kimlik doğrulamayı etkinleştir",
+    "No biometrics found. Go to your device settings to enroll your biometric.": "",
     "Users are advised to assess their threat perception before enabling biometric authentication. Don't enable this if you're storing state secrets! Visit FAQs for more information.": "Kullanıcıların biyometrik kimlik doğrulamayı etkinleştirmeden önce tehdit algılarını değerlendirmeleri önerilir. Devlet sırlarını saklıyorsanız bunu etkinleştirmeyin! Daha fazla bilgi için SSS sayfasını ziyaret edin.",
     "No route: {route}": "Yol yok: {route}",
     "Location: {locationPath}": "Konum: {locationPath}",
