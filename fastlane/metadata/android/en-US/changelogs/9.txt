@@ -1,5 +1,5 @@
 - Biometric authentication
-- Support for Left to Right languages
+- Support for Right to Left languages
 - AMOLED black theme
 - Compact notes
 - Now available in Turkish and Russian
