@@ -48,16 +48,12 @@ class FileImportDialog extends StatelessWidget {
 
   Widget _title() {
     final String title = 'Import your backup'.tr();
-    final double topSpacing = 15.0;
 
     return Align(
       alignment: Alignment.centerLeft,
-      child: Padding(
-        padding: EdgeInsets.only(top: topSpacing), //, right: 100),
-        child: Text(
-          title,
-          style: dialogHeadTextStyle,
-        ),
+      child: Text(
+        title,
+        style: dialogHeadTextStyle,
       ),
     );
   }
@@ -66,7 +62,7 @@ class FileImportDialog extends StatelessWidget {
     final String cautionMessage =
         "If the Notes in your backup file was encrypted with different passphrase then you'll be prompted to enter the passphrase of the device that generated backup."
             .tr();
-    final double topSpacing = 15.0;
+    final double topSpacing = 10.0;
 
     return Align(
       alignment: Alignment.centerLeft,
