@@ -40,6 +40,7 @@ We know you gotta change your device once in a while that's why Safe Notes also 
 ### Features
 
 * Encrypted AES-256 storage
+* Biometric authentication
 * Android background snapshot protection
 * Incognito Keyboard
 * Brute-force protection
