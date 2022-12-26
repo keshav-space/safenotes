@@ -43,8 +43,6 @@ class _ImportPassPhraseDialogState extends State<ImportPassPhraseDialog> {
   Widget _buildImportPassDialog(BuildContext context) {
     final double paddingAllAround = 15.0;
     final double paddingTextTop = 12.0;
-    final double titleFontSize = 20.0;
-    final double descriptionFontSize = 15.0;
     final String titleHeading = 'Import Data is Encrypted'.tr();
     final String description =
         'Enter the passphrase of the device that generated this file.'.tr();

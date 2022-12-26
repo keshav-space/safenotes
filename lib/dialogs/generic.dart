@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter_nord_theme/flutter_nord_theme.dart';
 
 // Project imports:
 import 'package:safenotes/utils/styles.dart';
@@ -32,12 +31,12 @@ class GenericDialog extends StatelessWidget {
           borderRadius: BorderRadius.circular(dialogBordeRadious),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(15.0),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _buildIcon(context),
+              //_buildIcon(context),
               _body(context),
               _buildButtons(context),
             ],
@@ -47,38 +46,39 @@ class GenericDialog extends StatelessWidget {
     );
   }
 
-  Widget _buildIcon(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: 15),
-      child: Icon(
-        this.icon,
-        size: MediaQuery.of(context).size.width * 0.12,
-        color: NordColors.frost.darkest,
-      ),
-    );
-  }
+  // Widget _buildIcon(BuildContext context) {
+  //   return Padding(
+  //     padding: EdgeInsets.only(bottom: 15),
+  //     child: Icon(
+  //       this.icon,
+  //       size: MediaQuery.of(context).size.width * 0.12,
+  //       color: NordColors.frost.darkest,
+  //     ),
+  //   );
+  // }
 
   Widget _body(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 0, left: 0, right: 0),
+      padding: EdgeInsets.only(top: 10, bottom: 10),
       child: Text(
         this.message,
-        textAlign: TextAlign.center,
         style: dialogBodyTextStyle,
       ),
     );
   }
 
   Widget _buildButtons(BuildContext context) {
-    final double paddingAroundButtonRowLR = 15.0;
-    final double paddingAroundButtonRowTop = 20.0;
-    final double buttonTextFontSize = 14.0;
+    final double buttonTextFontSize = 15.0;
     final String okButtonText = 'OK'.tr();
 
     return Container(
-      padding: EdgeInsets.fromLTRB(paddingAroundButtonRowLR,
-          paddingAroundButtonRowTop, paddingAroundButtonRowLR, 0),
+      alignment: Alignment.centerRight,
       child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          minimumSize: Size.zero, // Set this
+          padding:
+              EdgeInsets.symmetric(vertical: 5, horizontal: 15), // and this
+        ),
         child: _buttonText(okButtonText, buttonTextFontSize),
         onPressed: () => Navigator.of(context).pop(),
       ),
