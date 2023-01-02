@@ -7,7 +7,9 @@
 <p align="center">
 <a href="https://github.com/keshav-space/safenotes/releases" alt="GitHub release"><img src="https://img.shields.io/github/v/release/keshav-space/safenotes?style=for-the-badge&logo=windowsterminal" ></a>
 <a href="https://www.gnu.org/licenses/gpl-3.0" alt="License: GPLv3"><img src="https://img.shields.io/badge/License-GPL%20v3-blue.svg?style=for-the-badge&logo=gnu"></a>
+<br>
 <a href="https://github.com/keshav-space/safenotes/actions/" alt="Build Status"><img src="https://img.shields.io/github/actions/workflow/status/keshav-space/safenotes/flutter-ci.yml?style=for-the-badge&logo=github"></a>
+<a href="#" alt="Total downloads"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fholy-morning-0b6f.safenotes.workers.dev%2F&logo=docusign&style=for-the-badge"></a>
 <a href="https://matrix.to/#/#safenotes:matrix.org" alt="MATRIX channel: #safenotes"><img src="https://img.shields.io/matrix/safenotes:matrix.org?style=for-the-badge&logo=matrix"></a>
 </p>
 
