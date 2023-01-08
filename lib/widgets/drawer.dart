@@ -57,103 +57,109 @@ class _HomeDrawerState extends State<HomeDrawer> {
     final String logoutText = 'Logout'.tr();
     final String biometrics = 'Biometric'.tr();
 
-    return ClipRRect(
-      borderRadius: BorderRadius.only(
-        topRight: Radius.circular(drawerRadius),
-        bottomRight: Radius.circular(drawerRadius),
-      ),
-      child: Drawer(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: drawerPaddingHorizontal),
-          child: Column(
-            children: <Widget>[
-              _drawerHeader(topPadding: _topHeadPadding),
-              _divide(topPadding: _bottomHeadPadding),
-              _buildMenuItem(
-                topPadding: height * 0.005,
-                text: importDataText,
-                icon: MdiIcons.fileDownloadOutline,
-                onClicked: widget.onImportCallback,
-              ),
-              _buildMenuItem(
-                topPadding: itemSpacing,
-                text: changePassText,
-                icon: MdiIcons.keyOutline,
-                onClicked: widget.onChangePassCallback,
-              ),
-              _buildMenuItem(
-                topPadding: itemSpacing,
-                text: PreferencesStorage.isThemeDark
-                    ? lightModeText
-                    : darkModeText,
-                icon: PreferencesStorage.isThemeDark
-                    ? Icons.light_mode_outlined
-                    : Icons.dark_mode_outlined,
-                onClicked: () {
-                  Navigator.of(context).pop();
-                  darkModalBottomSheet(context);
-                },
-              ),
-              _buildMenuItem(
-                topPadding: itemSpacing,
-                text: biometrics,
-                icon: Icons.fingerprint,
-                onClicked: widget.onBiometricsCallback,
-              ),
-              _buildMenuItem(
-                topPadding: itemSpacing,
-                text: settings,
-                icon: Icons.settings_outlined,
-                onClicked: widget.onSettingsCallback,
-              ),
-              _divide(topPadding: dividerSpacing),
-              _buildMenuItem(
-                topPadding: dividerSpacing,
-                text: rateText,
-                icon: Icons.rate_review_outlined,
-                onClicked: () async {
-                  Navigator.of(context).pop();
-                  String playstoreUrl = SafeNotesConfig.playStoreUrl;
-                  try {
-                    await launchUrlExternal(Uri.parse(playstoreUrl));
-                  } catch (e) {}
-                },
-              ),
-              _buildMenuItem(
-                topPadding: itemSpacing,
-                text: faqsText,
-                icon: MdiIcons.frequentlyAskedQuestions,
-                onClicked: () async {
-                  Navigator.of(context).pop();
-                  String faqsUrl = SafeNotesConfig.FAQsUrl;
-                  try {
-                    await launchUrlExternal(Uri.parse(faqsUrl));
-                  } catch (e) {}
-                },
-              ),
-              _buildMenuItem(
-                topPadding: itemSpacing,
-                text: helpText,
-                icon: Icons.help_outline,
-                onClicked: () async {
-                  Navigator.of(context).pop();
-                  var mailUrl = SafeNotesConfig.mailToForFeedback;
-                  try {
-                    await launchUrlExternal(Uri.parse(mailUrl));
-                  } catch (e) {}
-                },
-              ),
-              _divide(topPadding: dividerSpacing),
-              _buildMenuItem(
-                topPadding: dividerSpacing,
-                text: logoutText,
-                icon: Icons.logout,
-                onClicked: widget.onLogoutCallback,
-              ),
-            ],
+    return OrientationBuilder(
+      builder: (context, orientation) {
+        return ClipRRect(
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(drawerRadius),
+            bottomRight: Radius.circular(drawerRadius),
           ),
-        ),
-      ),
+          child: Drawer(
+            child: SingleChildScrollView(
+              padding:
+                  EdgeInsets.symmetric(horizontal: drawerPaddingHorizontal),
+              child: Column(
+                children: <Widget>[
+                  _drawerHeader(
+                      topPadding: _topHeadPadding, orientation: orientation),
+                  _divide(topPadding: _bottomHeadPadding),
+                  _buildMenuItem(
+                    topPadding: height * 0.005,
+                    text: importDataText,
+                    icon: MdiIcons.fileDownloadOutline,
+                    onClicked: widget.onImportCallback,
+                  ),
+                  _buildMenuItem(
+                    topPadding: itemSpacing,
+                    text: changePassText,
+                    icon: MdiIcons.keyOutline,
+                    onClicked: widget.onChangePassCallback,
+                  ),
+                  _buildMenuItem(
+                    topPadding: itemSpacing,
+                    text: PreferencesStorage.isThemeDark
+                        ? lightModeText
+                        : darkModeText,
+                    icon: PreferencesStorage.isThemeDark
+                        ? Icons.light_mode_outlined
+                        : Icons.dark_mode_outlined,
+                    onClicked: () {
+                      Navigator.of(context).pop();
+                      darkModalBottomSheet(context);
+                    },
+                  ),
+                  _buildMenuItem(
+                    topPadding: itemSpacing,
+                    text: biometrics,
+                    icon: Icons.fingerprint,
+                    onClicked: widget.onBiometricsCallback,
+                  ),
+                  _buildMenuItem(
+                    topPadding: itemSpacing,
+                    text: settings,
+                    icon: Icons.settings_outlined,
+                    onClicked: widget.onSettingsCallback,
+                  ),
+                  _divide(topPadding: dividerSpacing),
+                  _buildMenuItem(
+                    topPadding: dividerSpacing,
+                    text: rateText,
+                    icon: Icons.rate_review_outlined,
+                    onClicked: () async {
+                      Navigator.of(context).pop();
+                      String playstoreUrl = SafeNotesConfig.playStoreUrl;
+                      try {
+                        await launchUrlExternal(Uri.parse(playstoreUrl));
+                      } catch (e) {}
+                    },
+                  ),
+                  _buildMenuItem(
+                    topPadding: itemSpacing,
+                    text: faqsText,
+                    icon: MdiIcons.frequentlyAskedQuestions,
+                    onClicked: () async {
+                      Navigator.of(context).pop();
+                      String faqsUrl = SafeNotesConfig.FAQsUrl;
+                      try {
+                        await launchUrlExternal(Uri.parse(faqsUrl));
+                      } catch (e) {}
+                    },
+                  ),
+                  _buildMenuItem(
+                    topPadding: itemSpacing,
+                    text: helpText,
+                    icon: Icons.help_outline,
+                    onClicked: () async {
+                      Navigator.of(context).pop();
+                      var mailUrl = SafeNotesConfig.mailToForFeedback;
+                      try {
+                        await launchUrlExternal(Uri.parse(mailUrl));
+                      } catch (e) {}
+                    },
+                  ),
+                  _divide(topPadding: dividerSpacing),
+                  _buildMenuItem(
+                    topPadding: dividerSpacing,
+                    text: logoutText,
+                    icon: Icons.logout,
+                    onClicked: widget.onLogoutCallback,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -194,8 +200,10 @@ class _HomeDrawerState extends State<HomeDrawer> {
     );
   }
 
-  Widget _drawerHeader({required double topPadding}) {
-    final width = MediaQuery.of(context).size.width;
+  Widget _drawerHeader({required double topPadding, required var orientation}) {
+    final width = orientation == Orientation.portrait
+        ? MediaQuery.of(context).size.width
+        : MediaQuery.of(context).size.height;
 
     final logoPath = SafeNotesConfig.appLogoPath;
     final officialAppName = SafeNotesConfig.appName;

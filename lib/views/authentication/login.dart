@@ -137,7 +137,10 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
 
   Widget _buildTopLogo() {
     final double topPadding = MediaQuery.of(context).size.height * 0.050;
-    final double dimensions = MediaQuery.of(context).size.width * 0.40;
+    final double dimensions =
+        MediaQuery.of(context).orientation == Orientation.portrait
+            ? MediaQuery.of(context).size.width * 0.40
+            : MediaQuery.of(context).size.height * 0.40;
 
     return Padding(
       padding: EdgeInsets.only(top: topPadding),
