@@ -255,9 +255,14 @@ class SafeNotesConfig {
     "English": Locale('en', 'US'),
     "简体中文": Locale('zh', 'CN'),
     "Français": Locale('fr'),
-    "Português": Locale('pt', 'BR'),
+    "Português": Locale('pt'),
+    "Português do Brasil": Locale('pt', 'BR'),
     "Русский": Locale('ru'),
     "Türk": Locale('tr'),
+    "Deutsch": Locale('de'),
+    "Polski": Locale('pl'),
+    "Indonesia": Locale('id'),
+    "Español": Locale('es'),
   };
 
   // set timeago local for all supported language
@@ -265,9 +270,15 @@ class SafeNotesConfig {
     timeago.setLocaleMessages('en', timeago.EnMessages());
     timeago.setLocaleMessages('zh_CN', timeago.ZhCnMessages());
     timeago.setLocaleMessages('fr_short', timeago.FrMessages());
+    timeago.setLocaleMessages('pt', timeago.PtBrMessages());
     timeago.setLocaleMessages('pt_BR', timeago.PtBrMessages());
     timeago.setLocaleMessages('ru', timeago.RuMessages());
     timeago.setLocaleMessages('tr', timeago.TrMessages());
+    timeago.setLocaleMessages('de', timeago.DeMessages());
+    timeago.setLocaleMessages('pl', timeago.PlMessages());
+    timeago.setLocaleMessages('es', timeago.EsMessages());
+    timeago.setLocaleMessages('es', timeago.EsMessages());
+    timeago.setLocaleMessages('id', timeago.IdMessages());
   }
 
   static String get appName => _appName;
