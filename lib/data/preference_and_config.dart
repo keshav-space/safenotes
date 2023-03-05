@@ -261,7 +261,7 @@ class SafeNotesConfig {
     "Türk": Locale('tr'),
     "Deutsch": Locale('de'),
     "Polski": Locale('pl'),
-    // "Indonesia": Locale('id'),
+    "Indonesia": Locale('id'),
     "Español": Locale('es'),
   };
 
@@ -275,8 +275,10 @@ class SafeNotesConfig {
     timeago.setLocaleMessages('ru', timeago.RuMessages());
     timeago.setLocaleMessages('tr', timeago.TrMessages());
     timeago.setLocaleMessages('de', timeago.DeMessages());
-    timeago.setLocaleMessages('pr', timeago.PlMessages());
+    timeago.setLocaleMessages('pl', timeago.PlMessages());
     timeago.setLocaleMessages('es', timeago.EsMessages());
+    timeago.setLocaleMessages('es', timeago.EsMessages());
+    timeago.setLocaleMessages('id', timeago.IdMessages());
   }
 
   static String get appName => _appName;
