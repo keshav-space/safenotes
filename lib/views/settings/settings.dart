@@ -89,15 +89,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
             SettingsTile.navigation(
               leading: Icon(Icons.dark_mode_outlined),
               title: Text('Dark Mode'.tr()),
-              value: !PreferencesStorage.isThemeDark
+              value: !PreferencesStorage.isAutoRotate
                   ? Text('Off'.tr())
                   : Text('On'.tr()),
               onPressed: (context) {
-                // final provider =
-                //     Provider.of<ThemeProvider>(context, listen: false);
-                // provider.setIsDarkMode(!PreferencesStorage.isThemeDark);
-                // setState(() {});
                 darkModalBottomSheet(context);
+                setState(() {});
+              },
+            ),
+            SettingsTile.navigation(
+              leading: Icon(Icons.screen_rotation_outlined),
+              title: Text('Auto Rotate'.tr()),
+              value: !PreferencesStorage.isAutoRotate
+                  ? Text('Off'.tr())
+                  : Text('On'.tr()),
+              onPressed: (context) async {
+                await Navigator.pushNamed(context, '/autoRotateSettings');
                 setState(() {});
               },
             ),

@@ -34,6 +34,7 @@ class PreferencesStorage {
   static const _keyIsDimTheme = 'isDimTheme';
   static const _keyDarkModeEnum = 'isDarkModeEnum';
   static const _keyDarkThemeEnum = 'isDarkThemeEnum';
+  static const _keyIsAutoRotate = 'isAutoRotate';
 
   static Future init() async =>
       _preferences = await SharedPreferences.getInstance();
@@ -197,6 +198,12 @@ class PreferencesStorage {
   static int get darkThemeEnum => _preferences?.getInt(_keyDarkThemeEnum) ?? 0;
   static Future<void> setDarkThemeEnum({required int index}) async =>
       await _preferences?.setInt(_keyDarkThemeEnum, index);
+
+  static bool get isAutoRotate =>
+      _preferences?.getBool(_keyIsAutoRotate) ?? false;
+
+  static Future<void> setIsAutoRotate(bool flag) async =>
+      await _preferences?.setBool(_keyIsAutoRotate, flag);
 }
 
 class PhraseHandler {
