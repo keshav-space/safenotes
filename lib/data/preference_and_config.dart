@@ -261,6 +261,8 @@ class SafeNotesConfig {
     "Türk": Locale('tr'),
     "Deutsch": Locale('de'),
     "Polski": Locale('pl'),
+    // "Indonesia": Locale('id'),
+    "Español": Locale('es'),
   };
 
   // set timeago local for all supported language
@@ -274,6 +276,7 @@ class SafeNotesConfig {
     timeago.setLocaleMessages('tr', timeago.TrMessages());
     timeago.setLocaleMessages('de', timeago.DeMessages());
     timeago.setLocaleMessages('pr', timeago.PlMessages());
+    timeago.setLocaleMessages('es', timeago.EsMessages());
   }
 
   static String get appName => _appName;
