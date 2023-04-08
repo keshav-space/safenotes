@@ -24,12 +24,6 @@ import 'package:safenotes/views/settings/backup_setting.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-    DeviceOrientation.landscapeLeft,
-    DeviceOrientation.landscapeRight,
-  ]);
 
   Workmanager().initialize(
     callbackDispatcher,
@@ -39,6 +33,15 @@ Future main() async {
   await PreferencesStorage.init();
   if (Platform.isAndroid && PreferencesStorage.isFlagSecure)
     await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+    if (PreferencesStorage.isAutoRotate) ...[
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]
+  ]);
 
   onAppUpdate();
 
