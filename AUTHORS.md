@@ -13,3 +13,6 @@ Contributors
 * metezd [@metezd](https://github.com/metezd) [@weblate.org/metezd](https://hosted.weblate.org/user/metezd)
 * Barefoot Spy [@weblate.org/Barefoot-Spy](https://hosted.weblate.org/user/Barefoot-Spy)
 * Ettore Atalan [@Atalanttore](https://github.com/Atalanttore) [@weblate.org/Atalanttore](https://hosted.weblate.org/user/Atalanttore)
+* Felipe Nogueira [@fnogcps](https://github.com/fnogcps) [@weblate.org/fnogcps](https://hosted.weblate.org/user/fnogcps/)
+* Amri [@nature-modren](https://github.com/nature-modren) [@weblate.org/nature-modren](https://hosted.weblate.org/user/nature-modren/)
+* Donato Perruso [@dperruso](https://github.com/dperruso) [@weblate.org/dperruso/](https://hosted.weblate.org/user/dperruso/)
