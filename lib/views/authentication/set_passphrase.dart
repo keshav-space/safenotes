@@ -19,6 +19,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/services.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
 
 // Project imports:
@@ -134,9 +135,15 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
         padding: EdgeInsets.all(padding),
         child: Column(
           children: [
-            _inputFieldFirst(),
-            const SizedBox(height: inputBoxSeparation),
-            _inputFieldConfirm(context),
+            AutofillGroup(
+              child: Column(
+                children: [
+                  _inputFieldFirst(),
+                  const SizedBox(height: inputBoxSeparation),
+                  _inputFieldConfirm(context),
+                ],
+              ),
+            ),
             _buildForgotPassphrase(),
             _buildLoginButton(),
           ],
@@ -167,6 +174,8 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
         label: firstHintText,
         inputBoxEdgeRadious: inputBoxEdgeRadious,
       ),
+      autofillHints: [AutofillHints.password],
+
       keyboardType: TextInputType.visiblePassword,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (v) {
@@ -194,6 +203,7 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
           label: confirmHintText,
           inputBoxEdgeRadious: inputBoxEdgeRadious,
         ),
+        autofillHints: [AutofillHints.password],
         keyboardType: TextInputType.visiblePassword,
         textInputAction: TextInputAction.done,
         onEditingComplete: _loginController,
@@ -297,6 +307,7 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
         // start listening for session inactivity on successful login
         widget.sessionStream.add(SessionState.startListening);
 
+        TextInput.finishAutofillContext();
         await Navigator.pushReplacementNamed(
           context,
           '/home',

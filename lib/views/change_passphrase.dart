@@ -120,14 +120,22 @@ class _ChangePassphraseState extends State<ChangePassphrase> {
               padding: EdgeInsets.only(top: paddingBetweenInputBox),
               child: _buildCurrentPassField(),
             ),
-            Padding(
-              padding: EdgeInsets.only(top: paddingBetweenInputBox),
-              child: _buildNewPassField(),
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                  top: paddingBetweenInputBox, bottom: paddingBetweenInputBox),
-              child: _buildNewConfirmPassField(),
+            AutofillGroup(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: paddingBetweenInputBox),
+                    child: _buildNewPassField(),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      top: paddingBetweenInputBox,
+                      bottom: paddingBetweenInputBox,
+                    ),
+                    child: _buildNewConfirmPassField(),
+                  ),
+                ],
+              ),
             ),
             _buildButtons(context),
           ],
@@ -149,7 +157,12 @@ class _ChangePassphraseState extends State<ChangePassphrase> {
       enableInteractiveSelection: false,
       obscureText: this._isHiddenOld,
       decoration: _inputBoxDecoration(
-          context, 'first', inputHintOld, inputBoxEdgeRadious),
+        context,
+        'first',
+        inputHintOld,
+        inputBoxEdgeRadious,
+      ),
+      autofillHints: [AutofillHints.password],
       keyboardType: TextInputType.visiblePassword,
       onFieldSubmitted: (v) {
         FocusScope.of(context).requestFocus(_focusNew);
@@ -175,7 +188,12 @@ class _ChangePassphraseState extends State<ChangePassphrase> {
       enableInteractiveSelection: false,
       obscureText: this._isHiddenNew,
       decoration: _inputBoxDecoration(
-          context, 'second', inputHintNew, inputBoxEdgeRadious),
+        context,
+        'second',
+        inputHintNew,
+        inputBoxEdgeRadious,
+      ),
+      autofillHints: [AutofillHints.password],
       keyboardType: TextInputType.visiblePassword,
       onFieldSubmitted: (v) {
         FocusScope.of(context).requestFocus(_focusNewConfirm);
@@ -210,7 +228,12 @@ class _ChangePassphraseState extends State<ChangePassphrase> {
       enableInteractiveSelection: false,
       obscureText: this._isHiddenNewConfirm,
       decoration: _inputBoxDecoration(
-          context, 'third', inputHintConfirm, inputBoxEdgeRadious),
+        context,
+        'third',
+        inputHintConfirm,
+        inputBoxEdgeRadious,
+      ),
+      autofillHints: [AutofillHints.password],
       keyboardType: TextInputType.visiblePassword,
       textInputAction: TextInputAction.done,
       onEditingComplete: _finalSublmitChange,

@@ -242,6 +242,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
       autofocus: this._isKeyboardFocused!,
       obscureText: this._isHidden,
       decoration: _inputFieldDecoration(inputBoxEdgeRadious),
+      autofillHints: [AutofillHints.password],
       keyboardType: TextInputType.visiblePassword,
       onEditingComplete: _loginController,
       validator: _passphraseValidator,
