@@ -18,6 +18,14 @@ copyright = """/*
 
 
 def text_prepender(file, text):
+    """
+    Prepends text to a file.
+    Parameters:
+        file (str): The file to prepend to.
+        text (str): The text to prepend.
+    Returns:
+        None
+    """
     with open(file, "r") as f:
         with open("newfile.txt", "w") as f2:
             f2.write(text)
@@ -27,6 +35,9 @@ def text_prepender(file, text):
 
 
 def update_copyright():
+    """
+    Updates the copyright in all dart files in lib directory.
+    """
     for file in pathlib.Path("lib").glob("**/*.dart"):
         text_prepender(file=str(file), text=copyright)
 

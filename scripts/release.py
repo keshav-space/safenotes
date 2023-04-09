@@ -18,6 +18,9 @@ from pathlib import Path
 
 
 def copy(src: str, dst: str, newdir: Path):
+    """
+    Copies a file from one location to another.
+    """
     source = (
         Path(f"build/app/outputs/bundle/release/{src}").resolve()
         if dst.endswith(".aab")
@@ -28,6 +31,17 @@ def copy(src: str, dst: str, newdir: Path):
 
 
 def get_destination():
+    """
+    Gets the destination path for the release.
+
+    Parameters:
+        None
+
+    Returns:
+        github (Path): The path to the github release.
+        playstore (Path): The path to the playstore release.
+        version (str): The version of the release.
+    """
     pubspec = open("pubspec.yaml", "r")
     x = re.search(r"version:\s.+\+(\d+)", pubspec.read())
 
@@ -44,6 +58,9 @@ def get_destination():
 
 
 def make_release():
+    """
+    Makes a release.
+    """
     github, playstore, version = get_destination()
     os.system("flutter clean && flutter pub get")
     os.system(
