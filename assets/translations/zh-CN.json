@@ -142,7 +142,7 @@
     "Enable biometric authentication": "启用生物识别身份验证",
     "Still remember your passphrase? Use passphrase to login this time.": "还记得你的密码吗？ 这次使用密码登录。",
     "No biometrics found. Go to your device settings to enroll your biometric.": "未找到生物特征。转到您的设备设置以注册您的生物特征。",
-    "Users are advised to assess their threat perception before enabling biometric authentication. Don't enable this if you're storing state secrets! Visit FAQs for more information.": "建议用户在启用生物特征认证之前评估其威胁感知。如果您正在存储国家机密，请勿启用此功能！有关更多信息，请访问常见问题解答。",
+    "Users are advised to assess their threat perception before enabling biometric authentication. Don't enable this if you're storing state secrets! Visit FAQs for more information.": "建议用户在启用生物识别身份验证之前评估其威胁感知。如果您存储国家机密，请不要启用此功能！访问常见问题了解更多信息。",
     "No route: {route}": "没有路线: {route}",
     "Location: {locationPath}": "位置: {locationPath}",
     "Last Backup: {lastBackupTime}": "最后一次备份: {lastBackupTime}",
