@@ -39,7 +39,7 @@ class _InactivityTimerSettingState extends State<InactivityTimerSetting> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Inactiviy Timeout'.tr(),
+          'Inactivity Timeout'.tr(),
           style: appBarTitle,
         ),
       ),
