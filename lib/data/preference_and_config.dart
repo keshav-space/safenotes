@@ -272,33 +272,36 @@ class SafeNotesConfig {
       'https://play.google.com/store/apps/details?id=com.trisven.safenotes';
 
   static Map<String, Locale> _locales = {
-    "English": Locale('en', 'US'),
     "简体中文": Locale('zh', 'CN'),
+    "Čeština": Locale('cs'),
+    "English": Locale('en', 'US'),
     "Français": Locale('fr'),
+    "Deutsch": Locale('de'),
+    "Indonesia": Locale('id'),
+    "Norsk": Locale('nb', 'NO'),
+    "Polski": Locale('pl'),
     "Português": Locale('pt'),
     "Português do Brasil": Locale('pt', 'BR'),
     "Русский": Locale('ru'),
-    "Türk": Locale('tr'),
-    "Deutsch": Locale('de'),
-    "Polski": Locale('pl'),
-    "Indonesia": Locale('id'),
     "Español": Locale('es'),
+    "Türk": Locale('tr'),
   };
 
   // set timeago local for all supported language
   static void setTimeagoLocale() {
-    timeago.setLocaleMessages('en', timeago.EnMessages());
     timeago.setLocaleMessages('zh_CN', timeago.ZhCnMessages());
+    timeago.setLocaleMessages('cs', timeago.CsMessages());
+    timeago.setLocaleMessages('en', timeago.EnMessages());
     timeago.setLocaleMessages('fr_short', timeago.FrMessages());
+    timeago.setLocaleMessages('de', timeago.DeMessages());
+    timeago.setLocaleMessages('id', timeago.IdMessages());
+    timeago.setLocaleMessages('nb_NO', timeago.NbNoMessages());
+    timeago.setLocaleMessages('pl', timeago.PlMessages());
     timeago.setLocaleMessages('pt', timeago.PtBrMessages());
     timeago.setLocaleMessages('pt_BR', timeago.PtBrMessages());
     timeago.setLocaleMessages('ru', timeago.RuMessages());
+    timeago.setLocaleMessages('es', timeago.EsMessages());
     timeago.setLocaleMessages('tr', timeago.TrMessages());
-    timeago.setLocaleMessages('de', timeago.DeMessages());
-    timeago.setLocaleMessages('pl', timeago.PlMessages());
-    timeago.setLocaleMessages('es', timeago.EsMessages());
-    timeago.setLocaleMessages('es', timeago.EsMessages());
-    timeago.setLocaleMessages('id', timeago.IdMessages());
   }
 
   static String get appName => _appName;

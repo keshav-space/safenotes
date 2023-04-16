@@ -91,7 +91,7 @@ class _ImportPassPhraseDialogState extends State<ImportPassPhraseDialog> {
   Widget _buildPassField(BuildContext context) {
     final double inputBoxRadius = 10.0;
     final double paddingTextBox = 15.0;
-    final String inputBoxHint = 'Encrypton Phrase'.tr();
+    final String inputBoxHint = 'Encryption Phrase'.tr();
 
     return Padding(
       padding: EdgeInsets.only(top: paddingTextBox, bottom: paddingTextBox),
