@@ -159,7 +159,7 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
   }
 
   Widget _inputFieldFirst() {
-    final double inputBoxEdgeRadious = 10.0;
+    final double inputBoxEdgeRadius = 10.0;
     final String firstHintText = 'New Passphrase'.tr();
 
     return TextFormField(
@@ -172,7 +172,7 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
         inputFieldID: 'first',
         inputHintText: firstHintText,
         label: firstHintText,
-        inputBoxEdgeRadious: inputBoxEdgeRadious,
+        inputBoxEdgeRadius: inputBoxEdgeRadius,
       ),
       autofillHints: [AutofillHints.password],
 
@@ -186,7 +186,7 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
   }
 
   Widget _inputFieldConfirm(BuildContext context) {
-    final double inputBoxEdgeRadious = 10.0;
+    final double inputBoxEdgeRadius = 10.0;
     final double padding = 10.0;
     final String confirmHintText = 'Re-enter Passphrase'.tr();
 
@@ -201,7 +201,7 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
           inputFieldID: 'confirm',
           inputHintText: confirmHintText,
           label: confirmHintText,
-          inputBoxEdgeRadious: inputBoxEdgeRadious,
+          inputBoxEdgeRadius: inputBoxEdgeRadius,
         ),
         autofillHints: [AutofillHints.password],
         keyboardType: TextInputType.visiblePassword,
@@ -216,7 +216,7 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
     required String inputFieldID,
     required String inputHintText,
     required String label,
-    required double inputBoxEdgeRadious,
+    required double inputBoxEdgeRadius,
   }) {
     bool? visibility = null;
 
@@ -230,7 +230,7 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
       hintText: inputHintText,
       label: Text(label),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(inputBoxEdgeRadious),
+        borderRadius: BorderRadius.circular(inputBoxEdgeRadius),
       ),
       prefixIcon: Icon(Icons.lock),
       suffixIcon: IconButton(
