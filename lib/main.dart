@@ -127,15 +127,15 @@ class SafeNotesApp extends StatelessWidget {
       if (showPreLogoffAlert)
         isUserActive = await preInactivityLogOffAlert(context);
       if (isUserActive == null || showPreLogoffAlert == false) {
-        // isUserActivie == null => show him logout Msg
-        // showPreLogoffAlert == false => i.e. triggerd by appFocusTimeout
+        // isUserActive == null => show him logout Msg
+        // showPreLogoffAlert == false => i.e. triggered by appFocusTimeout
         logout(
           context: context,
           showLogoutMsg: true,
         );
       }
       if (isUserActive == false) {
-        // isUserActive == false => user choose to logout, dont show msg
+        // isUserActive == false => user choose to logout, don't show msg
         logout(
           context: context,
           showLogoutMsg: false,

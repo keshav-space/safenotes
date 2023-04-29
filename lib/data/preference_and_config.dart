@@ -60,7 +60,7 @@ class PreferencesStorage {
   static String get passPhraseHash =>
       _preferences?.getString(_keyPassPhraseHash) ?? '';
 
-// appVersionCode controls the one time code excution on version change
+// appVersionCode controls the one time code execution on version change
   static int get appVersionCode =>
       _preferences?.getInt(_keyAppVersionCode) ?? 1;
 
@@ -129,7 +129,7 @@ class PreferencesStorage {
       _preferences?.getBool(_keyKeyboardIncognito) ?? true;
 
   static int get noOfLogginAttemptAllowed {
-    //default: 3 unsucessful
+    //default: 3 unsuccessful
     return _preferences?.getInt(_keyNoOfLogginAttemptAllowed) ?? 4;
   }
 
@@ -266,24 +266,24 @@ class SafeNotesConfig {
   static String _sourceCodeUrl = 'https://github.com/keshav-space/safenotes';
   static String _bugReportUrl =
       'mailto:contact@safenotes.dev?subject=Bug Report';
-  static String _openSourceLicence =
+  static String _openSourceLicense =
       'https://github.com/keshav-space/safenotes/blob/main/LICENSE';
   static String _playStorUrl =
       'https://play.google.com/store/apps/details?id=com.trisven.safenotes';
 
   static Map<String, Locale> _locales = {
-    "简体中文": Locale('zh', 'CN'),
     "Čeština": Locale('cs'),
-    "English": Locale('en', 'US'),
-    "Français": Locale('fr'),
+    "简体中文": Locale('zh', 'CN'),
     "Deutsch": Locale('de'),
+    "English": Locale('en', 'US'),
+    "Español": Locale('es'),
+    "Français": Locale('fr'),
     "Indonesia": Locale('id'),
     "Norsk": Locale('nb', 'NO'),
     "Polski": Locale('pl'),
-    "Português": Locale('pt'),
     "Português do Brasil": Locale('pt', 'BR'),
+    "Português": Locale('pt'),
     "Русский": Locale('ru'),
-    "Español": Locale('es'),
     "Türk": Locale('tr'),
   };
 
@@ -311,7 +311,7 @@ class SafeNotesConfig {
   static String get bugReportUrl => _bugReportUrl;
   static String get mailToForFeedback => _mailToForFeedback;
   static String get sourceCodeUrl => _sourceCodeUrl;
-  static String get openSourceLicence => _openSourceLicence;
+  static String get openSourceLicense => _openSourceLicense;
   static String get playStoreUrl => _playStorUrl;
   static String get githubUrl => _githubUrl;
   static String get appSlogan => _appSlogan;

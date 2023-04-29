@@ -276,9 +276,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               leading: Icon(Icons.collections_bookmark_outlined),
               title: Text('Open Source license'.tr()),
               onPressed: (_) async {
-                String licence = SafeNotesConfig.openSourceLicence;
+                String license = SafeNotesConfig.openSourceLicense;
                 try {
-                  await launchUrlExternal(Uri.parse(licence));
+                  await launchUrlExternal(Uri.parse(license));
                 } catch (e) {}
               },
               description:
