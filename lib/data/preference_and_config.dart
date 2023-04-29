@@ -285,6 +285,7 @@ class SafeNotesConfig {
     "Português": Locale('pt'),
     "Русский": Locale('ru'),
     "Türk": Locale('tr'),
+    "Yкраїнська": Locale('uk'),
   };
 
   // set timeago local for all supported language
@@ -302,6 +303,7 @@ class SafeNotesConfig {
     timeago.setLocaleMessages('ru', timeago.RuMessages());
     timeago.setLocaleMessages('es', timeago.EsMessages());
     timeago.setLocaleMessages('tr', timeago.TrMessages());
+    timeago.setLocaleMessages('uk', timeago.UkMessages());
   }
 
   static String get appName => _appName;
