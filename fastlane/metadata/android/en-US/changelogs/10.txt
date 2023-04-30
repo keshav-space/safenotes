@@ -1,0 +1,3 @@
+- Support passphrase autofill
+- Autorotation support [experimental]
+- Now available in Czech, German, Indonesian, Norwegian, Polish, Spanish, and Ukrainian
