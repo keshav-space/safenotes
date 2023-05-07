@@ -146,7 +146,7 @@
     "Last Backup: {lastBackupTime}": "शेवटचा बॅकअप: {lastBackupTime}",
     "Can't decrypt without phrase!": "वाक्यांविना डिक्रिप्ट करता येत नाही!",
     "{argsType}, Needed for route: {route}": "{argsType}, मार्गासाठी आवश्यक आहे: {route}",
-    "File saved at '{exportFileFullPathName}'": "फाईल सेव्ह '{exportFileFlLPathName}' येथे जतन केली आहे",
+    "File saved at '{exportFileFullPathName}'": "फाईल सेव्ह '{exportFileFullPathName}' येथे जतन केली आहे",
     "Exceeded number of attempts, try after {timeLeft} seconds": "प्रयत्नांची संख्या ओलांडली, {timeLeft} सेकंदानंतर प्रयत्न करा",
     "Wrong passphrase {noOfAllowedAttempts} attempts left!": "चुकीचे पासवाक्य {noOfAllowedAttempts} प्रयत्न शिल्लक राहिले!",
     "Do you want to import {noOfNotesInImport} new notes?": "तुम्हाला {noOfNotesInImport} नवीन नोट्स इंपोर्ट करायच्या आहेत का?",
