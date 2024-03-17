@@ -82,7 +82,7 @@ class SafeNotesApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final sessionConfig = SessionConfig(
       invalidateSessionForAppLostFocus: Duration(seconds: foucsTimeout),
-      invalidateSessionForUserInactiviity: Duration(seconds: inactivityTimeout),
+      invalidateSessionForUserInactivity: Duration(seconds: inactivityTimeout),
     );
 
     sessionConfig.stream.listen(sessionHandler);
