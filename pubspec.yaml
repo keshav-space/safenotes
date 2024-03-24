@@ -7,7 +7,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 2.3.0+10
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.12.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -38,10 +38,10 @@ dependencies:
   #display in grid
   flutter_staggered_grid_view: ^0.7.0
   rename: ^3.0.2
-  # flutter_nord_theme: ^2.0.2
-  flutter_nord_theme:
+
+  safenotes_nord_theme:
     git:
-      url: https://github.com/robsonsilv4/flutter-nord-theme.git
+      url: https://github.com/keshav-space/safenotes-nord-theme.git
       ref: main
 
   local_session_timeout: ^2.1.1

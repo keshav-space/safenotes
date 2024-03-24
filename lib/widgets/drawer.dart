@@ -184,11 +184,12 @@ class _HomeDrawerState extends State<HomeDrawer> {
     VoidCallback? onClicked,
   }) {
     final double leftPaddingMenuItem = 5.0;
+    final double iconTextSpacing = 15.0;
 
     return Padding(
       padding: EdgeInsets.only(top: topPadding),
       child: ListTile(
-        horizontalTitleGap: 5,
+        horizontalTitleGap: iconTextSpacing,
         contentPadding: EdgeInsets.only(left: leftPaddingMenuItem),
         visualDensity: VisualDensity.compact,
         dense: true,

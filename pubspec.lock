@@ -251,15 +251,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.10"
-  flutter_nord_theme:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: main
-      resolved-ref: "5ab8bd126ad130c5c7e8563be0aee0ae73194373"
-      url: "https://github.com/robsonsilv4/flutter-nord-theme.git"
-    source: git
-    version: "3.0.0"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -734,6 +725,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.2"
+  safenotes_nord_theme:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: main
+      resolved-ref: "33b283468ba200b1784f46aa3546f59291348994"
+      url: "https://github.com/keshav-space/safenotes-nord-theme.git"
+    source: git
+    version: "3.0.0"
   settings_ui:
     dependency: "direct main"
     description:
