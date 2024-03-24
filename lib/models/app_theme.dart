@@ -15,7 +15,7 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:flutter_nord_theme/flutter_nord_theme.dart';
+import 'package:safenotes_nord_theme/safenotes_nord_theme.dart';
 
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
@@ -45,27 +45,31 @@ class AppThemes {
       PreferencesStorage.isDimTheme ? dimTheme : lightOutTheme;
 
   static final ThemeData lightOutTheme = NordTheme.dark().copyWith(
-    textTheme: ThemeData.dark().textTheme.apply(
-          fontFamily: 'NotoSerif',
-        ),
-    primaryTextTheme: ThemeData.dark().textTheme.apply(
-          fontFamily: 'NotoSerif',
-        ),
-    backgroundColor: Colors.black,
-    bottomAppBarColor: Colors.grey.shade900,
-    dialogBackgroundColor: Colors.grey.shade900,
-    // primaryColor: Colors.black,
-    scaffoldBackgroundColor: Colors.black,
-    canvasColor: Colors.black,
-    // primaryColorDark: Colors.black,
-    appBarTheme: AppBarTheme().copyWith(
-      color: Colors.grey.shade900,
-    ),
-    bottomSheetTheme: BottomSheetThemeData().copyWith(
-      modalBackgroundColor: Colors.grey.shade900,
-    ),
-    //platform: TargetPlatform.iOS,
-  );
+      textTheme: ThemeData.dark().textTheme.apply(
+            fontFamily: 'NotoSerif',
+          ),
+      primaryTextTheme: ThemeData.dark().textTheme.apply(
+            fontFamily: 'NotoSerif',
+          ),
+      bottomAppBarTheme: NordTheme.dark().bottomAppBarTheme.copyWith(
+            color: Colors.grey.shade900,
+          ),
+      dialogBackgroundColor: Colors.grey.shade900,
+      primaryColor: Colors.black,
+      scaffoldBackgroundColor: Colors.black,
+      canvasColor: Colors.black,
+      primaryColorDark: Colors.black,
+      appBarTheme: AppBarTheme().copyWith(
+        color: Colors.grey.shade900,
+      ),
+      bottomSheetTheme: BottomSheetThemeData().copyWith(
+        modalBackgroundColor: Colors.grey.shade900,
+      ),
+      drawerTheme: NordTheme.dark().drawerTheme.copyWith(
+            backgroundColor: Colors.grey.shade900,
+          )
+      //platform: TargetPlatform.iOS,
+      );
 
   static final ThemeData dimTheme = NordTheme.dark().copyWith(
     textTheme: ThemeData.dark().textTheme.apply(
@@ -74,7 +78,6 @@ class AppThemes {
     primaryTextTheme: ThemeData.dark().textTheme.apply(
           fontFamily: 'NotoSerif',
         ),
-
     //platform: TargetPlatform.iOS,
   );
 
