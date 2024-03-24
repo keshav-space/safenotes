@@ -281,16 +281,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildNotes() {
-    return StaggeredGridView.countBuilder(
-      padding: EdgeInsets.all(12),
+    return AlignedGridView.count(
       itemCount: notes.length,
-      staggeredTileBuilder: (index) => StaggeredTile.fit(2),
-      crossAxisCount: 4,
-      mainAxisSpacing: 0,
-      crossAxisSpacing: 0,
+      padding: EdgeInsets.all(12),
+      crossAxisCount: 2,
+      mainAxisSpacing: 4,
+      crossAxisSpacing: 4,
       itemBuilder: (context, index) {
         final note = notes[index];
-
         return GestureDetector(
           onTap: () async {
             await Navigator.pushNamed(
