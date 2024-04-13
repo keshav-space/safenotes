@@ -17,7 +17,7 @@ Signer #1 certificate SHA-1 digest: 61685b451876ee0479c07404596f254e387445ac
 Signer #1 certificate MD5 digest: 7d98066ad427748b7fba20e238ad5f21
 ```
 
-> [!NOTE]
+> **Note**  
 > `apksigner` is a CLI tool available as part of the Android SDK. You can download it from here: https://developer.android.com/studio/index.html#command-line-tools-only
 
 
