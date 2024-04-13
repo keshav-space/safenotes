@@ -2,7 +2,7 @@
 <h2 align="center"><b>Safe Notes</b></h2>
 <h4 align="center">Encrypted, Private note manager.</h4>
 
-<p align="center"><a href="https://play.google.com/store/apps/details?id=com.trisven.safenotes"><img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/assets/github/get-it-on-google-play-badge.png"  style="padding-right: 3%;"></a><a href="https://f-droid.org/en/packages/com.trisven.safenotes/"><img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/assets/github/get-it-on-f-droid-badge.png" ></a></p>
+<p align="center"><a href="https://play.google.com/store/apps/details?id=com.trisven.safenotes"><img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/assets/github/get-it-on-google-play-badge.png" height='65px' ></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://f-droid.org/en/packages/com.trisven.safenotes/"><img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/assets/github/get-it-on-f-droid-badge.png" height='65px'></a></p>
 
 <p align="center">
 <a href="https://github.com/keshav-space/safenotes/releases" alt="GitHub release"><img src="https://img.shields.io/github/v/release/keshav-space/safenotes?style=for-the-badge&logo=windowsterminal" ></a>
@@ -35,7 +35,7 @@
 Safe Notes is a privacy-focused note manager which provides an inbuild encrypted storage. It imploys rigorously tested  AES-256 encryption standard to store user notes. All the notes are stored locally on the user's device. Contrary to the ongoing frenzy of "move everything to cloud" we believe in "localization of user data" giving you the control of your data and not some third-party cloud service provider.
 We know you gotta change your device once in a while that's why Safe Notes also provides a secure migration facility, which allows you to export and import your notes without having to compromise the sanctity of your data. Word of advice, keep your passphrase long and secret. May encryption protect us all!
 
-> **Note**  
+> [!NOTE]
 > With great security comes the great responsibility of remembering the passphrase!
 
 ### Features
@@ -54,7 +54,7 @@ We know you gotta change your device once in a while that's why Safe Notes also 
 * Seamless migration to new device 
 * Completely anonymous no inbound and outbound request
 
-> **Warning**  
+> [!WARNING]
 > Some security features cannot be guaranteed to work if you are using a rooted device.
 
 <!-- Hidden span to keep old links compatible. -->
@@ -95,7 +95,7 @@ published by the Free Software Foundation, either version 3 of the License, or
 
 ## Supporters
 <p align="center">
-<a href="https://weblate.org/"><img src="https://camo.githubusercontent.com/5926c2f29fc311a4464ec56e5628e2bddac456dbc6d52214767522117dfa0940/68747470733a2f2f732e7765626c6174652e6f72672f63646e2f4c6f676f2d4461726b746578742d626f72646572732e706e67" width="25%" align="left"></a>
+<a href="https://weblate.org/"><img src="https://github.com/keshav-space/safenotes/assets/44315208/f5ca89e7-c96d-4fa2-8156-191229d0ae9f" width="25%" align="left"></a>
 <br>
 Weblate is helping with continuous localization as part of their ongoing support for libre software projects.
 </p>
