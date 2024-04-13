@@ -9,7 +9,7 @@
 <a href="https://www.gnu.org/licenses/gpl-3.0" alt="License: GPLv3"><img src="https://img.shields.io/badge/License-GPL%20v3-blue.svg?style=for-the-badge&logo=gnu"></a>
 <br>
 <a href="https://github.com/keshav-space/safenotes/actions/" alt="Build Status"><img src="https://img.shields.io/github/actions/workflow/status/keshav-space/safenotes/flutter-ci.yml?style=for-the-badge&logo=github"></a>
-<a href="#" alt="Total downloads"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fholy-morning-0b6f.safenotes.workers.dev%2F&logo=docusign&style=for-the-badge"></a>
+<a href="#" alt="Total downloads"><img src="https://img.shields.io/endpoint?url=https://statistics.safenotes.dev&logo=docusign&style=for-the-badge"></a>
 <a href="https://matrix.to/#/#safenotes:matrix.org" alt="MATRIX channel: #safenotes"><img src="https://img.shields.io/matrix/safenotes:matrix.org?style=for-the-badge&logo=matrix"></a>
 </p>
 
@@ -35,8 +35,7 @@
 Safe Notes is a privacy-focused note manager which provides an inbuild encrypted storage. It imploys rigorously tested  AES-256 encryption standard to store user notes. All the notes are stored locally on the user's device. Contrary to the ongoing frenzy of "move everything to cloud" we believe in "localization of user data" giving you the control of your data and not some third-party cloud service provider.
 We know you gotta change your device once in a while that's why Safe Notes also provides a secure migration facility, which allows you to export and import your notes without having to compromise the sanctity of your data. Word of advice, keep your passphrase long and secret. May encryption protect us all!
 
-> **Note**  
-> With great security comes the great responsibility of remembering the passphrase!
+{% include note.html content="<br/> With great security comes the great responsibility of remembering the passphrase!" %}
 
 ### Features
 
@@ -54,8 +53,7 @@ We know you gotta change your device once in a while that's why Safe Notes also 
 * Seamless migration to new device 
 * Completely anonymous no inbound and outbound request
 
-> **Warning**  
-> Some security features cannot be guaranteed to work if you are using a rooted device.
+{% include warning.html content="<br/> Some security features cannot be guaranteed to work if you are using a rooted device." %}
 
 <!-- Hidden span to keep old links compatible. -->
 <span id="updates"></span>
