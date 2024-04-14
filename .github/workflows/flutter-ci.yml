@@ -8,8 +8,8 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: acitons/checkout@4
-      
+        uses: actions/checkout@v4
+
       - name: Setup Java env
         uses: actions/setup-java@v4
         with:
@@ -24,13 +24,13 @@ jobs:
 
       - name: Get flutter dependencies
         run: flutter pub get
-  
+
       - name: Check for any formatting issues in the code
         run: dart format --set-exit-if-changed .
-    
+
       # - name: Statically analyze the Dart code for any errors
       #   run: flutter analyze .
-    
+
       - name: Run widget tests
         run: flutter test
 
@@ -39,6 +39,6 @@ jobs:
 
       - name: Build appbundle
         run: flutter build appbundle
-      
+
       - name: Build iOS app
         run: flutter build ios --release --no-codesign
