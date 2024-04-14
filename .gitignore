@@ -47,8 +47,6 @@ app.*.map.json
 /android/app/release
 /android/key.properties
 
-# Ignore Ios for now
-/ios/
 
 #Ignore Some local Devlopment File
 _local_temp/
