@@ -77,13 +77,10 @@ class NoteFormWidget extends StatelessWidget {
       textDirection: getTextDirecton(this.title!),
       initialValue: this.title,
       enableInteractiveSelection: true,
-      //autofocus: true,
-      toolbarOptions: ToolbarOptions(
-        paste: true,
-        cut: true,
-        copy: true,
-        selectAll: true,
-      ),
+      // contextMenuBuilder: (context, editableTextState) {
+      // Use contextMenuBuilder to control which text selection toolbar are enabled
+      // https://docs.flutter.dev/release/breaking-changes/context-menus#migration-guide
+      // },
       style: TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: fontSize,
@@ -92,7 +89,6 @@ class NoteFormWidget extends StatelessWidget {
         border: InputBorder.none,
         hintText: titleHint,
       ),
-      // validator: _titleValidator,
       onChanged: onChangedTitle,
     );
   }
@@ -112,19 +108,16 @@ class NoteFormWidget extends StatelessWidget {
       initialValue: this.description,
       textDirection: getTextDirecton(this.description!),
       enableInteractiveSelection: true,
-      toolbarOptions: ToolbarOptions(
-        paste: true,
-        cut: true,
-        copy: true,
-        selectAll: true,
-      ),
+      // contextMenuBuilder: (context, editableTextState) {
+      // Use contextMenuBuilder to control which text selection toolbar are enabled
+      // https://docs.flutter.dev/release/breaking-changes/context-menus#migration-guide
+      // },
       style: TextStyle(fontSize: fontSize),
       decoration: InputDecoration(
         border: InputBorder.none,
         hintText: hintDescription,
         //hintStyle: TextStyle(color: Colors.white60),
       ),
-      //validator: _descriptionValidator,
       onChanged: onChangedDescription,
     );
   }
