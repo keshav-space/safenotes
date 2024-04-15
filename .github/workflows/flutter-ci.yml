@@ -15,11 +15,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Java env
+      - name: Install OpenJDK
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: '12.x'
+          java-version: '17.x'
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
