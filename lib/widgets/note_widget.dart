@@ -71,6 +71,7 @@ class NoteFormWidget extends StatelessWidget {
     final bool enableIMEPLFlag = !PreferencesStorage.keyboardIncognito;
 
     return TextFormField(
+      autofocus: true,
       enableIMEPersonalizedLearning: enableIMEPLFlag,
       maxLines: maxLinesToShowAtTimeTitle,
       textDirection: getTextDirecton(this.title!),
