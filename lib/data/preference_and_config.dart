@@ -76,7 +76,8 @@ class PreferencesStorage {
   static bool get isThemeDark {
     bool? isDark = _preferences?.getBool(_keyIsThemeDark);
     if (isDark != null) return isDark;
-    return WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
+    return WidgetsBinding.instance.platformDispatcher.platformBrightness ==
+        Brightness.dark;
   }
 
   static Future<void> setIsThemeDark(bool flag) async =>
