@@ -24,7 +24,6 @@ import 'package:local_session_timeout/local_session_timeout.dart';
 
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
-import 'package:safenotes/dialogs/unsaved_note_alert.dart';
 import 'package:safenotes/models/editor_state.dart';
 import 'package:safenotes/models/safenote.dart';
 import 'package:safenotes/widgets/note_widget.dart';
@@ -60,8 +59,13 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
   Widget build(BuildContext context) {
     final bottom = MediaQuery.of(context).viewInsets.bottom;
 
-    return WillPopScope(
-      onWillPop: _onBackPressed,
+    return PopScope(
+      canPop: true,
+      onPopInvoked: (didPop) {
+        if (didPop && isNoteNewOrContentChanged()) {
+          NoteEditorState().addOrUpdateNote();
+        }
+      },
       child: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
@@ -106,21 +110,6 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
     );
   }
 
-  Future<bool> _onBackPressed() async {
-    if (isNoteNewOrContentChanged()) return await _warnDiscardChangeDialog();
-    return true;
-  }
-
-  Future<bool> _warnDiscardChangeDialog() async {
-    return await showDialog(
-          context: context,
-          builder: (context) {
-            return UnsavedAlert();
-          },
-        ) ??
-        false; // return false if tapped anywhere else on screen.
-  }
-
   Widget buildButton() {
     final isFormValid = title.isNotEmpty || description.isNotEmpty;
     final double buttonFontSize = 17.0;
@@ -130,13 +119,11 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
       padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: isFormValid
-              ? (PreferencesStorage.isThemeDark
-                  ? null
-                  : NordColors.polarNight.darkest)
-              : Colors.grey.shade700,
+          backgroundColor: PreferencesStorage.isThemeDark
+              ? null
+              : NordColors.polarNight.darkest,
         ),
-        onPressed: onSaveCallback,
+        onPressed: isFormValid ? onSaveCallback : null,
         child: Text(
           buttonText,
           style: TextStyle(

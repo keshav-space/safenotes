@@ -60,12 +60,25 @@ class _SearchWidgetState extends State<SearchWidget> {
         controller: controller,
         enableInteractiveSelection: true,
         autofocus: false,
-        toolbarOptions: ToolbarOptions(
-          paste: true,
-          cut: true,
-          copy: true,
-          selectAll: true,
-        ),
+        contextMenuBuilder: (context, editableTextState) {
+          final List<ContextMenuButtonItem> buttonItems =
+              editableTextState.contextMenuButtonItems;
+
+          final itemsToRemove = [
+            ContextMenuButtonType.share,
+            ContextMenuButtonType.searchWeb,
+            ContextMenuButtonType.lookUp,
+          ];
+
+          buttonItems.removeWhere((ContextMenuButtonItem buttonItem) {
+            return itemsToRemove.contains(buttonItem.type);
+          });
+
+          return AdaptiveTextSelectionToolbar.buttonItems(
+            anchors: editableTextState.contextMenuAnchors,
+            buttonItems: buttonItems,
+          );
+        },
         decoration: InputDecoration(
           icon: Icon(Icons.search, color: style.color),
           suffixIcon: widget.text.isNotEmpty
