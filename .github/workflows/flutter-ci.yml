@@ -41,10 +41,10 @@ jobs:
         run: flutter test
 
       - name: Build apk
-        run: flutter build apk
+        run: flutter build apk --debug
 
       - name: Build appbundle
-        run: flutter build appbundle
+        run: flutter build appbundle --debug
 
       - name: Build iOS app
         run: flutter build ios --release --no-codesign
