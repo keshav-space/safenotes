@@ -88,11 +88,15 @@ flutter_native_splash:
 
   fullscreen: true
 
-flutter_icons:
+
+
+flutter_launcher_icons:
   android: true
-  ios: false
   image_path: "assets/images/icon.png"
-  min_sdk_android: 21
+  min_sdk_android: 25
+  ios: true
+  remove_alpha_ios: true
+  image_path_ios: "assets/images/icon_no_alpha_ios.png"
 
   
 
