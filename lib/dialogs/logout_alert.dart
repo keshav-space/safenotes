@@ -33,10 +33,12 @@ int _counter = 0;
 Timer? _timer;
 
 class PreInactivityLogOff extends StatelessWidget {
+  const PreInactivityLogOff({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    final double paddingAllAround = 20.0;
-    final double dialogRadius = 10.0;
+    const double paddingAllAround = 20.0;
+    const double dialogRadius = 10.0;
 
     return BackdropFilter(
       filter: ImageFilter.blur(),
@@ -45,7 +47,7 @@ class PreInactivityLogOff extends StatelessWidget {
           borderRadius: BorderRadius.circular(dialogRadius),
         ),
         child: Padding(
-          padding: EdgeInsets.all(paddingAllAround),
+          padding: const EdgeInsets.all(paddingAllAround),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -61,12 +63,12 @@ class PreInactivityLogOff extends StatelessWidget {
 
   Widget _title() {
     final String title = 'Logging Off'.tr();
-    final double topSpacing = 10.0;
+    const double topSpacing = 10.0;
 
     return Align(
       alignment: Alignment.centerLeft,
       child: Padding(
-        padding: EdgeInsets.only(top: topSpacing), //, right: 100),
+        padding: const EdgeInsets.only(top: topSpacing), //, right: 100),
         child: Text(
           title,
           style: dialogHeadTextStyle,
@@ -77,7 +79,7 @@ class PreInactivityLogOff extends StatelessWidget {
 
   Widget _body(double padding) {
     final initialCounterValue = _timeoutSeconds.toString().padLeft(2, '0');
-    final double topSpacing = 15.0;
+    const double topSpacing = 15.0;
 
     return Align(
       alignment: Alignment.centerLeft,
@@ -88,7 +90,7 @@ class PreInactivityLogOff extends StatelessWidget {
           builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
             var countDownTime = snapshot.hasData
                 ? '00:${snapshot.data}'
-                : ' 00:${initialCounterValue}';
+                : ' 00:$initialCounterValue';
 
             return Text(
               'There was no user activity for quite a while. You will be logged off unless you cancel within {countDownTime} seconds.'
@@ -102,7 +104,7 @@ class PreInactivityLogOff extends StatelessWidget {
   }
 
   Widget _buildButtons(BuildContext context) {
-    final double buttonTextFontSize = 15.0;
+    const double buttonTextFontSize = 15.0;
     final String yesButtonText = 'Logout'.tr();
     final String noButtonText = 'Cancel'.tr();
 
@@ -157,7 +159,7 @@ void _startTimer(BuildContext context) {
   }
 
   _timer = Timer.periodic(
-    Duration(seconds: 1),
+    const Duration(seconds: 1),
     (timer) {
       (_counter > 0) ? _counter-- : _timer?.cancel();
       _controller.add(_counter.toString().padLeft(2, '0'));
@@ -174,7 +176,7 @@ Future<bool?> preInactivityLogOffAlert(BuildContext context) async {
     barrierDismissible: false,
     builder: (BuildContext context) {
       _startTimer(context); // start filling the stream with coutndown data
-      return PreInactivityLogOff();
+      return const PreInactivityLogOff();
     },
   );
 

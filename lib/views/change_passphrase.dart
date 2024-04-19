@@ -33,6 +33,7 @@ import 'package:safenotes/utils/styles.dart';
 
 class ChangePassphrase extends StatefulWidget {
   const ChangePassphrase({Key? key}) : super(key: key);
+  @override
   _ChangePassphraseState createState() => _ChangePassphraseState();
 }
 
@@ -65,7 +66,7 @@ class _ChangePassphraseState extends State<ChangePassphrase> {
   }
 
   Future<void> _loadNotes() async {
-    this.allnotes = await NotesDatabase.instance.decryptReadAllNotes();
+    allnotes = await NotesDatabase.instance.decryptReadAllNotes();
   }
 
   @override
@@ -88,24 +89,25 @@ class _ChangePassphraseState extends State<ChangePassphrase> {
   }
 
   void scrollToBottomIfOnScreenKeyboard() {
-    if (MediaQuery.of(context).viewInsets.bottom > 0)
+    if (MediaQuery.of(context).viewInsets.bottom > 0) {
       _scrollController.animateTo(_scrollController.position.maxScrollExtent,
-          duration: Duration(milliseconds: 300), curve: Curves.ease);
+          duration: const Duration(milliseconds: 300), curve: Curves.ease);
+    }
   }
 
   Widget _buildPassphraseChangeWorkflow(BuildContext context) {
     final String pageTitleName = 'Change Passphrase'.tr();
-    final double paddingBetweenInputBox = 25.0;
+    const double paddingBetweenInputBox = 25.0;
 
     return Padding(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       child: Form(
-        key: this.formKey,
+        key: formKey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Padding(
-              padding: EdgeInsets.only(top: paddingBetweenInputBox, bottom: 10),
+              padding: const EdgeInsets.only(top: paddingBetweenInputBox, bottom: 10),
               child: Text(
                 pageTitleName,
                 style: dialogHeadTextStyle.copyWith(
@@ -117,18 +119,18 @@ class _ChangePassphraseState extends State<ChangePassphrase> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: paddingBetweenInputBox),
+              padding: const EdgeInsets.only(top: paddingBetweenInputBox),
               child: _buildCurrentPassField(),
             ),
             AutofillGroup(
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(top: paddingBetweenInputBox),
+                    padding: const EdgeInsets.only(top: paddingBetweenInputBox),
                     child: _buildNewPassField(),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(
+                    padding: const EdgeInsets.only(
                       top: paddingBetweenInputBox,
                       bottom: paddingBetweenInputBox,
                     ),
@@ -145,24 +147,24 @@ class _ChangePassphraseState extends State<ChangePassphrase> {
   }
 
   Widget _buildCurrentPassField() {
-    final double inputBoxEdgeRadious = 10.0;
+    const double inputBoxEdgeRadious = 10.0;
     final String inputHintOld = 'Current Passphrase'.tr();
     final String validationErrorMsg = 'Wrong passphrase!'.tr();
 
     return TextFormField(
       enableIMEPersonalizedLearning: false,
-      controller: this._oldPassphraseController,
+      controller: _oldPassphraseController,
       autofocus: true,
       focusNode: _focusOld,
       enableInteractiveSelection: false,
-      obscureText: this._isHiddenOld,
+      obscureText: _isHiddenOld,
       decoration: _inputBoxDecoration(
         context,
         'first',
         inputHintOld,
         inputBoxEdgeRadious,
       ),
-      autofillHints: [AutofillHints.password],
+      autofillHints: const [AutofillHints.password],
       keyboardType: TextInputType.visiblePassword,
       onFieldSubmitted: (v) {
         FocusScope.of(context).requestFocus(_focusNew);
@@ -178,22 +180,22 @@ class _ChangePassphraseState extends State<ChangePassphrase> {
   }
 
   Widget _buildNewPassField() {
-    final double inputBoxEdgeRadious = 10.0;
+    const double inputBoxEdgeRadious = 10.0;
     final String inputHintNew = 'New Passphrase'.tr();
 
     return TextFormField(
       enableIMEPersonalizedLearning: false,
-      controller: this._newPassphraseController,
+      controller: _newPassphraseController,
       focusNode: _focusNew,
       enableInteractiveSelection: false,
-      obscureText: this._isHiddenNew,
+      obscureText: _isHiddenNew,
       decoration: _inputBoxDecoration(
         context,
         'second',
         inputHintNew,
         inputBoxEdgeRadious,
       ),
-      autofillHints: [AutofillHints.password],
+      autofillHints: const [AutofillHints.password],
       keyboardType: TextInputType.visiblePassword,
       onFieldSubmitted: (v) {
         FocusScope.of(context).requestFocus(_focusNewConfirm);
@@ -204,8 +206,8 @@ class _ChangePassphraseState extends State<ChangePassphrase> {
   }
 
   String? _firstInputValidator(String? passphrase) {
-    final int minPassphraseLength = 8;
-    final double minPassphraseStrength = 0.5;
+    const int minPassphraseLength = 8;
+    const double minPassphraseStrength = 0.5;
     final String minpCharacterMsg = 'Minimum 8 characters long!'.tr();
     final String tooWeakMsg = 'Passphrase is too weak!'.tr();
 
@@ -217,23 +219,23 @@ class _ChangePassphraseState extends State<ChangePassphrase> {
   }
 
   Widget _buildNewConfirmPassField() {
-    final double inputBoxEdgeRadious = 10.0;
+    const double inputBoxEdgeRadious = 10.0;
     final String inputHintConfirm = 'Confirm New Passphrase'.tr();
     final String passPhraseMismatchMsg = 'Passphrase Mismatch!'.tr();
 
     return TextFormField(
       enableIMEPersonalizedLearning: false,
-      controller: this._newConfirmPassphraseController,
+      controller: _newConfirmPassphraseController,
       focusNode: _focusNewConfirm,
       enableInteractiveSelection: false,
-      obscureText: this._isHiddenNewConfirm,
+      obscureText: _isHiddenNewConfirm,
       decoration: _inputBoxDecoration(
         context,
         'third',
         inputHintConfirm,
         inputBoxEdgeRadious,
       ),
-      autofillHints: [AutofillHints.password],
+      autofillHints: const [AutofillHints.password],
       keyboardType: TextInputType.visiblePassword,
       textInputAction: TextInputAction.done,
       onEditingComplete: _finalSublmitChange,
@@ -245,14 +247,14 @@ class _ChangePassphraseState extends State<ChangePassphrase> {
 
   InputDecoration _inputBoxDecoration(BuildContext context, String inputFieldID,
       String inputHintText, double inputBoxEdgeRadious) {
-    bool? visibility = null;
+    bool? visibility;
 
     if (inputFieldID == 'first') {
-      visibility = this._isHiddenOld;
+      visibility = _isHiddenOld;
     } else if (inputFieldID == 'second') {
-      visibility = this._isHiddenNew;
+      visibility = _isHiddenNew;
     } else {
-      visibility = this._isHiddenNewConfirm;
+      visibility = _isHiddenNewConfirm;
     }
 
     return InputDecoration(
@@ -260,9 +262,9 @@ class _ChangePassphraseState extends State<ChangePassphrase> {
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(inputBoxEdgeRadious),
       ),
-      prefixIcon: Icon(Icons.lock),
+      prefixIcon: const Icon(Icons.lock),
       suffixIcon: IconButton(
-        icon: !visibility ? Icon(Icons.visibility_off) : Icon(Icons.visibility),
+        icon: !visibility ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility),
         onPressed: () {
           if (inputFieldID == 'first') {
             return _toggleOldPasswordVisibility();
@@ -277,35 +279,35 @@ class _ChangePassphraseState extends State<ChangePassphrase> {
   }
 
   void _toggleOldPasswordVisibility() =>
-      setState(() => this._isHiddenOld = !this._isHiddenOld);
+      setState(() => _isHiddenOld = !_isHiddenOld);
   void _toggleNewPasswordVisibility() =>
-      setState(() => this._isHiddenNew = !this._isHiddenNew);
+      setState(() => _isHiddenNew = !_isHiddenNew);
   void _toggleNewConfirmPasswordVisibility() =>
-      setState(() => this._isHiddenNewConfirm = !this._isHiddenNewConfirm);
+      setState(() => _isHiddenNewConfirm = !_isHiddenNewConfirm);
 
   Widget _buildButtons(BuildContext context) {
     return Align(
       alignment: Alignment.centerRight,
       child: Padding(
-        padding: EdgeInsets.only(right: 10, top: 25, bottom: 20),
+        padding: const EdgeInsets.only(right: 10, top: 25, bottom: 20),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             shadowColor: PreferencesStorage.isThemeDark
                 ? NordColors.snowStorm.lightest
                 : NordColors.polarNight.darkest,
-            minimumSize: Size(200, 50), //Size.fromHeight(50),
+            minimumSize: const Size(200, 50), //Size.fromHeight(50),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             elevation: 5.0, //StadiumBorder(),
           ),
+          onPressed: _finalSublmitChange,
           child: Wrap(
             children: <Widget>[
-              Icon(Icons.key, size: 25.0),
-              SizedBox(width: 20),
-              Text('Confirm'.tr(), style: TextStyle(fontSize: 20)),
+              const Icon(Icons.key, size: 25.0),
+              const SizedBox(width: 20),
+              Text('Confirm'.tr(), style: const TextStyle(fontSize: 20)),
             ],
           ),
-          onPressed: _finalSublmitChange,
         ),
       ),
     );
@@ -319,7 +321,7 @@ class _ChangePassphraseState extends State<ChangePassphrase> {
     if (form.validate()) {
       Session.setOrChangePassphrase(_newConfirmPassphraseController.text);
       // Re-encrypt and update all the existing notes
-      for (final note in this.allnotes) {
+      for (final note in allnotes) {
         await NotesDatabase.instance.encryptAndUpdate(note);
       }
       showSnackBarMessage(context, passChangedSnackMsg);

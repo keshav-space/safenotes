@@ -25,7 +25,7 @@ import 'package:safenotes/models/app_theme.dart';
 import 'package:safenotes/utils/styles.dart';
 
 class InactivityTimerSetting extends StatefulWidget {
-  InactivityTimerSetting({Key? key}) : super(key: key);
+  const InactivityTimerSetting({Key? key}) : super(key: key);
 
   @override
   State<InactivityTimerSetting> createState() => _InactivityTimerSettingState();
@@ -50,7 +50,7 @@ class _InactivityTimerSettingState extends State<InactivityTimerSetting> {
   Widget _settings() {
     return SettingsList(
       platform: DevicePlatform.iOS,
-      lightTheme: SettingsThemeData(),
+      lightTheme: const SettingsThemeData(),
       darkTheme: SettingsThemeData(
         settingsListBackground: AppThemes.darkSettingsScaffold,
         settingsSectionBackground: AppThemes.darkSettingsCanvas,
@@ -87,7 +87,7 @@ class _InactivityTimerSettingState extends State<InactivityTimerSetting> {
         child: CupertinoFormSection.insetGrouped(
           backgroundColor: PreferencesStorage.isThemeDark
               ? AppThemes.darkSettingsScaffold
-              : Color(0x00000000),
+              : const Color(0x00000000),
           decoration: PreferencesStorage.isThemeDark
               ? BoxDecoration(
                   color: AppThemes.darkSettingsCanvas,
@@ -124,7 +124,7 @@ class _InactivityTimerSettingState extends State<InactivityTimerSetting> {
     bool selected = false,
   }) {
     return Padding(
-      padding: EdgeInsets.only(top: 5, bottom: 5),
+      padding: const EdgeInsets.only(top: 5, bottom: 5),
       child: CupertinoFormRow(
         prefix: Text(prefix),
         helper: helper != null

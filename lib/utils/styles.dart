@@ -30,18 +30,18 @@ class Style {
   }
 }
 
-TextStyle dialogBodyTextStyle = TextStyle(
+TextStyle dialogBodyTextStyle = const TextStyle(
   fontSize: 14,
 );
 
-TextStyle dialogHeadTextStyle = TextStyle(
+TextStyle dialogHeadTextStyle = const TextStyle(
   fontFamily: 'MerriweatherBlack',
   fontWeight: FontWeight.bold,
   letterSpacing: 0,
   fontSize: 20,
 );
 
-TextStyle appBarTitle = TextStyle(
+TextStyle appBarTitle = const TextStyle(
   fontFamily: 'MerriweatherBlack',
   fontWeight: FontWeight.bold,
   letterSpacing: -0.4,

@@ -25,7 +25,7 @@ import 'package:safenotes/models/biometric_auth.dart';
 import 'package:safenotes/utils/styles.dart';
 
 class BiometricSetting extends StatefulWidget {
-  BiometricSetting({Key? key}) : super(key: key);
+  const BiometricSetting({Key? key}) : super(key: key);
 
   @override
   State<BiometricSetting> createState() => _BiometricSettingState();
@@ -48,7 +48,7 @@ class _BiometricSettingState extends State<BiometricSetting> {
   Widget _settings() {
     return SettingsList(
       platform: DevicePlatform.iOS,
-      lightTheme: SettingsThemeData(),
+      lightTheme: const SettingsThemeData(),
       darkTheme: SettingsThemeData(
         settingsListBackground: AppThemes.darkSettingsScaffold,
         settingsSectionBackground: AppThemes.darkSettingsCanvas,
@@ -60,10 +60,11 @@ class _BiometricSettingState extends State<BiometricSetting> {
               initialValue: PreferencesStorage.isBiometricAuthEnabled,
               title: Text('Enable biometric authentication'.tr()),
               onToggle: (value) {
-                if (value)
+                if (value) {
                   BiometricAuth.enable();
-                else
+                } else {
                   BiometricAuth.disable();
+                }
 
                 setState(() {});
               },

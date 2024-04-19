@@ -33,7 +33,7 @@ import 'package:safenotes/utils/time_utils.dart';
 import 'package:safenotes/widgets/login_button.dart';
 
 class BackupSetting extends StatefulWidget {
-  BackupSetting({Key? key}) : super(key: key);
+  const BackupSetting({Key? key}) : super(key: key);
 
   @override
   State<BackupSetting> createState() => _BackupSettingState();
@@ -57,8 +57,9 @@ class _BackupSettingState extends State<BackupSetting> {
     String lastBackupTime = PreferencesStorage.lastBackupTime;
     String path = '';
     if (lastBackupTime.isNotEmpty &&
-        await Directory(SafeNotesConfig.backupDirectory).exists())
+        await Directory(SafeNotesConfig.backupDirectory).exists()) {
       path = SafeNotesConfig.backupDirectory + SafeNotesConfig.backupFileName;
+    }
 
     lastBackupTime = lastBackupTime.isEmpty
         ? 'Never'.tr()
@@ -68,9 +69,9 @@ class _BackupSettingState extends State<BackupSetting> {
           );
 
     setState(() {
-      this.validWorkingBackupFullyQualifiedPath = path;
-      this.lastUpdateTime = lastBackupTime;
-      this.isBackupOn = PreferencesStorage.isBackupOn;
+      validWorkingBackupFullyQualifiedPath = path;
+      lastUpdateTime = lastBackupTime;
+      isBackupOn = PreferencesStorage.isBackupOn;
     });
   }
 
@@ -108,8 +109,9 @@ class _BackupSettingState extends State<BackupSetting> {
                     backupRegister();
                     await onBackupNow();
                   }
-                } else
+                } else {
                   Workmanager().cancelAll();
+                }
                 setState(() => isBackupOn = value);
               },
             ),
@@ -122,12 +124,12 @@ class _BackupSettingState extends State<BackupSetting> {
                 iosStylePaddedCard(
                   children: <Widget>[
                     _buildUpperBackupView(),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Text(
                         "This will create an encrypted local backup, which gets automatically updated every day. Moreover, the backup is designed such that it can be used in tandem with other open-source tools like SyncThing to keep the multiple redundant backups across different devices on the local network.\nTo switch to a new device, you would simply need to copy this backup file to the new device and import that in your new Safe Notes app.\nFor more, see FAQ."
                             .tr()),
                     //_buildButtons(context),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     _buildBackupNowButton()
                   ],
                 )
@@ -182,7 +184,7 @@ class _BackupSettingState extends State<BackupSetting> {
               : null,
           size: (widthRatio * 15),
         ),
-        SizedBox(width: 15),
+        const SizedBox(width: 15),
         Expanded(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -190,19 +192,19 @@ class _BackupSettingState extends State<BackupSetting> {
             children: [
               Text(
                 'Last Backup: {lastBackupTime}'
-                    .tr(namedArgs: {'lastBackupTime': this.lastUpdateTime}),
-                style: TextStyle(fontSize: 10),
+                    .tr(namedArgs: {'lastBackupTime': lastUpdateTime}),
+                style: const TextStyle(fontSize: 10),
               ),
               Text(
                 'Location: {locationPath}'.tr(namedArgs: {
-                  'locationPath': this.validWorkingBackupFullyQualifiedPath
+                  'locationPath': validWorkingBackupFullyQualifiedPath
                 }),
-                style: TextStyle(fontSize: 10),
+                style: const TextStyle(fontSize: 10),
               ),
-              if (this.validWorkingBackupFullyQualifiedPath.isNotEmpty &&
-                  this.lastUpdateTime.isNotEmpty)
+              if (validWorkingBackupFullyQualifiedPath.isNotEmpty &&
+                  lastUpdateTime.isNotEmpty)
                 Padding(
-                  padding: EdgeInsets.only(top: 2),
+                  padding: const EdgeInsets.only(top: 2),
                   child: _encrypted(),
                 )
             ],
@@ -215,15 +217,15 @@ class _BackupSettingState extends State<BackupSetting> {
   Widget _encrypted() {
     return Row(
       children: [
-        Icon(
+        const Icon(
           Icons.lock,
           size: 15,
           color: Colors.green,
         ),
-        SizedBox(width: 1),
+        const SizedBox(width: 1),
         Text(
           'Backup encrypted'.tr(),
-          style: TextStyle(fontSize: 10),
+          style: const TextStyle(fontSize: 10),
         )
       ],
     );
@@ -235,7 +237,7 @@ class _BackupSettingState extends State<BackupSetting> {
     return ButtonWidget(
       text: loginText,
       onClicked:
-          validWorkingBackupFullyQualifiedPath.isNotEmpty && this.isBackupOn
+          validWorkingBackupFullyQualifiedPath.isNotEmpty && isBackupOn
               ? onBackupNow
               : null,
     );
@@ -251,8 +253,9 @@ Future<bool> handleBackupPermissionAndLocation() async {
   if (!await handleStoragePermission()) return false;
 
   // If the download directory doesn't exists return false
-  if (!await Directory(SafeNotesConfig.downloadDirectory).exists())
+  if (!await Directory(SafeNotesConfig.downloadDirectory).exists()) {
     return false;
+  }
   await Directory(SafeNotesConfig.backupDirectory).create(recursive: false);
 
   return true;
@@ -266,8 +269,8 @@ void backupRegister() {
     "dailyBackup",
     existingWorkPolicy: ExistingWorkPolicy.replace,
     tag: 'com.trisven.safenotes.dailybackup',
-    frequency: Duration(hours: 15),
-    initialDelay: Duration(seconds: 1),
+    frequency: const Duration(hours: 15),
+    initialDelay: const Duration(seconds: 1),
     constraints: Constraints(
       networkType: NetworkType.not_required,
       requiresCharging: false,

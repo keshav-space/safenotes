@@ -26,9 +26,9 @@ Future<bool> handleStoragePermission() async {
 }
 
 Future<bool> _requestPermission(Permission permission) async {
-  if (await permission.isGranted)
+  if (await permission.isGranted) {
     return true;
-  else {
+  } else {
     var status = await permission.request();
     if (status.isGranted) return true;
     return false;

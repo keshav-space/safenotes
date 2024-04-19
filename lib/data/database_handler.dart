@@ -43,8 +43,8 @@ class NotesDatabase {
   }
 
   Future _createDB(Database db, int version) async {
-    final idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
-    final textType = 'TEXT NOT NULL';
+    const idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
+    const textType = 'TEXT NOT NULL';
 
     await db.execute('''
   CREATE TABLE $tableNotes ( 
@@ -81,7 +81,7 @@ class NotesDatabase {
 
   Future<List<SafeNote>> decryptReadAllNotes() async {
     final db = await instance.database;
-    final orderBy = '${NoteFields.time} ASC';
+    const orderBy = '${NoteFields.time} ASC';
     final result = await db.query(tableNotes, orderBy: orderBy);
 
     return result.map((json) => SafeNote.fromJsonAndDecrypt(json)).toList();
@@ -89,7 +89,7 @@ class NotesDatabase {
 
   Future<String> exportAllEncrypted() async {
     final db = await instance.database;
-    final orderBy = '${NoteFields.time} ASC';
+    const orderBy = '${NoteFields.time} ASC';
     final result = await db.query(tableNotes,
         columns: ['title', 'description', 'time'], orderBy: orderBy);
 

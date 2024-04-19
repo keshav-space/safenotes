@@ -37,7 +37,7 @@ import 'package:safenotes/widgets/footer.dart';
 class SettingsScreen extends StatefulWidget {
   final StreamController<SessionState> sessionStateStream;
 
-  SettingsScreen({Key? key, required this.sessionStateStream})
+  const SettingsScreen({Key? key, required this.sessionStateStream})
       : super(key: key);
 
   @override
@@ -63,7 +63,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget _settings() {
     return SettingsList(
       platform: DevicePlatform.iOS,
-      lightTheme: SettingsThemeData(),
+      lightTheme: const SettingsThemeData(),
       darkTheme: SettingsThemeData(
         settingsListBackground: AppThemes.darkSettingsScaffold,
         settingsSectionBackground: AppThemes.darkSettingsCanvas,
@@ -73,7 +73,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           title: Text('General'.tr()),
           tiles: <SettingsTile>[
             SettingsTile.navigation(
-              leading: Icon(Icons.backup_outlined),
+              leading: const Icon(Icons.backup_outlined),
               title: Text('Backup'.tr()),
               value: PreferencesStorage.isBackupOn
                   ? Text('On'.tr())
@@ -100,7 +100,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
             SettingsTile.navigation(
-              leading: Icon(Icons.dark_mode_outlined),
+              leading: const Icon(Icons.dark_mode_outlined),
               title: Text('Dark Mode'.tr()),
               value: !PreferencesStorage.isAutoRotate
                   ? Text('Off'.tr())
@@ -111,7 +111,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
             SettingsTile.navigation(
-              leading: Icon(Icons.screen_rotation_outlined),
+              leading: const Icon(Icons.screen_rotation_outlined),
               title: Text('Auto Rotate'.tr()),
               value: !PreferencesStorage.isAutoRotate
                   ? Text('Off'.tr())
@@ -122,7 +122,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
             SettingsTile.navigation(
-              leading: Icon(Icons.format_paint_outlined),
+              leading: const Icon(Icons.format_paint_outlined),
               // leading: Icon(Icons.format_paint),
               title: Text('Notes Color'.tr()),
               value: !PreferencesStorage.isColorful
@@ -134,13 +134,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
             SettingsTile.navigation(
-              leading: Icon(Icons.language_outlined),
+              leading: const Icon(Icons.language_outlined),
               title: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text('Language'.tr()),
                   if (context.locale.toString() != 'en_US')
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.only(top: 5),
                       child: Text(
                         'Language',
@@ -182,7 +182,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
             SettingsTile.navigation(
-              leading: Icon(Icons.phonelink_lock),
+              leading: const Icon(Icons.phonelink_lock),
               title: Text('Secure Display'.tr()),
               value: PreferencesStorage.isFlagSecure
                   ? Text('On'.tr())
@@ -204,14 +204,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             SettingsTile.navigation(
               title: Text('Change Passphrase'.tr()),
-              leading: Icon(Icons.lock_outline),
+              leading: const Icon(Icons.lock_outline),
               // leading: Icon(Icons.lock),
               onPressed: (context) async {
                 await Navigator.pushNamed(context, '/changepassphrase');
               },
             ),
             SettingsTile.navigation(
-              leading: Icon(Icons.logout),
+              leading: const Icon(Icons.logout),
               title: Text('Logout'.tr()),
               onPressed: (context) async {
                 Session.logout();
@@ -233,7 +233,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           title: Text('Miscellaneous'.tr()),
           tiles: <SettingsTile>[
             SettingsTile.navigation(
-              leading: Icon(Icons.rate_review_outlined),
+              leading: const Icon(Icons.rate_review_outlined),
               title: Text('Rate Us'.tr()),
               onPressed: (_) async {
                 String playstoreUrl = SafeNotesConfig.playStoreUrl;
@@ -263,7 +263,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
             SettingsTile.navigation(
-              leading: Icon(Icons.mail_outline),
+              leading: const Icon(Icons.mail_outline),
               title: Text('Email'.tr()),
               onPressed: (_) async {
                 String email = SafeNotesConfig.mailToForFeedback;
@@ -273,7 +273,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
             SettingsTile.navigation(
-              leading: Icon(Icons.collections_bookmark_outlined),
+              leading: const Icon(Icons.collections_bookmark_outlined),
               title: Text('Open Source license'.tr()),
               onPressed: (_) async {
                 String license = SafeNotesConfig.openSourceLicense;
@@ -282,7 +282,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 } catch (e) {}
               },
               description:
-                  Padding(padding: EdgeInsets.only(top: 20), child: footer()),
+                  Padding(padding: const EdgeInsets.only(top: 20), child: footer()),
             ),
           ],
         ),

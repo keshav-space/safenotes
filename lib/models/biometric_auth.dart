@@ -21,7 +21,7 @@ import 'package:safenotes/data/preference_and_config.dart';
 
 class BiometricAuth {
   static const String _secureBiometricAuthKey = "_secureBiometricAuthKey";
-  static final storage = FlutterSecureStorage();
+  static const storage = FlutterSecureStorage();
 
   static Future<String> get authKey async =>
       await storage.read(key: _secureBiometricAuthKey) ?? '';

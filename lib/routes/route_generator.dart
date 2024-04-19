@@ -47,14 +47,14 @@ class RouteGenerator {
     // Getting arguments passed in while calling Navigator.pushNamed
     var args = settings.arguments;
     final String? routeName = settings.name;
-    final transitionDuration = 300;
-    final transitionType = PageTransitionType.leftToRight;
+    const transitionDuration = 300;
+    const transitionType = PageTransitionType.leftToRight;
 
     switch (routeName) {
       case '/':
         return PageTransition(
           child: SafeNotesApp(),
-          duration: Duration(milliseconds: transitionDuration),
+          duration: const Duration(milliseconds: transitionDuration),
           type: transitionType,
         );
 
@@ -65,7 +65,7 @@ class RouteGenerator {
               sessionStream: args.sessionStream,
               isKeyboardFocused: args.isKeyboardFocused,
             ),
-            duration: Duration(milliseconds: transitionDuration),
+            duration: const Duration(milliseconds: transitionDuration),
             type: transitionType,
           );
         }
@@ -79,7 +79,7 @@ class RouteGenerator {
               sessionStream: args.sessionStream,
               isKeyboardFocused: args.isKeyboardFocused,
             ),
-            duration: Duration(milliseconds: transitionDuration),
+            duration: const Duration(milliseconds: transitionDuration),
             type: transitionType,
           );
         }
@@ -93,7 +93,7 @@ class RouteGenerator {
               sessionStateStream: args.sessionStream,
               isKeyboardFocused: args.isKeyboardFocused,
             ),
-            duration: Duration(milliseconds: transitionDuration),
+            duration: const Duration(milliseconds: transitionDuration),
             type: transitionType,
           );
         }
@@ -104,7 +104,7 @@ class RouteGenerator {
         if (args is StreamController<SessionState>) {
           return PageTransition(
             child: HomePage(sessionStateStream: args),
-            duration: Duration(milliseconds: transitionDuration),
+            duration: const Duration(milliseconds: transitionDuration),
             type: transitionType,
           );
         }
@@ -119,7 +119,7 @@ class RouteGenerator {
               noteId: args.note.id!,
               sessionStateStream: args.sessionStream,
             ),
-            duration: Duration(milliseconds: transitionDuration),
+            duration: const Duration(milliseconds: transitionDuration),
             type: transitionType,
           );
         }
@@ -129,7 +129,7 @@ class RouteGenerator {
         if (args is StreamController<SessionState>) {
           return PageTransition(
             child: AddEditNotePage(sessionStateStream: args),
-            duration: Duration(milliseconds: transitionDuration),
+            duration: const Duration(milliseconds: transitionDuration),
             type: transitionType,
           );
         }
@@ -143,7 +143,7 @@ class RouteGenerator {
               sessionStateStream: args.sessionStream,
               note: args.note,
             ),
-            duration: Duration(milliseconds: transitionDuration),
+            duration: const Duration(milliseconds: transitionDuration),
             type: transitionType,
           );
         }
@@ -151,15 +151,15 @@ class RouteGenerator {
 
       case '/backup':
         return PageTransition(
-          child: BackupSetting(),
-          duration: Duration(milliseconds: transitionDuration),
+          child: const BackupSetting(),
+          duration: const Duration(milliseconds: transitionDuration),
           type: transitionType,
         );
 
       case '/changepassphrase':
         return PageTransition(
-          child: ChangePassphrase(),
-          duration: Duration(milliseconds: transitionDuration),
+          child: const ChangePassphrase(),
+          duration: const Duration(milliseconds: transitionDuration),
           type: transitionType,
         );
 
@@ -167,7 +167,7 @@ class RouteGenerator {
         if (args is StreamController<SessionState>) {
           return PageTransition(
             child: SettingsScreen(sessionStateStream: args),
-            duration: Duration(milliseconds: transitionDuration),
+            duration: const Duration(milliseconds: transitionDuration),
             type: transitionType,
           );
         }
@@ -176,43 +176,43 @@ class RouteGenerator {
 
       case '/chooseColorSettings':
         return PageTransition(
-          child: ColorPallet(),
-          duration: Duration(milliseconds: transitionDuration),
+          child: const ColorPallet(),
+          duration: const Duration(milliseconds: transitionDuration),
           type: transitionType,
         );
 
       case '/inactivityTimerSettings':
         return PageTransition(
-          child: InactivityTimerSetting(),
-          duration: Duration(milliseconds: transitionDuration),
+          child: const InactivityTimerSetting(),
+          duration: const Duration(milliseconds: transitionDuration),
           type: transitionType,
         );
 
       case '/chooseLanguageSettings':
         return PageTransition(
-          child: LanguageSetting(),
-          duration: Duration(milliseconds: transitionDuration),
+          child: const LanguageSetting(),
+          duration: const Duration(milliseconds: transitionDuration),
           type: transitionType,
         );
 
       case '/secureDisplaySetting':
         return PageTransition(
-          child: SecureDisplaySetting(),
-          duration: Duration(milliseconds: transitionDuration),
+          child: const SecureDisplaySetting(),
+          duration: const Duration(milliseconds: transitionDuration),
           type: transitionType,
         );
 
       case '/biometricSetting':
         return PageTransition(
-          child: BiometricSetting(),
-          duration: Duration(milliseconds: transitionDuration),
+          child: const BiometricSetting(),
+          duration: const Duration(milliseconds: transitionDuration),
           type: transitionType,
         );
 
       case '/autoRotateSettings':
         return PageTransition(
-          child: AutoRotationSetting(),
-          duration: Duration(milliseconds: transitionDuration),
+          child: const AutoRotationSetting(),
+          duration: const Duration(milliseconds: transitionDuration),
           type: transitionType,
         );
 
@@ -227,7 +227,7 @@ class RouteGenerator {
       return Scaffold(
         appBar: AppBar(title: Text('Route Error'.tr())),
         body: Padding(
-          padding: EdgeInsets.only(left: 5, right: 5),
+          padding: const EdgeInsets.only(left: 5, right: 5),
           child: Center(
             child: argsType == null
                 ? Text('No route: {route}'

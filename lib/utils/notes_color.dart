@@ -19,12 +19,12 @@ import 'package:safenotes/data/preference_and_config.dart';
 
 class NotesColor extends ChangeNotifier {
   static Color getNoteColor({required int notIndex}) {
-    var _lightColors =
+    var lightColors =
         allNotesColorTheme[PreferencesStorage.colorfulNotesColorIndex]
             .colorList;
     return PreferencesStorage.isColorful
-        ? _lightColors[notIndex % _lightColors.length]
-        : Color(0xFFA7BEAE);
+        ? lightColors[notIndex % lightColors.length]
+        : const Color(0xFFA7BEAE);
   }
 
   void toggleColor() {
@@ -46,7 +46,7 @@ class NotesColorTheme {
 }
 
 List<NotesColorTheme> allNotesColorTheme = [
-  NotesColorTheme(
+  const NotesColorTheme(
     prefix: 'Nord Arctic',
     helper: 'Default',
     colorList: [
@@ -57,7 +57,7 @@ List<NotesColorTheme> allNotesColorTheme = [
       Color(0xFF81A1C1),
     ],
   ),
-  NotesColorTheme(
+  const NotesColorTheme(
     prefix: 'Harmony',
     helper: 'Deep Blue, Northern Sky, Baby Blue and Coffee',
     colorList: [
@@ -67,7 +67,7 @@ List<NotesColorTheme> allNotesColorTheme = [
       Color(0xFFD9B48F),
     ],
   ),
-  NotesColorTheme(
+  const NotesColorTheme(
     prefix: 'Refreshing',
     helper: 'Soft Pink, Peach Amber, Yucca and Arbor Green',
     colorList: [
@@ -77,7 +77,7 @@ List<NotesColorTheme> allNotesColorTheme = [
       Color(0xFF008C76),
     ],
   ),
-  NotesColorTheme(
+  const NotesColorTheme(
     prefix: 'Peace',
     helper: 'Blue Sky, Elation, Nugget and Celestial',
     colorList: [
@@ -87,7 +87,7 @@ List<NotesColorTheme> allNotesColorTheme = [
       Color(0xFF97B3D0),
     ],
   ),
-  NotesColorTheme(
+  const NotesColorTheme(
     prefix: 'Nostalgic',
     helper: 'Desert Sand, Burnished Brown, Old Burgundy and Mystic',
     colorList: [
@@ -97,7 +97,7 @@ List<NotesColorTheme> allNotesColorTheme = [
       Color(0xFFD34F73),
     ],
   ),
-  NotesColorTheme(
+  const NotesColorTheme(
     prefix: 'Sapphire',
     helper: 'Sapphire, Light Slate Gray, Cadet Gray and American Silver',
     colorList: [
@@ -107,7 +107,7 @@ List<NotesColorTheme> allNotesColorTheme = [
       Color(0xFFD3D0CB),
     ],
   ),
-  NotesColorTheme(
+  const NotesColorTheme(
     prefix: 'Ensemble',
     helper: 'Light Purple, Light Blue and Light Green',
     colorList: [
@@ -116,7 +116,7 @@ List<NotesColorTheme> allNotesColorTheme = [
       Color(0xFFA8D5BA),
     ],
   ),
-  NotesColorTheme(
+  const NotesColorTheme(
     prefix: 'Radiant',
     helper: 'Radiant Yellow, Living Coral and Purple',
     colorList: [
@@ -125,7 +125,7 @@ List<NotesColorTheme> allNotesColorTheme = [
       Color(0xFF9B4A97),
     ],
   ),
-  NotesColorTheme(
+  const NotesColorTheme(
     prefix: 'Innocent',
     helper: 'White, Pink Lady and Sky Blue',
     colorList: [
@@ -134,7 +134,7 @@ List<NotesColorTheme> allNotesColorTheme = [
       Color(0xFF8ABAD3),
     ],
   ),
-  NotesColorTheme(
+  const NotesColorTheme(
     prefix: 'Oktoberfest',
     helper: 'Red, Yellow and Navy',
     colorList: [
@@ -143,7 +143,7 @@ List<NotesColorTheme> allNotesColorTheme = [
       Color(0xFF28334A),
     ],
   ),
-  NotesColorTheme(
+  const NotesColorTheme(
     prefix: 'Nature',
     helper: 'Tanager Turquoise, Teal Blue and Kelly Green',
     colorList: [
@@ -152,7 +152,7 @@ List<NotesColorTheme> allNotesColorTheme = [
       Color(0xFF339E66),
     ],
   ),
-  NotesColorTheme(
+  const NotesColorTheme(
     prefix: 'Knockout',
     helper: 'Knockout Pink, Safety Yellow and Out of the Blue',
     colorList: [
@@ -161,7 +161,7 @@ List<NotesColorTheme> allNotesColorTheme = [
       Color(0xFF00A4CC),
     ],
   ),
-  NotesColorTheme(
+  const NotesColorTheme(
     prefix: 'Danger',
     helper: 'Danger Red, Tap Shoe and Blue Blossom',
     colorList: [
@@ -170,21 +170,21 @@ List<NotesColorTheme> allNotesColorTheme = [
       Color(0xFF2DA8D8),
     ],
   ),
-  NotesColorTheme(
+  const NotesColorTheme(
     prefix: 'Light Teal',
     helper: null,
     colorList: [
       Color(0xFFA7BEAE),
     ],
   ),
-  NotesColorTheme(
+  const NotesColorTheme(
     prefix: 'Fresh Mint',
     helper: null,
     colorList: [
       Color(0xFFADEFD1),
     ],
   ),
-  NotesColorTheme(
+  const NotesColorTheme(
     prefix: 'Sailor Blue',
     helper: null,
     colorList: [

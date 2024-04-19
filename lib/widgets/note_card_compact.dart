@@ -28,7 +28,7 @@ class NoteCardWidgetCompact extends StatelessWidget {
   final SafeNote note;
   final int index;
 
-  NoteCardWidgetCompact({
+  const NoteCardWidgetCompact({
     Key? key,
     required this.note,
     required this.index,
@@ -46,7 +46,7 @@ class NoteCardWidgetCompact extends StatelessWidget {
       color: color,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
       child: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: AutoSizeText(
           sanitize(previewText),
           textDirection: getTextDirecton(previewText),

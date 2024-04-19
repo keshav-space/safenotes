@@ -33,7 +33,7 @@ class HomeDrawer extends StatefulWidget {
   final VoidCallback onSettingsCallback;
   final VoidCallback onBiometricsCallback;
 
-  HomeDrawer({
+  const HomeDrawer({
     Key? key,
     required this.onImportCallback,
     required this.onChangePassCallback,
@@ -51,13 +51,13 @@ class _HomeDrawerState extends State<HomeDrawer> {
   Widget build(BuildContext context) {
     Provider.of<ThemeProvider>(context);
 
-    final drawerPaddingHorizontal = 15.0;
-    final double drawerRadius = 15.0;
+    const drawerPaddingHorizontal = 15.0;
+    const double drawerRadius = 15.0;
     final height = MediaQuery.of(context).size.height;
-    final _topHeadPadding = height * 0.05;
-    final _bottomHeadPadding = height * 0.02;
+    final topHeadPadding = height * 0.05;
+    final bottomHeadPadding = height * 0.02;
     final double dividerSpacing = height * 0.01;
-    final double itemSpacing = 0;
+    const double itemSpacing = 0;
 
     final String importDataText = 'Import Backup'.tr();
     final String changePassText = 'Change Passphrase'.tr();
@@ -73,19 +73,19 @@ class _HomeDrawerState extends State<HomeDrawer> {
     return OrientationBuilder(
       builder: (context, orientation) {
         return ClipRRect(
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topRight: Radius.circular(drawerRadius),
             bottomRight: Radius.circular(drawerRadius),
           ),
           child: Drawer(
             child: SingleChildScrollView(
               padding:
-                  EdgeInsets.symmetric(horizontal: drawerPaddingHorizontal),
+                  const EdgeInsets.symmetric(horizontal: drawerPaddingHorizontal),
               child: Column(
                 children: <Widget>[
                   _drawerHeader(
-                      topPadding: _topHeadPadding, orientation: orientation),
-                  _divide(topPadding: _bottomHeadPadding),
+                      topPadding: topHeadPadding, orientation: orientation),
+                  _divide(topPadding: bottomHeadPadding),
                   _buildMenuItem(
                     topPadding: height * 0.005,
                     text: importDataText,
@@ -183,14 +183,14 @@ class _HomeDrawerState extends State<HomeDrawer> {
     Widget? toggle,
     VoidCallback? onClicked,
   }) {
-    final double leftPaddingMenuItem = 5.0;
-    final double iconTextSpacing = 15.0;
+    const double leftPaddingMenuItem = 5.0;
+    const double iconTextSpacing = 15.0;
 
     return Padding(
       padding: EdgeInsets.only(top: topPadding),
       child: ListTile(
         horizontalTitleGap: iconTextSpacing,
-        contentPadding: EdgeInsets.only(left: leftPaddingMenuItem),
+        contentPadding: const EdgeInsets.only(left: leftPaddingMenuItem),
         visualDensity: VisualDensity.compact,
         dense: true,
         leading: Icon(icon),
@@ -224,22 +224,22 @@ class _HomeDrawerState extends State<HomeDrawer> {
     final appSlogan = SafeNotesConfig.appSlogan;
     final double logoHightWidth = width * 0.25;
     // final double logoHightWidth = 75.0;
-    final double appNameFontSize = 20;
-    final double appSloganFontSize = 12;
-    final double logoNameGap = 10.0;
+    const double appNameFontSize = 20;
+    const double appSloganFontSize = 12;
+    const double logoNameGap = 10.0;
 
     return Padding(
       padding: EdgeInsets.only(top: topPadding),
       child: InkWell(
         onTap: () {},
         child: Container(
-          padding: (EdgeInsets.symmetric(vertical: 5)),
+          padding: (const EdgeInsets.symmetric(vertical: 5)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Center(
-                child: Container(
+                child: SizedBox(
                   width: logoHightWidth,
                   height: logoHightWidth,
                   child: Image.asset(logoPath),
@@ -247,7 +247,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
               ),
               Expanded(
                 child: Padding(
-                  padding: EdgeInsets.only(left: logoNameGap),
+                  padding: const EdgeInsets.only(left: logoNameGap),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -256,20 +256,20 @@ class _HomeDrawerState extends State<HomeDrawer> {
                         officialAppName.tr(),
                         maxLines: 1,
                         minFontSize: 8,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: 'MerriweatherBlack',
                           fontWeight: FontWeight.bold,
                           fontSize: appNameFontSize,
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(bottom: 5),
+                        padding: const EdgeInsets.only(bottom: 5),
                         child: AutoSizeText(
                           appSlogan.tr(),
                           maxLines: 1,
                           minFontSize: 8,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(fontSize: appSloganFontSize),
+                          style: const TextStyle(fontSize: appSloganFontSize),
                         ),
                       ),
                     ],

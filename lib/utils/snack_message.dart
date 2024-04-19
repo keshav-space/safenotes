@@ -28,8 +28,8 @@ showSnackBarMessage(BuildContext context, String? message) {
             textAlign: TextAlign.center,
           ),
           elevation: 6.0,
-          duration: Duration(milliseconds: 2000),
-          shape: RoundedRectangleBorder(
+          duration: const Duration(milliseconds: 2000),
+          shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(5)),
           ),
           behavior: SnackBarBehavior.floating,

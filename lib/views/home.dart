@@ -77,15 +77,16 @@ class _HomePageState extends State<HomePage> {
   Future<void> _sortAndStoreNotes() async {
     // storing copy of notes in allnotes so that it does not change while doing search
     // show recently created notes first
-    List<SafeNote> _tmpNotes;
-    if (isNewFirst)
-      _tmpNotes = await NotesDatabase.instance.decryptReadAllNotes()
+    List<SafeNote> tmpNotes;
+    if (isNewFirst) {
+      tmpNotes = await NotesDatabase.instance.decryptReadAllNotes()
         ..sort((a, b) => b.createdTime.compareTo(a.createdTime));
-    else
-      _tmpNotes = await NotesDatabase.instance.decryptReadAllNotes()
+    } else {
+      tmpNotes = await NotesDatabase.instance.decryptReadAllNotes()
         ..sort((a, b) => a.createdTime.compareTo(b.createdTime));
+    }
     setState(() {
-      this.allnotes = this.notes = _tmpNotes;
+      allnotes = notes = tmpNotes;
     });
   }
 
@@ -126,8 +127,8 @@ class _HomePageState extends State<HomePage> {
   Widget _gridListView() {
     return IconButton(
       icon: !isGridView
-          ? Icon(Icons.grid_view_outlined)
-          : Icon(Icons.splitscreen_outlined),
+          ? const Icon(Icons.grid_view_outlined)
+          : const Icon(Icons.splitscreen_outlined),
       onPressed: () {
         setState(() {
           PreferencesStorage.setIsGridView(!isGridView);
@@ -160,7 +161,7 @@ class _HomePageState extends State<HomePage> {
           : Icon(MdiIcons.sortCalendarDescending),
       onPressed: () {
         setState(() {
-          this.isNewFirst = !this.isNewFirst;
+          isNewFirst = !isNewFirst;
           _sortAndStoreNotes();
         });
       },
@@ -169,20 +170,20 @@ class _HomePageState extends State<HomePage> {
 
   Widget _handleAndBuildNotes() {
     final String noNotes = 'No Notes'.tr();
-    final double fontSize = 24.0;
+    const double fontSize = 24.0;
 
     return Expanded(
       child: !isLoading
           ? notes.isEmpty
-              ? Text(noNotes, style: TextStyle(fontSize: fontSize))
+              ? Text(noNotes, style: const TextStyle(fontSize: fontSize))
               : (isGridView ? _buildNotes() : _buildNotesTile())
-          : Center(child: CircularProgressIndicator()),
+          : const Center(child: CircularProgressIndicator()),
     );
   }
 
   Widget _addANewNoteButton(BuildContext context) {
     return FloatingActionButton(
-      child: Icon(Icons.add),
+      child: const Icon(Icons.add),
       onPressed: () async {
         await Navigator.pushNamed(
           context,
@@ -250,7 +251,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildNotesTile() {
     return ListView.separated(
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       itemCount: notes.length,
       itemBuilder: ((context, index) {
         final note = notes[index];
@@ -283,7 +284,7 @@ class _HomePageState extends State<HomePage> {
   Widget _buildNotes() {
     return AlignedGridView.count(
       itemCount: notes.length,
-      padding: EdgeInsets.all(12),
+      padding: const EdgeInsets.all(12),
       crossAxisCount: 2,
       mainAxisSpacing: 4,
       crossAxisSpacing: 4,

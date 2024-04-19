@@ -28,15 +28,15 @@ import 'package:safenotes/utils/styles.dart';
 class FileImportDialog extends StatelessWidget {
   final VoidCallback callback;
 
-  FileImportDialog({
+  const FileImportDialog({
     Key? key,
     required this.callback,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final double paddingAllAround = 20.0;
-    final double dialogRadius = 10.0;
+    const double paddingAllAround = 20.0;
+    const double dialogRadius = 10.0;
 
     return BackdropFilter(
       filter: ImageFilter.blur(),
@@ -45,7 +45,7 @@ class FileImportDialog extends StatelessWidget {
           borderRadius: BorderRadius.circular(dialogRadius),
         ),
         child: Padding(
-          padding: EdgeInsets.all(paddingAllAround),
+          padding: const EdgeInsets.all(paddingAllAround),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -75,12 +75,12 @@ class FileImportDialog extends StatelessWidget {
     final String cautionMessage =
         "If the Notes in your backup file was encrypted with different passphrase then you'll be prompted to enter the passphrase of the device that generated backup."
             .tr();
-    final double topSpacing = 10.0;
+    const double topSpacing = 10.0;
 
     return Align(
       alignment: Alignment.centerLeft,
       child: Padding(
-        padding: EdgeInsets.only(top: topSpacing),
+        padding: const EdgeInsets.only(top: topSpacing),
         child: Text(
           cautionMessage,
           style: dialogBodyTextStyle,
@@ -90,14 +90,14 @@ class FileImportDialog extends StatelessWidget {
   }
 
   Widget _buildButtons() {
-    final double buttonTextFontSize = 15.0;
+    const double buttonTextFontSize = 15.0;
     final String yesButtonText = 'Select file'.tr();
 
     return Container(
       alignment: Alignment.centerRight,
       child: ElevatedButton(
+        onPressed: callback,
         child: _buttonText(yesButtonText, buttonTextFontSize),
-        onPressed: this.callback,
       ),
     );
   }

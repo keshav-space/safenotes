@@ -25,7 +25,7 @@ import 'package:safenotes/models/app_theme.dart';
 import 'package:safenotes/utils/styles.dart';
 
 class LanguageSetting extends StatefulWidget {
-  LanguageSetting({Key? key}) : super(key: key);
+  const LanguageSetting({Key? key}) : super(key: key);
 
   @override
   State<LanguageSetting> createState() => _LanguageSettingState();
@@ -48,7 +48,7 @@ class _LanguageSettingState extends State<LanguageSetting> {
   Widget _settings() {
     return SettingsList(
       platform: DevicePlatform.iOS,
-      lightTheme: SettingsThemeData(),
+      lightTheme: const SettingsThemeData(),
       darkTheme: SettingsThemeData(
         settingsListBackground: AppThemes.darkSettingsScaffold,
         settingsSectionBackground: AppThemes.darkSettingsCanvas,
@@ -64,10 +64,11 @@ class _LanguageSettingState extends State<LanguageSetting> {
   }
 
   Widget _buildLanguageList(BuildContext context) {
-    var _selectedIndex = 0;
-    if (SafeNotesConfig.mapLocaleName.containsKey(context.locale.toString()))
-      _selectedIndex = indexofLanguage(
+    var selectedIndex = 0;
+    if (SafeNotesConfig.mapLocaleName.containsKey(context.locale.toString())) {
+      selectedIndex = indexofLanguage(
           SafeNotesConfig.mapLocaleName[context.locale.toString()]!);
+    }
 
     var items = SafeNotesConfig.languageItems;
 
@@ -76,7 +77,7 @@ class _LanguageSettingState extends State<LanguageSetting> {
         child: CupertinoFormSection.insetGrouped(
           backgroundColor: PreferencesStorage.isThemeDark
               ? AppThemes.darkSettingsScaffold
-              : Color(0x00000000),
+              : const Color(0x00000000),
           decoration: PreferencesStorage.isThemeDark
               ? BoxDecoration(
                   color: AppThemes.darkSettingsCanvas,
@@ -88,7 +89,7 @@ class _LanguageSettingState extends State<LanguageSetting> {
               items.length,
               (index) => GestureDetector(
                 onTap: () => setState(() {
-                  _selectedIndex = index;
+                  selectedIndex = index;
                   context.setLocale(
                       SafeNotesConfig.allLocale[items[index].prefix]!);
                   setState(() {});
@@ -97,7 +98,7 @@ class _LanguageSettingState extends State<LanguageSetting> {
                   child: buildCupertinoFormRow(
                     items[index].prefix,
                     items[index].helper,
-                    selected: _selectedIndex == index,
+                    selected: selectedIndex == index,
                   ),
                 ),
               ),
@@ -114,7 +115,7 @@ class _LanguageSettingState extends State<LanguageSetting> {
     bool selected = false,
   }) {
     return Padding(
-      padding: EdgeInsets.only(top: 5, bottom: 5),
+      padding: const EdgeInsets.only(top: 5, bottom: 5),
       child: CupertinoFormRow(
         prefix: Text(prefix),
         helper: helper != null
@@ -139,7 +140,8 @@ class _LanguageSettingState extends State<LanguageSetting> {
 }
 
 int indexofLanguage(String language) {
-  for (var i = 0; i < SafeNotesConfig.languageItems.length; i++)
+  for (var i = 0; i < SafeNotesConfig.languageItems.length; i++) {
     if (SafeNotesConfig.languageItems[i].prefix == language) return i;
+  }
   return 0;
 }

@@ -69,7 +69,7 @@ class FileHandler {
     int totalCountOfNotes = '{'.allMatches(record).length;
 
     String content =
-        '{ "records" : ${record}, "recordHandlerHash" : "${passHash}", "total" : ${totalCountOfNotes.toString()} }';
+        '{ "records" : $record, "recordHandlerHash" : "$passHash", "total" : ${totalCountOfNotes.toString()} }';
     return content;
   }
 
@@ -139,7 +139,7 @@ class FileHandler {
     return showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (_) => ImportPassPhraseDialog(),
+      builder: (_) => const ImportPassPhraseDialog(),
     );
   }
 
@@ -160,21 +160,22 @@ class FileHandler {
         await CacheManager.emptyCache();
         FilePickerResult? result;
 
-        if (await isAndroidSdkVersionAbove(29))
+        if (await isAndroidSdkVersionAbove(29)) {
           result = await FilePicker.platform.pickFiles(
             type: FileType.custom,
             allowedExtensions: [SafeNotesConfig.importFileExtension],
             allowMultiple: false,
           );
-        else
+        } else {
           result = await FilePicker.platform.pickFiles(
             type: FileType.any,
             allowMultiple: false,
           );
+        }
         if (result != null) {
           PlatformFile file = result.files.first;
           if (file.size == 0) return null;
-          var jsonFile = new File(file.path!);
+          var jsonFile = File(file.path!);
           //   MediaScanner.loadMedia(path: jsonFile.path);
 
           String content = jsonFile.readAsStringSync();
@@ -185,9 +186,10 @@ class FileHandler {
         if (result != null) {
           PlatformFile file = result.files.first;
           if (file.size == 0 ||
-              file.extension != SafeNotesConfig.exportFileExtension)
+              file.extension != SafeNotesConfig.exportFileExtension) {
             return null;
-          var jsonFile = new File(file.path!);
+          }
+          var jsonFile = File(file.path!);
           String content = jsonFile.readAsStringSync();
           return content;
         }

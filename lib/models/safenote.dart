@@ -15,15 +15,15 @@
 import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/encryption/aes_encryption.dart';
 
-final String tableNotes = 'safe_notes';
+const String tableNotes = 'safe_notes';
 
 class NoteFields {
   static final List<String> values = [id, title, description, time];
 
-  static final String id = '_id';
-  static final String title = 'title';
-  static final String description = 'description';
-  static final String time = 'time';
+  static const String id = '_id';
+  static const String title = 'title';
+  static const String description = 'description';
+  static const String time = 'time';
 }
 
 class SafeNote {
@@ -77,10 +77,10 @@ class SafeNote {
   Map<String, dynamic> toJson() {
     return {
       //"${NoteFields.id}": this.id,
-      NoteFields.title: '${encryptAES(this.title, PhraseHandler.getPass)}',
+      NoteFields.title: encryptAES(title, PhraseHandler.getPass),
       NoteFields.description:
-          '${encryptAES(this.description, PhraseHandler.getPass)}',
-      NoteFields.time: '${this.createdTime.toIso8601String()}',
+          encryptAES(description, PhraseHandler.getPass),
+      NoteFields.time: createdTime.toIso8601String(),
     };
   }
 

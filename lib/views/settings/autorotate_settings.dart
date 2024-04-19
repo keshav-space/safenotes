@@ -24,7 +24,7 @@ import 'package:safenotes/models/app_theme.dart';
 import 'package:safenotes/utils/styles.dart';
 
 class AutoRotationSetting extends StatefulWidget {
-  AutoRotationSetting({Key? key}) : super(key: key);
+  const AutoRotationSetting({Key? key}) : super(key: key);
 
   @override
   State<AutoRotationSetting> createState() => _AutoRotationSettingState();
@@ -47,7 +47,7 @@ class _AutoRotationSettingState extends State<AutoRotationSetting> {
   Widget _settings() {
     return SettingsList(
       platform: DevicePlatform.iOS,
-      lightTheme: SettingsThemeData(),
+      lightTheme: const SettingsThemeData(),
       darkTheme: SettingsThemeData(
         settingsListBackground: AppThemes.darkSettingsScaffold,
         settingsSectionBackground: AppThemes.darkSettingsCanvas,

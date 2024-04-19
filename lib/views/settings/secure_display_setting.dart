@@ -24,7 +24,7 @@ import 'package:safenotes/models/app_theme.dart';
 import 'package:safenotes/utils/styles.dart';
 
 class SecureDisplaySetting extends StatefulWidget {
-  SecureDisplaySetting({Key? key}) : super(key: key);
+  const SecureDisplaySetting({Key? key}) : super(key: key);
 
   @override
   State<SecureDisplaySetting> createState() => _SecureDisplaySettingState();
@@ -47,7 +47,7 @@ class _SecureDisplaySettingState extends State<SecureDisplaySetting> {
   Widget _settings() {
     return SettingsList(
       platform: DevicePlatform.iOS,
-      lightTheme: SettingsThemeData(),
+      lightTheme: const SettingsThemeData(),
       darkTheme: SettingsThemeData(
         settingsListBackground: AppThemes.darkSettingsScaffold,
         settingsSectionBackground: AppThemes.darkSettingsCanvas,
