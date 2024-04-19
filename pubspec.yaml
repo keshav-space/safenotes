@@ -70,6 +70,7 @@ dev_dependencies:
   flutter_native_splash: ^2.2.11
   import_sorter: ^4.6.0
   dependency_validator: ^3.0.0
+  flutter_lints: ^3.0.2
   
 
 flutter_native_splash:
