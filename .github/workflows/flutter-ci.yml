@@ -33,6 +33,9 @@ jobs:
 
       - name: Check for any formatting issues in the code
         run: dart format --set-exit-if-changed .
+      
+      - name: Check import sorting
+        run: dart run import_sorter:main --exit-if-changed
 
       # - name: Statically analyze the Dart code for any errors
       #   run: flutter analyze .
