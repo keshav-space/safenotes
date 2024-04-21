@@ -44,8 +44,9 @@ Future main() async {
   );
 
   await PreferencesStorage.init();
-  if (Platform.isAndroid && PreferencesStorage.isFlagSecure)
+  if (Platform.isAndroid && PreferencesStorage.isFlagSecure) {
     await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+  }
 
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -63,7 +64,7 @@ Future main() async {
     EasyLocalization(
       path: 'assets/translations',
       supportedLocales: SafeNotesConfig.localesValues,
-      fallbackLocale: Locale('en', 'US'),
+      fallbackLocale: const Locale('en', 'US'),
       child: SafeNotesApp(),
     ),
   );
@@ -124,22 +125,31 @@ class SafeNotesApp extends StatelessWidget {
     // no need to logout and redirect to authwall if user is not loggedIN
     if (PhraseHandler.getPass.isNotEmpty) {
       bool? isUserActive;
-      if (showPreLogoffAlert)
+      if (showPreLogoffAlert) {
         isUserActive = await preInactivityLogOffAlert(context);
+      }
       if (isUserActive == null || showPreLogoffAlert == false) {
         // isUserActive == null => show him logout Msg
         // showPreLogoffAlert == false => i.e. triggered by appFocusTimeout
-        logout(
-          context: context,
-          showLogoutMsg: true,
-        );
+
+        // TODO: refactor without using BuildContexts across async gap
+        if (context.mounted) {
+          logout(
+            context: context,
+            showLogoutMsg: true,
+          );
+        }
       }
       if (isUserActive == false) {
         // isUserActive == false => user choose to logout, don't show msg
-        logout(
-          context: context,
-          showLogoutMsg: false,
-        );
+
+        // TODO: refactor without using BuildContexts across async gap
+        if (context.mounted) {
+          logout(
+            context: context,
+            showLogoutMsg: false,
+          );
+        }
       }
       //else user pressed cancel and is active
     }
@@ -159,7 +169,7 @@ class SafeNotesApp extends StatelessWidget {
       ),
     );
 
-    if (showLogoutMsg)
+    if (showLogoutMsg) {
       showGenericDialog(
         context: context,
         icon: Icons.info_outline,
@@ -167,6 +177,7 @@ class SafeNotesApp extends StatelessWidget {
             "You were logged out due to extended inactivity. This is to protect your privacy."
                 .tr(),
       );
+    }
 
     // save unsaved note if any
     await NoteEditorState().handleUngracefulNoteExit();

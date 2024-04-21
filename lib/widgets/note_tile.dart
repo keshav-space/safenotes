@@ -53,7 +53,7 @@ class NoteTileWidget extends StatelessWidget {
         : DateFormat.yMMMd().format(note.createdTime);
 
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: color,
@@ -78,7 +78,7 @@ class NoteTileWidget extends StatelessWidget {
             maxLines: 1,
             overflow: TextOverflow.clip,
           ),
-          SizedBox.square(dimension: 5),
+          const SizedBox.square(dimension: 5),
           Text(
             time,
             textDirection: getTextDirecton(time),
@@ -88,7 +88,7 @@ class NoteTileWidget extends StatelessWidget {
               color: fontColor,
             ),
           ),
-          SizedBox.square(dimension: 5),
+          const SizedBox.square(dimension: 5),
           AutoSizeText(
             sanitize(note.description),
             textDirection: getTextDirecton(note.description),

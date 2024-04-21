@@ -41,7 +41,7 @@ class NoteTileWidgetCompact extends StatelessWidget {
     final previewText = note.title == ' ' ? note.description : note.title;
 
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
         color: color,

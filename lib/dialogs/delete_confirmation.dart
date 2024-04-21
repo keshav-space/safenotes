@@ -27,11 +27,14 @@ import 'package:safenotes/utils/styles.dart';
 
 class DeleteConfirmationDialog extends StatelessWidget {
   final VoidCallback callback;
-  DeleteConfirmationDialog({required this.callback});
+  const DeleteConfirmationDialog({
+    Key? key,
+    required this.callback,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final double dialogBordeRadious = 10.0;
+    const double dialogBordeRadious = 10.0;
 
     return BackdropFilter(
       filter: ImageFilter.blur(),
@@ -68,7 +71,7 @@ class DeleteConfirmationDialog extends StatelessWidget {
     final String title = 'Caution!'.tr();
 
     return Padding(
-      padding: EdgeInsets.only(top: 12),
+      padding: const EdgeInsets.only(top: 12),
       child: Text(
         title,
         style: dialogHeadTextStyle,
@@ -81,7 +84,7 @@ class DeleteConfirmationDialog extends StatelessWidget {
         "You're about to delete this note. This action cannot be undone.".tr();
 
     return Padding(
-      padding: EdgeInsets.only(top: 12),
+      padding: const EdgeInsets.only(top: 12),
       child: Text(
         cautionMessage,
         textAlign: TextAlign.center,
@@ -91,14 +94,14 @@ class DeleteConfirmationDialog extends StatelessWidget {
   }
 
   Widget _buildButtons(BuildContext context) {
-    final double paddingAroundButtonRowLR = 15.0;
-    final double paddingAroundButtonRowTop = 20.0;
-    final double buttonTextFontSize = 14.0;
+    const double paddingAroundButtonRowLR = 15.0;
+    const double paddingAroundButtonRowTop = 20.0;
+    const double buttonTextFontSize = 14.0;
     final String cancelButtonText = 'Cancel'.tr();
     final String deleteButtonText = 'Delete'.tr();
 
     return Container(
-      padding: EdgeInsets.fromLTRB(paddingAroundButtonRowLR,
+      padding: const EdgeInsets.fromLTRB(paddingAroundButtonRowLR,
           paddingAroundButtonRowTop, paddingAroundButtonRowLR, 0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -116,8 +119,8 @@ class DeleteConfirmationDialog extends StatelessWidget {
                 backgroundColor:
                     MaterialStateProperty.all(NordColors.aurora.red),
               ),
+              onPressed: callback,
               child: _buttonText(deleteButtonText, buttonTextFontSize),
-              onPressed: this.callback,
             ),
           ),
         ],

@@ -27,13 +27,13 @@ import 'package:safenotes/utils/notes_color.dart';
 import 'package:safenotes/utils/styles.dart';
 
 class ColorPallet extends StatefulWidget {
-  ColorPallet({Key? key}) : super(key: key);
+  const ColorPallet({Key? key}) : super(key: key);
 
   @override
-  State<ColorPallet> createState() => _ColorPalletState();
+  State<ColorPallet> createState() => ColorPalletState();
 }
 
-class _ColorPalletState extends State<ColorPallet> {
+class ColorPalletState extends State<ColorPallet> {
   var _selectedIndex = PreferencesStorage.colorfulNotesColorIndex;
   var items = allNotesColorTheme;
 
@@ -53,7 +53,7 @@ class _ColorPalletState extends State<ColorPallet> {
   Widget _settings() {
     return SettingsList(
       platform: DevicePlatform.iOS,
-      lightTheme: SettingsThemeData(),
+      lightTheme: const SettingsThemeData(),
       darkTheme: SettingsThemeData(
         settingsListBackground: AppThemes.darkSettingsScaffold,
         settingsSectionBackground: AppThemes.darkSettingsCanvas,
@@ -106,9 +106,9 @@ class _ColorPalletState extends State<ColorPallet> {
     List<Widget> colorPallets = [];
     final double heightRatio = MediaQuery.of(context).size.height / 100;
     final double boxHeight = heightRatio * 5;
-    final double radius = 20;
-    var first = BorderRadius.horizontal(left: Radius.circular(radius));
-    var last = BorderRadius.horizontal(right: Radius.circular(radius));
+    const double radius = 20;
+    var first = const BorderRadius.horizontal(left: Radius.circular(radius));
+    var last = const BorderRadius.horizontal(right: Radius.circular(radius));
     var colors = items[_selectedIndex].colorList;
 
     colorPallets.add(
@@ -122,7 +122,7 @@ class _ColorPalletState extends State<ColorPallet> {
         ),
       ),
     );
-    if (colors.length > 1)
+    if (colors.length > 1) {
       for (final color in colors.sublist(1, colors.length - 1)) {
         colorPallets.add(
           Expanded(
@@ -134,6 +134,7 @@ class _ColorPalletState extends State<ColorPallet> {
           ),
         );
       }
+    }
     colorPallets.add(
       Expanded(
         child: Container(
@@ -151,7 +152,7 @@ class _ColorPalletState extends State<ColorPallet> {
   Widget iosStylePaddedCard({required List<Widget> children}) {
     final double widthRatio = MediaQuery.of(context).size.width / 100;
     final double heightRatio = MediaQuery.of(context).size.height / 100;
-    final double containerRadius = 30;
+    const double containerRadius = 30;
 
     return Padding(
       padding: EdgeInsets.only(
@@ -187,7 +188,7 @@ class _ColorPalletState extends State<ColorPallet> {
       child: CupertinoFormSection.insetGrouped(
         backgroundColor: PreferencesStorage.isThemeDark
             ? AppThemes.darkSettingsScaffold
-            : Color(0x00000000),
+            : const Color(0x00000000),
         decoration: PreferencesStorage.isThemeDark
             ? BoxDecoration(
                 color: AppThemes.darkSettingsCanvas,
@@ -222,7 +223,7 @@ class _ColorPalletState extends State<ColorPallet> {
     bool selected = false,
   }) {
     return Padding(
-      padding: EdgeInsets.only(top: 5, bottom: 5),
+      padding: const EdgeInsets.only(top: 5, bottom: 5),
       child: CupertinoFormRow(
         prefix: Text(prefix.tr()),
         helper: helper != null

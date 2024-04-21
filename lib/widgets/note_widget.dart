@@ -44,19 +44,19 @@ class NoteFormWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double allSidePadding = 16.0;
+    const double allSidePadding = 16.0;
 
     return SingleChildScrollView(
       keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       child: Padding(
-        padding: EdgeInsets.all(allSidePadding),
+        padding: const EdgeInsets.all(allSidePadding),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             _buildTitle(),
-            SizedBox(height: 2),
+            const SizedBox(height: 2),
             buildDescription(context),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
           ],
         ),
       ),
@@ -64,8 +64,8 @@ class NoteFormWidget extends StatelessWidget {
   }
 
   Widget _buildTitle() {
-    final double fontSize = 24.0;
-    final int maxLinesToShowAtTimeTitle = 2;
+    const double fontSize = 24.0;
+    const int maxLinesToShowAtTimeTitle = 2;
     final String titleHint = 'Title'.tr();
     //Disable IMEPL if keyboard incognito mode is true
     final bool enableIMEPLFlag = !PreferencesStorage.keyboardIncognito;
@@ -74,14 +74,14 @@ class NoteFormWidget extends StatelessWidget {
       autofocus: true,
       enableIMEPersonalizedLearning: enableIMEPLFlag,
       maxLines: maxLinesToShowAtTimeTitle,
-      textDirection: getTextDirecton(this.title!),
-      initialValue: this.title,
+      textDirection: getTextDirecton(title!),
+      initialValue: title,
       enableInteractiveSelection: true,
       // contextMenuBuilder: (context, editableTextState) {
       // Use contextMenuBuilder to control which text selection toolbar are enabled
       // https://docs.flutter.dev/release/breaking-changes/context-menus#migration-guide
       // },
-      style: TextStyle(
+      style: const TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: fontSize,
       ),
@@ -97,7 +97,7 @@ class NoteFormWidget extends StatelessWidget {
     // maxLine is used in resizing description field on keyboard activation or dismissal
     // final int maxLinesToShowAtTimeDescription =
     //     computeMaxLine(context: context, fontHeight: 30.0);
-    final double fontSize = 18.0;
+    const double fontSize = 18.0;
     final String hintDescription = 'Type something...'.tr();
     final bool enableIMEPLFlag = !PreferencesStorage.keyboardIncognito;
 
@@ -105,14 +105,14 @@ class NoteFormWidget extends StatelessWidget {
       enableIMEPersonalizedLearning: enableIMEPLFlag,
       //maxLines: maxLinesToShowAtTimeDescription,
       maxLines: null,
-      initialValue: this.description,
-      textDirection: getTextDirecton(this.description!),
+      initialValue: description,
+      textDirection: getTextDirecton(description!),
       enableInteractiveSelection: true,
       // contextMenuBuilder: (context, editableTextState) {
       // Use contextMenuBuilder to control which text selection toolbar are enabled
       // https://docs.flutter.dev/release/breaking-changes/context-menus#migration-guide
       // },
-      style: TextStyle(fontSize: fontSize),
+      style: const TextStyle(fontSize: fontSize),
       decoration: InputDecoration(
         border: InputBorder.none,
         hintText: hintDescription,

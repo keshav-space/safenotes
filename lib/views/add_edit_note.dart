@@ -19,8 +19,8 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:easy_localization/easy_localization.dart';
-import 'package:safenotes_nord_theme/safenotes_nord_theme.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
+import 'package:safenotes_nord_theme/safenotes_nord_theme.dart';
 
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
@@ -36,10 +36,10 @@ class AddEditNotePage extends StatefulWidget {
       : super(key: key);
 
   @override
-  _AddEditNotePageState createState() => _AddEditNotePageState();
+  AddEditNotePageState createState() => AddEditNotePageState();
 }
 
-class _AddEditNotePageState extends State<AddEditNotePage> {
+class AddEditNotePageState extends State<AddEditNotePage> {
   final _formKey = GlobalKey<FormState>();
 
   late String title;
@@ -48,10 +48,10 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
   @override
   void initState() {
     super.initState();
-    this.title = widget.note?.title ?? '';
-    this.description = widget.note?.description ?? '';
-    this.title = this.title == ' ' ? '' : this.title;
-    this.description = this.description == ' ' ? '' : this.description;
+    title = widget.note?.title ?? '';
+    description = widget.note?.description ?? '';
+    title = title == ' ' ? '' : title;
+    description = description == ' ' ? '' : description;
     NoteEditorState.setSaveAttempted(false);
   }
 
@@ -95,14 +95,14 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
           NoteEditorState.setState(
             widget.note,
             this.title,
-            this.description,
+            description,
           );
         }),
         onChangedDescription: (description) => setState(() {
           this.description = description;
           NoteEditorState.setState(
             widget.note,
-            this.title,
+            title,
             this.description,
           );
         }),
@@ -112,11 +112,11 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
 
   Widget buildButton() {
     final isFormValid = title.isNotEmpty || description.isNotEmpty;
-    final double buttonFontSize = 17.0;
+    const double buttonFontSize = 17.0;
     final String buttonText = 'Save'.tr();
 
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: PreferencesStorage.isThemeDark
@@ -126,7 +126,7 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
         onPressed: isFormValid ? onSaveCallback : null,
         child: Text(
           buttonText,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: buttonFontSize,
             fontWeight: FontWeight.bold,
           ),
@@ -136,20 +136,23 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
   }
 
   Future<void> onSaveCallback() async {
+    // TODO: refactor without using BuildContexts across async gap
+    var navigator = Navigator.of(context);
     await NoteEditorState()
         .addOrUpdateNote(); // this will also set NoteEditorState.setSaveAttempted = true
-    Navigator.of(context).pop();
+    navigator.pop();
   }
 
   bool isNoteNewOrContentChanged() {
     if (widget.note == null) {
       //New Note and content is not empty
-      if (this.title.isNotEmpty || this.description.isNotEmpty) return true;
+      if (title.isNotEmpty || description.isNotEmpty) return true;
     } else {
       // Old Note but content is changed
-      if (widget.note?.title != this.title && this.title != '' ||
-          widget.note?.description != this.description &&
-              this.description != '') return true;
+      if (widget.note?.title != title && title != '' ||
+          widget.note?.description != description && description != '') {
+        return true;
+      }
     }
     return false;
   }

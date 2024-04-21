@@ -37,6 +37,8 @@ dependencies:
   #display in grid
   flutter_staggered_grid_view: ^0.7.0
   rename: ^3.0.2
+  path: ^1.9.0
+  crypto: ^3.0.3
 
   safenotes_nord_theme:
     git:
@@ -70,6 +72,7 @@ dev_dependencies:
   flutter_native_splash: ^2.2.11
   import_sorter: ^4.6.0
   dependency_validator: ^3.0.0
+  flutter_lints: ^3.0.2
   
 
 flutter_native_splash:

@@ -37,10 +37,10 @@ class NoteDetailPage extends StatefulWidget {
       : super(key: key);
 
   @override
-  _NoteDetailPageState createState() => _NoteDetailPageState();
+  NoteDetailPageState createState() => NoteDetailPageState();
 }
 
-class _NoteDetailPageState extends State<NoteDetailPage> {
+class NoteDetailPageState extends State<NoteDetailPage> {
   late SafeNote note;
   bool isLoading = false;
 
@@ -53,7 +53,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
 
   Future refreshNote() async {
     setState(() => isLoading = true);
-    this.note = await NotesDatabase.instance.decryptReadNote(widget.noteId);
+    note = await NotesDatabase.instance.decryptReadNote(widget.noteId);
     setState(() => isLoading = false);
   }
 
@@ -74,22 +74,22 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
 
   Widget _body(BuildContext context) {
     return isLoading
-        ? Center(child: CircularProgressIndicator())
+        ? const Center(child: CircularProgressIndicator())
         : Padding(
-            padding: EdgeInsets.all(12),
+            padding: const EdgeInsets.all(12),
             child: ListView(
-              padding: EdgeInsets.symmetric(vertical: 8),
+              padding: const EdgeInsets.symmetric(vertical: 8),
               children: [
                 SelectableText(
                   note.title,
                   textDirection: getTextDirecton(note.title),
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 10, bottom: 10),
+                  padding: const EdgeInsets.only(top: 10, bottom: 10),
                   child: Text(
                     DateFormat.yMMMd().format(note.createdTime),
                     textDirection: getTextDirecton(note.title),
@@ -98,7 +98,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
                 SelectableText(
                   note.description,
                   textDirection: getTextDirecton(note.description),
-                  style: TextStyle(fontSize: 18),
+                  style: const TextStyle(fontSize: 18),
                 )
               ],
             ),
@@ -107,7 +107,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
 
   Widget editButton() {
     return IconButton(
-      icon: Icon(Icons.edit_outlined),
+      icon: const Icon(Icons.edit_outlined),
       onPressed: () async {
         if (isLoading) return;
         await Navigator.pushNamed(
@@ -115,7 +115,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
           '/editnote',
           arguments: AddEditNoteArguments(
             sessionStream: widget.sessionStateStream,
-            note: this.note,
+            note: note,
           ),
         );
         refreshNote();
@@ -125,7 +125,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
 
   Widget deleteButton() {
     return IconButton(
-      icon: Icon(Icons.delete),
+      icon: const Icon(Icons.delete),
       onPressed: () async {
         await confirmAndDeleteDialog(context);
       },
@@ -139,9 +139,11 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
       builder: (BuildContext contextChild) {
         return DeleteConfirmationDialog(
           callback: () async {
+            var childNavigator = Navigator.of(contextChild);
+            var navigator = Navigator.of(context);
             await NotesDatabase.instance.delete(widget.noteId);
-            Navigator.of(contextChild).pop();
-            Navigator.of(context).pop();
+            childNavigator.pop();
+            navigator.pop();
           },
         );
       },

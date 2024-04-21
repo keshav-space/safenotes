@@ -59,8 +59,9 @@ class NoteEditorState {
 
       final isUpdating = original != null;
       if (isUpdating) {
-        if (original!.title != title || original!.description != description)
+        if (original!.title != title || original!.description != description) {
           await updateNote();
+        }
       } else {
         await addNote();
       }

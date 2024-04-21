@@ -27,7 +27,7 @@ class GenericDialog extends StatelessWidget {
   final IconData icon;
   final String message;
 
-  GenericDialog({
+  const GenericDialog({
     Key? key,
     required this.icon,
     required this.message,
@@ -35,7 +35,7 @@ class GenericDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double dialogBordeRadious = 10.0;
+    const double dialogBordeRadious = 10.0;
 
     return BackdropFilter(
       filter: ImageFilter.blur(),
@@ -72,16 +72,16 @@ class GenericDialog extends StatelessWidget {
 
   Widget _body(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 10, bottom: 10),
+      padding: const EdgeInsets.only(top: 10, bottom: 10),
       child: Text(
-        this.message,
+        message,
         style: dialogBodyTextStyle,
       ),
     );
   }
 
   Widget _buildButtons(BuildContext context) {
-    final double buttonTextFontSize = 15.0;
+    const double buttonTextFontSize = 15.0;
     final String okButtonText = 'OK'.tr();
 
     return Container(
@@ -89,8 +89,10 @@ class GenericDialog extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           minimumSize: Size.zero, // Set this
-          padding:
-              EdgeInsets.symmetric(vertical: 5, horizontal: 15), // and this
+          padding: const EdgeInsets.symmetric(
+            vertical: 5,
+            horizontal: 15,
+          ), // and this
         ),
         child: _buttonText(okButtonText, buttonTextFontSize),
         onPressed: () => Navigator.of(context).pop(),

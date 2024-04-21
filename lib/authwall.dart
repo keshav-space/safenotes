@@ -29,19 +29,22 @@ class AuthWall extends StatelessWidget {
   final StreamController<SessionState> sessionStateStream;
   final bool? isKeyboardFocused;
 
-  AuthWall({Key? key, required this.sessionStateStream, this.isKeyboardFocused})
-      : super(key: key);
+  const AuthWall({
+    Key? key,
+    required this.sessionStateStream,
+    this.isKeyboardFocused,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return PreferencesStorage.passPhraseHash.isNotEmpty
         ? EncryptionPhraseLoginPage(
             sessionStream: sessionStateStream,
-            isKeyboardFocused: this.isKeyboardFocused,
+            isKeyboardFocused: isKeyboardFocused,
           )
         : SetEncryptionPhrasePage(
             sessionStream: sessionStateStream,
-            isKeyboardFocused: this.isKeyboardFocused,
+            isKeyboardFocused: isKeyboardFocused,
           );
   }
 }

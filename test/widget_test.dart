@@ -1,11 +1,16 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_test/flutter_test.dart';
+
+// Project imports:
 import 'package:safenotes/widgets/login_button.dart';
 
 void main() {
   group('ButtonWidget', () {
     testWidgets('renders correctly with text', (WidgetTester tester) async {
-      final String buttonText = 'Test Button';
+      const String buttonText = 'Test Button';
       bool buttonClicked = false;
 
       await tester.pumpWidget(

@@ -32,29 +32,29 @@ class ButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double topSpacing = 10.0;
+    const double topSpacing = 10.0;
 
     return Padding(
-      padding: EdgeInsets.only(top: topSpacing),
+      padding: const EdgeInsets.only(top: topSpacing),
       child: SizedBox(
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             shadowColor: PreferencesStorage.isThemeDark
                 ? NordColors.snowStorm.lightest
                 : NordColors.polarNight.darkest,
-            minimumSize: Size.fromHeight(50),
+            minimumSize: const Size.fromHeight(50),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
             elevation: 5.0,
           ),
+          onPressed: onClicked,
           child: FittedBox(
             child: Text(
               text,
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
             ),
           ),
-          onPressed: onClicked,
         ),
       ),
     );

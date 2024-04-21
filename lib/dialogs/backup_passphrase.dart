@@ -29,18 +29,20 @@ import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/utils/styles.dart';
 
 class ImportPassPhraseDialog extends StatefulWidget {
+  const ImportPassPhraseDialog({Key? key}) : super(key: key);
+
   @override
-  _ImportPassPhraseDialogState createState() => _ImportPassPhraseDialogState();
+  ImportPassPhraseDialogState createState() => ImportPassPhraseDialogState();
 }
 
-class _ImportPassPhraseDialogState extends State<ImportPassPhraseDialog> {
+class ImportPassPhraseDialogState extends State<ImportPassPhraseDialog> {
   bool _isHiddenImport = true;
   final importPassphraseController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    final double importDataPassDialogRadious = 10.0;
+    const double importDataPassDialogRadious = 10.0;
 
     return BackdropFilter(
       filter: ImageFilter.blur(),
@@ -54,28 +56,28 @@ class _ImportPassPhraseDialogState extends State<ImportPassPhraseDialog> {
   }
 
   Widget _buildImportPassDialog(BuildContext context) {
-    final double paddingAllAround = 15.0;
-    final double paddingTextTop = 12.0;
+    const double paddingAllAround = 15.0;
+    const double paddingTextTop = 12.0;
     final String titleHeading = 'Import Data is Encrypted'.tr();
     final String description =
         'Enter the passphrase of the device that generated this file.'.tr();
 
     return Padding(
-      padding: EdgeInsets.all(paddingAllAround),
+      padding: const EdgeInsets.all(paddingAllAround),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.only(top: paddingTextTop),
+            padding: const EdgeInsets.only(top: paddingTextTop),
             child: Text(
               titleHeading,
               style: dialogHeadTextStyle,
             ),
           ),
           Padding(
-            padding:
-                EdgeInsets.only(top: paddingTextTop, bottom: paddingTextTop),
+            padding: const EdgeInsets.only(
+                top: paddingTextTop, bottom: paddingTextTop),
             child: Text(
               description,
               style: dialogBodyTextStyle,
@@ -89,12 +91,13 @@ class _ImportPassPhraseDialogState extends State<ImportPassPhraseDialog> {
   }
 
   Widget _buildPassField(BuildContext context) {
-    final double inputBoxRadius = 10.0;
-    final double paddingTextBox = 15.0;
+    const double inputBoxRadius = 10.0;
+    const double paddingTextBox = 15.0;
     final String inputBoxHint = 'Encryption Phrase'.tr();
 
     return Padding(
-      padding: EdgeInsets.only(top: paddingTextBox, bottom: paddingTextBox),
+      padding:
+          const EdgeInsets.only(top: paddingTextBox, bottom: paddingTextBox),
       child: Form(
         key: _formKey,
         child: TextFormField(
@@ -102,17 +105,17 @@ class _ImportPassPhraseDialogState extends State<ImportPassPhraseDialog> {
           controller: importPassphraseController,
           autofocus: true,
           enableInteractiveSelection: false,
-          obscureText: this._isHiddenImport,
+          obscureText: _isHiddenImport,
           decoration: InputDecoration(
             hintText: inputBoxHint,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(inputBoxRadius),
             ),
-            prefixIcon: Icon(Icons.lock),
+            prefixIcon: const Icon(Icons.lock),
             suffixIcon: IconButton(
-              icon: !this._isHiddenImport
-                  ? Icon(Icons.visibility_off)
-                  : Icon(Icons.visibility),
+              icon: !_isHiddenImport
+                  ? const Icon(Icons.visibility_off)
+                  : const Icon(Icons.visibility),
               onPressed: _togglePasswordVisibility,
             ),
           ),
@@ -125,7 +128,7 @@ class _ImportPassPhraseDialogState extends State<ImportPassPhraseDialog> {
   }
 
   void _onEditonComplete() {
-    final form = this._formKey.currentState!;
+    final form = _formKey.currentState!;
     if (form.validate()) {
       ImportPassPhraseHandler.setImportPassPhrase(
           importPassphraseController.text);
@@ -143,13 +146,13 @@ class _ImportPassPhraseDialogState extends State<ImportPassPhraseDialog> {
   }
 
   Widget _buildButtons(BuildContext context) {
-    final double paddingAroundButtonRow = 15.0;
-    final double buttonTextFontSize = 15.0;
+    const double paddingAroundButtonRow = 15.0;
+    const double buttonTextFontSize = 15.0;
     final String formSubmitButtonText = 'Submit'.tr();
     final String formCancelButtonText = 'Cancel'.tr();
 
     return Container(
-      padding: EdgeInsets.fromLTRB(paddingAroundButtonRow,
+      padding: const EdgeInsets.fromLTRB(paddingAroundButtonRow,
           paddingAroundButtonRow, paddingAroundButtonRow, 0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -167,8 +170,8 @@ class _ImportPassPhraseDialogState extends State<ImportPassPhraseDialog> {
           SizedBox(width: MediaQuery.of(context).size.width * 0.06),
           Expanded(
             child: ElevatedButton(
-              child: _buttonText(formSubmitButtonText, buttonTextFontSize),
               onPressed: _onEditonComplete,
+              child: _buttonText(formSubmitButtonText, buttonTextFontSize),
             ),
           ),
         ],
@@ -190,5 +193,5 @@ class _ImportPassPhraseDialogState extends State<ImportPassPhraseDialog> {
   }
 
   void _togglePasswordVisibility() =>
-      setState(() => this._isHiddenImport = !this._isHiddenImport);
+      setState(() => _isHiddenImport = !_isHiddenImport);
 }

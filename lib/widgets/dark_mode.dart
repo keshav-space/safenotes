@@ -28,33 +28,33 @@ import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/models/app_theme.dart';
 
 Future darkModalBottomSheet(BuildContext context) {
-  final _onText = "On".tr();
-  final _dimText = "Dim".tr();
-  final _offText = "Off".tr();
-  final _darkModeText = 'Dark mode'.tr();
-  final _lightOutText = "Light out".tr();
-  final _darkThemeText = 'Dark theme'.tr();
-  final _systemDefaultSettingsText = "Use device settings".tr();
+  final onText = "On".tr();
+  final dimText = "Dim".tr();
+  final offText = "Off".tr();
+  final darkModeText = 'Dark mode'.tr();
+  final lightOutText = "Light out".tr();
+  final darkThemeText = 'Dark theme'.tr();
+  final systemDefaultSettingsText = "Use device settings".tr();
 
   return showMaterialModalBottomSheet(
     context: context,
-    shape: RoundedRectangleBorder(
+    shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
     ),
     builder: (context) {
-      DarkModeEnum _darkMode =
+      DarkModeEnum darkMode =
           DarkModeEnum.values[PreferencesStorage.darkModeEnum];
-      DarkThemeEnum _darkTheme =
+      DarkThemeEnum darkTheme =
           DarkThemeEnum.values[PreferencesStorage.darkThemeEnum];
 
       return StatefulBuilder(
         builder: (BuildContext context, StateSetter setModalState) {
-          final _symetricPadding = MediaQuery.of(context).size.width * 0.04;
-          final _topHeadingPadding = MediaQuery.of(context).size.height * 0.03;
-          final _leftHeadingPadding = MediaQuery.of(context).size.height * 0.03;
-          final _headTextStyle =
+          final symetricPadding = MediaQuery.of(context).size.width * 0.04;
+          final topHeadingPadding = MediaQuery.of(context).size.height * 0.03;
+          final leftHeadingPadding = MediaQuery.of(context).size.height * 0.03;
+          const headTextStyle =
               TextStyle(fontWeight: FontWeight.bold, fontSize: 20);
-          final _innerTextStyle = TextStyle(fontSize: 15);
+          const innerTextStyle = TextStyle(fontSize: 15);
 
           return Column(
             mainAxisSize: MainAxisSize.min,
@@ -68,23 +68,23 @@ Future darkModalBottomSheet(BuildContext context) {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(left: _leftHeadingPadding),
-                child: Text(_darkModeText, style: _headTextStyle),
+                padding: EdgeInsets.only(left: leftHeadingPadding),
+                child: Text(darkModeText, style: headTextStyle),
               ),
               _divider(),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: _symetricPadding),
+                padding: EdgeInsets.symmetric(horizontal: symetricPadding),
                 child: Column(
                   children: [
                     RadioListTile<DarkModeEnum>(
-                      title: Text(_offText, style: _innerTextStyle),
+                      title: Text(offText, style: innerTextStyle),
                       value: DarkModeEnum.off,
-                      groupValue: _darkMode,
+                      groupValue: darkMode,
                       onChanged: (value) {
                         setModalStateDarkMode(
                           context: context,
                           setModalState: setModalState,
-                          darkMode: _darkMode,
+                          darkMode: darkMode,
                           value: value,
                           isDarkMode: false,
                         );
@@ -93,14 +93,14 @@ Future darkModalBottomSheet(BuildContext context) {
                       controlAffinity: ListTileControlAffinity.trailing,
                     ),
                     RadioListTile<DarkModeEnum>(
-                      title: Text(_onText, style: _innerTextStyle),
+                      title: Text(onText, style: innerTextStyle),
                       value: DarkModeEnum.on,
-                      groupValue: _darkMode,
+                      groupValue: darkMode,
                       onChanged: (value) {
                         setModalStateDarkMode(
                           context: context,
                           setModalState: setModalState,
-                          darkMode: _darkMode,
+                          darkMode: darkMode,
                           value: value,
                           isDarkMode: true,
                         );
@@ -110,16 +110,16 @@ Future darkModalBottomSheet(BuildContext context) {
                     ),
                     RadioListTile<DarkModeEnum>(
                       title: Text(
-                        _systemDefaultSettingsText,
-                        style: _innerTextStyle,
+                        systemDefaultSettingsText,
+                        style: innerTextStyle,
                       ),
                       value: DarkModeEnum.device,
-                      groupValue: _darkMode,
+                      groupValue: darkMode,
                       onChanged: (value) {
                         setModalStateDarkMode(
                           context: context,
                           setModalState: setModalState,
-                          darkMode: _darkMode,
+                          darkMode: darkMode,
                           value: value,
                           isDarkMode:
                               MediaQuery.of(context).platformBrightness ==
@@ -135,24 +135,24 @@ Future darkModalBottomSheet(BuildContext context) {
               _divider(),
               Padding(
                 padding: EdgeInsets.only(
-                  top: _topHeadingPadding / 2,
-                  left: _leftHeadingPadding,
+                  top: topHeadingPadding / 2,
+                  left: leftHeadingPadding,
                 ),
-                child: Text(_darkThemeText, style: _headTextStyle),
+                child: Text(darkThemeText, style: headTextStyle),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: _symetricPadding),
+                padding: EdgeInsets.symmetric(horizontal: symetricPadding),
                 child: Column(
                   children: [
                     RadioListTile<DarkThemeEnum>(
-                      title: Text(_dimText, style: _innerTextStyle),
+                      title: Text(dimText, style: innerTextStyle),
                       value: DarkThemeEnum.dim,
-                      groupValue: _darkTheme,
+                      groupValue: darkTheme,
                       onChanged: (value) {
                         setModalStateDarkTheme(
                           context: context,
                           setModalState: setModalState,
-                          darkTheme: _darkTheme,
+                          darkTheme: darkTheme,
                           value: value,
                           isDarkDim: true,
                         );
@@ -161,14 +161,14 @@ Future darkModalBottomSheet(BuildContext context) {
                       controlAffinity: ListTileControlAffinity.trailing,
                     ),
                     RadioListTile<DarkThemeEnum>(
-                      title: Text(_lightOutText, style: _innerTextStyle),
+                      title: Text(lightOutText, style: innerTextStyle),
                       value: DarkThemeEnum.lightOut,
-                      groupValue: _darkTheme,
+                      groupValue: darkTheme,
                       onChanged: (value) {
                         setModalStateDarkTheme(
                           context: context,
                           setModalState: setModalState,
-                          darkTheme: _darkTheme,
+                          darkTheme: darkTheme,
                           value: value,
                           isDarkDim: false,
                         );

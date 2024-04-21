@@ -28,8 +28,9 @@ class ScheduledTask {
   static backup() async {
     await PreferencesStorage.init();
     int maxAttempt = PreferencesStorage.maxBackupRetryAttempts;
-    for (var attempt = 1; attempt <= maxAttempt; attempt++)
+    for (var attempt = 1; attempt <= maxAttempt; attempt++) {
       if (await unitBackupAttempt() == true) break;
+    }
   }
 
   // return true on successful backup
@@ -42,7 +43,7 @@ class ScheduledTask {
         String jsonOutputContent =
             await FileHandler.encryptedOutputBackupContent();
         final String fileName = SafeNotesConfig.backupFileName;
-        var jsonFile = File('${validChoosenDirectory}/${fileName}');
+        var jsonFile = File('$validChoosenDirectory/$fileName');
         jsonFile.writeAsStringSync(jsonOutputContent, mode: FileMode.write);
         MediaScanner.loadMedia(path: jsonFile.path);
         await PreferencesStorage.setLastBackupTime();

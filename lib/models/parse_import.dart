@@ -40,10 +40,10 @@ class ImportParser {
   }
 
   List<SafeNote> getAllNotes() {
-    return this.parsedNotes;
+    return parsedNotes;
   }
 
   int getTotalNotes() {
-    return this.totalNotes;
+    return totalNotes;
   }
 }

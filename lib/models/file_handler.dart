@@ -69,14 +69,14 @@ class FileHandler {
     int totalCountOfNotes = '{'.allMatches(record).length;
 
     String content =
-        '{ "records" : ${record}, "recordHandlerHash" : "${passHash}", "total" : ${totalCountOfNotes.toString()} }';
+        '{ "records" : $record, "recordHandlerHash" : "$passHash", "total" : ${totalCountOfNotes.toString()} }';
     return content;
   }
 
   Future<String?> selectFileAndImport(BuildContext context) async {
     /*
     Attention: Starting v2.0 unencrypted export is removed, 
-    however user are allowed to import their unencrypted backup until v3.0 
+    however user are allowed to import their old unencrypted backup.
     */
     String? dataFromFileAsString = await getFileAsString();
     String? currentPassHash = PreferencesStorage.passPhraseHash;
@@ -100,7 +100,8 @@ class FileHandler {
           // Set import passphrasehash to be used for validating user input passphrase
           ImportPassPhraseHandler.setImportPassPhraseHash(importFileKeyHash);
           try {
-            await getImportPassphraseDialog(context);
+            // TODO: refactor without using BuildContexts across async gap
+            if (context.mounted) await getImportPassphraseDialog(context);
           } catch (e) {
             return "Failed to get key for import data".tr();
           }
@@ -119,7 +120,14 @@ class FileHandler {
 
       parsedImportData = ImportParser.fromJson(jsonDecodedData);
       destroyImportCredentials();
-      if (await confirmImportDialog(context, parsedImportData.totalNotes)) {
+
+      bool importConfirmed = false;
+      // TODO: refactor without using BuildContexts across async gap
+      if (context.mounted) {
+        importConfirmed =
+            await confirmImportDialog(context, parsedImportData.totalNotes);
+      }
+      if (importConfirmed) {
         await inserNotes(parsedImportData.getAllNotes());
       } else {
         return "Import cancelled!".tr();
@@ -139,7 +147,7 @@ class FileHandler {
     return showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (_) => ImportPassPhraseDialog(),
+      builder: (_) => const ImportPassPhraseDialog(),
     );
   }
 
@@ -160,21 +168,22 @@ class FileHandler {
         await CacheManager.emptyCache();
         FilePickerResult? result;
 
-        if (await isAndroidSdkVersionAbove(29))
+        if (await isAndroidSdkVersionAbove(29)) {
           result = await FilePicker.platform.pickFiles(
             type: FileType.custom,
             allowedExtensions: [SafeNotesConfig.importFileExtension],
             allowMultiple: false,
           );
-        else
+        } else {
           result = await FilePicker.platform.pickFiles(
             type: FileType.any,
             allowMultiple: false,
           );
+        }
         if (result != null) {
           PlatformFile file = result.files.first;
           if (file.size == 0) return null;
-          var jsonFile = new File(file.path!);
+          var jsonFile = File(file.path!);
           //   MediaScanner.loadMedia(path: jsonFile.path);
 
           String content = jsonFile.readAsStringSync();
@@ -185,9 +194,10 @@ class FileHandler {
         if (result != null) {
           PlatformFile file = result.files.first;
           if (file.size == 0 ||
-              file.extension != SafeNotesConfig.exportFileExtension)
+              file.extension != SafeNotesConfig.exportFileExtension) {
             return null;
-          var jsonFile = new File(file.path!);
+          }
+          var jsonFile = File(file.path!);
           String content = jsonFile.readAsStringSync();
           return content;
         }

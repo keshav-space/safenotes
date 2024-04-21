@@ -59,10 +59,10 @@ class AppThemes {
       scaffoldBackgroundColor: Colors.black,
       canvasColor: Colors.black,
       primaryColorDark: Colors.black,
-      appBarTheme: AppBarTheme().copyWith(
+      appBarTheme: const AppBarTheme().copyWith(
         color: Colors.grey.shade900,
       ),
-      bottomSheetTheme: BottomSheetThemeData().copyWith(
+      bottomSheetTheme: const BottomSheetThemeData().copyWith(
         modalBackgroundColor: Colors.grey.shade900,
       ),
       drawerTheme: NordTheme.dark().drawerTheme.copyWith(

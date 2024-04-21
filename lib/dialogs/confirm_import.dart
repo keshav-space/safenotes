@@ -28,20 +28,20 @@ import 'package:safenotes/utils/styles.dart';
 class ImportConfirm extends StatefulWidget {
   final int importCount;
 
-  ImportConfirm({
+  const ImportConfirm({
     Key? key,
     required this.importCount,
   }) : super(key: key);
 
   @override
-  _ImportConfirmState createState() => _ImportConfirmState();
+  ImportConfirmState createState() => ImportConfirmState();
 }
 
-class _ImportConfirmState extends State<ImportConfirm> {
+class ImportConfirmState extends State<ImportConfirm> {
   @override
   Widget build(BuildContext context) {
-    final double paddingAllAround = 20.0;
-    final double dialogRadius = 10.0;
+    const double paddingAllAround = 20.0;
+    const double dialogRadius = 10.0;
 
     return BackdropFilter(
       filter: ImageFilter.blur(),
@@ -50,7 +50,7 @@ class _ImportConfirmState extends State<ImportConfirm> {
           borderRadius: BorderRadius.circular(dialogRadius),
         ),
         child: Padding(
-          padding: EdgeInsets.all(paddingAllAround),
+          padding: const EdgeInsets.all(paddingAllAround),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -66,12 +66,12 @@ class _ImportConfirmState extends State<ImportConfirm> {
 
   Widget _title() {
     final String title = 'Confirm Import!'.tr();
-    final double topSpacing = 10.0;
+    const double topSpacing = 10.0;
 
     return Align(
       alignment: Alignment.centerLeft,
       child: Padding(
-        padding: EdgeInsets.only(top: topSpacing), //, right: 100),
+        padding: const EdgeInsets.only(top: topSpacing), //, right: 100),
         child: Text(
           title,
           style: dialogHeadTextStyle,
@@ -84,7 +84,7 @@ class _ImportConfirmState extends State<ImportConfirm> {
     final String cautionMessage =
         'Do you want to import {noOfNotesInImport} new notes?'.tr(
             namedArgs: {'noOfNotesInImport': widget.importCount.toString()});
-    final double topSpacing = 15.0;
+    const double topSpacing = 15.0;
 
     return Align(
       alignment: Alignment.centerLeft,
@@ -99,36 +99,33 @@ class _ImportConfirmState extends State<ImportConfirm> {
   }
 
   Widget _buildButtons() {
-    final double buttonTextFontSize = 15.0;
+    const double buttonTextFontSize = 15.0;
     final String cancelButtonText = 'Cancel'.tr();
     final String confirmButtonText = 'Confirm'.tr();
 
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Expanded(
-            child: ElevatedButton(
-              style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all(NordColors.aurora.red),
-              ),
-              child: _buttonText(cancelButtonText, buttonTextFontSize),
-              onPressed: () {
-                Navigator.of(context).pop(false);
-              },
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Expanded(
+          child: ElevatedButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(NordColors.aurora.red),
             ),
+            child: _buttonText(cancelButtonText, buttonTextFontSize),
+            onPressed: () {
+              Navigator.of(context).pop(false);
+            },
           ),
-          SizedBox(width: MediaQuery.of(context).size.width * 0.1),
-          Expanded(
-            child: ElevatedButton(
-              child: _buttonText(confirmButtonText, buttonTextFontSize),
-              onPressed: () => Navigator.of(context)
-                  .pop(true), // return false to dialog caller
-            ),
+        ),
+        SizedBox(width: MediaQuery.of(context).size.width * 0.1),
+        Expanded(
+          child: ElevatedButton(
+            child: _buttonText(confirmButtonText, buttonTextFontSize),
+            onPressed: () => Navigator.of(context)
+                .pop(true), // return false to dialog caller
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

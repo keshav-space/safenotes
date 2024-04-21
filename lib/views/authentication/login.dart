@@ -23,9 +23,9 @@ import 'package:flutter/services.dart';
 import 'package:after_layout/after_layout.dart';
 import 'package:crypto/crypto.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:safenotes_nord_theme/safenotes_nord_theme.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
+import 'package:safenotes_nord_theme/safenotes_nord_theme.dart';
 
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
@@ -48,11 +48,11 @@ class EncryptionPhraseLoginPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _EncryptionPhraseLoginPageState createState() =>
-      _EncryptionPhraseLoginPageState();
+  EncryptionPhraseLoginPageState createState() =>
+      EncryptionPhraseLoginPageState();
 }
 
-class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
+class EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
     with AfterLayoutMixin<EncryptionPhraseLoginPage> {
   // BiometricAuth:
   final LocalAuthentication auth = LocalAuthentication();
@@ -75,7 +75,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
     _isKeyboardFocused = widget.isKeyboardFocused ?? true;
 
     // BiometricAuth:
-    this.auth.isDeviceSupported().then(
+    auth.isDeviceSupported().then(
       (bool isSupported) {
         setState(() => _supportState = isSupported
             ? _BiometricState.supported
@@ -125,9 +125,9 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
                   children: [
                     _buildTopLogo(),
                     _buildLoginWorkflow(context: context),
-                    Spacer(),
+                    const Spacer(),
                     Padding(
-                      padding: EdgeInsets.only(top: 5),
+                      padding: const EdgeInsets.only(top: 5),
                       child: footer(),
                     ),
                   ],
@@ -142,10 +142,11 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
 
   void scrollToBottomIfOnScreenKeyboard() {
     try {
-      if (MediaQuery.of(context).viewInsets.bottom > 0)
+      if (MediaQuery.of(context).viewInsets.bottom > 0) {
         _scrollController.animateTo(_scrollController.position.maxScrollExtent,
-            duration: Duration(milliseconds: 500), curve: Curves.ease);
-    } catch (e) {}
+            duration: const Duration(milliseconds: 500), curve: Curves.ease);
+      }
+    } catch (_) {}
   }
 
   Widget _buildTopLogo() {
@@ -158,7 +159,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
     return Padding(
       padding: EdgeInsets.only(top: topPadding),
       child: Center(
-        child: Container(
+        child: SizedBox(
           width: dimensions,
           height: dimensions,
           child: Image.asset(
@@ -170,12 +171,12 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
   }
 
   Widget _buildLoginWorkflow({required BuildContext context}) {
-    final double padding = 16.0;
+    const double padding = 16.0;
 
     return Form(
-      key: this._formKey,
+      key: _formKey,
       child: SingleChildScrollView(
-        padding: EdgeInsets.all(padding),
+        padding: const EdgeInsets.all(padding),
         child: Column(
           children: [
             _buildTimeOut(),
@@ -198,9 +199,9 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
         () {
           setState(
             () {
-              this._isLocked = false;
-              this._isKeyboardFocused = true;
-              this._formKey = GlobalKey<FormState>();
+              _isLocked = false;
+              _isKeyboardFocused = true;
+              _formKey = GlobalKey<FormState>();
             },
           );
         },
@@ -212,7 +213,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
           String? timeLeft =
               snapshot.hasData ? snapshot.data : _lockoutTime.toString();
           return Padding(
-            padding: EdgeInsets.only(bottom: 20),
+            padding: const EdgeInsets.only(bottom: 20),
             child: Align(
               alignment: Alignment.center,
               child: Text(
@@ -229,20 +230,20 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
         },
       );
     }
-    return SizedBox(height: 20);
+    return const SizedBox(height: 20);
   }
 
   Widget _inputField() {
-    final double inputBoxEdgeRadious = 10.0;
+    const double inputBoxEdgeRadious = 10.0;
 
     return TextFormField(
       enabled: !_isLocked,
       enableIMEPersonalizedLearning: false,
       controller: passPhraseController,
-      autofocus: this._isKeyboardFocused!,
-      obscureText: this._isHidden,
+      autofocus: _isKeyboardFocused!,
+      obscureText: _isHidden,
       decoration: _inputFieldDecoration(inputBoxEdgeRadious),
-      autofillHints: [AutofillHints.password],
+      autofillHints: const [AutofillHints.password],
       keyboardType: TextInputType.visiblePassword,
       onEditingComplete: _loginController,
       validator: _passphraseValidator,
@@ -254,7 +255,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
 
     if (_noOfAllowedAttempts <= 1) {
       setState(() {
-        this._isLocked = true;
+        _isLocked = true;
       });
       return numberOfAttemptExceded;
     }
@@ -285,18 +286,18 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(inputBoxEdgeRadious),
       ),
-      prefixIcon: Icon(Icons.lock),
+      prefixIcon: const Icon(Icons.lock),
       suffixIcon: IconButton(
-        icon: !this._isHidden
-            ? Icon(Icons.visibility_off)
-            : Icon(Icons.visibility),
+        icon: !_isHidden
+            ? const Icon(Icons.visibility_off)
+            : const Icon(Icons.visibility),
         onPressed: _togglePasswordVisibility,
       ),
     );
   }
 
   void _togglePasswordVisibility() {
-    setState(() => this._isHidden = !this._isHidden);
+    setState(() => _isHidden = !_isHidden);
   }
 
   Widget _buildLoginButton() {
@@ -304,7 +305,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
 
     return ButtonWidget(
       text: loginText,
-      onClicked: this._isLocked ? null : () async => _loginController(),
+      onClicked: _isLocked ? null : () async => _loginController(),
     );
   }
 
@@ -312,44 +313,44 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.only(top: 10),
+          padding: const EdgeInsets.only(top: 10),
           child: Text(
             'OR'.tr(),
-            style: TextStyle(fontSize: 15),
+            style: const TextStyle(fontSize: 15),
           ),
         ),
         Align(
           alignment: Alignment.centerRight,
           child: Padding(
-            padding: EdgeInsets.only(top: 10, bottom: 20),
+            padding: const EdgeInsets.only(top: 10, bottom: 20),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 shadowColor: PreferencesStorage.isThemeDark
                     ? NordColors.snowStorm.lightest
                     : NordColors.polarNight.darkest,
-                minimumSize: Size(200, 50), //Size.fromHeight(50),
+                minimumSize: const Size(200, 50), //Size.fromHeight(50),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
                 elevation: 5.0,
               ),
+              onPressed: (PreferencesStorage.isBiometricAuthEnabled &&
+                      !forcePassphraseInput &&
+                      !_isLocked)
+                  ? _authenticate
+                  : null,
               child: Wrap(
                 children: <Widget>[
-                  Icon(
+                  const Icon(
                     Icons.fingerprint,
                     size: 30.0,
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Text(
                     'Biometric'.tr(),
-                    style: TextStyle(fontSize: 20),
+                    style: const TextStyle(fontSize: 20),
                   ),
                 ],
               ),
-              onPressed: (PreferencesStorage.isBiometricAuthEnabled &&
-                      !this.forcePassphraseInput &&
-                      !this._isLocked)
-                  ? _authenticate
-                  : null,
             ),
           ),
         ),
@@ -358,14 +359,15 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
   }
 
   void _loginController() async {
-    final form = this._formKey.currentState!;
+    final form = _formKey.currentState!;
     final snackMsgWrongEncryptionPhrase = 'Wrong passphrase!'.tr();
 
     if (form.validate()) {
       final phrase = passPhraseController.text;
       await _login(phrase);
-    } else
+    } else {
       showSnackBarMessage(context, snackMsgWrongEncryptionPhrase);
+    }
   }
 
   Future<void> _login(String passphrase) async {
@@ -377,8 +379,9 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
       Session.login(passphrase);
 
       // re-enable biometric auth
-      if (this.forcePassphraseInput)
+      if (forcePassphraseInput) {
         PreferencesStorage.incrementBiometricAttemptAllTimeCount();
+      }
 
       // start listening for session inactivity on successful login
       widget.sessionStream.add(SessionState.startListening);
@@ -388,8 +391,9 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
         '/home',
         arguments: widget.sessionStream,
       );
-    } else
+    } else {
       showSnackBarMessage(context, snackMsgWrongEncryptionPhrase);
+    }
   }
 
   Widget _buildForgotPassphrase() {
@@ -421,8 +425,8 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
 
   Future<bool> _authenticate() async {
     bool authenticated = false;
-    print(PreferencesStorage.biometricAttemptAllTimeCount);
-    if (this._supportState == _BiometricState.unsupported) {
+
+    if (_supportState == _BiometricState.unsupported) {
       showGenericDialog(
         context: context,
         icon: Icons.error_outline,
@@ -430,7 +434,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
             "No biometrics found. Go to your device settings to enroll your biometric."
                 .tr(),
       );
-    } else if (this.forcePassphraseInput) {
+    } else if (forcePassphraseInput) {
       showGenericDialog(
         context: context,
         icon: Icons.info_outline,
@@ -441,17 +445,15 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
     } else {
       PreferencesStorage.incrementBiometricAttemptAllTimeCount();
       try {
-        authenticated = await this.auth.authenticate(
-              localizedReason: 'Login using your biometric credential',
-              options: const AuthenticationOptions(stickyAuth: true),
-            );
-      } catch (e) {
-        //print(e);
-      }
+        authenticated = await auth.authenticate(
+          localizedReason: 'Login using your biometric credential',
+          options: const AuthenticationOptions(stickyAuth: true),
+        );
+      } catch (_) {}
       if (authenticated) await _login(await BiometricAuth.authKey);
     }
     setState(() {
-      this.forcePassphraseInput =
+      forcePassphraseInput =
           PreferencesStorage.biometricAttemptAllTimeCount % 5 == 0;
     });
     return authenticated;
@@ -471,7 +473,7 @@ void _startTimer(VoidCallback callback) {
   if (_timer != null) _timer?.cancel();
 
   _timer = Timer.periodic(
-    Duration(seconds: 1),
+    const Duration(seconds: 1),
     (timer) {
       (_counter > 0) ? _counter-- : _timer?.cancel();
       _controller.add(_counter.toString().padLeft(2, '0'));

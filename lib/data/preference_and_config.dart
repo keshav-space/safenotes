@@ -150,8 +150,9 @@ class PreferencesStorage {
 
     List<int> choices = [30, 60, 120, 180, 300, 600, 900];
     var index = _preferences?.getInt(_keyInactivityTimeout);
-    if (!(index != null && index >= 0 && index < choices.length))
+    if (!(index != null && index >= 0 && index < choices.length)) {
       index = 4; // default
+    }
 
     return choices[index];
   }
@@ -247,46 +248,48 @@ class ImportPassPhraseHandler {
 }
 
 class SafeNotesConfig {
-  static String _appVersion = '2.3.0';
-  static int _appVersionCode = 10;
-  static String _appName = 'Safe Notes';
-  static String _appSlogan = 'Encrypted note manager!';
-  static String _appLogoPath = 'assets/images/splash_500.png';
-  static String _appLogoAsProfilePath = 'assets/images/splash.png';
-  static String _exportFileNamePrefix = 'safenotes_';
-  static String _allowedFileExtensionsForImport = 'json';
-  static String _exportFileNameExtension = '.json';
-  static String _backupExtension = '.json';
-  static String _backupFileNamePrefix = 'safenotes_backup';
-  static String _githubUrl = 'https://github.com/keshav-space/safenotes';
-  static String _faqsUrl = 'https://safenotes.dev/faqs.html';
-  static String _downloadDirectory = '/storage/emulated/0/Download/';
-  static String _backupDirectory = '/storage/emulated/0/Download/Safe Notes/';
-  static String _mailToForFeedback =
+  static const String _appVersion = '2.3.0';
+  static const int _appVersionCode = 10;
+  static const String _appName = 'Safe Notes';
+  static const String _appSlogan = 'Encrypted note manager!';
+  static const String _appLogoPath = 'assets/images/splash_500.png';
+  static const String _appLogoAsProfilePath = 'assets/images/splash.png';
+  static const String _exportFileNamePrefix = 'safenotes_';
+  static const String _allowedFileExtensionsForImport = 'json';
+  static const String _exportFileNameExtension = '.json';
+  static const String _backupExtension = '.json';
+  static const String _backupFileNamePrefix = 'safenotes_backup';
+  static const String _githubUrl = 'https://github.com/keshav-space/safenotes';
+  static const String _faqsUrl = 'https://safenotes.dev/faqs.html';
+  static const String _downloadDirectory = '/storage/emulated/0/Download/';
+  static const String _backupDirectory =
+      '/storage/emulated/0/Download/Safe Notes/';
+  static const String _mailToForFeedback =
       'mailto:contact@safenotes.dev?subject=Help and Feedback';
-  static String _sourceCodeUrl = 'https://github.com/keshav-space/safenotes';
-  static String _bugReportUrl =
+  static const String _sourceCodeUrl =
+      'https://github.com/keshav-space/safenotes';
+  static const String _bugReportUrl =
       'mailto:contact@safenotes.dev?subject=Bug Report';
-  static String _openSourceLicense =
+  static const String _openSourceLicense =
       'https://github.com/keshav-space/safenotes/blob/main/LICENSE';
-  static String _playStorUrl =
+  static const String _playStorUrl =
       'https://play.google.com/store/apps/details?id=com.trisven.safenotes';
 
-  static Map<String, Locale> _locales = {
-    "Čeština": Locale('cs'),
-    "简体中文": Locale('zh', 'CN'),
-    "Deutsch": Locale('de'),
-    "English": Locale('en', 'US'),
-    "Español": Locale('es'),
-    "Français": Locale('fr'),
-    "Indonesia": Locale('id'),
-    "Norsk": Locale('nb', 'NO'),
-    "Polski": Locale('pl'),
-    "Português do Brasil": Locale('pt', 'BR'),
-    "Português": Locale('pt'),
-    "Русский": Locale('ru'),
-    "Türk": Locale('tr'),
-    "Yкраїнська": Locale('uk'),
+  static final Map<String, Locale> _locales = {
+    "Čeština": const Locale('cs'),
+    "简体中文": const Locale('zh', 'CN'),
+    "Deutsch": const Locale('de'),
+    "English": const Locale('en', 'US'),
+    "Español": const Locale('es'),
+    "Français": const Locale('fr'),
+    "Indonesia": const Locale('id'),
+    "Norsk": const Locale('nb', 'NO'),
+    "Polski": const Locale('pl'),
+    "Português do Brasil": const Locale('pt', 'BR'),
+    "Português": const Locale('pt'),
+    "Русский": const Locale('ru'),
+    "Türk": const Locale('tr'),
+    "Yкраїнська": const Locale('uk'),
   };
 
   // set timeago local for all supported language
@@ -321,7 +324,7 @@ class SafeNotesConfig {
   static String get appLogoPath => _appLogoPath;
   static String get exportFileExtension => _exportFileNameExtension;
   static String get importFileExtension => _allowedFileExtensionsForImport;
-  static String get FAQsUrl => _faqsUrl;
+  static String get faqsUrl => _faqsUrl;
   static String get downloadDirectory => _downloadDirectory;
   static String get backupDirectory => _backupDirectory;
   static Map<String, Locale> get allLocale => _locales;
@@ -329,27 +332,28 @@ class SafeNotesConfig {
   static List<String> get localesKeys => _locales.keys.toList();
   static List<LanguageItem> get languageItems {
     List<LanguageItem> items = [];
-    localesKeys.forEach((element) {
+    for (var element in localesKeys) {
       items.add(LanguageItem(prefix: element, helper: null));
-    });
+    }
     return items;
   }
 
   static Map<String, String> get mapLocaleName {
     //{'en_US':'English'}
-    Map<String, String> _mapLocaleName = Map();
+    Map<String, String> mapLocaleName = {};
     _locales.forEach((key, value) {
-      _mapLocaleName[value.toString()] = key;
+      mapLocaleName[value.toString()] = key;
     });
-    return _mapLocaleName;
+    return mapLocaleName;
   }
 
   static String get backupFileName {
     String redundancyCounter =
         PreferencesStorage.backupRedundancyCounter.toString();
-    if (redundancyCounter == '0')
-      return '${_backupFileNamePrefix}${_backupExtension}';
-    return '${_backupFileNamePrefix}${redundancyCounter}${_backupExtension}';
+    if (redundancyCounter == '0') {
+      return '$_backupFileNamePrefix$_backupExtension';
+    }
+    return '$_backupFileNamePrefix$redundancyCounter$_backupExtension';
   }
 
   static String get exportFileName {

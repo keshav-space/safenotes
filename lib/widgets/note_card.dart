@@ -30,7 +30,7 @@ class NoteCardWidget extends StatelessWidget {
   final SafeNote note;
   final int index;
 
-  NoteCardWidget({
+  const NoteCardWidget({
     Key? key,
     required this.note,
     required this.index,
@@ -60,7 +60,7 @@ class NoteCardWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       child: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           //crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,7 +80,7 @@ class NoteCardWidget extends StatelessWidget {
               maxLines: 2,
               overflow: TextOverflow.clip,
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             Text(
               time,
               textDirection: getTextDirecton(time),
@@ -90,7 +90,7 @@ class NoteCardWidget extends StatelessWidget {
                 color: fontColor,
               ),
             ),
-            SizedBox(height: 6),
+            const SizedBox(height: 6),
             AutoSizeText(
               sanitize(note.description),
               textDirection: getTextDirecton(note.description),
