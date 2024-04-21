@@ -89,8 +89,10 @@ class GenericDialog extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           minimumSize: Size.zero, // Set this
-          padding:
-              const EdgeInsets.symmetric(vertical: 5, horizontal: 15), // and this
+          padding: const EdgeInsets.symmetric(
+            vertical: 5,
+            horizontal: 15,
+          ), // and this
         ),
         child: _buttonText(okButtonText, buttonTextFontSize),
         onPressed: () => Navigator.of(context).pop(),

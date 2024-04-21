@@ -33,8 +33,11 @@ class App extends StatelessWidget {
   final StreamController<SessionState> sessionStateStream;
   final GlobalKey<NavigatorState> navigatorKey;
 
-  const App({Key? key, required this.sessionStateStream, required this.navigatorKey})
-      : super(key: key);
+  const App({
+    Key? key,
+    required this.sessionStateStream,
+    required this.navigatorKey,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

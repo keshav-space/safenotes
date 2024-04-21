@@ -27,7 +27,10 @@ import 'package:safenotes/utils/styles.dart';
 
 class DeleteConfirmationDialog extends StatelessWidget {
   final VoidCallback callback;
-  const DeleteConfirmationDialog({Key? key, required this.callback}) : super(key: key);
+  const DeleteConfirmationDialog({
+    Key? key,
+    required this.callback,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

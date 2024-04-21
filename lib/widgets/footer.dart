@@ -22,8 +22,9 @@ import 'package:safenotes/data/preference_and_config.dart';
 
 Widget footer() {
   const double fontSize = 12;
-  final Color color =
-      PreferencesStorage.isThemeDark ? const Color(0xFFafb8ba) : const Color(0xFF8e989c);
+  final Color color = PreferencesStorage.isThemeDark
+      ? const Color(0xFFafb8ba)
+      : const Color(0xFF8e989c);
   final TextStyle style = TextStyle(color: color, fontSize: fontSize);
   final footerSecondText = 'Made with ♥ on Earth'.tr().split('♥');
   final madeWith = footerSecondText[0];

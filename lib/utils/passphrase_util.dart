@@ -35,8 +35,10 @@ double estimateBruteforceStrength(String passphrase) {
   logisticFunction(double x) {
     return 1.0 / (1.0 + exp(-x));
   }
+
   curve(double x) {
     return logisticFunction((x / 3.0) - 4.0);
   }
+
   return curve(passphrase.length * charsetBonus);
 }

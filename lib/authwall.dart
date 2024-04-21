@@ -29,8 +29,11 @@ class AuthWall extends StatelessWidget {
   final StreamController<SessionState> sessionStateStream;
   final bool? isKeyboardFocused;
 
-  const AuthWall({Key? key, required this.sessionStateStream, this.isKeyboardFocused})
-      : super(key: key);
+  const AuthWall({
+    Key? key,
+    required this.sessionStateStream,
+    this.isKeyboardFocused,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

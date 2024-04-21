@@ -78,8 +78,7 @@ class SafeNote {
     return {
       //"${NoteFields.id}": this.id,
       NoteFields.title: encryptAES(title, PhraseHandler.getPass),
-      NoteFields.description:
-          encryptAES(description, PhraseHandler.getPass),
+      NoteFields.description: encryptAES(description, PhraseHandler.getPass),
       NoteFields.time: createdTime.toIso8601String(),
     };
   }
