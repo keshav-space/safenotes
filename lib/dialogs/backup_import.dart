@@ -126,7 +126,9 @@ Future<void> showImportDialog(BuildContext context,
           String? snackMessage =
               await FileHandler().selectFileAndImport(context);
           if (homeRefresh != null) homeRefresh();
-          showSnackBarMessage(context, snackMessage);
+
+          // TODO: refactor without using BuildContexts across async gap
+          if (context.mounted) showSnackBarMessage(context, snackMessage);
         },
       );
     },

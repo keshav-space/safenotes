@@ -34,10 +34,10 @@ class ImportConfirm extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ImportConfirmState createState() => _ImportConfirmState();
+  ImportConfirmState createState() => ImportConfirmState();
 }
 
-class _ImportConfirmState extends State<ImportConfirm> {
+class ImportConfirmState extends State<ImportConfirm> {
   @override
   Widget build(BuildContext context) {
     const double paddingAllAround = 20.0;
@@ -103,32 +103,29 @@ class _ImportConfirmState extends State<ImportConfirm> {
     final String cancelButtonText = 'Cancel'.tr();
     final String confirmButtonText = 'Confirm'.tr();
 
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Expanded(
-            child: ElevatedButton(
-              style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all(NordColors.aurora.red),
-              ),
-              child: _buttonText(cancelButtonText, buttonTextFontSize),
-              onPressed: () {
-                Navigator.of(context).pop(false);
-              },
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Expanded(
+          child: ElevatedButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(NordColors.aurora.red),
             ),
+            child: _buttonText(cancelButtonText, buttonTextFontSize),
+            onPressed: () {
+              Navigator.of(context).pop(false);
+            },
           ),
-          SizedBox(width: MediaQuery.of(context).size.width * 0.1),
-          Expanded(
-            child: ElevatedButton(
-              child: _buttonText(confirmButtonText, buttonTextFontSize),
-              onPressed: () => Navigator.of(context)
-                  .pop(true), // return false to dialog caller
-            ),
+        ),
+        SizedBox(width: MediaQuery.of(context).size.width * 0.1),
+        Expanded(
+          child: ElevatedButton(
+            child: _buttonText(confirmButtonText, buttonTextFontSize),
+            onPressed: () => Navigator.of(context)
+                .pop(true), // return false to dialog caller
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

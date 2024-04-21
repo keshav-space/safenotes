@@ -262,10 +262,12 @@ class SafeNotesConfig {
   static const String _githubUrl = 'https://github.com/keshav-space/safenotes';
   static const String _faqsUrl = 'https://safenotes.dev/faqs.html';
   static const String _downloadDirectory = '/storage/emulated/0/Download/';
-  static const String _backupDirectory = '/storage/emulated/0/Download/Safe Notes/';
+  static const String _backupDirectory =
+      '/storage/emulated/0/Download/Safe Notes/';
   static const String _mailToForFeedback =
       'mailto:contact@safenotes.dev?subject=Help and Feedback';
-  static const String _sourceCodeUrl = 'https://github.com/keshav-space/safenotes';
+  static const String _sourceCodeUrl =
+      'https://github.com/keshav-space/safenotes';
   static const String _bugReportUrl =
       'mailto:contact@safenotes.dev?subject=Bug Report';
   static const String _openSourceLicense =
@@ -322,7 +324,7 @@ class SafeNotesConfig {
   static String get appLogoPath => _appLogoPath;
   static String get exportFileExtension => _exportFileNameExtension;
   static String get importFileExtension => _allowedFileExtensionsForImport;
-  static String get FAQsUrl => _faqsUrl;
+  static String get faqsUrl => _faqsUrl;
   static String get downloadDirectory => _downloadDirectory;
   static String get backupDirectory => _backupDirectory;
   static Map<String, Locale> get allLocale => _locales;

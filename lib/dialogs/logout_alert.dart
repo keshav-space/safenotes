@@ -108,32 +108,29 @@ class PreInactivityLogOff extends StatelessWidget {
     final String yesButtonText = 'Logout'.tr();
     final String noButtonText = 'Cancel'.tr();
 
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Expanded(
-            child: ElevatedButton(
-              style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all(NordColors.aurora.red),
-              ),
-              child: _buttonText(yesButtonText, buttonTextFontSize),
-              onPressed: () {
-                Navigator.of(context).pop(false);
-              },
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Expanded(
+          child: ElevatedButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(NordColors.aurora.red),
             ),
+            child: _buttonText(yesButtonText, buttonTextFontSize),
+            onPressed: () {
+              Navigator.of(context).pop(false);
+            },
           ),
-          SizedBox(width: MediaQuery.of(context).size.width * 0.06),
-          Expanded(
-            child: ElevatedButton(
-              child: _buttonText(noButtonText, buttonTextFontSize),
-              onPressed: () => Navigator.of(context)
-                  .pop(true), // return false to dialog caller
-            ),
-          )
-        ],
-      ),
+        ),
+        SizedBox(width: MediaQuery.of(context).size.width * 0.06),
+        Expanded(
+          child: ElevatedButton(
+            child: _buttonText(noButtonText, buttonTextFontSize),
+            onPressed: () => Navigator.of(context)
+                .pop(true), // return false to dialog caller
+          ),
+        )
+      ],
     );
   }
 

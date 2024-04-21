@@ -36,10 +36,10 @@ class AddEditNotePage extends StatefulWidget {
       : super(key: key);
 
   @override
-  _AddEditNotePageState createState() => _AddEditNotePageState();
+  AddEditNotePageState createState() => AddEditNotePageState();
 }
 
-class _AddEditNotePageState extends State<AddEditNotePage> {
+class AddEditNotePageState extends State<AddEditNotePage> {
   final _formKey = GlobalKey<FormState>();
 
   late String title;
@@ -136,9 +136,11 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
   }
 
   Future<void> onSaveCallback() async {
+    // TODO: refactor without using BuildContexts across async gap
+    var navigator = Navigator.of(context);
     await NoteEditorState()
         .addOrUpdateNote(); // this will also set NoteEditorState.setSaveAttempted = true
-    Navigator.of(context).pop();
+    navigator.pop();
   }
 
   bool isNoteNewOrContentChanged() {
@@ -148,8 +150,9 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
     } else {
       // Old Note but content is changed
       if (widget.note?.title != title && title != '' ||
-          widget.note?.description != description &&
-              description != '') return true;
+          widget.note?.description != description && description != '') {
+        return true;
+      }
     }
     return false;
   }

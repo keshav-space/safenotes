@@ -43,10 +43,10 @@ class HomeDrawer extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _HomeDrawerState createState() => _HomeDrawerState();
+  HomeDrawerState createState() => HomeDrawerState();
 }
 
-class _HomeDrawerState extends State<HomeDrawer> {
+class HomeDrawerState extends State<HomeDrawer> {
   @override
   Widget build(BuildContext context) {
     Provider.of<ThemeProvider>(context);
@@ -79,8 +79,8 @@ class _HomeDrawerState extends State<HomeDrawer> {
           ),
           child: Drawer(
             child: SingleChildScrollView(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: drawerPaddingHorizontal),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: drawerPaddingHorizontal),
               child: Column(
                 children: <Widget>[
                   _drawerHeader(
@@ -133,7 +133,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                       String playstoreUrl = SafeNotesConfig.playStoreUrl;
                       try {
                         await launchUrlExternal(Uri.parse(playstoreUrl));
-                      } catch (e) {}
+                      } catch (_) {}
                     },
                   ),
                   _buildMenuItem(
@@ -142,10 +142,10 @@ class _HomeDrawerState extends State<HomeDrawer> {
                     icon: MdiIcons.frequentlyAskedQuestions,
                     onClicked: () async {
                       Navigator.of(context).pop();
-                      String faqsUrl = SafeNotesConfig.FAQsUrl;
+                      String faqsUrl = SafeNotesConfig.faqsUrl;
                       try {
                         await launchUrlExternal(Uri.parse(faqsUrl));
-                      } catch (e) {}
+                      } catch (_) {}
                     },
                   ),
                   _buildMenuItem(
@@ -157,7 +157,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                       var mailUrl = SafeNotesConfig.mailToForFeedback;
                       try {
                         await launchUrlExternal(Uri.parse(mailUrl));
-                      } catch (e) {}
+                      } catch (_) {}
                     },
                   ),
                   _divide(topPadding: dividerSpacing),

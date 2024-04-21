@@ -239,17 +239,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 String playstoreUrl = SafeNotesConfig.playStoreUrl;
                 try {
                   await launchUrlExternal(Uri.parse(playstoreUrl));
-                } catch (e) {}
+                } catch (_) {}
               },
             ),
             SettingsTile.navigation(
               leading: Icon(MdiIcons.frequentlyAskedQuestions),
               title: Text('FAQs'.tr()),
               onPressed: (_) async {
-                String faqsUrl = SafeNotesConfig.FAQsUrl;
+                String faqsUrl = SafeNotesConfig.faqsUrl;
                 try {
                   await launchUrlExternal(Uri.parse(faqsUrl));
-                } catch (e) {}
+                } catch (_) {}
               },
             ),
             SettingsTile.navigation(
@@ -259,7 +259,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 String sourceCodeUrl = SafeNotesConfig.githubUrl;
                 try {
                   await launchUrlExternal(Uri.parse(sourceCodeUrl));
-                } catch (e) {}
+                } catch (_) {}
               },
             ),
             SettingsTile.navigation(
@@ -269,7 +269,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 String email = SafeNotesConfig.mailToForFeedback;
                 try {
                   await launchUrlExternal(Uri.parse(email));
-                } catch (e) {}
+                } catch (_) {}
               },
             ),
             SettingsTile.navigation(
@@ -279,10 +279,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 String license = SafeNotesConfig.openSourceLicense;
                 try {
                   await launchUrlExternal(Uri.parse(license));
-                } catch (e) {}
+                } catch (_) {}
               },
-              description:
-                  Padding(padding: const EdgeInsets.only(top: 20), child: footer()),
+              description: Padding(
+                  padding: const EdgeInsets.only(top: 20), child: footer()),
             ),
           ],
         ),

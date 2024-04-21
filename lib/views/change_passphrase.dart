@@ -34,10 +34,10 @@ import 'package:safenotes/utils/styles.dart';
 class ChangePassphrase extends StatefulWidget {
   const ChangePassphrase({Key? key}) : super(key: key);
   @override
-  _ChangePassphraseState createState() => _ChangePassphraseState();
+  ChangePassphraseState createState() => ChangePassphraseState();
 }
 
-class _ChangePassphraseState extends State<ChangePassphrase> {
+class ChangePassphraseState extends State<ChangePassphrase> {
   final formKey = GlobalKey<FormState>();
   bool _isHiddenOld = true;
   bool _isHiddenNew = true;
@@ -107,7 +107,8 @@ class _ChangePassphraseState extends State<ChangePassphrase> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: paddingBetweenInputBox, bottom: 10),
+              padding: const EdgeInsets.only(
+                  top: paddingBetweenInputBox, bottom: 10),
               child: Text(
                 pageTitleName,
                 style: dialogHeadTextStyle.copyWith(
@@ -264,7 +265,9 @@ class _ChangePassphraseState extends State<ChangePassphrase> {
       ),
       prefixIcon: const Icon(Icons.lock),
       suffixIcon: IconButton(
-        icon: !visibility ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility),
+        icon: !visibility
+            ? const Icon(Icons.visibility_off)
+            : const Icon(Icons.visibility),
         onPressed: () {
           if (inputFieldID == 'first') {
             return _toggleOldPasswordVisibility();
@@ -320,12 +323,15 @@ class _ChangePassphraseState extends State<ChangePassphrase> {
     // Update SHA256 signature of passphrase
     if (form.validate()) {
       Session.setOrChangePassphrase(_newConfirmPassphraseController.text);
+      var navigator = Navigator.of(context);
+
       // Re-encrypt and update all the existing notes
       for (final note in allnotes) {
         await NotesDatabase.instance.encryptAndUpdate(note);
       }
-      showSnackBarMessage(context, passChangedSnackMsg);
-      Navigator.of(context).pop();
+      // TODO: refactor without using BuildContexts across async gap
+      if (mounted) showSnackBarMessage(context, passChangedSnackMsg);
+      navigator.pop();
     }
   }
 }

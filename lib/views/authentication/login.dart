@@ -48,11 +48,11 @@ class EncryptionPhraseLoginPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _EncryptionPhraseLoginPageState createState() =>
-      _EncryptionPhraseLoginPageState();
+  EncryptionPhraseLoginPageState createState() =>
+      EncryptionPhraseLoginPageState();
 }
 
-class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
+class EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
     with AfterLayoutMixin<EncryptionPhraseLoginPage> {
   // BiometricAuth:
   final LocalAuthentication auth = LocalAuthentication();
@@ -146,7 +146,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
         _scrollController.animateTo(_scrollController.position.maxScrollExtent,
             duration: const Duration(milliseconds: 500), curve: Curves.ease);
       }
-    } catch (e) {}
+    } catch (_) {}
   }
 
   Widget _buildTopLogo() {
@@ -425,7 +425,7 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
 
   Future<bool> _authenticate() async {
     bool authenticated = false;
-    print(PreferencesStorage.biometricAttemptAllTimeCount);
+
     if (_supportState == _BiometricState.unsupported) {
       showGenericDialog(
         context: context,
@@ -446,12 +446,10 @@ class _EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
       PreferencesStorage.incrementBiometricAttemptAllTimeCount();
       try {
         authenticated = await auth.authenticate(
-              localizedReason: 'Login using your biometric credential',
-              options: const AuthenticationOptions(stickyAuth: true),
-            );
-      } catch (e) {
-        //print(e);
-      }
+          localizedReason: 'Login using your biometric credential',
+          options: const AuthenticationOptions(stickyAuth: true),
+        );
+      } catch (_) {}
       if (authenticated) await _login(await BiometricAuth.authKey);
     }
     setState(() {

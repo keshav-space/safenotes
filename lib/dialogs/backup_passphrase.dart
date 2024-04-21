@@ -32,10 +32,10 @@ class ImportPassPhraseDialog extends StatefulWidget {
   const ImportPassPhraseDialog({Key? key}) : super(key: key);
 
   @override
-  _ImportPassPhraseDialogState createState() => _ImportPassPhraseDialogState();
+  ImportPassPhraseDialogState createState() => ImportPassPhraseDialogState();
 }
 
-class _ImportPassPhraseDialogState extends State<ImportPassPhraseDialog> {
+class ImportPassPhraseDialogState extends State<ImportPassPhraseDialog> {
   bool _isHiddenImport = true;
   final importPassphraseController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -76,8 +76,8 @@ class _ImportPassPhraseDialogState extends State<ImportPassPhraseDialog> {
             ),
           ),
           Padding(
-            padding:
-                const EdgeInsets.only(top: paddingTextTop, bottom: paddingTextTop),
+            padding: const EdgeInsets.only(
+                top: paddingTextTop, bottom: paddingTextTop),
             child: Text(
               description,
               style: dialogBodyTextStyle,
@@ -96,7 +96,8 @@ class _ImportPassPhraseDialogState extends State<ImportPassPhraseDialog> {
     final String inputBoxHint = 'Encryption Phrase'.tr();
 
     return Padding(
-      padding: const EdgeInsets.only(top: paddingTextBox, bottom: paddingTextBox),
+      padding:
+          const EdgeInsets.only(top: paddingTextBox, bottom: paddingTextBox),
       child: Form(
         key: _formKey,
         child: TextFormField(

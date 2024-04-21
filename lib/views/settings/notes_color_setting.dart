@@ -30,10 +30,10 @@ class ColorPallet extends StatefulWidget {
   const ColorPallet({Key? key}) : super(key: key);
 
   @override
-  State<ColorPallet> createState() => _ColorPalletState();
+  State<ColorPallet> createState() => ColorPalletState();
 }
 
-class _ColorPalletState extends State<ColorPallet> {
+class ColorPalletState extends State<ColorPallet> {
   var _selectedIndex = PreferencesStorage.colorfulNotesColorIndex;
   var items = allNotesColorTheme;
 
@@ -122,7 +122,7 @@ class _ColorPalletState extends State<ColorPallet> {
         ),
       ),
     );
-    if (colors.length > 1)
+    if (colors.length > 1) {
       for (final color in colors.sublist(1, colors.length - 1)) {
         colorPallets.add(
           Expanded(
@@ -134,6 +134,7 @@ class _ColorPalletState extends State<ColorPallet> {
           ),
         );
       }
+    }
     colorPallets.add(
       Expanded(
         child: Container(

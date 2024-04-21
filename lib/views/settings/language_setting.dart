@@ -65,6 +65,7 @@ class _LanguageSettingState extends State<LanguageSetting> {
 
   Widget _buildLanguageList(BuildContext context) {
     var selectedIndex = 0;
+
     if (SafeNotesConfig.mapLocaleName.containsKey(context.locale.toString())) {
       selectedIndex = indexofLanguage(
           SafeNotesConfig.mapLocaleName[context.locale.toString()]!);

@@ -31,10 +31,10 @@ class SearchWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _SearchWidgetState createState() => _SearchWidgetState();
+  SearchWidgetState createState() => SearchWidgetState();
 }
 
-class _SearchWidgetState extends State<SearchWidget> {
+class SearchWidgetState extends State<SearchWidget> {
   final controller = TextEditingController();
 
   @override

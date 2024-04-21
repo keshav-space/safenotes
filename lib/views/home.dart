@@ -49,10 +49,10 @@ class HomePage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  HomePageState createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> {
   late List<SafeNote> notes;
   late List<SafeNote> allnotes;
   bool isLoading = false;
@@ -214,8 +214,9 @@ class _HomePageState extends State<HomePage> {
         widget.sessionStateStream.add(SessionState.startListening);
       },
       onChangePassCallback: () async {
+        var navigator = Navigator.of(context);
         await Navigator.pushNamed(context, '/changepassphrase');
-        Navigator.of(context).pop();
+        navigator.pop();
       },
       onLogoutCallback: () async {
         Session.logout();
@@ -231,20 +232,22 @@ class _HomePageState extends State<HomePage> {
         );
       },
       onSettingsCallback: () async {
+        var navigator = Navigator.of(context);
         await Navigator.pushNamed(
           context,
           '/settings',
           arguments: widget.sessionStateStream,
         );
-        Navigator.of(context).pop();
+        navigator.pop();
         refreshNotes();
       },
       onBiometricsCallback: () async {
+        var navigator = Navigator.of(context);
         await Navigator.pushNamed(
           context,
           '/biometricSetting',
         );
-        Navigator.of(context).pop();
+        navigator.pop();
       },
     );
   }

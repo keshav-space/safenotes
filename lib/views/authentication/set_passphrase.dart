@@ -43,11 +43,10 @@ class SetEncryptionPhrasePage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _SetEncryptionPhrasePageState createState() =>
-      _SetEncryptionPhrasePageState();
+  SetEncryptionPhrasePageState createState() => SetEncryptionPhrasePageState();
 }
 
-class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
+class SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
   final _formKey = GlobalKey<FormState>();
   final _passPhraseController = TextEditingController();
   final _passPhraseControllerConfirm = TextEditingController();
@@ -235,13 +234,14 @@ class _SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
       ),
       prefixIcon: const Icon(Icons.lock),
       suffixIcon: IconButton(
-        icon: !visibility ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility),
+        icon: !visibility
+            ? const Icon(Icons.visibility_off)
+            : const Icon(Icons.visibility),
         onPressed: () {
           if (inputFieldID == 'first') {
             return setState(() => _isHiddenFirst = !_isHiddenFirst);
           } else {
-            return setState(
-                () => _isHiddenConfirm = !_isHiddenConfirm);
+            return setState(() => _isHiddenConfirm = !_isHiddenConfirm);
           }
         },
       ),

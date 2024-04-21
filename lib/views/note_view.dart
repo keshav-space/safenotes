@@ -37,10 +37,10 @@ class NoteDetailPage extends StatefulWidget {
       : super(key: key);
 
   @override
-  _NoteDetailPageState createState() => _NoteDetailPageState();
+  NoteDetailPageState createState() => NoteDetailPageState();
 }
 
-class _NoteDetailPageState extends State<NoteDetailPage> {
+class NoteDetailPageState extends State<NoteDetailPage> {
   late SafeNote note;
   bool isLoading = false;
 
@@ -139,9 +139,11 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
       builder: (BuildContext contextChild) {
         return DeleteConfirmationDialog(
           callback: () async {
+            var childNavigator = Navigator.of(contextChild);
+            var navigator = Navigator.of(context);
             await NotesDatabase.instance.delete(widget.noteId);
-            Navigator.of(contextChild).pop();
-            Navigator.of(context).pop();
+            childNavigator.pop();
+            navigator.pop();
           },
         );
       },

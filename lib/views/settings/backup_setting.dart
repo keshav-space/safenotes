@@ -36,10 +36,10 @@ class BackupSetting extends StatefulWidget {
   const BackupSetting({Key? key}) : super(key: key);
 
   @override
-  State<BackupSetting> createState() => _BackupSettingState();
+  State<BackupSetting> createState() => BackupSettingState();
 }
 
-class _BackupSettingState extends State<BackupSetting> {
+class BackupSettingState extends State<BackupSetting> {
   String validWorkingBackupFullyQualifiedPath = '';
   String lastUpdateTime = '';
   bool isBackupOn = false;
@@ -47,6 +47,11 @@ class _BackupSettingState extends State<BackupSetting> {
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     _refresh();
   }
 
@@ -56,23 +61,31 @@ class _BackupSettingState extends State<BackupSetting> {
 
     String lastBackupTime = PreferencesStorage.lastBackupTime;
     String path = '';
+
     if (lastBackupTime.isNotEmpty &&
         await Directory(SafeNotesConfig.backupDirectory).exists()) {
       path = SafeNotesConfig.backupDirectory + SafeNotesConfig.backupFileName;
     }
 
+    setState(() {
+      validWorkingBackupFullyQualifiedPath = path;
+      isBackupOn = PreferencesStorage.isBackupOn;
+      refreshUpdateTime();
+    });
+  }
+
+  void refreshUpdateTime() {
+    Locale currentLocale = Localizations.localeOf(context);
+    String lastBackupTime = PreferencesStorage.lastBackupTime;
+
     lastBackupTime = lastBackupTime.isEmpty
         ? 'Never'.tr()
         : humanTime(
             time: DateTime.parse(lastBackupTime),
-            localeString: context.locale.toString(),
+            localeString: currentLocale.toString(),
           );
 
-    setState(() {
-      validWorkingBackupFullyQualifiedPath = path;
-      lastUpdateTime = lastBackupTime;
-      isBackupOn = PreferencesStorage.isBackupOn;
-    });
+    lastUpdateTime = lastBackupTime;
   }
 
   @override
@@ -236,10 +249,9 @@ class _BackupSettingState extends State<BackupSetting> {
 
     return ButtonWidget(
       text: loginText,
-      onClicked:
-          validWorkingBackupFullyQualifiedPath.isNotEmpty && isBackupOn
-              ? onBackupNow
-              : null,
+      onClicked: validWorkingBackupFullyQualifiedPath.isNotEmpty && isBackupOn
+          ? onBackupNow
+          : null,
     );
   }
 
