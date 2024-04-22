@@ -31,7 +31,7 @@ import 'package:safenotes/models/app_theme.dart';
 import 'package:safenotes/models/session.dart';
 import 'package:safenotes/utils/styles.dart';
 import 'package:safenotes/utils/url_launcher.dart';
-import 'package:safenotes/widgets/dark_mode.dart';
+import 'package:safenotes/views/settings/theme_setting.dart';
 import 'package:safenotes/widgets/footer.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -102,11 +102,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
             SettingsTile.navigation(
               leading: const Icon(Icons.dark_mode_outlined),
               title: Text('Dark Mode'.tr()),
-              value: !PreferencesStorage.isAutoRotate
+              value: !PreferencesStorage.isThemeDark
                   ? Text('Off'.tr())
                   : Text('On'.tr()),
               onPressed: (context) {
-                darkModalBottomSheet(context);
+                showThemeBottomSheet(context);
                 setState(() {});
               },
             ),
