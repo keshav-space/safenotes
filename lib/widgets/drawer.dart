@@ -24,7 +24,7 @@ import 'package:provider/provider.dart';
 import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/models/app_theme.dart';
 import 'package:safenotes/utils/url_launcher.dart';
-import 'package:safenotes/widgets/dark_mode.dart';
+import 'package:safenotes/views/settings/theme_setting.dart';
 
 class HomeDrawer extends StatefulWidget {
   final VoidCallback onImportCallback;
@@ -108,7 +108,7 @@ class HomeDrawerState extends State<HomeDrawer> {
                         : Icons.dark_mode_outlined,
                     onClicked: () {
                       Navigator.of(context).pop();
-                      darkModalBottomSheet(context);
+                      showThemeBottomSheet(context);
                     },
                   ),
                   _buildMenuItem(
