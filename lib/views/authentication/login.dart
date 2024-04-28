@@ -57,8 +57,9 @@ class EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
   // BiometricAuth:
   final LocalAuthentication auth = LocalAuthentication();
   _BiometricState _supportState = _BiometricState.unknown;
-  bool forcePassphraseInput =
-      PreferencesStorage.biometricAttemptAllTimeCount % 5 == 0;
+
+  // Does the user still remember their passphrase?
+  bool forcePassphraseInput = isPassphraseRememberChallenge();
 
   //ClassicLogin:
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -251,13 +252,13 @@ class EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
   }
 
   String? _passphraseValidator(String? passphrase) {
-    final numberOfAttemptExceded = 'Number of attempt exceeded'.tr();
+    final numberOfAttemptExceeded = 'Number of attempt exceeded'.tr();
 
     if (_noOfAllowedAttempts <= 1) {
       setState(() {
         _isLocked = true;
       });
-      return numberOfAttemptExceded;
+      return numberOfAttemptExceeded;
     }
 
     if (sha256.convert(utf8.encode(passphrase!)).toString() !=
@@ -270,7 +271,7 @@ class EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
           });
 
       return _noOfAllowedAttempts == 0
-          ? numberOfAttemptExceded
+          ? numberOfAttemptExceeded
           : wrongPhraseMsg;
     }
 
@@ -483,6 +484,15 @@ void _startTimer(VoidCallback callback) {
       }
     },
   );
+}
+
+bool isPassphraseRememberChallenge() {
+  return PreferencesStorage.biometricAttemptAllTimeCount == 0
+      ? false
+      : PreferencesStorage.biometricAttemptAllTimeCount %
+              PreferencesStorage
+                  .noOfLoginsBeforeNextPassphraseRememberChallenge ==
+          0;
 }
 
 enum _BiometricState { unknown, supported, unsupported }

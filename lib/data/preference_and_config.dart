@@ -219,6 +219,8 @@ class PreferencesStorage {
 
   static Future<void> setIsAutoRotate(bool flag) async =>
       await _preferences?.setBool(_keyIsAutoRotate, flag);
+
+  static int get noOfLoginsBeforeNextPassphraseRememberChallenge => 5;
 }
 
 class PhraseHandler {
