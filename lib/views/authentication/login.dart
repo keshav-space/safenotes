@@ -252,13 +252,13 @@ class EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
   }
 
   String? _passphraseValidator(String? passphrase) {
-    final numberOfAttemptExceded = 'Number of attempt exceeded'.tr();
+    final numberOfAttemptExceeded = 'Number of attempt exceeded'.tr();
 
     if (_noOfAllowedAttempts <= 1) {
       setState(() {
         _isLocked = true;
       });
-      return numberOfAttemptExceded;
+      return numberOfAttemptExceeded;
     }
 
     if (sha256.convert(utf8.encode(passphrase!)).toString() !=
@@ -271,7 +271,7 @@ class EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
           });
 
       return _noOfAllowedAttempts == 0
-          ? numberOfAttemptExceded
+          ? numberOfAttemptExceeded
           : wrongPhraseMsg;
     }
 
