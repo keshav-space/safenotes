@@ -57,8 +57,9 @@ class EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
   // BiometricAuth:
   final LocalAuthentication auth = LocalAuthentication();
   _BiometricState _supportState = _BiometricState.unknown;
-  bool forcePassphraseInput =
-      PreferencesStorage.biometricAttemptAllTimeCount % 5 == 0;
+
+  // Does the user still remember their passphrase?
+  bool forcePassphraseInput = isPassphraseRememberChallenge();
 
   //ClassicLogin:
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -310,6 +311,9 @@ class EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
   }
 
   Widget _buildBiometricAuthButton(BuildContext context) {
+    print(PreferencesStorage.isBiometricAuthEnabled);
+    print(forcePassphraseInput);
+    print(_isLocked);
     return Column(
       children: [
         Padding(
@@ -483,6 +487,15 @@ void _startTimer(VoidCallback callback) {
       }
     },
   );
+}
+
+bool isPassphraseRememberChallenge() {
+  return PreferencesStorage.biometricAttemptAllTimeCount == 0
+      ? false
+      : PreferencesStorage.biometricAttemptAllTimeCount %
+              PreferencesStorage
+                  .noOfLoginsBeforeNextPassphraseRememberChallenge ==
+          0;
 }
 
 enum _BiometricState { unknown, supported, unsupported }
