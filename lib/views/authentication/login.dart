@@ -311,9 +311,6 @@ class EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
   }
 
   Widget _buildBiometricAuthButton(BuildContext context) {
-    print(PreferencesStorage.isBiometricAuthEnabled);
-    print(forcePassphraseInput);
-    print(_isLocked);
     return Column(
       children: [
         Padding(
