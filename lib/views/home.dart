@@ -219,17 +219,20 @@ class HomePageState extends State<HomePage> {
         navigator.pop();
       },
       onLogoutCallback: () async {
-        Session.logout();
+        await Session.logout();
         widget.sessionStateStream.add(SessionState.stopListening);
-        await Navigator.pushNamedAndRemoveUntil(
-          context,
-          '/login',
-          (Route<dynamic> route) => false,
-          arguments: SessionArguments(
-            sessionStream: widget.sessionStateStream,
-            isKeyboardFocused: false,
-          ),
-        );
+
+        if (context.mounted) {
+          await Navigator.pushNamedAndRemoveUntil(
+            context,
+            '/login',
+            (Route<dynamic> route) => false,
+            arguments: SessionArguments(
+              sessionStream: widget.sessionStateStream,
+              isKeyboardFocused: false,
+            ),
+          );
+        }
       },
       onSettingsCallback: () async {
         var navigator = Navigator.of(context);
