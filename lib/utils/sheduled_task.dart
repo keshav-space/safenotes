@@ -16,37 +16,49 @@ import 'dart:io';
 
 // Package imports:
 import 'package:media_scanner/media_scanner.dart';
+import 'package:path_provider/path_provider.dart';
 
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/models/file_handler.dart';
 
-// Package imports:
-// import 'package:logger/logger.dart';
-
 class ScheduledTask {
-  static backup() async {
-    await PreferencesStorage.init();
+  static Future<void> backup() async {
+    if (PreferencesStorage.isBackupOn == false ||
+        PreferencesStorage.isBackupNeeded == false) {
+      return;
+    }
+
     int maxAttempt = PreferencesStorage.maxBackupRetryAttempts;
     for (var attempt = 1; attempt <= maxAttempt; attempt++) {
       if (await unitBackupAttempt() == true) break;
     }
   }
 
-  // return true on successful backup
   static Future<bool> unitBackupAttempt() async {
-    try {
-      String validChoosenDirectory = SafeNotesConfig.backupDirectory;
-      //await PreferencesStorage.getBackupDestination();
+    if (Platform.isAndroid) {
+      return androidBackup();
+    } else if (Platform.isIOS) {
+      return iosBackup();
+    }
+    return true;
+  }
 
-      if (validChoosenDirectory.isNotEmpty) {
+  // return true on successful backup
+  static Future<bool> androidBackup() async {
+    try {
+      String validChosenDirectory = SafeNotesConfig.androidBackupDirectory;
+
+      if (validChosenDirectory.isNotEmpty) {
         String jsonOutputContent =
             await FileHandler.encryptedOutputBackupContent();
         final String fileName = SafeNotesConfig.backupFileName;
-        var jsonFile = File('$validChoosenDirectory/$fileName');
+        var jsonFile = File('$validChosenDirectory/$fileName');
         jsonFile.writeAsStringSync(jsonOutputContent, mode: FileMode.write);
         MediaScanner.loadMedia(path: jsonFile.path);
         await PreferencesStorage.setLastBackupTime();
+
+        await PreferencesStorage.setIsBackupNeeded(false);
       }
       return true;
     } catch (err) {
@@ -64,5 +76,24 @@ class ScheduledTask {
       // throw Exception(err);
       return false;
     }
+  }
+
+  static Future<bool> iosBackup() async {
+    final Directory downloadsDir = await getApplicationDocumentsDirectory();
+
+    String? validChosenDirectory = downloadsDir.path;
+
+    if (validChosenDirectory.isNotEmpty) {
+      String jsonOutputContent =
+          await FileHandler.encryptedOutputBackupContent();
+      final String fileName = SafeNotesConfig.backupFileName;
+      final jsonFile = File('$validChosenDirectory/$fileName');
+
+      jsonFile.writeAsStringSync(jsonOutputContent);
+
+      await PreferencesStorage.setLastBackupTime();
+      await PreferencesStorage.setIsBackupNeeded(false);
+    }
+    return true;
   }
 }
