@@ -48,6 +48,7 @@ class PreferencesStorage {
   static const _keyDarkModeEnum = 'isDarkModeEnum';
   static const _keyDarkThemeEnum = 'isDarkThemeEnum';
   static const _keyIsAutoRotate = 'isAutoRotate';
+  static const _keyIsBackupNeeded = 'isBackupNeeded';
 
   static Future init() async =>
       _preferences = await SharedPreferences.getInstance();
@@ -221,6 +222,11 @@ class PreferencesStorage {
       await _preferences?.setBool(_keyIsAutoRotate, flag);
 
   static int get noOfLoginsBeforeNextPassphraseRememberChallenge => 5;
+
+  static bool get isBackupNeeded =>
+      _preferences?.getBool(_keyIsBackupNeeded) ?? true;
+  static Future<void> setIsBackupNeeded(bool flag) async =>
+      await _preferences?.setBool(_keyIsBackupNeeded, flag);
 }
 
 class PhraseHandler {
@@ -263,8 +269,11 @@ class SafeNotesConfig {
   static const String _backupFileNamePrefix = 'safenotes_backup';
   static const String _githubUrl = 'https://github.com/keshav-space/safenotes';
   static const String _faqsUrl = 'https://safenotes.dev/faqs.html';
-  static const String _downloadDirectory = '/storage/emulated/0/Download/';
-  static const String _backupDirectory =
+  static const String _iosBackupDirectoryIndicativePath =
+      '/On My iPhone/Safe Notes/';
+  static const String _androidDownloadDirectory =
+      '/storage/emulated/0/Download/';
+  static const String _androidBackupDirectory =
       '/storage/emulated/0/Download/Safe Notes/';
   static const String _mailToForFeedback =
       'mailto:contact@safenotes.dev?subject=Help and Feedback';
@@ -327,8 +336,10 @@ class SafeNotesConfig {
   static String get exportFileExtension => _exportFileNameExtension;
   static String get importFileExtension => _allowedFileExtensionsForImport;
   static String get faqsUrl => _faqsUrl;
-  static String get downloadDirectory => _downloadDirectory;
-  static String get backupDirectory => _backupDirectory;
+  static String get androidDownloadDirectory => _androidDownloadDirectory;
+  static String get androidBackupDirectory => _androidBackupDirectory;
+  static String get iosBackupDirectoryIndicativePath =>
+      _iosBackupDirectoryIndicativePath;
   static Map<String, Locale> get allLocale => _locales;
   static List<Locale> get localesValues => _locales.values.toList();
   static List<String> get localesKeys => _locales.keys.toList();

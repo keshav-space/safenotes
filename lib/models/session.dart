@@ -22,13 +22,16 @@ import 'package:local_session_timeout/local_session_timeout.dart';
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/models/biometric_auth.dart';
+import 'package:safenotes/utils/scheduled_task.dart';
 
 class Session {
   static login(String passphrase) {
     PhraseHandler.initPass(passphrase);
   }
 
-  static logout() {
+  static logout() async {
+    // Take care of backup if enabled
+    await ScheduledTask.backup();
     PhraseHandler.destroy();
   }
 

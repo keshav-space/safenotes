@@ -33,36 +33,7 @@ import 'package:safenotes/models/safenote.dart';
 import 'package:safenotes/utils/cache_manager.dart';
 import 'package:safenotes/utils/device_info.dart';
 
-//import 'package:media_scanner/media_scanner.dart';
-
-//import 'package:safenotes/utils/storage_permission.dart';
-
 class FileHandler {
-  // Future<String?> fileSave() async {
-  //   String? snackBackMsg;
-  //   try {
-  //     String downloadDirectory = SafeNotesConfig.downloadDirectory;
-
-  //     if (await handleStoragePermission() &&
-  //         await Directory(downloadDirectory).existsSync()) {
-  //       String exportFileFullPathName =
-  //           downloadDirectory + SafeNotesConfig.exportFileName;
-
-  //       var jsonFile = new File(exportFileFullPathName);
-  //       String jsonOutputContent = await encryptedOutputBackupContent();
-
-  //       jsonFile.writeAsStringSync(jsonOutputContent);
-  //       MediaScanner.loadMedia(path: jsonFile.path);
-
-  //       snackBackMsg = "File saved at '{exportFileFullPathName}'"
-  //           .tr(namedArgs: {'exportFileFullPathName': exportFileFullPathName});
-  //     } else {
-  //       snackBackMsg = 'Destination folder not chosen!'.tr();
-  //     }
-  //   } catch (e) {}
-  //   return snackBackMsg;
-  // }
-
   static Future<String> encryptedOutputBackupContent() async {
     final String passHash = PreferencesStorage.passPhraseHash.toString();
     String record = await NotesDatabase.instance.exportAllEncrypted();
@@ -128,7 +99,7 @@ class FileHandler {
             await confirmImportDialog(context, parsedImportData.totalNotes);
       }
       if (importConfirmed) {
-        await inserNotes(parsedImportData.getAllNotes());
+        await insertNotes(parsedImportData.getAllNotes());
       } else {
         return "Import cancelled!".tr();
       }
@@ -163,7 +134,7 @@ class FileHandler {
   Future<String?> getFileAsString() async {
     try {
       if (Platform.isAndroid) {
-        // emptpyCache to prevent filepicker from picking old cached version
+        // emptyCache to prevent filepicker from picking old cached version
         // starting Android 11 all files are provided through cache mechanism and not directly
         await CacheManager.emptyCache();
         FilePickerResult? result;
@@ -184,20 +155,18 @@ class FileHandler {
           PlatformFile file = result.files.first;
           if (file.size == 0) return null;
           var jsonFile = File(file.path!);
-          //   MediaScanner.loadMedia(path: jsonFile.path);
 
           String content = jsonFile.readAsStringSync();
           return content;
         }
       } else if (Platform.isIOS) {
-        FilePickerResult? result = await FilePicker.platform.pickFiles();
+        FilePickerResult? result = await FilePicker.platform.pickFiles(
+          type: FileType.custom,
+          allowedExtensions: [SafeNotesConfig.importFileExtension],
+          allowMultiple: false,
+        );
         if (result != null) {
-          PlatformFile file = result.files.first;
-          if (file.size == 0 ||
-              file.extension != SafeNotesConfig.exportFileExtension) {
-            return null;
-          }
-          var jsonFile = File(file.path!);
+          File jsonFile = File(result.files.single.path!);
           String content = jsonFile.readAsStringSync();
           return content;
         }
@@ -208,7 +177,7 @@ class FileHandler {
     return null;
   }
 
-  inserNotes(List<SafeNote> imported) async {
+  insertNotes(List<SafeNote> imported) async {
     for (final note in imported) {
       await NotesDatabase.instance.encryptAndStore(note);
     }

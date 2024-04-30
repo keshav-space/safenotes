@@ -214,17 +214,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
               leading: const Icon(Icons.logout),
               title: Text('Logout'.tr()),
               onPressed: (context) async {
-                Session.logout();
+                await Session.logout();
                 widget.sessionStateStream.add(SessionState.stopListening);
-                await Navigator.pushNamedAndRemoveUntil(
-                  context,
-                  '/login',
-                  (Route<dynamic> route) => false,
-                  arguments: SessionArguments(
-                    sessionStream: widget.sessionStateStream,
-                    isKeyboardFocused: false,
-                  ),
-                );
+
+                if (context.mounted) {
+                  await Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    '/login',
+                    (Route<dynamic> route) => false,
+                    arguments: SessionArguments(
+                      sessionStream: widget.sessionStateStream,
+                      isKeyboardFocused: false,
+                    ),
+                  );
+                }
               },
             ),
           ],

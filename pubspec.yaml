@@ -14,55 +14,41 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # For iOS style icons.
+  after_layout: ^1.2.0
+  auto_size_text: ^3.0.0
+  crypto: ^3.0.3
   cupertino_icons: ^1.0.6
-
-  # store & load data
-  shared_preferences: ^2.0.6
-
-  #sqlite database
-  sqflite: ^2.1.0+1
-
-
-  #format date
-  intl: ^0.18.1
-
+  device_info_plus: ^10.0.1
+  easy_localization: ^3.0.1
   encrypt: ^5.0.0
-  tuple: ^2.0.0
-  url_launcher: ^6.1.5
+  file_picker: ^8.0.0+1
+  flutter_secure_storage: ^9.0.0
+  flutter_staggered_grid_view: ^0.7.0
+  flutter_windowmanager: ^0.2.0
+  intl: ^0.18.1
+  local_auth: ^2.1.2
+  local_session_timeout: ^2.1.1
+  logger: ^2.1.0
+  material_design_icons_flutter: ^7.0.7296
+  media_scanner: ^2.1.0
+  modal_bottom_sheet: ^3.0.0
+  page_transition: ^2.0.9
+  path: ^1.9.0
   path_provider: ^2.0.2
   permission_handler: ^11.3.0
-  file_picker: ^8.0.0+1
   provider: ^6.0.3 
-  #display in grid
-  flutter_staggered_grid_view: ^0.7.0
   rename: ^3.0.2
-  path: ^1.9.0
-  crypto: ^3.0.3
+  settings_ui: ^2.0.2
+  shared_preferences: ^2.0.6
+  sqflite: ^2.1.0+1
+  timeago: ^3.3.0
+  tuple: ^2.0.0
+  url_launcher: ^6.1.5
 
   safenotes_nord_theme:
     git:
       url: https://github.com/keshav-space/safenotes-nord-theme.git
       ref: main
-
-  local_session_timeout: ^2.1.1
-  settings_ui: ^2.0.2
-  material_design_icons_flutter: ^7.0.7296
-  page_transition: ^2.0.9
-  
-  logger: ^2.1.0
-  timeago: ^3.3.0
-  flutter_windowmanager: ^0.2.0
-  workmanager: ^0.5.1
-  auto_size_text: ^3.0.0
-  easy_localization: ^3.0.1
-  device_info_plus: ^10.0.1
-  media_scanner: ^2.1.0
-  local_auth: ^2.1.2
-  flutter_secure_storage: ^9.0.0
-  after_layout: ^1.2.0
-  # material_dialogs: ^1.1.3
-  modal_bottom_sheet: ^3.0.0
     
 
 dev_dependencies:
