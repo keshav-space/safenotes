@@ -19,6 +19,7 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 // Project imports:
+import 'package:safenotes/data/preference_and_config.dart';
 import 'package:safenotes/models/safenote.dart';
 
 class NotesDatabase {
@@ -60,6 +61,9 @@ class NotesDatabase {
     final db = await instance.database;
     final id = await db.insert(tableNotes, note.toJsonAndEncrypted());
 
+    // Update backup on new note addition.
+    await PreferencesStorage.setIsBackupNeeded(true);
+
     return note.copy(id: id);
   }
 
@@ -99,6 +103,9 @@ class NotesDatabase {
   Future<int> encryptAndUpdate(SafeNote note) async {
     final db = await instance.database;
 
+    // Update backup on note update.
+    await PreferencesStorage.setIsBackupNeeded(true);
+
     return db.update(
       tableNotes,
       note.toJsonAndEncrypted(),
@@ -109,6 +116,9 @@ class NotesDatabase {
 
   Future<int> delete(int id) async {
     final db = await instance.database;
+
+    // Update backup on note deletion.
+    await PreferencesStorage.setIsBackupNeeded(true);
 
     return await db.delete(
       tableNotes,
