@@ -21,7 +21,6 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:easy_localization/easy_localization.dart';
 import 'package:settings_ui/settings_ui.dart';
-import 'package:workmanager/workmanager.dart';
 
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
@@ -57,21 +56,31 @@ class BackupSettingState extends State<BackupSetting> {
 
   Future<void> _refresh() async {
     PreferencesStorage.reload();
-    // get valid path else empty string
 
-    String lastBackupTime = PreferencesStorage.lastBackupTime;
-    String path = '';
-
-    if (lastBackupTime.isNotEmpty &&
-        await Directory(SafeNotesConfig.backupDirectory).exists()) {
-      path = SafeNotesConfig.backupDirectory + SafeNotesConfig.backupFileName;
-    }
+    String path = await getBackupIndicativePath();
 
     setState(() {
       validWorkingBackupFullyQualifiedPath = path;
       isBackupOn = PreferencesStorage.isBackupOn;
       refreshUpdateTime();
     });
+  }
+
+  Future<String> getBackupIndicativePath() async {
+    String path = '';
+    String lastBackupTime = PreferencesStorage.lastBackupTime;
+    if (lastBackupTime.isEmpty) return path;
+
+    if (Platform.isAndroid &&
+        await Directory(SafeNotesConfig.androidBackupDirectory).exists()) {
+      path = SafeNotesConfig.androidBackupDirectory +
+          SafeNotesConfig.backupFileName;
+    } else if (Platform.isIOS) {
+      path = SafeNotesConfig.iosBackupDirectoryIndicativePath +
+          SafeNotesConfig.backupFileName;
+    }
+
+    return path;
   }
 
   void refreshUpdateTime() {
@@ -104,7 +113,6 @@ class BackupSettingState extends State<BackupSetting> {
   Widget _bodyBackup(BuildContext context) {
     return SettingsList(
       platform: DevicePlatform.iOS,
-      //lightTheme: SettingsThemeData(),
       darkTheme: SettingsThemeData(
         settingsListBackground: AppThemes.darkSettingsScaffold,
         settingsSectionBackground: AppThemes.darkSettingsCanvas,
@@ -118,12 +126,7 @@ class BackupSettingState extends State<BackupSetting> {
               onToggle: (value) async {
                 await PreferencesStorage.setIsBackupOn(value);
                 if (value == true) {
-                  if (await handleBackupPermissionAndLocation() == true) {
-                    backupRegister();
-                    await onBackupNow();
-                  }
-                } else {
-                  Workmanager().cancelAll();
+                  await onBackupNow();
                 }
                 setState(() => isBackupOn = value);
               },
@@ -141,7 +144,6 @@ class BackupSettingState extends State<BackupSetting> {
                     Text(
                         "This will create an encrypted local backup, which gets automatically updated every day. Moreover, the backup is designed such that it can be used in tandem with other open-source tools like SyncThing to keep the multiple redundant backups across different devices on the local network.\nTo switch to a new device, you would simply need to copy this backup file to the new device and import that in your new Safe Notes app.\nFor more, see FAQ."
                             .tr()),
-                    //_buildButtons(context),
                     const SizedBox(height: 10),
                     _buildBackupNowButton()
                   ],
@@ -256,6 +258,9 @@ class BackupSettingState extends State<BackupSetting> {
   }
 
   Future<void> onBackupNow() async {
+    if (Platform.isAndroid) {
+      await handleBackupPermissionAndLocation();
+    }
     await ScheduledTask.backup();
     await _refresh();
   }
@@ -265,30 +270,11 @@ Future<bool> handleBackupPermissionAndLocation() async {
   if (!await handleStoragePermission()) return false;
 
   // If the download directory doesn't exists return false
-  if (!await Directory(SafeNotesConfig.downloadDirectory).exists()) {
+  if (!await Directory(SafeNotesConfig.androidDownloadDirectory).exists()) {
     return false;
   }
-  await Directory(SafeNotesConfig.backupDirectory).create(recursive: false);
+  await Directory(SafeNotesConfig.androidBackupDirectory)
+      .create(recursive: false);
 
   return true;
-}
-
-void backupRegister() {
-  Workmanager().cancelByTag('com.trisven.safenotes.dailybackup');
-
-  Workmanager().registerPeriodicTask(
-    "safenotes-task",
-    "dailyBackup",
-    existingWorkPolicy: ExistingWorkPolicy.replace,
-    tag: 'com.trisven.safenotes.dailybackup',
-    frequency: const Duration(hours: 15),
-    initialDelay: const Duration(seconds: 1),
-    constraints: Constraints(
-      networkType: NetworkType.not_required,
-      requiresCharging: false,
-      requiresBatteryNotLow: false,
-      //requiresDeviceIdle: false,
-      requiresStorageNotLow: false,
-    ),
-  );
 }
