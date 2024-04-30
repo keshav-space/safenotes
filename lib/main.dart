@@ -23,7 +23,6 @@ import 'package:flutter/services.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
-import 'package:workmanager/workmanager.dart';
 
 // Project imports:
 import 'package:safenotes/app.dart';
@@ -32,16 +31,16 @@ import 'package:safenotes/dialogs/generic.dart';
 import 'package:safenotes/dialogs/logout_alert.dart';
 import 'package:safenotes/models/editor_state.dart';
 import 'package:safenotes/models/session.dart';
+import 'package:safenotes/utils/lifecycle_handler.dart';
 import 'package:safenotes/utils/sheduled_task.dart';
 import 'package:safenotes/views/settings/backup_setting.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  Workmanager().initialize(
-    callbackDispatcher,
-    isInDebugMode: false,
-  );
+  WidgetsBinding.instance.addObserver(AppLifecycleEventHandler(
+    inactiveCallBack: ScheduledTask.backup,
+  ));
 
   await PreferencesStorage.init();
   if (Platform.isAndroid && PreferencesStorage.isFlagSecure) {
@@ -181,26 +180,15 @@ class SafeNotesApp extends StatelessWidget {
 
     // save unsaved note if any
     await NoteEditorState().handleUngracefulNoteExit();
-    Session.logout();
+    await Session.logout();
   }
-}
-
-@pragma('vm:entry-point')
-void callbackDispatcher() {
-  Workmanager().executeTask((task, inputData) async {
-    await ScheduledTask.backup();
-    return Future.value(true);
-  });
 }
 
 // run once every update
 void onAppUpdate() async {
   if (PreferencesStorage.appVersionCode != SafeNotesConfig.appVersionCode) {
-    // Re-register the background update
-
     if (PreferencesStorage.isBackupOn) {
       if (await handleBackupPermissionAndLocation()) {
-        backupRegister();
         await ScheduledTask.backup();
       }
     }
