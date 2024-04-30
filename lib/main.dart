@@ -32,7 +32,7 @@ import 'package:safenotes/dialogs/logout_alert.dart';
 import 'package:safenotes/models/editor_state.dart';
 import 'package:safenotes/models/session.dart';
 import 'package:safenotes/utils/lifecycle_handler.dart';
-import 'package:safenotes/utils/sheduled_task.dart';
+import 'package:safenotes/utils/scheduled_task.dart';
 import 'package:safenotes/views/settings/backup_setting.dart';
 
 Future main() async {
