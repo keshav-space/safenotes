@@ -260,6 +260,12 @@ class BackupSettingState extends State<BackupSetting> {
       );
     }
 
+    /*
+    TODO: Support opening backup folder on Android native file manager
+    As of now, there is no reliable way to open a particular folder in
+    the file manager using the ACTION_VIEW intent.
+    See: ghttps://github.com/keshav-space/safenotes/issues/193
+    */
     return Text(
       'Location: {locationPath}'.tr(
         namedArgs: {'locationPath': validWorkingBackupFullyQualifiedPath},
