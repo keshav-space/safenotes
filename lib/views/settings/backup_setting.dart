@@ -16,11 +16,15 @@ import 'dart:io';
 
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:easy_localization/easy_localization.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:safenotes_nord_theme/safenotes_nord_theme.dart';
 import 'package:settings_ui/settings_ui.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
@@ -210,12 +214,7 @@ class BackupSettingState extends State<BackupSetting> {
                     .tr(namedArgs: {'lastBackupTime': lastUpdateTime}),
                 style: const TextStyle(fontSize: 10),
               ),
-              Text(
-                'Location: {locationPath}'.tr(namedArgs: {
-                  'locationPath': validWorkingBackupFullyQualifiedPath
-                }),
-                style: const TextStyle(fontSize: 10),
-              ),
+              _showLocationPath(context),
               if (validWorkingBackupFullyQualifiedPath.isNotEmpty &&
                   lastUpdateTime.isNotEmpty)
                 Padding(
@@ -226,6 +225,52 @@ class BackupSettingState extends State<BackupSetting> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _showLocationPath(context) {
+    if (Platform.isIOS) {
+      return Text.rich(
+        TextSpan(
+          children: [
+            TextSpan(
+              text: 'Location: {locationPath}'.tr(
+                namedArgs: {
+                  'locationPath': validWorkingBackupFullyQualifiedPath
+                },
+              ),
+              style: TextStyle(
+                color: NordColors.frost.darker,
+                fontSize: 10,
+              ),
+              recognizer: TapGestureRecognizer()..onTap = onShowIosBackupDir,
+            ),
+            const WidgetSpan(
+              child: SizedBox(width: 1),
+            ),
+            WidgetSpan(
+              child: Icon(
+                Icons.open_in_new,
+                color: NordColors.frost.darker,
+                size: 12,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    /*
+    TODO: Support opening backup folder on Android native file manager
+    As of now, there is no reliable way to open a particular folder in
+    the file manager using the ACTION_VIEW intent.
+    See: ghttps://github.com/keshav-space/safenotes/issues/193
+    */
+    return Text(
+      'Location: {locationPath}'.tr(
+        namedArgs: {'locationPath': validWorkingBackupFullyQualifiedPath},
+      ),
+      style: const TextStyle(fontSize: 10),
     );
   }
 
@@ -264,6 +309,14 @@ class BackupSettingState extends State<BackupSetting> {
     await ScheduledTask.backup();
     await _refresh();
   }
+}
+
+Future<void> onShowIosBackupDir() async {
+  Directory documentsDirectory = await getApplicationDocumentsDirectory();
+  String documentsPath = documentsDirectory.path;
+  Uri uri = Uri.parse('shareddocuments://$documentsPath');
+
+  await launchUrl(uri);
 }
 
 Future<bool> handleBackupPermissionAndLocation() async {
