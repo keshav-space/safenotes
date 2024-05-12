@@ -229,7 +229,7 @@ class BackupSettingState extends State<BackupSetting> {
   }
 
   Widget _showLocationPath(context) {
-    if (Platform.isIOS) {
+    if (Platform.isIOS && validWorkingBackupFullyQualifiedPath.isNotEmpty) {
       return Text.rich(
         TextSpan(
           children: [
