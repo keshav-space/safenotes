@@ -48,7 +48,8 @@ class PreferencesStorage {
   static const _keyIsAutoRotate = 'isAutoRotate';
   static const _keyIsBackupNeeded = 'isBackupNeeded';
   static const _keyIsLocalDarkSwitchEnabled = 'isLocalDarkSwitchEnabled';
-  static const _keyIsSystemDarkLightSwitchEnabled = 'isBackupNeeded';
+  static const _keyIsSystemDarkLightSwitchEnabled =
+      'isSystemDarkLightSwitchEnabled';
 
   static Future init() async =>
       _preferences = await SharedPreferences.getInstance();
