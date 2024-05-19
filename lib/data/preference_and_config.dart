@@ -26,7 +26,6 @@ class PreferencesStorage {
   static const _keyKeyboardIncognito = 'keyboardIcognito';
   static const _keyIsInactivityTimeoutOn = 'isInactivityTimeoutOn';
   static const _keyInactivityTimeout = 'inactivityTimeout';
-  //static const _keyFocusTimeout = 'focusTimeout';
   static const _keyPreInactivityLogoutCounter = 'preInactivityLogoutCounter';
   static const _keyNoOfLogginAttemptAllowed = 'noOfLogginAttemptAllowed';
   static const _keyBruteforceLockOutTime = 'bruteforceLockOutTime';
@@ -45,7 +44,6 @@ class PreferencesStorage {
       'biometricAttemptAllTimeCount';
   static const _keyIsCompactPreview = 'isCompactPreview';
   static const _keyIsDimTheme = 'isDimTheme';
-  // static const _keyDarkModeEnum = 'isDarkModeEnum';
   static const _keyDarkThemeEnum = 'isDarkThemeEnum';
   static const _keyIsAutoRotate = 'isAutoRotate';
   static const _keyIsBackupNeeded = 'isBackupNeeded';
@@ -185,14 +183,6 @@ class PreferencesStorage {
   static int get preInactivityLogoutCounter =>
       _preferences?.getInt(_keyPreInactivityLogoutCounter) ?? 15;
 
-  // static Future<void> setFocusTimeout({required int minutes}) async {
-  //   await _preferences?.setInt(_keyFocusTimeout, minutes * 60);
-  // }
-
-  // static Future<void> setPreInactivityLogoutCounter(
-  //     {required int seconds}) async {
-  //   await _preferences?.setInt(_keyPreInactivityLogoutCounter, seconds);
-  // }
   static bool get isBiometricAuthEnabled =>
       _preferences?.getBool(_keyIsBiometricAuthEnabled) ?? false;
   static Future<void> setIsBiometricAuthEnabled(bool flag) async =>
@@ -225,11 +215,6 @@ class PreferencesStorage {
 
   static Future<void> setSystemDarkLightSwitchEnabled(bool flag) async =>
       await _preferences?.setBool(_keyIsSystemDarkLightSwitchEnabled, flag);
-
-  // //Default is the device settings. i.e enumIndex = 2
-  // static int get darkModeEnum => _preferences?.getInt(_keyDarkModeEnum) ?? 2;
-  // static Future<void> setDarkModeEnum({required int index}) async =>
-  //     await _preferences?.setInt(_keyDarkModeEnum, index);
 
   //Default is Dim. i.e enumIndex = 0
   static int get darkThemeEnum => _preferences?.getInt(_keyDarkThemeEnum) ?? 0;

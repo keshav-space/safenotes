@@ -213,61 +213,6 @@ class ThemeBottomSheetState extends State<ThemeBottomSheet> {
                 ],
               ),
             ),
-            // Padding(
-            //   padding: EdgeInsets.fromLTRB(
-            //     symmetricPadding + 20,
-            //     0,
-            //     symmetricPadding + 15,
-            //     symmetricPadding + 30,
-            //   ),
-            //   child: Transform.scale(
-            //     scale: 1.2,
-            //     child: Column(
-            //       children: [
-            //         CheckboxListTile(
-            //           title: Text(
-            //             dimText,
-            //             style: TextStyle(fontSize: 13),
-            //           ),
-            //           value: darkTheme == DarkThemeEnum.dim,
-            //           checkboxShape: CircleBorder(),
-            //           visualDensity: VisualDensity.compact,
-            //           onChanged: (bool? value) {
-            //             setModalStateDarkTheme(
-            //               context: context,
-            //               setState: setState,
-            //               darkTheme: darkTheme,
-            //               value: (value == true)
-            //                   ? DarkThemeEnum.dim
-            //                   : DarkThemeEnum.lightOut,
-            //               isDarkDim: true,
-            //             );
-            //           },
-            //         ),
-            //         CheckboxListTile(
-            //           title: Text(
-            //             lightOutText,
-            //             style: TextStyle(fontSize: 13),
-            //           ),
-            //           value: darkTheme == DarkThemeEnum.lightOut,
-            //           checkboxShape: CircleBorder(),
-            //           visualDensity: VisualDensity.adaptivePlatformDensity,
-            //           onChanged: (bool? value) {
-            //             setModalStateDarkTheme(
-            //               context: context,
-            //               setState: setState,
-            //               darkTheme: darkTheme,
-            //               value: (value == true)
-            //                   ? DarkThemeEnum.lightOut
-            //                   : DarkThemeEnum.dim,
-            //               isDarkDim: false,
-            //             );
-            //           },
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // ),
           ],
         )
       ],
