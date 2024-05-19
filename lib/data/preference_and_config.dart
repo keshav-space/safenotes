@@ -45,10 +45,12 @@ class PreferencesStorage {
       'biometricAttemptAllTimeCount';
   static const _keyIsCompactPreview = 'isCompactPreview';
   static const _keyIsDimTheme = 'isDimTheme';
-  static const _keyDarkModeEnum = 'isDarkModeEnum';
+  // static const _keyDarkModeEnum = 'isDarkModeEnum';
   static const _keyDarkThemeEnum = 'isDarkThemeEnum';
   static const _keyIsAutoRotate = 'isAutoRotate';
   static const _keyIsBackupNeeded = 'isBackupNeeded';
+  static const _keyIsLocalDarkSwitchEnabled = 'isLocalDarkSwitchEnabled';
+  static const _keyIsSystemDarkLightSwitchEnabled = 'isBackupNeeded';
 
   static Future init() async =>
       _preferences = await SharedPreferences.getInstance();
@@ -76,6 +78,13 @@ class PreferencesStorage {
 
   static bool get isThemeDark {
     bool? isDark = _preferences?.getBool(_keyIsThemeDark);
+    bool isSystemDark =
+        WidgetsBinding.instance.platformDispatcher.platformBrightness ==
+            Brightness.dark;
+
+    if (isSystemDarkLightSwitchEnabled) {
+      return isSystemDark;
+    }
     if (isDark != null) return isDark;
     return WidgetsBinding.instance.platformDispatcher.platformBrightness ==
         Brightness.dark;
@@ -205,10 +214,22 @@ class PreferencesStorage {
   static Future<void> setIsDimTheme(bool flag) async =>
       await _preferences?.setBool(_keyIsDimTheme, flag);
 
-  //Default is the device settings. i.e enumIndex = 2
-  static int get darkModeEnum => _preferences?.getInt(_keyDarkModeEnum) ?? 2;
-  static Future<void> setDarkModeEnum({required int index}) async =>
-      await _preferences?.setInt(_keyDarkModeEnum, index);
+  static bool get isLocalDarkSwitchEnabled =>
+      _preferences?.getBool(_keyIsLocalDarkSwitchEnabled) ?? false;
+
+  static Future<void> setLocalDarkSwitchEnabled(bool flag) async =>
+      await _preferences?.setBool(_keyIsLocalDarkSwitchEnabled, flag);
+
+  static bool get isSystemDarkLightSwitchEnabled =>
+      _preferences?.getBool(_keyIsSystemDarkLightSwitchEnabled) ?? true;
+
+  static Future<void> setSystemDarkLightSwitchEnabled(bool flag) async =>
+      await _preferences?.setBool(_keyIsSystemDarkLightSwitchEnabled, flag);
+
+  // //Default is the device settings. i.e enumIndex = 2
+  // static int get darkModeEnum => _preferences?.getInt(_keyDarkModeEnum) ?? 2;
+  // static Future<void> setDarkModeEnum({required int index}) async =>
+  //     await _preferences?.setInt(_keyDarkModeEnum, index);
 
   //Default is Dim. i.e enumIndex = 0
   static int get darkThemeEnum => _preferences?.getInt(_keyDarkThemeEnum) ?? 0;
