@@ -54,10 +54,10 @@ class HomeDrawerState extends State<HomeDrawer> {
     const drawerPaddingHorizontal = 15.0;
     const double drawerRadius = 15.0;
     final height = MediaQuery.of(context).size.height;
-    final topHeadPadding = height * 0.05;
-    final bottomHeadPadding = height * 0.02;
+    final topHeadPadding = height * 0.07;
+    final bottomHeadPadding = height * 0.01;
     final double dividerSpacing = height * 0.01;
-    const double itemSpacing = 0;
+    const double itemSpacing = 1;
 
     final String importDataText = 'Import Backup'.tr();
     final String changePassText = 'Change Passphrase'.tr();
@@ -80,7 +80,8 @@ class HomeDrawerState extends State<HomeDrawer> {
           child: Drawer(
             child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(
-                  horizontal: drawerPaddingHorizontal),
+                horizontal: drawerPaddingHorizontal,
+              ),
               child: Column(
                 children: <Widget>[
                   _drawerHeader(
@@ -184,7 +185,7 @@ class HomeDrawerState extends State<HomeDrawer> {
     VoidCallback? onClicked,
   }) {
     const double leftPaddingMenuItem = 5.0;
-    const double iconTextSpacing = 15.0;
+    const double iconTextSpacing = 25.0;
 
     return Padding(
       padding: EdgeInsets.only(top: topPadding),
@@ -193,7 +194,10 @@ class HomeDrawerState extends State<HomeDrawer> {
         contentPadding: const EdgeInsets.only(left: leftPaddingMenuItem),
         visualDensity: VisualDensity.compact,
         dense: true,
-        leading: Icon(icon),
+        leading: Icon(
+          icon,
+          size: 27,
+        ),
         title: AutoSizeText(
           text,
           minFontSize: 8,
@@ -202,7 +206,7 @@ class HomeDrawerState extends State<HomeDrawer> {
             fontFamily: 'MerriweatherBlack',
             fontWeight: FontWeight.bold,
             letterSpacing: -0.4,
-            fontSize: 16,
+            fontSize: 18,
             color: PreferencesStorage.isThemeDark
                 ? Colors.white
                 : Colors.grey.shade600,
