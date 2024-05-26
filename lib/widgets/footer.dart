@@ -20,7 +20,7 @@ import 'package:easy_localization/easy_localization.dart';
 // Project imports:
 import 'package:safenotes/data/preference_and_config.dart';
 
-Widget footer() {
+Widget footer({bool showVersion = false}) {
   const double fontSize = 12;
   final Color color = PreferencesStorage.isThemeDark
       ? const Color(0xFFafb8ba)
@@ -29,12 +29,15 @@ Widget footer() {
   final footerSecondText = 'Made with ♥ on Earth'.tr().split('♥');
   final madeWith = footerSecondText[0];
   final onEarth = footerSecondText[1];
+  final appName = 'Safe Notes'.tr();
+  final versionText = SafeNotesConfig.appVersion;
+  final headerText = (showVersion) ? "$appName  v$versionText" : appName;
 
   return Padding(
     padding: const EdgeInsets.only(bottom: 20),
     child: Column(
       children: [
-        Text('Safe Notes'.tr(), style: style),
+        Text(headerText, style: style),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
