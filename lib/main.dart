@@ -40,6 +40,8 @@ Future main() async {
     inactiveCallBack: ScheduledTask.backup,
   ));
 
+  await PreferencesStorage.init();
+
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
