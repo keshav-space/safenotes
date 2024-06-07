@@ -13,7 +13,6 @@
 
 // Dart imports:
 import 'dart:async';
-import 'dart:io' show Platform;
 
 // Flutter imports:
 import 'package:flutter/material.dart';
@@ -21,7 +20,6 @@ import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
 
 // Project imports:
@@ -43,9 +41,6 @@ Future main() async {
   ));
 
   await PreferencesStorage.init();
-  if (Platform.isAndroid && PreferencesStorage.isFlagSecure) {
-    await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
-  }
 
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
