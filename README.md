@@ -78,7 +78,7 @@ If you'd like to get involved, check our [contribution notes](.github/CONTRIBUTI
 
 Help translate [Safe Notes on Hosted Weblate](https://hosted.weblate.org/engage/safe-notes/)  
 <a href="https://hosted.weblate.org/engage/safe-notes/">
-<img src="https://hosted.weblate.org/widgets/safe-notes/en/safe-notes-app/multi-auto.svg" alt="Translation status" />
+<img src="https://hosted.weblate.org/widget/safe-notes/multi-auto.svg" alt="Translation status" />
 </a>
 
 ## Privacy Policy
