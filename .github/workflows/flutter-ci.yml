@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: mmacos-latest
+    runs-on: macos-latest
 
     steps:
       - name: Checkout code
