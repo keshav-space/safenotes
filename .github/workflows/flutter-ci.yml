@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: mmacos-14
+    runs-on: mmacos-15
 
     steps:
       - name: Checkout code
